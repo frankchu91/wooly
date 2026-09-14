@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import { readFile } from "node:fs/promises";
 
 const STAGES = ["Planned", "Opened", "Requirements done", "Bonus received", "Closed"];
 
@@ -139,4 +140,25 @@ test("a ledger row opens its drawer from the keyboard", async ({ page }) => {
 
   await expect(page).toHaveURL(/item=wells-fargo-500-checking-bonus/);
   await expect(page.getByRole("dialog")).toBeVisible();
+});
+
+test("the ledger downloads as a spreadsheet the browser can actually save", async ({ page }) => {
+  await page.goto("/ledger");
+
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.getByRole("button", { name: "Download as spreadsheet" }).click(),
+  ]);
+
+  expect(download.suggestedFilename()).toMatch(/^woolly-ledger-\d{4}-\d{2}-\d{2}\.csv$/);
+
+  const path = await download.path();
+  const text = await readFile(path, "utf8");
+  const [header, totals, ...rows] = text.replace(/^﻿/, "").trim().split("\r\n");
+
+  expect(header).toContain("Bank");
+  // The four seeded accounts, and a totals row that has added up their headline bonuses.
+  expect(rows).toHaveLength(4);
+  expect(Number(totals.split(",")[3])).toBeGreaterThan(0);
+  expect(text).toContain("Wells Fargo");
 });

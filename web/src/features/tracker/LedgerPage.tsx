@@ -1,6 +1,9 @@
+import { Download } from "lucide-react";
+
 import { t } from "../../i18n/en";
-import { Button, EmptyState } from "../../ui";
+import { Button, EmptyState, toast } from "../../ui";
 import { ItemDrawer } from "./ItemDrawer";
+import { ledgerCsv, ledgerCsvFilename } from "./ledgerCsv";
 import { LedgerTable } from "./LedgerTable";
 import { LedgerTotals } from "./LedgerTotals";
 import { useTrackerView } from "./useTrackerView";
@@ -14,15 +17,44 @@ export function LedgerPage() {
   const { tracker, profile, bonusesById, totals, today, selectedItem, openDrawer, closeDrawer } =
     useTrackerView();
 
+  /** Builds the file in the browser and hands it straight to the download — the ledger
+   * never leaves this device on its way out of it, same as it never left on the way in. */
+  function handleDownload() {
+    const blob = new Blob([ledgerCsv(tracker, bonusesById)], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = ledgerCsvFilename(today);
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
+    toast(t.ledger.downloaded);
+  }
+
   return (
     <div className="flex flex-col gap-6 pb-4">
       <div className="flex flex-col gap-1">
         <h1 className="font-heading text-2xl font-bold text-ink md:text-3xl">{t.ledger.title}</h1>
         <p className="text-sm text-muted">{t.ledger.sub}</p>
-        <div>
+        <div className="flex flex-wrap items-center gap-1">
           <Button to="/tracker" variant="ghost" size="sm">
             {t.ledger.seePipeline}
           </Button>
+          {/* Only offered once there is something to put in the file — a spreadsheet of
+           * one header row is a worse answer than no button. */}
+          {tracker.length > 0 ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleDownload}
+              icon={<Download size={15} aria-hidden="true" />}
+            >
+              {t.ledger.download}
+            </Button>
+          ) : null}
         </div>
       </div>
 

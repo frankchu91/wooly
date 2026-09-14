@@ -397,4 +397,37 @@ describe("LedgerPage — empty state and links", () => {
       "/tracker",
     );
   });
+
+  describe("the spreadsheet download", () => {
+    test("saves a dated .csv built in the browser", async () => {
+      const createObjectURL = vi.fn(() => "blob:ledger");
+      const revokeObjectURL = vi.fn();
+      // jsdom implements neither, and the click must not actually navigate.
+      vi.stubGlobal("URL", { ...URL, createObjectURL, revokeObjectURL });
+      const click = vi
+        .spyOn(HTMLAnchorElement.prototype, "click")
+        .mockImplementation(() => undefined);
+
+      seedAllStages();
+      renderLedgerPage();
+      await userEvent.click(screen.getByRole("button", { name: t.ledger.download }));
+
+      expect(createObjectURL).toHaveBeenCalledTimes(1);
+      const [blob] = createObjectURL.mock.calls[0] as unknown as [Blob];
+      expect(blob.type).toContain("text/csv");
+      expect(await blob.text()).toContain(t.tracker.ledger.total);
+      expect(click.mock.instances[0]).toHaveProperty("download", "woolly-ledger-2026-09-14.csv");
+      expect(revokeObjectURL).toHaveBeenCalledWith("blob:ledger");
+
+      click.mockRestore();
+      vi.unstubAllGlobals();
+    });
+
+    test("is not offered when there is nothing to export", () => {
+      useStore.setState({ profile: defaultProfile("2026-09"), tracker: [] });
+      renderLedgerPage();
+
+      expect(screen.queryByRole("button", { name: t.ledger.download })).not.toBeInTheDocument();
+    });
+  });
 });

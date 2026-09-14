@@ -254,6 +254,8 @@ export const t = {
     title: "Ledger",
     sub: "Every account you're tracking, and what each one has paid.",
     seePipeline: "See the pipeline",
+    download: "Download as spreadsheet",
+    downloaded: "Spreadsheet downloaded",
   },
   tracker: {
     title: "My bonuses",
@@ -295,6 +297,14 @@ export const t = {
       // so rather than showing a figure that never posted.
       closedNoBonus: "Closed without bonus",
       total: "Total",
+      // Column names the spreadsheet export needs that the on-screen table folds into
+      // other cells (the bank sits inside the Offer cell; notes live in the drawer).
+      csv: {
+        bank: "Bank",
+        applicant: "For",
+        receivedOn: "Received on",
+        notes: "Notes",
+      },
     },
     pipeline: {
       title: "Pipeline",
