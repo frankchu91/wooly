@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T10:29:53+00:00",
+  "generated_at": "2026-09-14T10:43:37+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -319,91 +319,10 @@
           "source": "doc"
         },
         {
-          "id": "bbe3915a",
-          "kind": "fee",
-          "text": "Earn Membership Rewards ® points, enjoy no monthly fees, and get the powerful backing of American Express with 24/7 support from our specialists.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "597f5f64",
           "kind": "fee",
           "text": "Benefits of Amex ® Business Checking No monthly maintenance fees ¤ 24/7 support - specialists are a click or call away Earn % APY ‡ on balances up to $500k This is business banking that rewards you.",
           "amount": 500,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "3f5a1a20",
-          "kind": "fee",
-          "text": "‡ Read more about rates and fees so you know exactly what to expect.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "008c8815",
-          "kind": "balance",
-          "text": "Transparent Pricing No monthly maintenance fees or minimum balance requirements, plus a competitive APY, help make business checking a breeze.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "becacefa",
-          "kind": "fee",
-          "text": "Here's a handy rates and fees table so you know exactly what to expect.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "63e622cf",
-          "kind": "fee",
-          "text": "Send or receive money with no fee using Zelle ® right from the Amex ® App or online.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "fc16ba90",
-          "kind": "fee",
-          "text": "Slide 1 of 2 Currently Selected Slide Slide 2 of 2 Send or receive money with no fee using Zelle ® right from the Amex ® App or online.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "d9a427ac",
-          "kind": "fee",
-          "text": "With American Express ® Business Checking, you can enjoy no fee withdrawals at 70,000+ Allpoint ® and MoneyPass ® ATM locations nationwide.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "e4e06a88",
-          "kind": "fee",
-          "text": "You can also use your American Express Business Checking Debit Card at any ATMs where American Express is accepted, fees may apply.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "e689f594",
-          "kind": "fee",
-          "text": "‡ Offer & Benefit Terms ¤ Rates & Fees Apply Now ‡ Offer & Benefit Terms ¤ Rates & Fees Apply Now Apply Now ‡ Offer & Benefit Terms ¤ Rates & Fees More from American Express More from If you’d like Payment Solutions Discover new ways to control employee spending, streamline vendor payments, and automate Accounts Payable to put more time back on your side.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -590,55 +509,10 @@
           "source": "bank"
         },
         {
-          "id": "ac722052",
-          "kind": "fee",
-          "text": "No monthly maintenance fees Forget the monthly maintenance fees.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "a7a8af11",
-          "kind": "fee",
-          "text": "Unlimited Transactions Without transaction fees, you keep more money to put into your business.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "45f9be8e",
-          "kind": "fee",
-          "text": "Unlimited domestic ATM fee reimbursements Never worry about ATM fees again.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "211c49bd",
-          "kind": "fee",
-          "text": "Get reimbursed whenever you are charged a fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "a540434e",
           "kind": "deposit",
           "text": "Expand FDIC coverage up to $265 MM with Axos Bank Insured Cash Sweep through IntraFi® Network Deposits SM .",
           "amount": 265,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "016c41eb",
-          "kind": "balance",
-          "text": "No initial deposit or minimum balance requirements.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -1089,15 +963,6 @@
           "source": "doc"
         },
         {
-          "id": "c7c2a767",
-          "kind": "direct_deposit",
-          "text": "BANK OF AMERICA ADVANTAGE BANKING New checking customers choose your cash offer Open a new eligible checking account and get a $100 cash offer with qualifying debit or Zelle® 1 transactions 2 OR an up to $500 cash offer with Qualifying Direct Deposits.",
-          "amount": null,
-          "days": null,
-          "count": 1,
-          "source": "bank"
-        },
-        {
           "id": "5a64ea9f",
           "kind": "new_customer",
           "text": "Only new checking customers can take advantage of this offer.",
@@ -1112,15 +977,6 @@
           "text": "Set up and receive Qualifying Direct Deposits into your new account within 90 days of account opening (\"Deposit Period\").",
           "amount": null,
           "days": 90,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "bbb44f3a",
-          "kind": "direct_deposit",
-          "text": "Your bonus amount will be based on the total amount of your Qualifying Direct Deposits received in the first 90 days.",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "bank"
         },
@@ -1396,37 +1252,10 @@
           "source": "bank"
         },
         {
-          "id": "c733e0f7",
-          "kind": "fee",
-          "text": "Save on fees, protect your money, and earn high-yield interest on your checking balances— no need to move cash around.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "9e9c202f",
-          "kind": "balance",
-          "text": "Enjoy no monthly BVSUP-00122 or overdraft fees, no minimum balance, free standard ACH, and unlimited transactions.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "f97e12ec",
           "kind": "fee",
           "text": "BVSUP-00043 Our most active customers save nearly $700/year in fees.",
           "amount": 700,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "d2979bc4",
-          "kind": "fee",
-          "text": "BVSUP-00108 Sign up for our Plus or Premier checking plans to get up to 3.0% APY and discounts on most Standard payment fees.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -1847,24 +1676,6 @@
           "text": "If minimum average daily balance and qualified activity requirements are met, a $500 bonus will be applied within 30 calendar days of meeting requirements and credited to Elite Business Checking.",
           "amount": 500,
           "days": 30,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "2c6b9d0f",
-          "kind": "keep_open",
-          "text": "Business account must be opened using a valid Employer Identification Number (EIN).",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "f4852e18",
-          "kind": "fee",
-          "text": "You are leaving KeyPoint Credit Union KeyPoint does not provide, and is not liable for any third-party site’s products, services, disclosures, privacy policy, security policy, website content, and other terms and conditions.",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "bank"
         }
@@ -2388,15 +2199,6 @@
           "days": null,
           "count": null,
           "source": "bank"
-        },
-        {
-          "id": "d7144dbf",
-          "kind": "fee",
-          "text": "No fees or minimums So more of your money stays yours.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
         }
       ],
       "hold_days": null,
@@ -2518,45 +2320,9 @@
           "source": "bank"
         },
         {
-          "id": "4faa9aa0",
-          "kind": "fee",
-          "text": "Unlimited no-fee digital transactions Unlimited free digital transactions including mobile deposits, ACH payments, and select online bill pay options.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "10f879c0",
-          "kind": "fee",
-          "text": "3 No-fee access to 70,000+ ATMs Access your money with no fees at Capital One, MoneyPassÂ® and AllpointÂ® ATMs.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "3b983c7d",
           "kind": "fee",
           "text": "Open now Basic Checking For everyday checking needs Spend less time worrying about fees and more time building your business.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "eed4593a",
-          "kind": "transactions",
-          "text": "Manage bills, enjoy low-cost domestic wires 5 and make no-fee digital transactions like mobile deposits and ACH.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "49f3ab3e",
-          "kind": "fee",
-          "text": "Enjoy free incoming domestic wires, 5 free outgoing domestic wires per month 6 and get up to 2 Basic Checking accounts with no monthly service fee.",
           "amount": null,
           "days": null,
           "count": null,
@@ -2619,18 +2385,9 @@
           "source": "doc"
         },
         {
-          "id": "21c671c2",
-          "kind": "new_customer",
-          "text": "For new business checking customers with qualifying activities.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "01c4225f",
+          "id": "8da13647",
           "kind": "fee",
-          "text": "2 The Monthly Service Fee can be reduced from $15 to $0.",
+          "text": "The Monthly Service Fee can be reduced from $15 to $0.",
           "amount": 15,
           "days": null,
           "count": null,
@@ -2655,37 +2412,10 @@
           "source": "bank"
         },
         {
-          "id": "7a864244",
-          "kind": "balance",
+          "id": "c1cc8d26",
+          "kind": "fee",
           "text": "Waive the $15 Monthly Service Fee 1 in multiple ways like keeping a minimum $2,000 balance, plus use built-in offerings such as card acceptance, invoicing, 6 Chase Customer Insights 7 and Tap to Pay on iPhone.",
           "amount": 15,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "3d2af8ba",
-          "kind": "fee",
-          "text": "8 Bank with confidence Feel confident knowing we have the largest branch network in the U.S., with 5,000 branches that provide personalized service and can help with your complex banking needs.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "8604e714",
-          "kind": "fee",
-          "text": "active, in good standing, not expired, in compliance) and be available without a fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "c1f8906c",
-          "kind": "fee",
-          "text": "validation must indicate valid status (e.g., active, in good standing, not expired, in compliance) and be available without a fee.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -3131,24 +2861,6 @@
           "days": null,
           "count": null,
           "source": "doc"
-        },
-        {
-          "id": "d411437f",
-          "kind": "fee",
-          "text": "See disclosures for additional offer details and eligibility requirements.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "3078bdc9",
-          "kind": "fee",
-          "text": "Business Checking Filtering by: Business Checking Business Access Business Advantage Description Simplified business account that offers essential solutions for managing your growing business – all without a monthly service fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
         }
       ],
       "hold_days": null,
@@ -3354,15 +3066,6 @@
           "source": "bank"
         },
         {
-          "id": "c8f5ab4b",
-          "kind": "fee",
-          "text": "$5 monthly account maintenance fee , waived if you meet activity requirements.",
-          "amount": 5,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "20fa7ce1",
           "kind": "transactions",
           "text": "{ {d2081*}},{ {d2080*}} 25 transactions every month at no charge—ideal for light activity{ {d2077*}}.",
@@ -3372,19 +3075,19 @@
           "source": "bank"
         },
         {
-          "id": "7ca7c5d1",
-          "kind": "transactions",
+          "id": "5f4dc060",
+          "kind": "fee",
           "text": "$15 monthly account maintenance fee, waived with qualifying activity.{ {d2081*}}, { {d2093*}} 250 transactions every month at no charge —great for moderate volume{ {d2077*}}.",
-          "amount": 15,
+          "amount": null,
           "days": null,
           "count": 250,
           "source": "bank"
         },
         {
-          "id": "7d1f84d9",
-          "kind": "transactions",
+          "id": "b821424c",
+          "kind": "fee",
           "text": "$25 monthly account maintenance fee, waived with qualifying activity.{ {d2081*}}, { {d2078*}} 500 transactions every month at no charge.{ {d2077*}} Unlimited debit card transactions.",
-          "amount": 25,
+          "amount": null,
           "days": null,
           "count": 500,
           "source": "bank"
@@ -3394,24 +3097,6 @@
           "kind": "deposit",
           "text": "Deposit up to $20,000 monthly, in currency deposited or supplied monthly at no extra cost{ {d489*}}.",
           "amount": 20000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "e793a7a9",
-          "kind": "fee",
-          "text": "M&T Business Credit Card - Flexible spending, rewards, and fee-waiver eligibility.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "c695ec9a",
-          "kind": "transactions",
-          "text": "Your Brand, Your Card Make every transaction a reflection of your business with a debit card that features your logo and design{ {d2091*}}.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -3790,15 +3475,6 @@
           "source": "doc"
         },
         {
-          "id": "8c4d9294",
-          "kind": "balance",
-          "text": "Plus, there are no monthly maintenance fees and no minimum daily balance requirement.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "25773c2e",
           "kind": "deposit",
           "text": "Deposit New Money Deposit at least $5,000 of new money within 60 days of account opening.",
@@ -4073,18 +3749,9 @@
           "source": "doc"
         },
         {
-          "id": "36bbab9e",
-          "kind": "fee",
-          "text": "Fully integrated with the secure site on ameriprise.com and the Ameriprise Financial app , 1,2 the account offers checks, debit card 3 and more with no monthly maintenance fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "ab728905",
+          "id": "c6296d49",
           "kind": "deposit",
-          "text": "4 Getting started is easy with a simple online application and minimum opening deposit of $25.",
+          "text": "Getting started is easy with a simple online application and minimum opening deposit of $25.",
           "amount": 25,
           "days": null,
           "count": null,
@@ -4109,64 +3776,37 @@
           "source": "bank"
         },
         {
-          "id": "5c011130",
+          "id": "339ef8c4",
           "kind": "fee",
-          "text": "We’ll reimburse ATM withdrawal fees up to applicable limits.",
+          "text": "If the reimbursement is not processed, we may reimburse the surcharge fee if you contact us within 90 calendar days of the transaction with the ATM receipt.",
           "amount": null,
-          "days": null,
+          "days": 90,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "24d9ce7e",
+          "id": "8defa775",
           "kind": "fee",
-          "text": "9 No account fees coins Keep more of your money with no maintenance and overdraft fees.",
-          "amount": null,
+          "text": "Ameriprise ® Bank Checking Account (“Checking Account”) customers may receive $20 in ATM surcharge fees reimbursements per statement cycle.",
+          "amount": 20,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "39c139ad",
-          "kind": "direct_deposit",
-          "text": "Direct deposit Get your paycheck, social security, or pension deposited into your checking account.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "45581530",
-          "kind": "direct_deposit",
-          "text": "14 Switching your direct deposit to Ameriprise is simple and quick in the secure site or the Ameriprise app.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "d1a496d9",
-          "kind": "new_customer",
-          "text": "1 If you do not have secure site access or have any questions, please contact Ameriprise Bank Customer Service Center at 800.862.7919.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "c6180111",
+          "id": "d28c1a13",
           "kind": "fee",
-          "text": "4 The Ameriprise Bank Checking Account has no account fees that include maintenance and overdraft fees.",
-          "amount": null,
+          "text": "If you are recognized as Achiever Circle Elite (“ACE”) or Achiever Circle (\"AC”) in the Ameriprise Achiever Circle program (each “Status”) on the day the applicable transaction posts to your Checking Account, you may qualify for the following ATM surcharge fee reimbursements per statement cycle: 1) ACE - unlimited reimbursement, 2) AC - up to $25 in ATM surcharge fees reimbursed.",
+          "amount": 25,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "0de51f4f",
-          "kind": "fee",
-          "text": "Other service fees may apply and can be found in the Ameriprise Bank, FSB Deposit Accounts Consumer Pricing Disclosure on ameriprise.com.",
-          "amount": null,
+          "id": "b179177f",
+          "kind": "deposit",
+          "text": "This service will automatically transfer funds in increments of $100 from your Savings Account to your Checking Account throughout the day when your Checking Account does not have enough money to pay items.",
+          "amount": 100,
           "days": null,
           "count": null,
           "source": "bank"
@@ -4225,18 +3865,9 @@
           "source": "doc"
         },
         {
-          "id": "36bbab9e",
-          "kind": "fee",
-          "text": "Fully integrated with the secure site on ameriprise.com and the Ameriprise Financial app , 1,2 the account offers checks, debit card 3 and more with no monthly maintenance fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "ab728905",
+          "id": "c6296d49",
           "kind": "deposit",
-          "text": "4 Getting started is easy with a simple online application and minimum opening deposit of $25.",
+          "text": "Getting started is easy with a simple online application and minimum opening deposit of $25.",
           "amount": 25,
           "days": null,
           "count": null,
@@ -4261,42 +3892,6 @@
           "source": "bank"
         },
         {
-          "id": "5c011130",
-          "kind": "fee",
-          "text": "We’ll reimburse ATM withdrawal fees up to applicable limits.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "24d9ce7e",
-          "kind": "fee",
-          "text": "9 No account fees coins Keep more of your money with no maintenance and overdraft fees.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "39c139ad",
-          "kind": "direct_deposit",
-          "text": "Direct deposit Get your paycheck, social security, or pension deposited into your checking account.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "45581530",
-          "kind": "direct_deposit",
-          "text": "14 Switching your direct deposit to Ameriprise is simple and quick in the secure site or the Ameriprise app.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "46166c9d",
           "kind": "deposit",
           "text": "To receive the savings bonus offer: 1) Open a Savings Account from July 1, 2026, to December 29, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days.",
@@ -4306,28 +3901,37 @@
           "source": "bank"
         },
         {
-          "id": "d1a496d9",
-          "kind": "new_customer",
-          "text": "1 If you do not have secure site access or have any questions, please contact Ameriprise Bank Customer Service Center at 800.862.7919.",
+          "id": "339ef8c4",
+          "kind": "fee",
+          "text": "If the reimbursement is not processed, we may reimburse the surcharge fee if you contact us within 90 calendar days of the transaction with the ATM receipt.",
           "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "8defa775",
+          "kind": "fee",
+          "text": "Ameriprise ® Bank Checking Account (“Checking Account”) customers may receive $20 in ATM surcharge fees reimbursements per statement cycle.",
+          "amount": 20,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "c6180111",
+          "id": "d28c1a13",
           "kind": "fee",
-          "text": "4 The Ameriprise Bank Checking Account has no account fees that include maintenance and overdraft fees.",
-          "amount": null,
+          "text": "If you are recognized as Achiever Circle Elite (“ACE”) or Achiever Circle (\"AC”) in the Ameriprise Achiever Circle program (each “Status”) on the day the applicable transaction posts to your Checking Account, you may qualify for the following ATM surcharge fee reimbursements per statement cycle: 1) ACE - unlimited reimbursement, 2) AC - up to $25 in ATM surcharge fees reimbursed.",
+          "amount": 25,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "0de51f4f",
-          "kind": "fee",
-          "text": "Other service fees may apply and can be found in the Ameriprise Bank, FSB Deposit Accounts Consumer Pricing Disclosure on ameriprise.com.",
-          "amount": null,
+          "id": "b179177f",
+          "kind": "deposit",
+          "text": "This service will automatically transfer funds in increments of $100 from your Savings Account to your Checking Account throughout the day when your Checking Account does not have enough money to pay items.",
+          "amount": 100,
           "days": null,
           "count": null,
           "source": "bank"
@@ -4625,33 +4229,6 @@
           "days": null,
           "count": null,
           "source": "doc"
-        },
-        {
-          "id": "ab34d7ce",
-          "kind": "fee",
-          "text": "Join the team that’s committed to creating a banking experience that feels like coming home.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "f3a840e2",
-          "kind": "direct_deposit",
-          "text": "Switch your direct deposits and automatic payments at the click of a button and see how much easier banking can be.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "beab02b7",
-          "kind": "fee",
-          "text": "Fast decisions, low closing costs, and no borrower-paid PMI.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
         }
       ],
       "hold_days": 90,
@@ -5194,15 +4771,6 @@
           "source": "doc"
         },
         {
-          "id": "0b3d00f7",
-          "kind": "fee",
-          "text": "From applying for a credit card to closing on your mortgage, to opening your child’s first savings account, FourLeaf is here for you.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "7c2edb2b",
           "kind": "new_customer",
           "text": "Up to $550.00 Checking Bonus Offer [1] Offer details: To be eligible for the FourLeaf Checking Up to $550 Bonus Offer and receive up to a maximum of $550.00 in bonuses, you must not have an existing FourLeaf checking account in which you are the primary account holder on the checking account and have not previously received a new checking account opening related bonus from FourLeaf.",
@@ -5212,10 +4780,19 @@
           "source": "bank"
         },
         {
-          "id": "2233e695",
-          "kind": "direct_deposit",
-          "text": "The Free Checking Account earns a 0.40% Annual Percentage Yield (APY) for each month that the member (i) is enrolled in online banking with eStatements, (ii) receives direct deposit into the Free Checking Account, and (iii) makes 10 point-of-sale debit card transactions from the Free Checking Account.",
-          "amount": null,
+          "id": "0a68eb30",
+          "kind": "balance",
+          "text": "There is a minimum balance of $5 to open this account online and $0 when opened in a branch.",
+          "amount": 5,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c24f7744",
+          "kind": "balance",
+          "text": "The required minimum balance to open account is $5.00.",
+          "amount": 5,
           "days": null,
           "count": null,
           "source": "bank"
@@ -5360,15 +4937,6 @@
           "days": null,
           "count": null,
           "source": "doc"
-        },
-        {
-          "id": "ce440895",
-          "kind": "new_customer",
-          "text": "The Bonus is not available if the business has previously received a bonus on an eligible SouthState business/commercial checking account.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
         }
       ],
       "hold_days": 90,
@@ -5693,37 +5261,37 @@
           "source": "bank"
         },
         {
-          "id": "642c71b4",
-          "kind": "balance",
-          "text": "If your Daily Account Balance falls below the required minimum amount for even one (1) day during the Maintenance Period, you will not receive the bonus.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "b1be0973",
+          "id": "3008306b",
           "kind": "fee",
-          "text": "If my account balance drops, will I still be eligible for the offer? If your account balance is reduced by any fees during the Maintenance Period, you will need to add money on that day to keep your balance at or above the required minimum of the tier you wish to remain in.",
-          "amount": null,
+          "text": "Accounts closed within 180 days of account opening will be assessed an early closing fee of $40.",
+          "amount": 40,
+          "days": 180,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "4235c62d",
+          "kind": "deposit",
+          "text": "Please note however that the $100 minimum balance to open your account may qualify toward your total deposit requirement.",
+          "amount": 100,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "3f2b16b1",
-          "kind": "fee",
-          "text": "Please also refer to the Bank of Hawaii Consumer Checking and Savings Account Fee Schedule for a listing of fees that may impact your account.",
-          "amount": null,
+          "id": "d0de444b",
+          "kind": "deposit",
+          "text": "‡ The bonus interest rate and the combined APY are contingent upon making a minimum monthly deposit of $25 and no withdrawals during monthly cycle.",
+          "amount": 25,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "dcd3149f",
-          "kind": "balance",
-          "text": "You will be required to maintain the required Daily Account Balance every day from Day 31 through Day 90 after Account opening (\"Maintenance Period\") to qualify for the bonus.",
-          "amount": null,
+          "id": "504c2f3a",
+          "kind": "deposit",
+          "text": "# To open a Bankohana Bonus Rate Savings account, a Bankohana Checking account is required and can be opened with a minimum deposit of $500 at the time of savings account opening.",
+          "amount": 500,
           "days": null,
           "count": null,
           "source": "bank"
@@ -9164,20 +8732,90 @@
         "deadline_days": null
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 180
+      },
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2021-11-18",
       "last_seen": "2026-09-14",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "ff83ecb3",
+          "kind": "direct_deposit",
+          "text": "Direct deposit required — amount not listed",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "aabf3a56",
+          "kind": "other",
+          "text": "See below",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "bcc2699b",
+          "kind": "deposit",
+          "text": "Minimum initial deposit of $100 required at Performance Checking account opening.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "ac021af6",
+          "kind": "fee",
+          "text": "If Performance Checking account is closed within six (6) months, the promotional offer amount paid will be deducted at account closing.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "793e3808",
+          "kind": "fee",
+          "text": "Monthly account fees apply, but may be waived if certain criteria is met.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "f1dcaa36",
+          "kind": "fee",
+          "text": "If account is closed within six (6) months, the promotional offer amount paid will be deducted at account closing.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
         "status": null,
         "url": null,
@@ -12649,20 +12287,11 @@
           "source": "doc"
         },
         {
-          "id": "e1518c80",
+          "id": "ff376bc0",
           "kind": "direct_deposit",
-          "text": "Get a $ 500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
+          "text": "Get a $500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
           "amount": 500,
           "days": 90,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "24ece8de",
-          "kind": "fee",
-          "text": "Learn how to avoid the $15 monthly service fee .",
-          "amount": 15,
-          "days": null,
           "count": null,
           "source": "bank"
         },
@@ -12676,19 +12305,10 @@
           "source": "bank"
         },
         {
-          "id": "671cc74b",
+          "id": "2b8eb412",
           "kind": "direct_deposit",
-          "text": "2 Deposit Make $1,000 or more in qualifying direct deposits within the first 90 days of opening.",
+          "text": "Deposit Make $1,000 or more in qualifying direct deposits within the first 90 days of opening.",
           "amount": 1000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "5bf331cd",
-          "kind": "new_customer",
-          "text": "* How to qualify for this offer To be eligible: Offer is for new consumer checking customers only and is available only to the primary owner of the new checking account.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -12703,37 +12323,10 @@
           "source": "bank"
         },
         {
-          "id": "769bc3cd",
+          "id": "e3789dd3",
           "kind": "fee",
-          "text": "Talk with a banker or see the \"Consumer Account Fee and Information Schedule\" and \"Deposit Account Agreement\" available at wellsfargo.com/depositdisclosures for complete checking account details, including the applicable monthly service fee and options to avoid it.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "94464cbd",
-          "kind": "fee",
-          "text": "The actions required for this bonus are separate from the actions available to avoid the monthly service fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "1cc1387f",
-          "kind": "fee",
-          "text": "** The Wells Fargo Everyday Checking account monthly service fee is $15.",
+          "text": "The Wells Fargo Everyday Checking account monthly service fee is $15.",
           "amount": 15,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "56838500",
-          "kind": "balance",
-          "text": "The monthly service fee can be avoided with one of the following each fee period: $1,500 minimum daily balance.",
-          "amount": 1500,
           "days": null,
           "count": null,
           "source": "bank"
@@ -12748,10 +12341,28 @@
           "source": "bank"
         },
         {
-          "id": "1729df0a",
-          "kind": "fee",
-          "text": "On the last business day of each fee period balances in eligible Wells Fargo accounts will be automatically totaled.",
-          "amount": null,
+          "id": "248dd4f5",
+          "kind": "deposit",
+          "text": "$500 or more in total qualifying electronic deposits.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "04cf80e0",
+          "kind": "deposit",
+          "text": "OR $5,000 or more in qualifying deposit balances, investment balances, or both.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "40661d12",
+          "kind": "deposit",
+          "text": "OR $500 or more in total qualifying electronic deposits.",
+          "amount": 500,
           "days": null,
           "count": null,
           "source": "bank"
