@@ -9,7 +9,7 @@ capacity, and the banks you've had; it finds the bonuses you qualify for and sch
 
 ## Repo layout
 
-- `scraper/` — Python scraper that produces `data/bonuses.json` (see `scraper/README` section below)
+- `scraper/` — Python scraper that produces `data/bonuses.json` (see the Scraper section below)
 - `web/` — Vite + React app
 - `data/bonuses.json` — the dataset the app reads
 
@@ -25,3 +25,9 @@ scraper/.venv/bin/pytest scraper -q
 The scraper honours DoC's `Crawl-delay: 600`. A full backfill of ~250 posts takes
 ~2 days; run it locally with `enrich` in the background, or let the nightly action
 chip away at 5 posts per run.
+
+`enrich` also takes:
+
+- `--cached-only` — re-parse everything already in `scraper/.cache` (e.g. after a parser
+  fix) without making any network requests.
+- `--no-cache` — bypass the cache and always re-fetch, like `list --no-cache`.

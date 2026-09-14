@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from woolly_scraper.merge import apply_post, merge_list, needs_enrich, slug
+from woolly_scraper.merge import apply_post, assign_ids, merge_list, needs_enrich, slug
 from woolly_scraper.models import ListEntry, PostData
 
 TODAY = date(2026, 9, 13)
@@ -62,6 +62,18 @@ def test_merge_drops_stale_after_14_days():
     assert len(merge_list([recent], [], TODAY)) == 1
 
 
+def test_merge_drops_stale_record_when_slug_splits_into_sections():
+    # a slug that used to collapse to a plain id now spans two sections; the old
+    # plain-id record must not linger as a stray duplicate alongside the split ones
+    doc_url = "https://www.doctorofcredit.com/citi-325-475/"
+    old = merge_list([], [entry(title="Citi $325/$475", doc_url=doc_url)], TODAY - timedelta(days=1))[0]
+    checking = entry(title="Citi $325 Checking", section="checking", doc_url=doc_url, bonus_max=325)
+    savings = entry(title="Citi $475 Savings", section="savings", doc_url=doc_url, bonus_max=475)
+    out = merge_list([old], [checking, savings], TODAY)
+    ids = {b.id for b in out}
+    assert ids == {"citi-325-475--checking", "citi-325-475--savings"}
+
+
 def test_merge_sorted_by_id():
     a = entry(doc_url="https://www.doctorofcredit.com/b-bank/", title="B Bank $1")
     b = entry(doc_url="https://www.doctorofcredit.com/a-bank/", title="A Bank $1")
@@ -74,24 +86,58 @@ def test_apply_post_fills_only_missing_and_marks_enriched():
                  pull="hard", expiration=date(2026, 10, 6), anti_churn_months=12,
                  monthly_fee_amount=15, monthly_fee_avoidable=True, post_modified=date(2026, 8, 23),
                  nationwide=True)
-    out = apply_post(b, p)
+    out = apply_post(b, p, TODAY)
     assert out.bonus_max == 500          # list page wins
     assert out.pull == "soft"            # list page wins when known
     assert out.dd_amount == 1000         # list page had None → filled
     assert out.dd_deadline_days == 90 and out.anti_churn_months == 12
     assert out.expiration == date(2026, 10, 6) and out.monthly_fee_amount == 15
     assert out.enriched is True and out.post_modified == date(2026, 8, 23)
+    assert out.enriched_at == TODAY
 
 
 def test_apply_post_fills_states_for_state_section_when_list_had_none():
     e = entry(title="Some Bank $200", section="state", states=[], doc_url="https://www.doctorofcredit.com/some/")
     b = merge_list([], [e], TODAY)[0]
-    out = apply_post(b, PostData(states=["CA"], nationwide=False))
+    out = apply_post(b, PostData(states=["CA"], nationwide=False), TODAY)
     assert out.states == ["CA"] and out.nationwide is False
 
 
 def test_needs_enrich():
     b = merge_list([], [entry()], TODAY)[0]
-    assert needs_enrich(b)
+    assert needs_enrich(b, TODAY)
     b.enriched = True
-    assert not needs_enrich(b)
+    b.enriched_at = TODAY
+    assert not needs_enrich(b, TODAY)
+
+
+def test_needs_enrich_respects_re_enrich_window():
+    b = merge_list([], [entry()], TODAY)[0]
+    b.enriched = True
+    b.enriched_at = TODAY - timedelta(days=29)
+    assert not needs_enrich(b, TODAY)
+    b.enriched_at = TODAY - timedelta(days=31)
+    assert needs_enrich(b, TODAY)
+
+
+def test_assign_ids_unique_slug_keeps_plain_id():
+    e = entry()
+    assert assign_ids([e]) == [("wells-fargo-500-checking-bonus", e)]
+
+
+def test_assign_ids_same_slug_different_sections_split_by_section():
+    doc_url = "https://www.doctorofcredit.com/citi-325-475/"
+    checking = entry(title="Citi $325 Checking", section="checking", doc_url=doc_url, bonus_max=325)
+    savings = entry(title="Citi $475 Savings", section="savings", doc_url=doc_url, bonus_max=475)
+    out = dict(assign_ids([checking, savings]))
+    assert set(out) == {"citi-325-475--checking", "citi-325-475--savings"}
+    assert out["citi-325-475--checking"] is checking
+    assert out["citi-325-475--savings"] is savings
+
+
+def test_assign_ids_same_slug_same_section_keeps_highest_bonus():
+    doc_url = "https://www.doctorofcredit.com/some-bank/"
+    low = entry(title="Some Bank $100", section="checking", doc_url=doc_url, bonus_max=100)
+    high = entry(title="Some Bank $200", section="checking", doc_url=doc_url, bonus_max=200)
+    out = assign_ids([low, high])
+    assert out == [("some-bank", high)]

@@ -29,6 +29,29 @@ class BlockedFetcher:
         raise cli.BlockedError(f"403 from {url}; stopping to stay polite")
 
 
+class AlwaysBlockedFetcher:
+    """Raises BlockedError for every request, including the list page itself."""
+
+    def get(self, url, use_cache=True):
+        raise cli.BlockedError(f"403 from {url}; stopping to stay polite")
+
+
+class CachedOnlyFetcher:
+    """A fetcher that knows which urls are already cached, for --cached-only."""
+
+    def __init__(self, pages, cached_urls):
+        self.pages = pages
+        self.cached_urls = set(cached_urls)
+        self.calls = []
+
+    def has_cached(self, url):
+        return url in self.cached_urls
+
+    def get(self, url, use_cache=True):
+        self.calls.append(url)
+        return self.pages[url]
+
+
 def test_list_then_enrich(tmp_path, monkeypatch):
     data = tmp_path / "bonuses.json"
     list_html = (FIX / "best-bank-account-bonuses.html").read_text(encoding="utf-8", errors="ignore")
@@ -93,6 +116,44 @@ def test_enrich_stops_on_blocked_error(tmp_path, monkeypatch, capsys):
     assert not any(b["enriched"] for b in doc["bonuses"])
     err = capsys.readouterr().err
     assert "stopping to stay polite" in err
+
+
+def test_list_returns_3_and_prints_error_when_blocked(tmp_path, monkeypatch, capsys):
+    data = tmp_path / "bonuses.json"
+    monkeypatch.setattr(cli, "make_fetcher", lambda cache, delay: AlwaysBlockedFetcher())
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 13))
+
+    assert cli.main(["list", "--data", str(data)]) == 3
+    assert not data.exists()
+    err = capsys.readouterr().err
+    assert "stopping to stay polite" in err
+
+
+def test_enrich_cached_only_skips_uncached_entries(tmp_path, monkeypatch):
+    data = tmp_path / "bonuses.json"
+    list_html = (FIX / "best-bank-account-bonuses.html").read_text(encoding="utf-8", errors="ignore")
+    wf_html = (FIX / "post-wells-fargo-500.html").read_text(encoding="utf-8", errors="ignore")
+    wf_url = "https://www.doctorofcredit.com/wells-fargo-500-checking-bonus/"
+    pages = {cli.LIST_URL: list_html, wf_url: wf_html}
+    fake = FakeFetcher(pages)
+    monkeypatch.setattr(cli, "make_fetcher", lambda cache, delay: fake)
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 13))
+    assert cli.main(["list", "--data", str(data)]) == 0
+
+    # a fresh fetcher that only reports the Wells Fargo post as cached
+    cached = CachedOnlyFetcher(pages, cached_urls={wf_url})
+    monkeypatch.setattr(cli, "make_fetcher", lambda cache, delay: cached)
+    good_id = "wells-fargo-500-checking-bonus"
+    uncached_id = "affinity-federal-credit-union-100-referral-bonus"
+    assert cli.main(
+        ["enrich", "--data", str(data), "--cached-only", "--ids", f"{good_id},{uncached_id}"]
+    ) == 0
+
+    doc = json.loads(data.read_text())
+    by_id = {b["id"]: b for b in doc["bonuses"]}
+    assert by_id[good_id]["enriched"] is True
+    assert by_id[uncached_id]["enriched"] is False
+    assert cached.calls == [wf_url]
 
 
 def test_list_refuses_to_save_when_too_few_entries(tmp_path, monkeypatch):

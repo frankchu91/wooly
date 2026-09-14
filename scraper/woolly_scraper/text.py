@@ -53,13 +53,14 @@ def extract_states(s: str) -> list[str]:
     """Return USPS codes that appear as a comma/dash separated list of 2-letter tokens.
 
     Each occurrence must itself be preceded by a list-ish delimiter (" – ", " - ", ":",
-    "[" or ","); a code that also appears elsewhere in the string outside that context
-    (e.g. as part of a bank name) is not matched by that other occurrence.
+    "[", ",", "&", "/", or the words "or"/"and"); a code that also appears elsewhere in
+    the string outside that context (e.g. as part of a bank name) is not matched by that
+    other occurrence.
     """
     if re.search(r"\bnationwide\b", s, re.IGNORECASE):
         return []
     out: list[str] = []
-    for m in re.finditer(r"[–\-:,\[]\s*([A-Z]{2})\b", s):
+    for m in re.finditer(r"(?:[–\-:,\[&+/]|\b(?:or|and)\b)\s*([A-Z]{2})\b", s):
         code = m.group(1)
         if code in US_STATES and code not in out:
             out.append(code)
@@ -69,7 +70,14 @@ def extract_states(s: str) -> list[str]:
 def normalize_bank(title: str) -> str:
     name = title
     name = re.sub(r"\([^)]*\)", "", name)  # drop parentheticals like "(Fintech)"
-    cut = re.search(r"\s+(\$|Up To\b|Checking\b|Savings\b|Signup\b|\d[\d,]*\s+Miles|–|-\s)", name)
+    # Checking/Savings only counts as a cut point when it reads as the start of the
+    # offer description (followed by Bonus/Account/Signup/&//$), not when it's part of
+    # the bank's own name (e.g. "Union Savings Bank").
+    cut = re.search(
+        r"\s+(\$|Up To\b|\d[\d,]*\s+Miles|–|-\s|Signup\b|"
+        r"(?:Checking|Savings)\b(?=\s*(?:Bonus\b|Account\b|Signup\b|&|/|\$)))",
+        name,
+    )
     if cut:
         name = name[: cut.start()]
     name = name.strip(" –-,")

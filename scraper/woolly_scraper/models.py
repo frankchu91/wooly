@@ -81,6 +81,7 @@ class Bonus:
     anti_churn_months: int | None = None
     additional_requirements: str | None = None
     enriched: bool = False
+    enriched_at: date | None = None
     post_modified: date | None = None
 
     def to_dict(self) -> dict[str, Any]:
@@ -118,6 +119,7 @@ class Bonus:
             "anti_churn_months": self.anti_churn_months,
             "additional_requirements": self.additional_requirements,
             "enriched": self.enriched,
+            "enriched_at": _d(self.enriched_at),
             "post_modified": _d(self.post_modified),
             "last_seen": _d(self.last_seen),
         }
@@ -156,5 +158,6 @@ class Bonus:
             anti_churn_months=d.get("anti_churn_months"),
             additional_requirements=d.get("additional_requirements"),
             enriched=bool(d.get("enriched", False)),
+            enriched_at=_pd(d.get("enriched_at")),
             post_modified=_pd(d.get("post_modified")),
         )

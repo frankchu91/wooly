@@ -44,7 +44,11 @@ def save(path: Path, bonuses: list[Bonus]) -> None:
 
 def cmd_list(args) -> int:
     fetcher = make_fetcher(Path(args.cache), args.delay)
-    html = fetcher.get(LIST_URL, use_cache=not args.no_cache)
+    try:
+        html = fetcher.get(LIST_URL, use_cache=not args.no_cache)
+    except BlockedError as e:
+        print(str(e), file=sys.stderr)
+        return 3
     entries = parse_list_page(html)
     if len(entries) < 50:
         print(f"refusing to save: only {len(entries)} entries parsed (page layout changed?)", file=sys.stderr)
@@ -59,19 +63,24 @@ def cmd_enrich(args) -> int:
     path = Path(args.data)
     bonuses = load(path)
     fetcher = make_fetcher(Path(args.cache), args.delay)
-    todo = [b for b in bonuses if needs_enrich(b)]
+    t = today()
+    todo = [b for b in bonuses if needs_enrich(b, t)]
     if args.only_nationwide:
         todo = [b for b in todo if b.nationwide]
     if args.ids:
         wanted = set(args.ids.split(","))
         todo = [b for b in todo if b.id in wanted]
+    if args.cached_only:
+        todo = [b for b in todo if fetcher.has_cached(b.doc_url)]
+    # never-enriched entries first, then the ones enriched longest ago
+    todo.sort(key=lambda b: (b.enriched_at is not None, b.enriched_at or date.min))
     todo = todo[: args.limit] if args.limit else todo
     done = 0
     by_id = {b.id: b for b in bonuses}
     for b in todo:
         try:
-            html = fetcher.get(b.doc_url)
-            by_id[b.id] = apply_post(b, parse_post(html, today()))
+            html = fetcher.get(b.doc_url, use_cache=not args.no_cache)
+            by_id[b.id] = apply_post(b, parse_post(html, t), t)
         except BlockedError as e:
             print(str(e), file=sys.stderr)
             break
@@ -79,6 +88,7 @@ def cmd_enrich(args) -> int:
             print(f"skip {b.id}: {e}", file=sys.stderr)
             continue
         done += 1
+        print(f"enriched {b.id}")
         save(path, list(by_id.values()))  # checkpoint after every post (runs are slow)
     print(f"enrich: {done}/{len(todo)} posts processed")
     return 0
@@ -97,6 +107,12 @@ def main(argv: list[str] | None = None) -> int:
     en.add_argument("--limit", type=int, default=0)
     en.add_argument("--only-nationwide", action="store_true")
     en.add_argument("--ids", default="")
+    en.add_argument("--no-cache", action="store_true")
+    en.add_argument(
+        "--cached-only",
+        action="store_true",
+        help="only process entries whose post HTML is already cached; makes zero network requests",
+    )
     args = ap.parse_args(argv)
     return cmd_list(args) if args.cmd == "list" else cmd_enrich(args)
 

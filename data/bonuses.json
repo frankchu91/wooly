@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T04:02:23+00:00",
+  "generated_at": "2026-09-14T04:34:32+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -22,9 +22,12 @@
         "deadline_days": 60
       },
       "pull": "soft",
-      "chexsystems": "Unknown , sensitive ( not sensitive in branch )",
+      "chexsystems": "Unknown, sensitive (not sensitive in branch)",
       "cc_funding": "Can fund up to $1,000 with a credit card",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": {
         "amount": null,
         "days": 180
@@ -34,6 +37,7 @@
       "anti_churn_months": null,
       "additional_requirements": "See below",
       "enriched": true,
+      "enriched_at": "2026-09-14",
       "post_modified": "2023-02-26",
       "last_seen": "2026-09-14"
     },
@@ -52,21 +56,28 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Mixed DP, most likely does. Also reports of being ChexSystems sensitive.",
       "cc_funding": "Can fund up to $50 with a credit card online, not sure if possible in branch",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 5,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-25",
       "last_seen": "2026-09-14"
     },
     {
@@ -100,12 +111,13 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "american-express-business-checking-20000-membership-rewards-points-bonus-1-10-apy-earn-points-with-debit-card-spend",
-      "bank": "American Express Business",
+      "bank": "American Express Business Checking 30,000 Points",
       "title": "American Express Business Checking 30,000 Points",
       "section": "business",
       "summary": "Requires $5,000 in deposits for 60 days and also 10 transactions. Fairly simple bonus to do a nice bonus (though it was once higher at 60k).",
@@ -118,21 +130,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 20
       },
       "pull": "soft",
-      "chexsystems": null,
-      "cc_funding": null,
-      "monthly_fee": null,
+      "chexsystems": "Unknown",
+      "cc_funding": "None",
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "post_modified": null,
+      "additional_requirements": "$5,000 deposit; 10 transactions",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2023-01-31",
       "last_seen": "2026-09-14"
     },
     {
@@ -155,16 +171,20 @@
         "deadline_days": null
       },
       "pull": "unknown",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Unknown if credit card funding is possible",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-03-31",
       "last_seen": "2026-09-14"
     },
     {
@@ -184,19 +204,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 50,
+        "days": 180
+      },
+      "household_limit": "None listed",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2025-11-12",
       "last_seen": "2026-09-14"
     },
     {
@@ -238,6 +265,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -272,6 +300,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -319,6 +348,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -354,6 +384,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -390,6 +421,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -426,6 +458,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -460,6 +493,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -494,6 +528,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -526,6 +561,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -558,6 +594,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -590,6 +627,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -624,6 +662,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -658,6 +697,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -692,6 +732,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -726,6 +767,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -760,6 +802,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -794,6 +837,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -828,6 +872,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -862,6 +907,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -894,6 +940,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -928,6 +975,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -962,6 +1010,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -996,11 +1045,12 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
-      "id": "ca-only-san-mateo-credit-union-100-checking-bonus-direct-deposit-not-required",
+      "id": "ca-only-san-mateo-credit-union-100-checking-bonus-direct-deposit-not-required--regional",
       "bank": "San Mateo Credit Union",
       "title": "San Mateo Credit Union $150 Bonus – Direct Deposit Not Required – CA Only",
       "section": "regional",
@@ -1017,6 +1067,41 @@
       },
       "dd": {
         "required": false,
+        "amount": null,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "Can fund up to $500 with a credit card",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-14"
+    },
+    {
+      "id": "ca-only-san-mateo-credit-union-100-checking-bonus-direct-deposit-not-required--state",
+      "bank": "Monterra Credit Union",
+      "title": "Monterra Credit Union – $150 – CA",
+      "section": "state",
+      "summary": "Says any ACH transfer will work",
+      "doc_url": "https://www.doctorofcredit.com/ca-only-san-mateo-credit-union-100-checking-bonus-direct-deposit-not-required/",
+      "offer_url": "https://www.monterra.org/checking150",
+      "bonus_min": 150,
+      "bonus_max": 150,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "CA"
+        ]
+      },
+      "dd": {
+        "required": true,
         "amount": 500,
         "deadline_days": null
       },
@@ -1030,19 +1115,20 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "ca-only-stanford-federal-credit-union-100-checking-bonus",
       "bank": "Stanford Federal Credit Union",
-      "title": "Stanford Federal Credit Union $250/$500 – CA",
+      "title": "Stanford Federal Credit Union $620 – CA",
       "section": "state",
-      "summary": "This requires a monthly direct deposit of $2,500 or $5,000.",
+      "summary": "Highest this has ever been and no longer requires opening in branch.",
       "doc_url": "https://www.doctorofcredit.com/ca-only-stanford-federal-credit-union-100-checking-bonus/",
       "offer_url": "https://www.sfcu.org/bonus/",
-      "bonus_min": 250,
-      "bonus_max": 500,
+      "bonus_min": 620,
+      "bonus_max": 620,
       "availability": {
         "nationwide": false,
         "states": [
@@ -1051,7 +1137,7 @@
       },
       "dd": {
         "required": true,
-        "amount": 2500,
+        "amount": 500,
         "deadline_days": null
       },
       "pull": "soft",
@@ -1064,6 +1150,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1098,6 +1185,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1132,6 +1220,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1166,6 +1255,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1200,6 +1290,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1208,7 +1299,7 @@
       "bank": "Capital One",
       "title": "Capital One Up To $1,500 Bonus",
       "section": "savings",
-      "summary": "Direct Link to offer The higher $1,500 tier does require $100,000 deposit. The account earns a decent interest rate and so this is well worth considering if you have the cash. Look back period recently improved.",
+      "summary": "The higher $1,500 tier does require $100,000 deposit. The account earns a decent interest rate and so this is well worth considering if you have the cash. Look back period recently improved.",
       "doc_url": "https://www.doctorofcredit.com/capital-one-300-1500-savings-bonus-requires-20000-100000-deposit/",
       "offer_url": "https://www.capitalone.com/bank/bonus1500/",
       "bonus_min": 1500,
@@ -1232,6 +1323,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1264,6 +1356,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1272,7 +1365,7 @@
       "bank": "Chase",
       "title": "Chase $500-$750 Business Checking Bonus",
       "section": "business",
-      "summary": "Direct Link to offer Can be done by anyone online. Pretty easy offer to complete with a $10,000 deposit and 5 transactions. There is also a $750 offer that requires a $20,000 deposit (not currently available) . You can also make these deals better by stacking them with the following:",
+      "summary": "Can be done by anyone online. Pretty easy offer to complete with a $10,000 deposit and 5 transactions. There is also a $750 offer that requires a $20,000 deposit (not currently available) . You can also make these deals better by stacking them with the following:",
       "doc_url": "https://www.doctorofcredit.com/chase-business-checking-500-online-bonus-no-direct-deposit-required/",
       "offer_url": "https://www.chase.com/business/banking/checking-offer",
       "bonus_min": 500,
@@ -1296,6 +1389,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1328,11 +1422,45 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
-      "id": "citi-300-checking-bonus",
+      "id": "citi-300-checking-bonus--checking",
+      "bank": "Citi",
+      "title": "Citi $325/$475",
+      "section": "checking",
+      "summary": "Nice part of this bonus is that it doesn’t require a huge deposit like the other Citi checking bonus . There is also a $475 deal but that might be limited to NY, CT, MD, VA, DC, CA, NV, NJ, and select markets in FL and IL",
+      "doc_url": "https://www.doctorofcredit.com/citi-300-checking-bonus/",
+      "offer_url": "https://banking.citi.com/cbol/OM/checking/enhanced-direct-deposit-offer/default.htm?BT_TX=1&ProspectID=45A3B47DEC24426BB847622BFFE3A444",
+      "bonus_min": 325,
+      "bonus_max": 475,
+      "availability": {
+        "nationwide": true,
+        "states": []
+      },
+      "dd": {
+        "required": true,
+        "amount": 1500,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "No credit card funding",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-14"
+    },
+    {
+      "id": "citi-300-checking-bonus--savings",
       "bank": "Citi",
       "title": "Citi Up To $2,000 Bonus – No Direct Deposit Required",
       "section": "savings",
@@ -1347,7 +1475,7 @@
       },
       "dd": {
         "required": false,
-        "amount": 1500,
+        "amount": null,
         "deadline_days": null
       },
       "pull": "soft",
@@ -1360,6 +1488,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1394,6 +1523,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1426,6 +1556,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1460,6 +1591,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1492,6 +1624,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1526,6 +1659,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1560,6 +1694,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1592,6 +1727,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1636,6 +1772,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1670,12 +1807,13 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "ct-only-union-savings-bank-250-500-business-checking-bonus",
-      "bank": "Union",
+      "bank": "Union Savings Bank",
       "title": "Union Savings Bank – $450 Bonus – CT Only",
       "section": "state",
       "summary": "Bonus is slightly smaller than before, but requirements and account are much easier.",
@@ -1704,12 +1842,13 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "ct-only-union-savings-bank-300-checking-savings-bonus",
-      "bank": "Union",
+      "bank": "Union Savings Bank",
       "title": "Union Savings Bank – $400 Bonus – CT Only",
       "section": "state",
       "summary": "Bonus is less than before but only requires a $500 balance instead of $15,000.",
@@ -1738,6 +1877,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1777,6 +1917,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1797,7 +1938,8 @@
           "DC",
           "MD",
           "NJ",
-          "PA"
+          "PA",
+          "VA"
         ]
       },
       "dd": {
@@ -1815,19 +1957,20 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "de-dc-md-nj-pa-va-only-fulton-bank-300-checking-bonus",
       "bank": "Fulton Bank",
-      "title": "Fulton Bank – $225 Business Checking DE, DC, MD, NJ, PA, & VA",
+      "title": "Fulton Bank $500 – DE, DC, MD, NJ, PA, & VA",
       "section": "business",
-      "summary": "Has been as high as $300 in the past.",
+      "summary": "Requires a $5,000 deposit for 60 days.",
       "doc_url": "https://www.doctorofcredit.com/de-dc-md-nj-pa-va-only-fulton-bank-300-checking-bonus/",
-      "offer_url": "https://www.fultonbank.com/offers/smallbiz225",
-      "bonus_min": 225,
-      "bonus_max": 225,
+      "offer_url": "https://www.fultonbank.com/offers/small-business-checking",
+      "bonus_min": 500,
+      "bonus_max": 500,
       "availability": {
         "nationwide": true,
         "states": []
@@ -1847,6 +1990,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1881,6 +2025,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1913,6 +2058,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1945,6 +2091,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -1977,6 +2124,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2024,6 +2172,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2058,6 +2207,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2074,7 +2224,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "FL"
+          "FL",
+          "GA"
         ]
       },
       "dd": {
@@ -2092,6 +2243,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2127,6 +2279,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2146,7 +2299,8 @@
           "FL",
           "IN",
           "KY",
-          "OH"
+          "OH",
+          "TN"
         ]
       },
       "dd": {
@@ -2164,6 +2318,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2196,6 +2351,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2234,6 +2390,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2269,6 +2426,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2303,6 +2461,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2337,6 +2496,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2371,6 +2531,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2405,19 +2566,20 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "fl-power-financial-credit-union-100-checking-bonus-no-direct-deposit-required",
       "bank": "Power Financial Credit Union",
-      "title": "Power Financial Credit Union $100 – No Direct Deposit Required – FL only",
+      "title": "Power Financial Credit Union $199 – FL – Direct Deposit Not Required",
       "section": "state",
-      "summary": "Unfortunately seems to be a hard pull according to most people.",
+      "summary": "Previously bonus was only $100.",
       "doc_url": "https://www.doctorofcredit.com/fl-power-financial-credit-union-100-checking-bonus-no-direct-deposit-required/",
-      "offer_url": "https://www.powerfi.org/About/Membership/Welcome-Gift",
-      "bonus_min": 100,
-      "bonus_max": 100,
+      "offer_url": "https://www.powerfi.org/About/Jason-Taylor",
+      "bonus_min": 199,
+      "bonus_max": 199,
       "availability": {
         "nationwide": false,
         "states": [
@@ -2439,6 +2601,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2473,6 +2636,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2505,6 +2669,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2537,6 +2702,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2578,6 +2744,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2610,6 +2777,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2644,6 +2812,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2676,6 +2845,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2710,6 +2880,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2742,6 +2913,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2774,6 +2946,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2808,6 +2981,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2840,6 +3014,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2874,6 +3049,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2908,6 +3084,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2945,6 +3122,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -2968,7 +3146,8 @@
           "MI",
           "MN",
           "MO",
-          "OH"
+          "OH",
+          "WI"
         ]
       },
       "dd": {
@@ -2986,6 +3165,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3005,7 +3185,8 @@
           "MI",
           "MO",
           "FL",
-          "CA"
+          "CA",
+          "WI"
         ]
       },
       "dd": {
@@ -3023,6 +3204,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3055,6 +3237,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3089,6 +3272,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3121,6 +3305,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3159,6 +3344,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3175,7 +3361,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "IL"
+          "IL",
+          "CA"
         ]
       },
       "dd": {
@@ -3193,6 +3380,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3225,6 +3413,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3241,7 +3430,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "IL"
+          "IL",
+          "WI"
         ]
       },
       "dd": {
@@ -3259,6 +3449,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3282,7 +3473,8 @@
           "MN",
           "WI",
           "TN",
-          "ND"
+          "ND",
+          "MI"
         ]
       },
       "dd": {
@@ -3300,6 +3492,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3332,6 +3525,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3347,7 +3541,9 @@
       "bonus_max": 250,
       "availability": {
         "nationwide": false,
-        "states": []
+        "states": [
+          "MI"
+        ]
       },
       "dd": {
         "required": false,
@@ -3364,6 +3560,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3398,6 +3595,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3417,7 +3615,9 @@
           "AZ",
           "MO",
           "NM",
-          "KS"
+          "KS",
+          "CO",
+          "TX"
         ]
       },
       "dd": {
@@ -3435,6 +3635,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3467,6 +3668,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3486,7 +3688,8 @@
           "KS",
           "MO",
           "AR",
-          "OK"
+          "OK",
+          "NE"
         ]
       },
       "dd": {
@@ -3504,6 +3707,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3536,6 +3740,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3568,6 +3773,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3576,7 +3782,7 @@
       "bank": "Live Oak",
       "title": "Live Oak $300 Bonus (New/Existing)",
       "section": "savings",
-      "summary": "Direct Link to offer $300 bonus for new or existing users who deposit $20,000 and maintain for 90 days. Also has 4.00% APY currently.",
+      "summary": "$300 bonus for new or existing users who deposit $20,000 and maintain for 90 days. Also has 4.00% APY currently.",
       "doc_url": "https://www.doctorofcredit.com/live-oak-bank-300-savings-bonus/",
       "offer_url": "https://www.liveoakbank.com/personal-savings/",
       "bonus_min": 300,
@@ -3600,12 +3806,13 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "ma-ct-me-nh-ri-vt-cambridge-savings-bank-400-checking-bonus",
-      "bank": "Cambridge",
+      "bank": "Cambridge Savings Bank",
       "title": "Cambridge Savings Bank $800- MA, NH",
       "section": "state",
       "summary": "Only available in MA this time. Can also get a $400 savings bonus but that requires $25,000 for three full calendar months.",
@@ -3635,6 +3842,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3653,7 +3861,8 @@
         "states": [
           "MA",
           "CT",
-          "RI"
+          "RI",
+          "NH"
         ]
       },
       "dd": {
@@ -3671,6 +3880,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3708,6 +3918,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3743,6 +3954,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3782,6 +3994,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3819,6 +4032,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3838,7 +4052,8 @@
           "MA",
           "NY",
           "CT",
-          "RI"
+          "RI",
+          "VT"
         ]
       },
       "dd": {
@@ -3856,6 +4071,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3892,6 +4108,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3926,12 +4143,13 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "ma-only-middlesex-savings-bank-200-checking-bonus-direct-deposit-not-required",
-      "bank": "Middlesex",
+      "bank": "Middlesex Savings Bank",
       "title": "Middlesex Savings Bank $350 – MA",
       "section": "state",
       "summary": "Only requires 8 debit card purchases and has no monthly fees.",
@@ -3960,6 +4178,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -3994,6 +4213,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4029,6 +4249,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4063,6 +4284,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4095,6 +4317,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4131,6 +4354,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4148,7 +4372,8 @@
         "nationwide": false,
         "states": [
           "ME",
-          "VT"
+          "VT",
+          "NH"
         ]
       },
       "dd": {
@@ -4166,6 +4391,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4198,6 +4424,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4232,6 +4459,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4266,6 +4494,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4300,6 +4529,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4332,6 +4562,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4366,6 +4597,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4401,6 +4633,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4435,6 +4668,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4469,6 +4703,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4503,6 +4738,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4537,6 +4773,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4569,15 +4806,16 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "mo-ilvantage-credit-union-250-checking-bonus-direct-deposit-not-required",
       "bank": "Vantage Credit Union",
-      "title": "Vantage Credit Union $250 – MO, IL – Direct Deposit Not Required",
+      "title": "Vantage Credit Union $250, Direct Deposit Not Required – MO & IL",
       "section": "state",
-      "summary": "Would be higher but unfortunately it’s a hard pull.",
+      "summary": "Unfortunately seems to be a hard pull",
       "doc_url": "https://www.doctorofcredit.com/mo-ilvantage-credit-union-250-checking-bonus-direct-deposit-not-required/",
       "offer_url": "https://www.vcu.com/ln-checking-offer",
       "bonus_min": 250,
@@ -4604,6 +4842,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4639,6 +4878,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4647,7 +4887,7 @@
       "bank": "MooMoo",
       "title": "MooMoo $1,000 Cash Account Bonus",
       "section": "savings",
-      "summary": "Direct Link to offer MooMoo brokerage has a $1,000 bonus for making $100,000 deposit into their Cash Account and holding for 180 days. (There are also lower deposit tiers which also have lower hold times.) The $1,000 comes as NVDA stock which you can immediately sell. The account also comes with some other bonuses.",
+      "summary": "MooMoo brokerage has a $1,000 bonus for making $100,000 deposit into their Cash Account and holding for 180 days. (There are also lower deposit tiers which also have lower hold times.) The $1,000 comes as NVDA stock which you can immediately sell. The account also comes with some other bonuses.",
       "doc_url": "https://www.doctorofcredit.com/moomoo-brokerage-bonus-up-to-1000-with-50000-deposit-more/",
       "offer_url": "https://www.moomoo.com/us/en/events/welcome?",
       "bonus_min": 1000,
@@ -4671,6 +4911,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4693,7 +4934,8 @@
           "CT",
           "DE",
           "NY",
-          "NJ"
+          "NJ",
+          "PA"
         ]
       },
       "dd": {
@@ -4711,6 +4953,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4745,6 +4988,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4761,7 +5005,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "NJ"
+          "NJ",
+          "PA"
         ]
       },
       "dd": {
@@ -4779,6 +5024,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4796,7 +5042,8 @@
         "nationwide": false,
         "states": [
           "NJ",
-          "NY"
+          "NY",
+          "PA"
         ]
       },
       "dd": {
@@ -4814,6 +5061,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4849,6 +5097,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4884,6 +5133,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4916,6 +5166,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -4948,19 +5199,20 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
       "id": "nv-only-greater-nevada-credit-union-100-checking-bonus",
       "bank": "Greater Nevada Credit Union",
-      "title": "Greater Nevada Credit Union $100 – NV",
+      "title": "Greater Nevada Credit Union – $250 – NV",
       "section": "state",
-      "summary": "Nice amount of credit card funding.",
+      "summary": "Hasn’t been available for some time.",
       "doc_url": "https://www.doctorofcredit.com/nv-only-greater-nevada-credit-union-100-checking-bonus/",
       "offer_url": "https://www.gncu.org/Resources/GreaterPerks",
-      "bonus_min": 100,
-      "bonus_max": 100,
+      "bonus_min": 250,
+      "bonus_max": 250,
       "availability": {
         "nationwide": false,
         "states": [
@@ -4968,7 +5220,7 @@
         ]
       },
       "dd": {
-        "required": false,
+        "required": true,
         "amount": null,
         "deadline_days": null
       },
@@ -4982,6 +5234,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5016,6 +5269,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5050,6 +5304,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5084,6 +5339,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5118,6 +5374,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5154,6 +5411,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5188,6 +5446,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5222,6 +5481,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5256,6 +5516,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5288,6 +5549,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5324,6 +5586,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5332,7 +5595,7 @@
       "bank": "Huntington Bank",
       "title": "Huntington Bank – $400 – AL, AR, FL, GA, LA, MS, MO, OK, TN, OH, MI, IN, PA, KY, WV, IL, CO, MN, SC, WI, NC, TX",
       "section": "state",
-      "summary": "Direct Link to offers There is new anti churning language and we aren’t sure how this will be enforced.",
+      "summary": "There is new anti churning language and we aren’t sure how this will be enforced.",
       "doc_url": "https://www.doctorofcredit.com/oh-mi-pa-ky-wv-huntington-bank-200-checking-promotion-no-direct-deposit-requirement/",
       "offer_url": "https://www.huntington.com/checking-account-promotions-bonuses-offers",
       "bonus_min": 400,
@@ -5379,6 +5642,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5411,6 +5675,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5445,6 +5710,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5479,6 +5745,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5511,6 +5778,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5532,7 +5800,8 @@
           "CO",
           "KS",
           "NM",
-          "TX"
+          "TX",
+          "MO"
         ]
       },
       "dd": {
@@ -5550,6 +5819,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5585,6 +5855,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5619,6 +5890,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5653,6 +5925,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5688,6 +5961,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5722,6 +5996,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5754,6 +6029,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5789,6 +6065,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5826,6 +6103,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5843,7 +6121,8 @@
         "nationwide": false,
         "states": [
           "PA",
-          "NJ"
+          "NJ",
+          "NY"
         ]
       },
       "dd": {
@@ -5861,6 +6140,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5877,7 +6157,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "PA"
+          "PA",
+          "OH"
         ]
       },
       "dd": {
@@ -5895,6 +6176,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5927,6 +6209,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5961,6 +6244,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -5996,6 +6280,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6030,6 +6315,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6062,6 +6348,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6096,6 +6383,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6130,6 +6418,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6162,6 +6451,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6194,6 +6484,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6226,6 +6517,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6258,6 +6550,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6290,6 +6583,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6322,6 +6616,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6351,7 +6646,8 @@
           "MO",
           "NC",
           "SC",
-          "TN"
+          "TN",
+          "TX"
         ]
       },
       "dd": {
@@ -6369,6 +6665,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6401,6 +6698,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6433,6 +6731,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6465,6 +6764,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6499,6 +6799,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6533,6 +6834,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6565,6 +6867,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6573,7 +6876,7 @@
       "bank": "TD Bank up To",
       "title": "TD Bank up To $300 Checking Bonus [CT, DC, DE, FL, MD, ME, MA, NC, NH, NJ, NY, PA, RI, SC, VT, & VA]",
       "section": "state",
-      "summary": "Direct Link to offer Excellent bonus, but does have quite a large direct deposit requirement to get the $300 and needs a balance of $2,500 to keep it fee-free. There is also a $200 savings bonus.",
+      "summary": "Excellent bonus, but does have quite a large direct deposit requirement to get the $300 and needs a balance of $2,500 to keep it fee-free. There is also a $200 savings bonus.",
       "doc_url": "https://www.doctorofcredit.com/targeted-td-bank-300-checking-200-savings-bonus/",
       "offer_url": "https://www.td.com/us/en/personal-banking/checking-bonus/pso",
       "bonus_min": 300,
@@ -6595,7 +6898,8 @@
           "PA",
           "RI",
           "SC",
-          "VT"
+          "VT",
+          "VA"
         ]
       },
       "dd": {
@@ -6613,6 +6917,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6648,6 +6953,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6675,7 +6981,8 @@
           "GA",
           "KY",
           "FL",
-          "NC"
+          "NC",
+          "VA"
         ]
       },
       "dd": {
@@ -6693,6 +7000,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6710,7 +7018,8 @@
         "nationwide": false,
         "states": [
           "CA",
-          "AZ"
+          "AZ",
+          "CO"
         ]
       },
       "dd": {
@@ -6728,6 +7037,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6763,6 +7073,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6795,6 +7106,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6826,7 +7138,8 @@
           "TN",
           "TX",
           "VA",
-          "WV"
+          "WV",
+          "DC"
         ]
       },
       "dd": {
@@ -6844,6 +7157,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6876,6 +7190,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6911,6 +7226,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6947,6 +7263,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -6981,6 +7298,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7013,6 +7331,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7031,7 +7350,8 @@
         "states": [
           "TX",
           "AZ",
-          "AR"
+          "AR",
+          "NM"
         ]
       },
       "dd": {
@@ -7049,6 +7369,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7083,6 +7404,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7117,6 +7439,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7151,6 +7474,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7183,6 +7507,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7215,6 +7540,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7247,6 +7573,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7279,6 +7606,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7308,7 +7636,8 @@
           "OR",
           "PA",
           "UT",
-          "VT"
+          "VT",
+          "WA"
         ]
       },
       "dd": {
@@ -7326,6 +7655,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7361,11 +7691,12 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
     {
-      "id": "va-city-national-bank-100-checking-bonus",
+      "id": "va-city-national-bank-100-checking-bonus--regional",
       "bank": "City National Bank VA, WV, OH",
       "title": "City National Bank VA, WV, OH – $200 Bonus",
       "section": "regional",
@@ -7396,6 +7727,44 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-14"
+    },
+    {
+      "id": "va-city-national-bank-100-checking-bonus--state",
+      "bank": "City National Bank",
+      "title": "City National Bank – $100 Checking – VA, WV, OH – In Branch",
+      "section": "state",
+      "summary": "Not the most attractive offer given that it’s only $100 and in branch only, but still worth considering for those that have done the bigger bonuses above.",
+      "doc_url": "https://www.doctorofcredit.com/va-city-national-bank-100-checking-bonus/",
+      "offer_url": "https://www.bankatcity.com/get100",
+      "bonus_min": 100,
+      "bonus_max": 100,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "VA",
+          "WV",
+          "OH"
+        ]
+      },
+      "dd": {
+        "required": true,
+        "amount": 200,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "Unknown credit card funding",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7431,6 +7800,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7468,6 +7838,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7503,6 +7874,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7537,6 +7909,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7571,6 +7944,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7605,6 +7979,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7639,6 +8014,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7671,6 +8047,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7706,6 +8083,7 @@
       "anti_churn_months": 12,
       "additional_requirements": "None",
       "enriched": true,
+      "enriched_at": "2026-09-14",
       "post_modified": "2026-08-23",
       "last_seen": "2026-09-14"
     },
@@ -7738,6 +8116,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7753,7 +8132,9 @@
       "bonus_max": 400,
       "availability": {
         "nationwide": false,
-        "states": []
+        "states": [
+          "IL"
+        ]
       },
       "dd": {
         "required": false,
@@ -7770,6 +8151,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7786,7 +8168,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "WI"
+          "WI",
+          "IL"
         ]
       },
       "dd": {
@@ -7804,6 +8187,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7838,6 +8222,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7874,6 +8259,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7890,7 +8276,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "WI"
+          "WI",
+          "MN"
         ]
       },
       "dd": {
@@ -7908,6 +8295,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7942,6 +8330,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -7976,6 +8365,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -8008,6 +8398,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -8042,6 +8433,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -8076,6 +8468,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -8108,6 +8501,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -8140,6 +8534,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     },
@@ -8172,6 +8567,7 @@
       "anti_churn_months": null,
       "additional_requirements": null,
       "enriched": false,
+      "enriched_at": null,
       "post_modified": null,
       "last_seen": "2026-09-14"
     }

@@ -61,3 +61,17 @@ def test_ambiguous_pull_chip_is_unknown(entries):
 def test_mixed_pull_chip_is_unknown(entries):
     e = next(x for x in entries if "Numerica Credit Union" in x.title)
     assert e.pull == "unknown"
+
+
+def test_summary_strips_direct_link_prefix_case_insensitively():
+    html = (
+        '<html><div class="entry-content">'
+        "<h2>Best Checking Account Bonuses</h2>"
+        "<h3>Test Bank $100 Checking Bonus</h3>"
+        '<p><a href="https://offer.example.com/x">Direct Link to offer</a></p>'
+        "<p>Some benefit description.</p>"
+        '<ul><li><a href="https://www.doctorofcredit.com/test-bank/">Read our full post</a></li></ul>'
+        "</div></html>"
+    )
+    entries = parse_list_page(html)
+    assert entries[0].summary == "Some benefit description."

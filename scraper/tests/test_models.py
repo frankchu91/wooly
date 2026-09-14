@@ -31,6 +31,7 @@ def test_bonus_roundtrip():
         anti_churn_months=12,
         additional_requirements=None,
         enriched=True,
+        enriched_at=date(2026, 9, 1),
         post_modified=date(2026, 8, 23),
         last_seen=date(2026, 9, 13),
     )
@@ -40,6 +41,7 @@ def test_bonus_roundtrip():
     assert d["monthly_fee"] == {"amount": 15, "avoidable": True}
     assert d["etf"] is None
     assert d["expiration"] == "2026-10-06"
+    assert d["enriched_at"] == "2026-09-01"
     assert Bonus.from_dict(d) == b
 
 

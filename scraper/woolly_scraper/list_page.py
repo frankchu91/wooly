@@ -95,7 +95,7 @@ def parse_list_page(html: str) -> list[ListEntry]:
         if not doc_url:
             continue
         summary = _clean(" ".join(paras)) or title
-        summary = re.sub(r"^Direct link to (offer|bonus)\s*", "", summary)
+        summary = re.sub(r"^Direct link to (offers?|bonus)\s*", "", summary, flags=re.IGNORECASE)
         summary = re.sub(r"\s*Read our full post\.?\s*$", "", summary)
         pull, cc, dd_required, dd_amount = _classify_chips(chips)
         bonus_min, bonus_max = parse_money_range(title)

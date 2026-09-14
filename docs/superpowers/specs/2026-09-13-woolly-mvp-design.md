@@ -91,7 +91,13 @@ No backend. No accounts. No analytics in MVP.
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
-      "id": "wells-fargo-500-checking-bonus",       // slug of doc_url
+      "id": "wells-fargo-500-checking-bonus",       // slug of doc_url; when one doc_url is
+                                                     // listed under more than one section in
+                                                     // the same run, each section gets its own
+                                                     // id ("slug--section"); when it's listed
+                                                     // more than once in the *same* section,
+                                                     // only the entry with the highest bonus_max
+                                                     // survives under the plain slug id
       "bank": "Wells Fargo",                         // normalised bank name (see §3.4)
       "title": "Wells Fargo $500 Checking Bonus",    // h3 text
       "section": "checking" | "savings" | "business" | "state" | "regional",

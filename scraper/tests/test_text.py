@@ -36,6 +36,10 @@ def test_extract_states():
     assert extract_states("IN Bank $200 Checking Bonus – IN, KY") == ["IN", "KY"]
     # no list context at all, even though the code appears twice
     assert extract_states("Bank of MA $100 for MA residents") == []
+    # joiners other than comma/dash must also be recognised
+    assert extract_states("iTHINK Financial $300 – FL & GA") == ["FL", "GA"]
+    assert extract_states("Truist $400 – AL, GA, WV or DC") == ["AL", "GA", "WV", "DC"]
+    assert extract_states("Sunflower Bank $300 – KS & CO and TX") == ["KS", "CO", "TX"]
 
 
 def test_normalize_bank():
@@ -47,6 +51,8 @@ def test_normalize_bank():
     assert normalize_bank("Stanford Federal Credit Union $620 – CA") == "Stanford Federal Credit Union"
     assert normalize_bank("Percapita (Fintech) $300 Checking Bonus ($25 Per Month), Direct Deposit Not Required") == "Percapita"
     assert normalize_bank("SoFi Checking & Savings $675 Signup Bonus") == "SoFi"
+    # "Savings"/"Checking" that's part of the bank's own name isn't a cut point
+    assert normalize_bank("Union Savings Bank $200 Checking Bonus") == "Union Savings Bank"
 
 
 def test_parse_date():

@@ -7,15 +7,51 @@ from .models import Bonus, ListEntry, PostData
 from .text import normalize_bank
 
 STALE_DAYS = 14
+RE_ENRICH_DAYS = 30
 
 
 def slug(doc_url: str) -> str:
     return doc_url.rstrip("/").rsplit("/", 1)[-1]
 
 
-def _from_entry(e: ListEntry, today: date) -> Bonus:
+def _pick_highest_bonus(entries: list[ListEntry]) -> ListEntry:
+    best = entries[0]
+    for e in entries[1:]:
+        if (e.bonus_max or -1) > (best.bonus_max or -1):
+            best = e
+    return best
+
+
+def assign_ids(entries: list[ListEntry]) -> list[tuple[str, ListEntry]]:
+    """Pick a stable id for each list entry, coping with doc_url collisions.
+
+    Several DoC posts are listed more than once on the list page under the same
+    doc_url (e.g. a bank's checking and savings variants sharing one post). Group by
+    slug(doc_url): if a slug's entries span more than one section, each section gets
+    its own record (`slug--section`); if several entries share both slug and section,
+    only the highest bonus_max survives under the plain slug id (ties keep the first
+    in document order). A slug that appears once keeps the plain slug id.
+    """
+    groups: dict[str, list[ListEntry]] = {}
+    for e in entries:
+        groups.setdefault(slug(e.doc_url), []).append(e)
+    out: list[tuple[str, ListEntry]] = []
+    for s, group in groups.items():
+        by_section: dict[str, list[ListEntry]] = {}
+        for e in group:
+            by_section.setdefault(e.section, []).append(e)
+        if len(by_section) > 1:
+            for section, sec_entries in by_section.items():
+                out.append((f"{s}--{section}", _pick_highest_bonus(sec_entries)))
+        else:
+            (sec_entries,) = by_section.values()
+            out.append((s, _pick_highest_bonus(sec_entries)))
+    return out
+
+
+def _from_entry(e: ListEntry, today: date, id_: str) -> Bonus:
     return Bonus(
-        id=slug(e.doc_url),
+        id=id_,
         bank=normalize_bank(e.title),
         title=e.title,
         section=e.section,
@@ -36,8 +72,18 @@ def _from_entry(e: ListEntry, today: date) -> Bonus:
 
 def merge_list(existing: list[Bonus], entries: list[ListEntry], today: date) -> list[Bonus]:
     by_id = {b.id: b for b in existing}
-    for e in entries:
-        fresh = _from_entry(e, today)
+    assigned = assign_ids(entries)
+    fresh_ids = {id_ for id_, _ in assigned}
+    seen_slugs = {slug(e.doc_url) for e in entries}
+    # A slug's id shape can change between runs (plain "x" splitting into
+    # "x--checking"/"x--savings", or the reverse); when that happens, drop the
+    # now-superseded record instead of leaving a stale duplicate keyed by the old id.
+    for old_id in list(by_id):
+        base = old_id.split("--", 1)[0]
+        if base in seen_slugs and old_id not in fresh_ids:
+            del by_id[old_id]
+    for id_, e in assigned:
+        fresh = _from_entry(e, today, id_)
         old = by_id.get(fresh.id)
         if old is None:
             by_id[fresh.id] = fresh
@@ -70,7 +116,7 @@ def _fill(current, new):
     return current if current is not None else new
 
 
-def apply_post(bonus: Bonus, post: PostData) -> Bonus:
+def apply_post(bonus: Bonus, post: PostData, today: date) -> Bonus:
     nationwide = bonus.nationwide
     states = bonus.states
     if bonus.section in ("state", "regional") and not states:
@@ -95,9 +141,12 @@ def apply_post(bonus: Bonus, post: PostData) -> Bonus:
         anti_churn_months=post.anti_churn_months,
         additional_requirements=post.additional_requirements,
         enriched=True,
+        enriched_at=today,
         post_modified=post.post_modified,
     )
 
 
-def needs_enrich(bonus: Bonus) -> bool:
-    return not bonus.enriched
+def needs_enrich(bonus: Bonus, today: date) -> bool:
+    if not bonus.enriched or bonus.enriched_at is None:
+        return True
+    return bonus.enriched_at < today - timedelta(days=RE_ENRICH_DAYS)

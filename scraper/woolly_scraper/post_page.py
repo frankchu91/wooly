@@ -10,6 +10,7 @@ from .models import PostData
 from .text import extract_states, parse_date, parse_money
 
 WORD_NUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "twelve": 12}
+_NONE_VALUE = re.compile(r"none[.,]?\s*")
 
 
 def _clean(s: str) -> str:
@@ -42,6 +43,8 @@ def _glance(soup: BeautifulSoup) -> dict[str, str]:
         for d in li.find_all("del"):
             d.decompose()
         value = _clean(li.get_text(" ")).replace(label_raw, "", 1).strip(" :")
+        value = re.sub(r"\s+([,.;)])", r"\1", value)
+        value = re.sub(r"\(\s+", "(", value)
         if label in out:
             continue
         out[label] = value
@@ -68,7 +71,10 @@ def _modified(soup: BeautifulSoup) -> date | None:
             cur = stack.pop()
             if isinstance(cur, dict):
                 if "dateModified" in cur:
-                    return date.fromisoformat(str(cur["dateModified"])[:10])
+                    try:
+                        return date.fromisoformat(str(cur["dateModified"])[:10])
+                    except ValueError:
+                        return None
                 stack.extend(cur.values())
             elif isinstance(cur, list):
                 stack.extend(cur)
@@ -121,12 +127,20 @@ def parse_post(html: str, today: date) -> PostData:
 
     fee = g.get("monthly fees")
     if fee:
-        p.monthly_fee_amount = parse_money(fee)
-        p.monthly_fee_avoidable = "avoidable" in fee.lower() and "unavoidable" not in fee.lower()
+        if _NONE_VALUE.fullmatch(fee.strip().lower()):
+            # A literal "None" is a value ($0, avoidable), not a guess we couldn't make.
+            p.monthly_fee_amount = 0
+            p.monthly_fee_avoidable = True
+        else:
+            p.monthly_fee_amount = parse_money(fee)
+            p.monthly_fee_avoidable = "avoidable" in fee.lower() and "unavoidable" not in fee.lower()
 
     etf = g.get("early account termination fee")
     if etf:
-        p.etf_amount = parse_money(etf)
+        if _NONE_VALUE.fullmatch(etf.strip().lower()):
+            p.etf_amount = 0
+        else:
+            p.etf_amount = parse_money(etf)
         p.etf_days = _months_to_days(etf)
 
     p.household_limit = g.get("household limit")

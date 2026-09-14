@@ -21,4 +21,5 @@ jobs:
           git config user.email "woolly-bot@users.noreply.github.com"
           git add data/bonuses.json
           git diff --cached --quiet || git commit -m "data: nightly bonus refresh"
+          git pull --rebase
           git push

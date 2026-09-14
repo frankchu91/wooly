@@ -73,18 +73,45 @@ def test_pull_missing_label_is_none():
     assert p.pull is None
 
 
-def test_monthly_fee_none_leaves_amount_unset():
-    html = glance_html(("Maximum bonus amount", "$100"), ("Monthly fees", "None"))
+@pytest.mark.parametrize(
+    "value, expected_amount, expected_avoidable",
+    [
+        ("None", 0, True),  # a literal "None" is a value, not a guess
+        ("None listed", None, False),  # more text after "None" => stays unresolved
+        ("None mentioned", None, False),
+        ("None, don't close account straight away please", None, False),
+    ],
+)
+def test_monthly_fee_none_values(value, expected_amount, expected_avoidable):
+    html = glance_html(("Maximum bonus amount", "$100"), ("Monthly fees", value))
     p = parse_post(html, TODAY)
-    assert p.monthly_fee_amount is None
+    assert p.monthly_fee_amount == expected_amount
+    assert p.monthly_fee_avoidable == expected_avoidable
 
 
-def test_etf_none_leaves_amount_unset():
-    html = glance_html(
-        ("Maximum bonus amount", "$100"), ("Early account termination fee", "None")
+@pytest.mark.parametrize(
+    "value, expected_amount",
+    [
+        ("None", 0),
+        ("None listed", None),
+        ("None, don't close account straight away please", None),
+    ],
+)
+def test_etf_none_values(value, expected_amount):
+    html = glance_html(("Maximum bonus amount", "$100"), ("Early account termination fee", value))
+    p = parse_post(html, TODAY)
+    assert p.etf_amount == expected_amount
+
+
+def test_glance_value_spacing_tidied():
+    html = (
+        "<html><body><div class='entry-content'><ul>"
+        "<li><strong>Maximum bonus amount: </strong>$100</li>"
+        "<li><strong>ChexSystems: </strong>Unknown<a>, sensitive</a> ( not in branch )</li>"
+        "</ul></div></body></html>"
     )
     p = parse_post(html, TODAY)
-    assert p.etf_amount is None
+    assert p.chexsystems == "Unknown, sensitive (not in branch)"
 
 
 def test_monthly_fee_amount_and_avoidable_parsed():
