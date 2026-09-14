@@ -110,8 +110,15 @@ also fills `conditions` (doc) and `hold_days`, and re-enrichment preserves `bank
   if none of kind `keep_open` and `etf?.days`, synthesise "Keep the account open for N days".
 - `earliestCloseDate(bonus, openedISO): string` — `opened + (hold_days ?? etf.days ?? 180)`.
 - `receivedAmount(item, bonus)` — `item.bonusReceived ?? bonus.bonus_max ?? 0`.
+- `hasPosted(item)` — did this bonus actually land? `received` always; `closed` only when it
+  carries a `dates.received` or a `bonusReceived` amount. **Amended (final review, X1):** a
+  `closed` item is not evidence of payment — an account opened and then given up on used to
+  add its headline amount to Earned.
 - `ledgerTotals(items, bonusesById)` — `{ earned, pending, planned, counts }` where earned sums
-  `received`+`closed`, pending sums `opened`+`requirements_met`, planned sums `planned`.
+  the items `hasPosted` accepts (a closed item that never paid adds $0 and is not pending
+  either), pending sums `opened`+`requirements_met`, planned sums `planned`. `counts` carries
+  the five stage tallies plus `earned`, the number of accounts that actually paid, which is
+  what the "N accounts" line under the Earned figure reports.
 - `checklistFor` takes injected `labels` for the synthesised texts so the engine never imports
   the copy file; `TrackStatus`/`TrackedItem`/`STATUS_ORDER` live in `engine/types.ts`.
 - UI-side split (`features/conditions/splitConditions`): the **checklist** holds only
@@ -121,12 +128,26 @@ also fills `conditions` (doc) and `hold_days`, and re-enrichment preserves `bank
   Paraphrases are collapsed per family (direct_deposit ≈ deposit) on equal amount or days,
   keeping the richer, doc-first, shorter row; checklist and notes are capped at 6.
   Progress counts (`n/m done`) use the checklist only.
+- **Amended (final review):** two more rows are tasks. A `direct_deposit` row that states an
+  `amount` is one whatever else it carries (X2) — the glance block's direct-deposit field
+  often names no deadline, and "amount alone is not enough" was hiding the one thing the
+  offer asks for. An `other` row — the kind DoC's "Additional requirements" glance field
+  arrives as — is one when its text contains a `$` or a digit, or opens with a requirement
+  verb (X4); that field is a list of tasks, not prose about the offer.
+- **Amended (final review, P4):** tiered offers. When the checklist holds two or more
+  deposit-family rows whose amounts differ *and* the bonus's own payout varies
+  (`bonus_min !== bonus_max`), only the lowest-amount row stays on the checklist and the
+  rest lead the notes — three deposit sizes are one choice, not three jobs, and the progress
+  chip should read `0/1`.
 
 ### 4.2 Store v2
 
 `version: 2`, `migrate`: v1 `dd_sent` → `requirements_met`; new optional fields on
 `TrackedItem`: `conditionsDone: string[]` (condition ids), `bonusReceived?: number`,
-`notes?: string`. New actions: `setStatus(id, status, dateISO)` (records the date, allows
+`notes?: string`, and — **amended (final review, P1)** — `applicant?: string`, who the
+account is for ("me", "partner"), set by `setApplicant(id, text)`, trimmed on the way in and
+omitted entirely when it is blank, and shown as a small neutral badge on the ledger row and
+the pipeline card. New actions: `setStatus(id, status, dateISO)` (records the date, allows
 moving to any stage; moving to an earlier stage clears later-stage dates and `bonusReceived`
 when moving before `received`), `setDate(id, stage, dateISO)` (corrects a reached stage's date
 without moving), `toggleCondition(id, conditionId)`, `setBonusReceived(id, amount|undefined)`,
@@ -167,7 +188,10 @@ Top to bottom, one screen:
 - `BonusDrawer` gains a **Conditions** section (read-only `checklistFor` list with source
   badges) above the glance table, and a "Bank offer page" link when `offer_url` exists; the
   terms status renders a one-line note when `blocked`/`error` ("We couldn't read the bank's
-  page — check the conditions on Doctor of Credit").
+  page — check the conditions on Doctor of Credit"). **Amended (final review, X5):** the two
+  are independent — the link appears on any `offer_url`, whatever `terms.status` says (our
+  scraper being blocked does not block the user's browser), and both drawers follow the same
+  rule.
 - `PlanCard` shows a compact "N conditions" chip that opens the drawer.
 
 ### 4.5 Copy

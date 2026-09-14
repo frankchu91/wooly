@@ -61,7 +61,12 @@ User-Agent, a 20s timeout, and at least 5 seconds between requests to the same b
 cached under `scraper/.cache/terms/` (one file per URL). Each offer gets a `terms.status` —
 `ok` (fetched, conditions extracted, even if zero matched), `blocked` (403/429), `error`
 (timeout, connection failure, or other non-2xx), or `none` (no `offer_url` to fetch) — and
-`blocked`/`error` results are never retried for 30 days; `ok` results are refreshed after 30
-days. Bank-sourced conditions (`source: "bank"`) are merged with the DoC-sourced ones already
-on the offer; a fetch that isn't `ok` leaves existing conditions untouched. `--cached-only`
-re-parses cached pages without any network requests.
+`blocked`/`error` results are never retried for 30 days; an `ok` result older than 30 days is
+re-fetched from the bank (bypassing the cached copy, which is then replaced), and an offer
+whose status is `none` becomes a candidate again if a later `list` run finds it an
+`offer_url`. Bank-sourced conditions (`source: "bank"`) are merged with the DoC-sourced ones
+already on the offer, and `hold_days` is recomputed from the merged set, so a keep-open
+window stated only on the bank's page moves the safe-close date; a fetch that isn't `ok`
+leaves existing conditions untouched. `--cached-only` re-parses cached pages without any
+network requests (never re-fetching, however stale), and `--no-cache` forces a fresh fetch of
+every page.
