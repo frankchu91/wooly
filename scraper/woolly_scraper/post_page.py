@@ -6,7 +6,7 @@ from datetime import date
 
 from bs4 import BeautifulSoup
 
-from .conditions import extract_conditions
+from .conditions import dedupe_conditions, extract_conditions
 from .models import Condition, PostData
 from .text import extract_states, parse_date, parse_money
 
@@ -107,7 +107,7 @@ def _structured_conditions(p: PostData) -> list[Condition]:
                     source="doc",
                 )
             )
-    if p.etf_days:
+    if p.etf_days is not None:
         out.append(
             Condition(
                 kind="keep_open",
@@ -116,7 +116,7 @@ def _structured_conditions(p: PostData) -> list[Condition]:
                 source="doc",
             )
         )
-    if p.etf_amount:
+    if p.etf_amount is not None and p.etf_amount > 0:
         out.append(
             Condition(
                 kind="fee",
@@ -235,6 +235,6 @@ def parse_post(html: str, today: date) -> PostData:
         p.anti_churn_months = int(m.group(1))
 
     fine_print = _section_text(soup, "The Fine Print")
-    p.conditions = _structured_conditions(p) + extract_conditions(fine_print, "doc")
+    p.conditions = dedupe_conditions(_structured_conditions(p) + extract_conditions(fine_print, "doc"))
 
     return p

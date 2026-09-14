@@ -46,6 +46,27 @@ def test_wells_fargo_conditions():
     assert any(c.kind == "new_customer" for c in p.conditions)
     ids = [c.id for c in p.conditions]
     assert len(ids) == len(set(ids))  # extraction already dedupes by id
+    # nothing derived from the "$500 bonus" figure, and no negated/boilerplate sentence
+    assert all(c.amount != 500 for c in p.conditions)
+    assert all("does not count" not in c.text for c in p.conditions)
+
+
+def test_wells_fargo_conditions_pinned_set():
+    # Pinned after the round-1 review fixes (negation gate, deposit amount skips the
+    # reward figure, tighter new_customer/transactions/balance patterns): the glance
+    # direct_deposit, the fine-print "deposit" sentence (same $1,000/90 days figures,
+    # via "electronic deposits" wording), and one new_customer sentence — nothing else.
+    p = parse_post(load("post-wells-fargo-500.html"), TODAY)
+    got = sorted((c.kind, c.amount, c.days) for c in p.conditions)
+    expected = sorted(
+        [
+            ("direct_deposit", 1000, 90),
+            ("deposit", 1000, 90),
+            ("new_customer", None, None),
+        ]
+    )
+    assert got == expected
+    assert all("does not count" not in c.text for c in p.conditions)
 
 
 def test_stanford_fcu_conditions_include_keep_open_from_etf():
