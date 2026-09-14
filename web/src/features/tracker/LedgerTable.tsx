@@ -1,7 +1,6 @@
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ChevronDown, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import { differenceInCalendarDays, parseISO } from "date-fns";
-import { useEffect, useId, useState } from "react";
+import { useState } from "react";
 
 import { hasPosted, receivedAmount } from "../../engine/conditions";
 import type { Bonus, TrackedItem } from "../../engine/types";
@@ -29,30 +28,6 @@ const CELL_CLASS = "whitespace-nowrap px-3 py-3 align-middle text-sm text-ink";
 /** The em dash used wherever a cell has nothing to show yet. */
 const EMPTY = t.bonuses.unknown;
 
-/** Where the ledger's open/closed state lives between visits. Deliberately outside the
- * store's own `woolly.v1` blob: this is a view preference, not user data, and it has no
- * business in an export. */
-export const LEDGER_OPEN_KEY = "woolly.ui.ledgerOpen";
-
-// Private browsing, disabled site data, and a quota-full origin all make `localStorage`
-// throw rather than return nothing, so every read and write is guarded — a ledger that
-// can't remember whether it was open must still open.
-function readLedgerOpen(): boolean {
-  try {
-    return window.localStorage.getItem(LEDGER_OPEN_KEY) !== "false";
-  } catch {
-    return true;
-  }
-}
-
-function writeLedgerOpen(open: boolean): void {
-  try {
-    window.localStorage.setItem(LEDGER_OPEN_KEY, open ? "true" : "false");
-  } catch {
-    // Nothing to do — the preference simply won't survive this session.
-  }
-}
-
 /**
  * The spreadsheet view of the tracker (spec §4.3.2): one compact row per tracked offer,
  * ordered by stage then open date. The table is the only thing on the page allowed to
@@ -65,13 +40,6 @@ function writeLedgerOpen(open: boolean): void {
  */
 export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTableProps) {
   const [showClosed, setShowClosed] = useState(true);
-  const [open, setOpen] = useState(readLedgerOpen);
-  const reduceMotion = useReducedMotion();
-  const panelId = useId();
-
-  useEffect(() => {
-    writeLedgerOpen(open);
-  }, [open]);
 
   const rows = sortForLedger(items).filter((item) => showClosed || item.status !== "closed");
 
@@ -98,278 +66,235 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
             </h2>
             <Badge tone="neutral">{t.tracker.ledger.rows(rows.length)}</Badge>
           </div>
-          <div className="flex items-center gap-2">
-            <Toggle
-              checked={showClosed}
-              onChange={setShowClosed}
-              label={t.tracker.ledger.showClosed}
-            />
-            <button
-              type="button"
-              aria-expanded={open}
-              aria-controls={panelId}
-              aria-label={open ? t.tracker.ledger.collapse : t.tracker.ledger.expand}
-              onClick={() => setOpen((value) => !value)}
-              className="rounded-control p-1.5 text-muted transition-colors duration-200 ease-out hover:bg-mint/60 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              <ChevronDown
-                size={18}
-                aria-hidden="true"
-                className={cn(
-                  "transition-transform duration-200 ease-out",
-                  open ? "rotate-180" : "rotate-0",
-                )}
-              />
-            </button>
-          </div>
+          <Toggle
+            checked={showClosed}
+            onChange={setShowClosed}
+            label={t.tracker.ledger.showClosed}
+          />
         </div>
 
-        {/* The wrapper is always mounted so `aria-controls` has something to point at, and
-         * so a collapsing panel leaves the accessibility tree (and the tab order) the
-         * moment it is dismissed rather than when its animation happens to finish. */}
-        <div id={panelId} aria-hidden={!open} inert={!open}>
-          {/* `initial={false}` so a ledger that was already open on load doesn't play an
-           * opening animation nobody asked for. */}
-          <AnimatePresence initial={false}>
-            {open ? (
-              <motion.div
-                key="ledger-panel"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.2, ease: "easeOut" }}
-                className="overflow-hidden"
-              >
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[900px] border-collapse">
-                    <thead>
-                      <tr className="border-y border-mint bg-cream">
-                        {/* The offer name stays put while the rest of the table scrolls
-                         * sideways on a narrow screen — a row of dates with no name attached
-                         * says nothing. */}
-                        <th scope="col" className={cn(HEADER_CLASS, "sticky left-0 z-10 bg-cream")}>
-                          {t.tracker.fields.offer}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.bonus}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.requirements}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.opened}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.ddBy}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.received}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.closeAfter}
-                        </th>
-                        <th scope="col" className={HEADER_CLASS}>
-                          {t.tracker.fields.stage}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {rows.length === 0 ? (
-                        <tr>
-                          <td colSpan={8} className="px-4 py-6 text-center text-sm text-muted">
-                            {t.tracker.ledger.noRows}
-                          </td>
-                        </tr>
-                      ) : null}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[900px] border-collapse">
+            <thead>
+              <tr className="border-y border-mint bg-cream">
+                {/* The offer name stays put while the rest of the table scrolls
+                 * sideways on a narrow screen — a row of dates with no name attached
+                 * says nothing. */}
+                <th scope="col" className={cn(HEADER_CLASS, "sticky left-0 z-10 bg-cream")}>
+                  {t.tracker.fields.offer}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.bonus}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.requirements}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.opened}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.ddBy}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.received}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.closeAfter}
+                </th>
+                <th scope="col" className={HEADER_CLASS}>
+                  {t.tracker.fields.stage}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.length === 0 ? (
+                <tr>
+                  <td colSpan={8} className="px-4 py-6 text-center text-sm text-muted">
+                    {t.tracker.ledger.noRows}
+                  </td>
+                </tr>
+              ) : null}
 
-                      {rows.map((item) => {
-                        const bonus = bonusesById[item.bonusId];
-                        const title = bonus?.title ?? item.bonusId;
-                        const progress = requirementsProgress(item, bonus);
-                        const urgent = ddDeadlineIsUrgent(item, bonus, today);
-                        const ddDeadline = ddDeadlineFor(item, bonus);
-                        const safeClose = safeCloseFor(item, bonus);
-                        const daysUntilClose = safeClose
-                          ? differenceInCalendarDays(parseISO(safeClose.date), today)
-                          : null;
-                        const posted = hasPosted(item);
-                        // P3: once the money is in (or the account is shut) the DD deadline is
-                        // history — it stays on the row as a record, but it stops asking for
-                        // anything, so it stops looking like the rest of the live dates.
-                        const deadlinePast = item.status === "received" || item.status === "closed";
+              {rows.map((item) => {
+                const bonus = bonusesById[item.bonusId];
+                const title = bonus?.title ?? item.bonusId;
+                const progress = requirementsProgress(item, bonus);
+                const urgent = ddDeadlineIsUrgent(item, bonus, today);
+                const ddDeadline = ddDeadlineFor(item, bonus);
+                const safeClose = safeCloseFor(item, bonus);
+                const daysUntilClose = safeClose
+                  ? differenceInCalendarDays(parseISO(safeClose.date), today)
+                  : null;
+                const posted = hasPosted(item);
+                // P3: once the money is in (or the account is shut) the DD deadline is
+                // history — it stays on the row as a record, but it stops asking for
+                // anything, so it stops looking like the rest of the live dates.
+                const deadlinePast = item.status === "received" || item.status === "closed";
 
-                        return (
-                          <tr
-                            key={item.id}
-                            onClick={() => onSelect(item.id)}
-                            className="group cursor-pointer border-b border-mint/60 transition-colors duration-200 ease-out last:border-b-0 hover:bg-mint/40"
-                          >
-                            <td
-                              className={cn(
-                                CELL_CLASS,
-                                "sticky left-0 z-10 min-w-[230px] whitespace-normal bg-surface transition-colors duration-200 ease-out group-hover:bg-mint/40",
-                              )}
-                            >
-                              <button
-                                type="button"
-                                aria-label={t.tracker.ledger.rowLabel(title)}
-                                // The row behind this button opens the same drawer, so without
-                                // this the click runs `onSelect` twice for one press.
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  onSelect(item.id);
-                                }}
-                                className="flex w-full items-center gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                              >
-                                <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
-                                <span className="min-w-0">
-                                  <span className="flex min-w-0 items-center gap-1.5">
-                                    <span className="truncate font-semibold text-ink">
-                                      {bonus?.bank ?? item.bonusId}
-                                    </span>
-                                    {item.applicant ? (
-                                      <span className="shrink-0">
-                                        <Badge tone="neutral">{item.applicant}</Badge>
-                                      </span>
-                                    ) : null}
-                                  </span>
-                                  {/* For a missing offer the id is already the name above, so the
-                                   * second line says what happened instead of repeating it. */}
-                                  <span className="line-clamp-1 text-xs text-muted">
-                                    {bonus ? title : t.tracker.ledger.missingOffer}
-                                  </span>
-                                </span>
-                              </button>
-                            </td>
+                return (
+                  <tr
+                    key={item.id}
+                    onClick={() => onSelect(item.id)}
+                    className="group cursor-pointer border-b border-mint/60 transition-colors duration-200 ease-out last:border-b-0 hover:bg-mint/40"
+                  >
+                    <td
+                      className={cn(
+                        CELL_CLASS,
+                        "sticky left-0 z-10 min-w-[230px] whitespace-normal bg-surface transition-colors duration-200 ease-out group-hover:bg-mint/40",
+                      )}
+                    >
+                      <button
+                        type="button"
+                        aria-label={t.tracker.ledger.rowLabel(title)}
+                        // The row behind this button opens the same drawer, so without
+                        // this the click runs `onSelect` twice for one press.
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onSelect(item.id);
+                        }}
+                        className="flex w-full items-center gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      >
+                        <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
+                        <span className="min-w-0">
+                          <span className="flex min-w-0 items-center gap-1.5">
+                            <span className="truncate font-semibold text-ink">
+                              {bonus?.bank ?? item.bonusId}
+                            </span>
+                            {item.applicant ? (
+                              <span className="shrink-0">
+                                <Badge tone="neutral">{item.applicant}</Badge>
+                              </span>
+                            ) : null}
+                          </span>
+                          {/* For a missing offer the id is already the name above, so the
+                           * second line says what happened instead of repeating it. */}
+                          <span className="line-clamp-1 text-xs text-muted">
+                            {bonus ? title : t.tracker.ledger.missingOffer}
+                          </span>
+                        </span>
+                      </button>
+                    </td>
 
-                            <td className={cn(CELL_CLASS, "tabular-nums")}>
-                              {bonus ? money(bonus.bonus_max) : EMPTY}
-                            </td>
+                    <td className={cn(CELL_CLASS, "tabular-nums")}>
+                      {bonus ? money(bonus.bonus_max) : EMPTY}
+                    </td>
 
-                            <td className={CELL_CLASS}>
-                              {progress.total > 0 ? (
-                                <Badge tone={urgent ? "coral" : "neutral"}>
-                                  {t.tracker.ledger.requirements(progress.done, progress.total)}
-                                </Badge>
-                              ) : (
-                                <span className="text-muted">{EMPTY}</span>
-                              )}
-                            </td>
+                    <td className={CELL_CLASS}>
+                      {progress.total > 0 ? (
+                        <Badge tone={urgent ? "coral" : "neutral"}>
+                          {t.tracker.ledger.requirements(progress.done, progress.total)}
+                        </Badge>
+                      ) : (
+                        <span className="text-muted">{EMPTY}</span>
+                      )}
+                    </td>
 
-                            <td className={CELL_CLASS}>
-                              {item.dates.opened ? (
-                                dateLabel(item.dates.opened)
-                              ) : (
-                                <span className="text-muted">{EMPTY}</span>
-                              )}
-                            </td>
+                    <td className={CELL_CLASS}>
+                      {item.dates.opened ? (
+                        dateLabel(item.dates.opened)
+                      ) : (
+                        <span className="text-muted">{EMPTY}</span>
+                      )}
+                    </td>
 
-                            <td
-                              className={cn(
-                                CELL_CLASS,
-                                urgent && "text-coral-dark",
-                                deadlinePast && "text-muted",
-                              )}
-                            >
-                              {ddDeadline ? (
-                                dateLabel(ddDeadline)
-                              ) : (
-                                <span className="text-muted">{EMPTY}</span>
-                              )}
-                            </td>
+                    <td
+                      className={cn(
+                        CELL_CLASS,
+                        urgent && "text-coral-dark",
+                        deadlinePast && "text-muted",
+                      )}
+                    >
+                      {ddDeadline ? (
+                        dateLabel(ddDeadline)
+                      ) : (
+                        <span className="text-muted">{EMPTY}</span>
+                      )}
+                    </td>
 
-                            <td className={CELL_CLASS}>
-                              {posted ? (
-                                <div>
-                                  <p>
-                                    {item.dates.received ? (
-                                      dateLabel(item.dates.received)
-                                    ) : (
-                                      <span className="text-muted">{EMPTY}</span>
-                                    )}
-                                  </p>
-                                  {bonus ? (
-                                    <p className="text-xs tabular-nums text-muted">
-                                      {money(receivedAmount(item, bonus))}
-                                    </p>
-                                  ) : null}
-                                </div>
-                              ) : item.status === "closed" ? (
-                                // Closed without the bonus ever arriving: an em dash here would
-                                // read as "not yet", which this row will never be. Allowed to
-                                // wrap — held on one line it widens the whole column by half
-                                // again and pushes the Stage badge off the end of the card.
-                                <span className="block max-w-[8rem] whitespace-normal text-muted">
-                                  {t.tracker.ledger.closedNoBonus}
-                                </span>
-                              ) : (
-                                <span className="text-muted">{EMPTY}</span>
-                              )}
-                            </td>
-
-                            <td className={CELL_CLASS}>
-                              {safeClose ? (
-                                <div className="flex items-center gap-1.5">
-                                  {/* The lock only means something while the money is on the
-                                   * line — once the account is closed the countdown is history. */}
-                                  {item.status === "received" ? (
-                                    <Lock
-                                      size={13}
-                                      className="shrink-0 text-muted"
-                                      aria-hidden="true"
-                                    />
-                                  ) : null}
-                                  <span>{dateLabel(safeClose.date)}</span>
-                                  {item.status === "received" &&
-                                  daysUntilClose !== null &&
-                                  daysUntilClose > 0 ? (
-                                    <span className="text-xs text-muted">
-                                      {t.tracker.ledger.daysUntilClose(daysUntilClose)}
-                                    </span>
-                                  ) : null}
-                                </div>
-                              ) : (
-                                <span className="text-muted">{EMPTY}</span>
-                              )}
-                            </td>
-
-                            <td className={CELL_CLASS}>
-                              <Badge tone={item.status === "closed" ? "neutral" : "mint"}>
-                                {t.tracker.statuses[item.status]}
-                              </Badge>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-
-                    {rows.length > 0 ? (
-                      <tfoot>
-                        <tr className="border-t border-mint bg-cream font-semibold">
-                          <th
-                            scope="row"
-                            className={cn(
-                              CELL_CLASS,
-                              "sticky left-0 z-10 bg-cream text-left font-semibold",
+                    <td className={CELL_CLASS}>
+                      {posted ? (
+                        <div>
+                          <p>
+                            {item.dates.received ? (
+                              dateLabel(item.dates.received)
+                            ) : (
+                              <span className="text-muted">{EMPTY}</span>
                             )}
-                          >
-                            {t.tracker.ledger.total}
-                          </th>
-                          <td className={cn(CELL_CLASS, "tabular-nums")}>{money(bonusTotal)}</td>
-                          <td className={CELL_CLASS} />
-                          <td className={CELL_CLASS} />
-                          <td className={CELL_CLASS} />
-                          <td className={cn(CELL_CLASS, "tabular-nums")}>{money(receivedTotal)}</td>
-                          <td className={CELL_CLASS} />
-                          <td className={CELL_CLASS} />
-                        </tr>
-                      </tfoot>
-                    ) : null}
-                  </table>
-                </div>
-              </motion.div>
+                          </p>
+                          {bonus ? (
+                            <p className="text-xs tabular-nums text-muted">
+                              {money(receivedAmount(item, bonus))}
+                            </p>
+                          ) : null}
+                        </div>
+                      ) : item.status === "closed" ? (
+                        // Closed without the bonus ever arriving: an em dash here would
+                        // read as "not yet", which this row will never be. Allowed to
+                        // wrap — held on one line it widens the whole column by half
+                        // again and pushes the Stage badge off the end of the card.
+                        <span className="block max-w-[8rem] whitespace-normal text-muted">
+                          {t.tracker.ledger.closedNoBonus}
+                        </span>
+                      ) : (
+                        <span className="text-muted">{EMPTY}</span>
+                      )}
+                    </td>
+
+                    <td className={CELL_CLASS}>
+                      {safeClose ? (
+                        <div className="flex items-center gap-1.5">
+                          {/* The lock only means something while the money is on the
+                           * line — once the account is closed the countdown is history. */}
+                          {item.status === "received" ? (
+                            <Lock size={13} className="shrink-0 text-muted" aria-hidden="true" />
+                          ) : null}
+                          <span>{dateLabel(safeClose.date)}</span>
+                          {item.status === "received" &&
+                          daysUntilClose !== null &&
+                          daysUntilClose > 0 ? (
+                            <span className="text-xs text-muted">
+                              {t.tracker.ledger.daysUntilClose(daysUntilClose)}
+                            </span>
+                          ) : null}
+                        </div>
+                      ) : (
+                        <span className="text-muted">{EMPTY}</span>
+                      )}
+                    </td>
+
+                    <td className={CELL_CLASS}>
+                      <Badge tone={item.status === "closed" ? "neutral" : "mint"}>
+                        {t.tracker.statuses[item.status]}
+                      </Badge>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+
+            {rows.length > 0 ? (
+              <tfoot>
+                <tr className="border-t border-mint bg-cream font-semibold">
+                  <th
+                    scope="row"
+                    className={cn(
+                      CELL_CLASS,
+                      "sticky left-0 z-10 bg-cream text-left font-semibold",
+                    )}
+                  >
+                    {t.tracker.ledger.total}
+                  </th>
+                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(bonusTotal)}</td>
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(receivedTotal)}</td>
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                </tr>
+              </tfoot>
             ) : null}
-          </AnimatePresence>
+          </table>
         </div>
       </Card>
     </section>

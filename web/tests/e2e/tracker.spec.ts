@@ -131,7 +131,7 @@ test("the item drawer separates the checklist from the notes", async ({ page }) 
 
 test("a ledger row opens its drawer from the keyboard", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/tracker");
+  await page.goto("/ledger");
 
   const offer = page.getByRole("button", { name: "Open Wells Fargo $500 Checking Bonus" });
   await offer.focus();

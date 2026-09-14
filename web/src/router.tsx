@@ -8,6 +8,7 @@ import { Layout } from "./features/layout/Layout";
 import { Onboarding } from "./features/onboarding/Onboarding";
 import { PlanPage } from "./features/plan/PlanPage";
 import { SettingsPage } from "./features/settings/SettingsPage";
+import { LedgerPage } from "./features/tracker/LedgerPage";
 import { TrackerPage } from "./features/tracker/TrackerPage";
 import { t } from "./i18n/en";
 import { Button, EmptyState } from "./ui";
@@ -35,6 +36,7 @@ export const rootRoute: NonIndexRouteObject = {
     { path: "start", element: <Onboarding />, errorElement },
     { path: "plan", element: <PlanPage />, errorElement },
     { path: "tracker", element: <TrackerPage />, errorElement },
+    { path: "ledger", element: <LedgerPage />, errorElement },
     { path: "bonuses", element: <BonusesPage />, errorElement },
     { path: "settings", element: <SettingsPage />, errorElement },
     { path: "*", element: <NotFound />, errorElement },

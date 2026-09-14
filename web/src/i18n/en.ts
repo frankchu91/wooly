@@ -3,6 +3,7 @@ export const t = {
   nav: {
     plan: "Plan",
     tracker: "Tracker",
+    ledger: "Ledger",
     bonuses: "Bonuses",
     settings: "Settings",
     primary: "Primary",
@@ -146,8 +147,14 @@ export const t = {
       has_etf: "Early closure fee",
     },
   },
+  ledger: {
+    title: "Ledger",
+    sub: "Every account you're tracking, and what each one has paid.",
+    seePipeline: "See the pipeline",
+  },
   tracker: {
     title: "My bonuses",
+    seeLedger: "See the ledger",
     statuses: {
       planned: "Planned",
       opened: "Opened",
@@ -176,8 +183,6 @@ export const t = {
       accounts: (n: number) => (n === 1 ? "1 account" : `${n} accounts`),
       showClosed: "Show closed",
       rows: (n: number) => (n === 1 ? "1 row" : `${n} rows`),
-      collapse: "Collapse ledger",
-      expand: "Expand ledger",
       requirements: (done: number, total: number) => `${done}/${total}`,
       daysUntilClose: (n: number) => `${n} days`,
       noRows: "Every tracked account is closed — turn on “Show closed” to see them.",

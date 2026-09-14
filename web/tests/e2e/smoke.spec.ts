@@ -15,8 +15,7 @@ test("landing → wizard → plan", async ({ page }) => {
   await page.getByRole("button", { name: "Track this plan" }).click();
   await expect(page).toHaveURL(/\/tracker/, { timeout: 10000 });
 
-  // The ledger and the full five-stage pipeline are both on screen.
-  await expect(page.getByText("Earned")).toBeVisible();
+  // The full five-stage pipeline is on screen.
   for (const stage of [
     "Planned",
     "Opened",
@@ -26,6 +25,12 @@ test("landing → wizard → plan", async ({ page }) => {
   ]) {
     await expect(page.getByRole("heading", { level: 3, name: stage })).toBeVisible();
   }
+
+  // The spreadsheet lives on its own tab now.
+  await page.getByRole("link", { name: "Ledger", exact: true }).first().click();
+  await expect(page).toHaveURL(/\/ledger/, { timeout: 10000 });
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByText("Earned")).toBeVisible();
 });
 
 test("bonuses page shows the offer count", async ({ page }) => {

@@ -1,4 +1,4 @@
-import { CalendarDays, Landmark, ListChecks, Settings } from "lucide-react";
+import { BookOpenText, CalendarDays, Landmark, ListChecks, Settings } from "lucide-react";
 import type { ComponentType } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -19,6 +19,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { to: "/plan", label: t.nav.plan, icon: CalendarDays },
   { to: "/tracker", label: t.nav.tracker, icon: ListChecks },
+  { to: "/ledger", label: t.nav.ledger, icon: BookOpenText },
   { to: "/bonuses", label: t.nav.bonuses, icon: Landmark },
 ];
 

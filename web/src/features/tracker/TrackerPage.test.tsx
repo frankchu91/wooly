@@ -11,7 +11,6 @@ import { defaultProfile, STATUS_ORDER } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { dateLabel, money } from "../../ui";
-import { LEDGER_OPEN_KEY, LedgerTable } from "./LedgerTable";
 import { TrackerPage } from "./TrackerPage";
 
 const dataset = { generated_at: "2026-09-13T00:00:00Z", source: "", bonuses: fixture };
@@ -98,18 +97,6 @@ function column(stage: keyof typeof t.tracker.statuses): HTMLElement {
   return heading.closest("li") as HTMLElement;
 }
 
-/** The offer-name button in each ledger row, in rendered order — the keyboard route into
- * the item drawer, and the thing that carries the row's label. */
-function ledgerRows(): HTMLElement[] {
-  return screen.getAllByRole("button", { name: /^Open / });
-}
-
-/** The `<tr>` around one ledger row's offer-name button. */
-function ledgerRow(title: string): HTMLElement {
-  const button = screen.getByRole("button", { name: t.tracker.ledger.rowLabel(title) });
-  return button.closest("tr") as HTMLElement;
-}
-
 beforeEach(() => {
   useStore.setState(initialState, true);
   localStorage.clear();
@@ -169,167 +156,6 @@ describe("TrackerPage — ledger totals", () => {
         .getAllByText(money(450))
         .some((el) => el.classList.contains("text-muted")),
     ).toBe(true);
-
-    // And the ledger says so in the row itself, rather than showing a figure that never
-    // posted or an em dash that reads as "not yet".
-    const row = ledgerRow("Eastern Bank $750 Checking Bonus");
-    expect(within(row).getByText(t.tracker.ledger.closedNoBonus)).toBeInTheDocument();
-  });
-});
-
-describe("TrackerPage — ledger table", () => {
-  test("renders one row per tracked item, ordered by stage then open date", () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    expect(ledgerRows().map((row) => row.getAttribute("aria-label"))).toEqual([
-      t.tracker.ledger.rowLabel("BMO $400 Checking Bonus"),
-      t.tracker.ledger.rowLabel("Wells Fargo $500 Checking Bonus"),
-      t.tracker.ledger.rowLabel("Chase $400 Checking Bonus"),
-      t.tracker.ledger.rowLabel("US Bank $450 Checking Bonus"),
-      t.tracker.ledger.rowLabel("Eastern Bank $750 Checking Bonus"),
-    ]);
-  });
-
-  test("shows the column headers the spreadsheet needs", () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    const table = screen.getByRole("table");
-    for (const header of Object.values(t.tracker.fields)) {
-      expect(within(table).getByRole("columnheader", { name: header })).toBeInTheDocument();
-    }
-  });
-
-  test("turning off “Show closed” hides the closed row", async () => {
-    const user = userEvent.setup({ delay: null });
-    seedAllStages();
-    renderTrackerPage();
-
-    expect(ledgerRows()).toHaveLength(5);
-
-    await user.click(screen.getByRole("switch", { name: t.tracker.ledger.showClosed }));
-
-    const labels = ledgerRows().map((row) => row.getAttribute("aria-label"));
-    expect(labels).toHaveLength(4);
-    expect(labels).not.toContain(t.tracker.ledger.rowLabel("Eastern Bank $750 Checking Bonus"));
-  });
-
-  test("an item whose bonus has left the dataset names the id once and says why", () => {
-    useStore.setState({ tracker: [trackedItem({ bonusId: "gone-forever", status: "opened" })] });
-    renderTrackerPage();
-
-    const row = ledgerRow("gone-forever");
-    expect(within(row).getAllByText("gone-forever")).toHaveLength(1);
-    expect(within(row).getByText(t.tracker.ledger.missingOffer)).toBeInTheDocument();
-    expect(within(row).getAllByText(t.bonuses.unknown).length).toBeGreaterThan(0);
-    expect(within(row).queryByText(/^\$/)).not.toBeInTheDocument();
-  });
-
-  test("the rows stay rows — only the offer name is a button", () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    const row = ledgerRow("Wells Fargo $500 Checking Bonus");
-    expect(row).not.toHaveAttribute("role");
-    expect(row).not.toHaveAttribute("tabindex");
-    expect(within(row).getAllByRole("button")).toHaveLength(1);
-  });
-
-  // P2: the spreadsheet this replaces ended in a totals row, and so does this one.
-  test("a totals row adds up the bonus column and the money that actually posted", () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    const footer = screen.getByRole("table").querySelector("tfoot") as HTMLElement;
-    expect(within(footer).getByText(t.tracker.ledger.total)).toBeInTheDocument();
-    // 400 + 500 + 400 + 450 + 750 headline; 475 (recorded) + 750 (closed after paying).
-    expect(within(footer).getByText(money(2500))).toBeInTheDocument();
-    expect(within(footer).getByText(money(1225))).toBeInTheDocument();
-  });
-
-  test("the totals row follows “Show closed”, so it always matches the rows above it", async () => {
-    const user = userEvent.setup({ delay: null });
-    seedAllStages();
-    renderTrackerPage();
-
-    await user.click(screen.getByRole("switch", { name: t.tracker.ledger.showClosed }));
-
-    const footer = screen.getByRole("table").querySelector("tfoot") as HTMLElement;
-    expect(within(footer).getByText(money(1750))).toBeInTheDocument(); // 2500 - 750
-    expect(within(footer).getByText(money(475))).toBeInTheDocument(); // 1225 - 750
-  });
-
-  // P3: the DD deadline stops asking anything once the money is in.
-  test("the DD deadline is muted once the bonus has been received", () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    const live = ledgerRow("Wells Fargo $500 Checking Bonus").querySelectorAll("td")[4];
-    const past = ledgerRow("US Bank $450 Checking Bonus").querySelectorAll("td")[4];
-    expect(live.className).not.toContain("text-muted");
-    expect(past.className).toContain("text-muted");
-  });
-
-  // P1: the household column from the owner's spreadsheet.
-  test("an applicant shows as a badge on the row and on the pipeline card", () => {
-    useStore.setState({
-      tracker: [
-        trackedItem({
-          bonusId: "wells-fargo-500",
-          status: "opened",
-          dates: { opened: "2026-09-04" },
-          applicant: "partner",
-        }),
-      ],
-    });
-    renderTrackerPage();
-
-    expect(
-      within(ledgerRow("Wells Fargo $500 Checking Bonus")).getByText("partner"),
-    ).toBeInTheDocument();
-    expect(within(column("opened")).getByText("partner")).toBeInTheDocument();
-  });
-
-  test("clicking the offer name selects the row once, not twice", () => {
-    // X12: the row behind the button opens the same drawer, so without
-    // `stopPropagation` one press runs `onSelect` twice.
-    const onSelect = vi.fn();
-    const bonusesById = Object.fromEntries(fixture.map((b) => [b.id, b]));
-    render(
-      <LedgerTable
-        items={[trackedItem({ bonusId: "wells-fargo-500", status: "opened" })]}
-        bonusesById={bonusesById}
-        today={today}
-        onSelect={onSelect}
-      />,
-    );
-
-    fireEvent.click(
-      screen.getByRole("button", {
-        name: t.tracker.ledger.rowLabel("Wells Fargo $500 Checking Bonus"),
-      }),
-    );
-
-    expect(onSelect).toHaveBeenCalledTimes(1);
-    expect(onSelect).toHaveBeenCalledWith("wells-fargo-500");
-  });
-
-  test("tabbing to the offer name and pressing Enter opens that item's drawer", async () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    const row = screen.getByRole("button", {
-      name: t.tracker.ledger.rowLabel("Wells Fargo $500 Checking Bonus"),
-    });
-    row.focus();
-    await userEvent.setup({ delay: null }).keyboard("{Enter}");
-
-    expect(
-      within(screen.getByRole("dialog")).getByRole("heading", {
-        name: "Wells Fargo $500 Checking Bonus",
-      }),
-    ).toBeInTheDocument();
   });
 });
 
@@ -490,6 +316,23 @@ describe("TrackerPage — pipeline", () => {
     expect(trigger).toHaveFocus();
   });
 
+  // P1: the household column from the owner's spreadsheet.
+  test("an applicant shows as a badge on the pipeline card", () => {
+    useStore.setState({
+      tracker: [
+        trackedItem({
+          bonusId: "wells-fargo-500",
+          status: "opened",
+          dates: { opened: "2026-09-04" },
+          applicant: "partner",
+        }),
+      ],
+    });
+    renderTrackerPage();
+
+    expect(within(column("opened")).getByText("partner")).toBeInTheDocument();
+  });
+
   test("clicking a card's body — not just its title — opens the drawer", async () => {
     const user = userEvent.setup({ delay: null });
     seedAllStages();
@@ -592,51 +435,15 @@ describe("TrackerPage — empty state", () => {
   });
 });
 
-describe("TrackerPage — collapsible ledger", () => {
-  test("the header counts the rows on screen", () => {
+describe("TrackerPage — the ledger lives elsewhere", () => {
+  test("the spreadsheet is not on this page, and a quiet link leads to it", () => {
     seedAllStages();
     renderTrackerPage();
 
-    expect(screen.getByText(t.tracker.ledger.rows(5))).toBeInTheDocument();
-  });
-
-  test("the chevron hides the table, and the choice survives a remount", async () => {
-    const user = userEvent.setup({ delay: null });
-    seedAllStages();
-    const first = renderTrackerPage();
-
-    const chevron = screen.getByRole("button", { name: t.tracker.ledger.collapse });
-    expect(chevron).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("table")).toBeInTheDocument();
-
-    await user.click(chevron);
-
-    expect(screen.getByRole("button", { name: t.tracker.ledger.expand })).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
-    // The panel leaves the accessibility tree on the click, not when its collapse
-    // animation happens to finish.
     expect(screen.queryByRole("table")).not.toBeInTheDocument();
-    expect(localStorage.getItem(LEDGER_OPEN_KEY)).toBe("false");
-
-    first.unmount();
-    renderTrackerPage();
-
-    expect(screen.getByRole("button", { name: t.tracker.ledger.expand })).toHaveAttribute(
-      "aria-expanded",
-      "false",
+    expect(screen.getByRole("link", { name: t.tracker.seeLedger })).toHaveAttribute(
+      "href",
+      "/ledger",
     );
-    expect(screen.queryByRole("table")).not.toBeInTheDocument();
-  });
-
-  test("the chevron controls the panel it hides", () => {
-    seedAllStages();
-    renderTrackerPage();
-
-    const chevron = screen.getByRole("button", { name: t.tracker.ledger.collapse });
-    const panelId = chevron.getAttribute("aria-controls");
-    expect(panelId).toBeTruthy();
-    expect(document.getElementById(panelId as string)).toContainElement(screen.getByRole("table"));
   });
 });

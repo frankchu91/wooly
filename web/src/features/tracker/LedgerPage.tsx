@@ -1,37 +1,27 @@
 import { t } from "../../i18n/en";
-import { Button, Card, EmptyState } from "../../ui";
+import { Button, EmptyState } from "../../ui";
 import { ItemDrawer } from "./ItemDrawer";
+import { LedgerTable } from "./LedgerTable";
 import { LedgerTotals } from "./LedgerTotals";
-import { Pipeline } from "./Pipeline";
 import { useTrackerView } from "./useTrackerView";
 
 /**
- * The tracker (spec §4.3): ledger totals, the five-stage pipeline, and the item drawer.
- *
- * The spreadsheet itself lives on its own page now (`/ledger`), so this one is the
- * pipeline's — a quiet link under the title leads to the other view, and both share
- * `useTrackerView`, so a row clicked on either opens the same drawer.
+ * The ledger (spec §4.3.2) on its own page: the totals, then the spreadsheet, then the
+ * item drawer. It shares `useTrackerView` with the tracker, so a row clicked here opens
+ * exactly the drawer a pipeline card would.
  */
-export function TrackerPage() {
-  const {
-    tracker,
-    profile,
-    bonusesById,
-    totals,
-    today,
-    selectedItem,
-    openDrawer,
-    closeDrawer,
-    handleUntrack,
-  } = useTrackerView();
+export function LedgerPage() {
+  const { tracker, profile, bonusesById, totals, today, selectedItem, openDrawer, closeDrawer } =
+    useTrackerView();
 
   return (
     <div className="flex flex-col gap-6 pb-4">
       <div className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-ink md:text-3xl">{t.tracker.title}</h1>
+        <h1 className="font-heading text-2xl font-bold text-ink md:text-3xl">{t.ledger.title}</h1>
+        <p className="text-sm text-muted">{t.ledger.sub}</p>
         <div>
-          <Button to="/ledger" variant="ghost" size="sm">
-            {t.tracker.seeLedger}
+          <Button to="/tracker" variant="ghost" size="sm">
+            {t.ledger.seePipeline}
           </Button>
         </div>
       </div>
@@ -45,19 +35,14 @@ export function TrackerPage() {
       ) : (
         <>
           <LedgerTotals totals={totals} />
-          <Pipeline
+          <LedgerTable
             items={tracker}
             bonusesById={bonusesById}
             today={today}
             onSelect={openDrawer}
-            onUntrack={handleUntrack}
           />
         </>
       )}
-
-      <Card tone="mint">
-        <p className="text-sm text-primary-dark">{t.tracker.pro}</p>
-      </Card>
 
       <ItemDrawer
         item={selectedItem}
