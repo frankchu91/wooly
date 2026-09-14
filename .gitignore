@@ -4,6 +4,7 @@ dist/
 __pycache__/
 *.pyc
 scraper/.cache/
+*.egg-info/
 .DS_Store
 .claude/settings.local.json
 web/public/bonuses.json

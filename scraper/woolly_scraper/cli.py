@@ -71,13 +71,13 @@ def cmd_enrich(args) -> int:
     for b in todo:
         try:
             html = fetcher.get(b.doc_url)
+            by_id[b.id] = apply_post(b, parse_post(html, today()))
         except BlockedError as e:
             print(str(e), file=sys.stderr)
             break
         except Exception as e:  # noqa: BLE001 - one bad post must not kill the run
             print(f"skip {b.id}: {e}", file=sys.stderr)
             continue
-        by_id[b.id] = apply_post(b, parse_post(html, today()))
         done += 1
         save(path, list(by_id.values()))  # checkpoint after every post (runs are slow)
     print(f"enrich: {done}/{len(todo)} posts processed")
