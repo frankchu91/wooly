@@ -34,6 +34,16 @@ test("returns a Plan derived from profile, bonuses, and skippedIds", () => {
   expect(result.current?.months).toHaveLength(12);
 });
 
+test("starts the plan at the current month, not the profile's persisted startMonth", () => {
+  // A profile saved back in May and reopened in September must not schedule the first
+  // four months of its plan into the past.
+  useStore.getState().setProfile({ ...defaultProfile("2026-05"), state: "MA" });
+  const { result } = renderHook(() => usePlan(fixture));
+
+  expect(result.current?.months[0].month).toBe("2026-09");
+  expect(result.current?.months.at(-1)?.month).toBe("2027-08");
+});
+
 test("skipping a bonus removes it from the plan's months and adds it to skipped", () => {
   useStore.getState().setProfile(defaultProfile("2026-09"));
   const { result, rerender } = renderHook(() => usePlan(fixture));

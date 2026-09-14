@@ -210,6 +210,70 @@ describe("export / clearAll / import", () => {
   });
 });
 
+describe("hydration", () => {
+  test("a partial profile (no prefs, no numbers) hydrates with defaults filled in", async () => {
+    localStorage.setItem(
+      "woolly.v1",
+      JSON.stringify({ state: { profile: { state: "MA" } }, version: 1 }),
+    );
+
+    await useStore.persist.rehydrate();
+
+    const hydrated = useStore.getState().profile;
+    expect(hydrated?.state).toBe("MA");
+    expect(hydrated?.monthlyDD).toBe(5000);
+    expect(hydrated?.maxSplits).toBe(2);
+    expect(hydrated?.horizonMonths).toBe(12);
+    expect(hydrated?.prefs.avoidHardPull).toBe(true);
+    expect(hydrated?.history).toEqual([]);
+    expect(typeof hydrated?.startMonth).toBe("string");
+    expect(useStore.getState().skippedIds).toEqual([]);
+    expect(useStore.getState().tracker).toEqual([]);
+  });
+
+  test("junk types in the persisted blob are replaced by defaults instead of throwing", async () => {
+    localStorage.setItem(
+      "woolly.v1",
+      JSON.stringify({
+        state: {
+          profile: { state: 7, startMonth: null, monthlyDD: "lots", maxSplits: NaN },
+          skippedIds: "nope",
+          tracker: [{ bonusId: "chase-400" }, "junk", null],
+        },
+        version: 1,
+      }),
+    );
+
+    await useStore.persist.rehydrate();
+
+    const hydrated = useStore.getState().profile;
+    expect(hydrated?.state).toBe("");
+    expect(hydrated?.monthlyDD).toBe(5000);
+    expect(hydrated?.maxSplits).toBe(2);
+    expect(typeof hydrated?.startMonth).toBe("string");
+    expect(useStore.getState().skippedIds).toEqual([]);
+    expect(useStore.getState().tracker).toEqual([
+      { id: "chase-400", bonusId: "chase-400", status: "planned", dates: {}, openMonth: "" },
+    ]);
+  });
+
+  test("a version 0 blob is migrated instead of dropped", async () => {
+    localStorage.setItem(
+      "woolly.v1",
+      JSON.stringify({
+        state: { profile: { state: "NY", monthlyDD: 4000 }, skippedIds: ["chase-400"] },
+        version: 0,
+      }),
+    );
+
+    await useStore.persist.rehydrate();
+
+    expect(useStore.getState().profile?.state).toBe("NY");
+    expect(useStore.getState().profile?.monthlyDD).toBe(4000);
+    expect(useStore.getState().skippedIds).toEqual(["chase-400"]);
+  });
+});
+
 describe("persistence", () => {
   test("setProfile persists to localStorage under woolly.v1", () => {
     useStore.getState().setProfile(profile);
