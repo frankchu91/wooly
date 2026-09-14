@@ -128,6 +128,10 @@ export interface TrackedItem {
    * confirms — the bonus's headline `bonus_max`. Absent until they enter one. */
   bonusReceived?: number;
   notes?: string;
+  /** Who the account is for, in the user's own words ("me", "partner", "joint"). Bonus
+   * chasers run the same offer across a household, and the spreadsheet this tracker
+   * replaces had a column for it. Absent until they fill it in; never empty. */
+  applicant?: string;
 }
 // The order `advance` walks through; `closed` has no successor, so advancing there is a
 // no-op. Also the canonical stage ordering `setStatus` uses to tell a forward move from

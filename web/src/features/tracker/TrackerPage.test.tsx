@@ -83,7 +83,9 @@ function seedAllStages() {
       trackedItem({
         bonusId: "eastern-750",
         status: "closed",
-        dates: { opened: "2026-01-05", closed: "2026-08-01" },
+        // Closed *after* the bonus posted — the ordinary end of a tracked offer, and the
+        // only kind of closed row that counts as earned (X1).
+        dates: { opened: "2026-01-05", received: "2026-07-20", closed: "2026-08-01" },
       }),
     ],
   });
@@ -132,6 +134,45 @@ describe("TrackerPage — ledger totals", () => {
 
     expect(within(totals).getAllByText(t.tracker.ledger.accounts(2))).toHaveLength(2);
     expect(within(totals).getByText(t.tracker.ledger.accounts(1))).toBeInTheDocument();
+  });
+
+  // X1, the owner's question. Both of these sit in the Closed column; only one of them is
+  // money the user actually has.
+  test("a closed account that never paid is not earned, in the totals or the columns", () => {
+    useStore.setState({
+      tracker: [
+        trackedItem({
+          bonusId: "eastern-750",
+          status: "closed",
+          dates: { opened: "2026-01-05", closed: "2026-02-01" },
+        }),
+        trackedItem({
+          bonusId: "us-bank-450",
+          status: "closed",
+          dates: { opened: "2026-01-05", received: "2026-03-01", closed: "2026-08-01" },
+        }),
+      ],
+    });
+    renderTrackerPage();
+
+    const totals = screen.getByRole("region", { name: t.tracker.ledger.totals });
+    expect(within(totals).getByText(money(450))).toBeInTheDocument(); // not 1200
+    expect(within(totals).getByText(t.tracker.ledger.accounts(1))).toBeInTheDocument();
+
+    // Both rows are still in the Closed column; its sum (the figure beside the count in
+    // the column heading, not the amount on a card) is only the one that paid.
+    const closed = column("closed");
+    expect(within(closed).getByText("2")).toBeInTheDocument();
+    expect(
+      within(closed)
+        .getAllByText(money(450))
+        .some((el) => el.classList.contains("text-muted")),
+    ).toBe(true);
+
+    // And the ledger says so in the row itself, rather than showing a figure that never
+    // posted or an em dash that reads as "not yet".
+    const row = ledgerRow("Eastern Bank $750 Checking Bonus");
+    expect(within(row).getByText(t.tracker.ledger.closedNoBonus)).toBeInTheDocument();
   });
 });
 
@@ -192,6 +233,81 @@ describe("TrackerPage — ledger table", () => {
     expect(row).not.toHaveAttribute("role");
     expect(row).not.toHaveAttribute("tabindex");
     expect(within(row).getAllByRole("button")).toHaveLength(1);
+  });
+
+  // P2: the spreadsheet this replaces ended in a totals row, and so does this one.
+  test("a totals row adds up the bonus column and the money that actually posted", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    const footer = screen.getByRole("table").querySelector("tfoot") as HTMLElement;
+    expect(within(footer).getByText(t.tracker.ledger.total)).toBeInTheDocument();
+    // 400 + 500 + 400 + 450 + 750 headline; 475 (recorded) + 750 (closed after paying).
+    expect(within(footer).getByText(money(2500))).toBeInTheDocument();
+    expect(within(footer).getByText(money(1225))).toBeInTheDocument();
+  });
+
+  test("the totals row follows “Show closed”, so it always matches the rows above it", async () => {
+    const user = userEvent.setup({ delay: null });
+    seedAllStages();
+    renderTrackerPage();
+
+    await user.click(screen.getByRole("switch", { name: t.tracker.ledger.showClosed }));
+
+    const footer = screen.getByRole("table").querySelector("tfoot") as HTMLElement;
+    expect(within(footer).getByText(money(1750))).toBeInTheDocument(); // 2500 - 750
+    expect(within(footer).getByText(money(475))).toBeInTheDocument(); // 1225 - 750
+  });
+
+  // P3: the DD deadline stops asking anything once the money is in.
+  test("the DD deadline is muted once the bonus has been received", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    const live = ledgerRow("Wells Fargo $500 Checking Bonus").querySelectorAll("td")[4];
+    const past = ledgerRow("US Bank $450 Checking Bonus").querySelectorAll("td")[4];
+    expect(live.className).not.toContain("text-muted");
+    expect(past.className).toContain("text-muted");
+  });
+
+  // P1: the household column from the owner's spreadsheet.
+  test("an applicant shows as a badge on the row and on the pipeline card", () => {
+    useStore.setState({
+      tracker: [
+        trackedItem({
+          bonusId: "wells-fargo-500",
+          status: "opened",
+          dates: { opened: "2026-09-04" },
+          applicant: "partner",
+        }),
+      ],
+    });
+    renderTrackerPage();
+
+    expect(
+      within(ledgerRow("Wells Fargo $500 Checking Bonus")).getByText("partner"),
+    ).toBeInTheDocument();
+    expect(within(column("opened")).getByText("partner")).toBeInTheDocument();
+  });
+
+  test("clicking the offer name opens the drawer once, not twice", async () => {
+    const user = userEvent.setup({ delay: null });
+    seedAllStages();
+    renderTrackerPage();
+
+    // The row behind the button opens the same drawer; both firing would select twice.
+    await user.click(
+      screen.getByRole("button", {
+        name: t.tracker.ledger.rowLabel("Wells Fargo $500 Checking Bonus"),
+      }),
+    );
+
+    expect(screen.getAllByRole("dialog")).toHaveLength(1);
+    expect(
+      within(screen.getByRole("dialog")).getByRole("heading", {
+        name: "Wells Fargo $500 Checking Bonus",
+      }),
+    ).toBeInTheDocument();
   });
 
   test("tabbing to the offer name and pressing Enter opens that item's drawer", async () => {

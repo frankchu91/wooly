@@ -23,9 +23,9 @@ export function LedgerTotals({ totals }: LedgerTotalsProps) {
           <div className="mt-1">
             <MoneyText value={totals.earned} size="xl" />
           </div>
-          <p className="mt-1 text-xs text-cream/70">
-            {t.tracker.ledger.accounts(counts.received + counts.closed)}
-          </p>
+          {/* Accounts that actually paid, not every account that reached a late stage —
+           * the same rule the figure above it uses (X1). */}
+          <p className="mt-1 text-xs text-cream/70">{t.tracker.ledger.accounts(counts.earned)}</p>
         </div>
 
         <div className="flex gap-8 sm:gap-10">

@@ -224,7 +224,7 @@ describe("BonusesPage", () => {
     expect(within(dialog).getByText(t.conditions.synth.dd(2000, 90))).toBeInTheDocument();
   });
 
-  test("a blocked terms page shows the unreadable note, not the bank-page link", async () => {
+  test("a blocked terms page shows the unreadable note alongside the bank-page link", async () => {
     const user = userEvent.setup({ delay: null });
     const bonuses = fixture.map((bonus) =>
       bonus.id === "wells-fargo-500"
@@ -242,13 +242,18 @@ describe("BonusesPage", () => {
 
     await user.click(screen.getByText(/Wells Fargo \$500/));
 
+    // X5: our scraper was blocked; the user's own browser is not. The note explains why
+    // the conditions above are thin, and the link still goes to the bank.
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).getByText(t.bonuses.terms.unreadable)).toBeInTheDocument();
-    expect(within(dialog).queryByRole("link", { name: t.bonuses.terms.bankPage })).toBeNull();
+    expect(within(dialog).getByRole("link", { name: t.bonuses.terms.bankPage })).toHaveAttribute(
+      "href",
+      "https://example.test/wf-offer",
+    );
   });
 
-  test("a terms.status of 'none' shows neither the bank-page link nor the unreadable note", async () => {
-    // chase-400: terms.status "none", offer_url null.
+  test("a terms.status of 'none' with no offer_url shows neither the link nor the note", async () => {
+    // chase-400: terms.status "none", offer_url null — there is no page to link to.
     const user = userEvent.setup({ delay: null });
     renderPage();
 
@@ -256,6 +261,30 @@ describe("BonusesPage", () => {
 
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).queryByRole("link", { name: t.bonuses.terms.bankPage })).toBeNull();
+    expect(within(dialog).queryByText(t.bonuses.terms.unreadable)).toBeNull();
+  });
+
+  test("a terms.status of 'none' with an offer_url still links to the bank page", async () => {
+    // X5: the scrape never ran for this one; the offer page is still there to open.
+    const user = userEvent.setup({ delay: null });
+    const bonuses = fixture.map((bonus) =>
+      bonus.id === "chase-400"
+        ? {
+            ...bonus,
+            offer_url: "https://example.test/chase-offer",
+            terms: { status: "none" as const, url: null, fetched_at: null },
+          }
+        : bonus,
+    );
+    renderPage(bonuses);
+
+    await user.click(screen.getByText(/Chase \$400/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByRole("link", { name: t.bonuses.terms.bankPage })).toHaveAttribute(
+      "href",
+      "https://example.test/chase-offer",
+    );
     expect(within(dialog).queryByText(t.bonuses.terms.unreadable)).toBeNull();
   });
 

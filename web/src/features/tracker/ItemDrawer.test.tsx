@@ -173,7 +173,61 @@ describe("ItemDrawer — dates", () => {
   });
 });
 
+describe("ItemDrawer — applicant", () => {
+  test("autosaves on blur and comes back on the next open", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderDrawer(trackedItem());
+
+    const field = screen.getByLabelText(t.tracker.applicant);
+    expect(field).toHaveValue("");
+    expect(field).toHaveAttribute("placeholder", t.tracker.applicantHint);
+
+    await user.type(field, "partner");
+    expect(storedItem()?.applicant).toBeUndefined(); // not on every keystroke
+    await user.tab();
+    expect(storedItem()?.applicant).toBe("partner");
+
+    expect(screen.getByLabelText(t.tracker.applicant)).toHaveValue("partner");
+  });
+
+  test("blanking it removes the field rather than storing an empty badge", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderDrawer(trackedItem({ applicant: "me" }));
+
+    const field = screen.getByLabelText(t.tracker.applicant);
+    expect(field).toHaveValue("me");
+
+    await user.clear(field);
+    await user.type(field, "   ");
+    await user.tab();
+
+    expect("applicant" in (storedItem() as object)).toBe(false);
+  });
+});
+
 describe("ItemDrawer — bonus received", () => {
+  // P3: nothing has posted yet, so asking what posted invites a guess.
+  test("the amount field is hidden before the bonus is received", () => {
+    renderDrawer(trackedItem({ status: "opened" }));
+
+    expect(screen.queryByLabelText(t.tracker.amount)).not.toBeInTheDocument();
+  });
+
+  test("a planned item shows only the open-date line, and no amount field", () => {
+    renderDrawer(trackedItem({ status: "planned", dates: {} }));
+
+    expect(screen.queryByLabelText(t.tracker.amount)).not.toBeInTheDocument();
+    expect(screen.getByText(t.tracker.safeClose.needsOpened)).toBeInTheDocument();
+  });
+
+  test("the amount field is editable once closed — that is often when it's confirmed", () => {
+    renderDrawer(
+      trackedItem({ status: "closed", dates: { received: "2026-09-12", closed: "2027-03-20" } }),
+    );
+
+    expect(screen.getByLabelText(t.tracker.amount)).toBeInTheDocument();
+  });
+
   test("blurring the amount records it; clearing it removes the override", async () => {
     const user = userEvent.setup({ delay: null });
     renderDrawer(trackedItem({ status: "received", dates: { received: "2026-09-12" } }));
@@ -251,7 +305,7 @@ describe("ItemDrawer — a bonus that has left the dataset", () => {
 });
 
 describe("ItemDrawer — links and removal", () => {
-  test("links to Doctor of Credit, and to the bank page when its terms were readable", () => {
+  test("links to Doctor of Credit, and to the bank page whenever there is one", () => {
     renderDrawer(trackedItem());
 
     expect(screen.getByRole("link", { name: t.bonuses.openDoc })).toHaveAttribute(
@@ -264,7 +318,26 @@ describe("ItemDrawer — links and removal", () => {
     );
   });
 
-  test("no bank-page link when the offer page was never read", () => {
+  test("X5: the bank-page link survives a terms fetch that failed", () => {
+    // Our scraper was blocked; the user's own browser is not, so the most useful link on
+    // the drawer stays put.
+    const blocked = {
+      ...bonusById("wells-fargo-500"),
+      terms: { status: "blocked" as const, url: null, fetched_at: "2026-09-14" },
+    };
+    useStore.setState({ tracker: [trackedItem()] });
+    render(
+      <ItemDrawer item={trackedItem()} bonus={blocked} open onClose={vi.fn()} today={today} />,
+    );
+
+    expect(screen.getByRole("link", { name: t.bonuses.terms.bankPage })).toHaveAttribute(
+      "href",
+      "https://example.test/wf-offer",
+    );
+  });
+
+  test("no bank-page link when the offer has no bank page at all", () => {
+    // chase-400 has `offer_url: null` — there is nothing to link to.
     renderDrawer(trackedItem({ id: "chase-400", bonusId: "chase-400" }), "chase-400");
 
     expect(screen.queryByRole("link", { name: t.bonuses.terms.bankPage })).not.toBeInTheDocument();

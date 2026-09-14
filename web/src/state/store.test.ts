@@ -333,6 +333,51 @@ describe("setNotes", () => {
   });
 });
 
+describe("setApplicant", () => {
+  test("records who the account is for, and drops the field when it's blanked", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+
+    useStore.getState().setApplicant("wells-fargo-500", "  partner  ");
+    expect(useStore.getState().tracker[0].applicant).toBe("partner"); // trimmed
+
+    useStore.getState().setApplicant("wells-fargo-500", "   ");
+    expect("applicant" in useStore.getState().tracker[0]).toBe(false);
+  });
+
+  test("survives an export/import round trip", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+    useStore.getState().setApplicant("wells-fargo-500", "me");
+
+    const json = useStore.getState().exportJSON();
+    useStore.getState().clearAll();
+    useStore.getState().importJSON(json);
+
+    expect(useStore.getState().tracker[0].applicant).toBe("me");
+  });
+
+  test("a hydrated blank applicant is dropped rather than badged", () => {
+    useStore.getState().importJSON(
+      JSON.stringify({
+        profile: null,
+        skippedIds: [],
+        tracker: [
+          {
+            id: "a",
+            bonusId: "wells-fargo-500",
+            status: "opened",
+            dates: {},
+            openMonth: "2026-09",
+            conditionsDone: [],
+            applicant: "   ",
+          },
+        ],
+      }),
+    );
+
+    expect("applicant" in useStore.getState().tracker[0]).toBe(false);
+  });
+});
+
 describe("hydration", () => {
   test("a blob already in localStorage is loaded as the module initialises", async () => {
     // `merge` runs while `create(persist(...))` is still executing, so anything it

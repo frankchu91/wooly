@@ -1,5 +1,11 @@
 import { fixture } from "../data/fixture";
-import { checklistFor, earliestCloseDate, ledgerTotals, receivedAmount } from "./conditions";
+import {
+  checklistFor,
+  earliestCloseDate,
+  hasPosted,
+  ledgerTotals,
+  receivedAmount,
+} from "./conditions";
 import type { Bonus, Condition, TrackedItem } from "./types";
 
 const bonusById = (id: string): Bonus => {
@@ -174,6 +180,42 @@ describe("receivedAmount", () => {
   });
 });
 
+describe("hasPosted", () => {
+  test("a received item has posted", () => {
+    expect(hasPosted(item({ bonusId: "sofi-675", status: "received" }))).toBe(true);
+  });
+
+  test("a closed item that passed through received has posted", () => {
+    const closed = item({
+      bonusId: "sofi-675",
+      status: "closed",
+      dates: { received: "2026-09-12", closed: "2027-03-30" },
+    });
+    expect(hasPosted(closed)).toBe(true);
+  });
+
+  test("a closed item with a recorded amount but no received date has posted", () => {
+    expect(hasPosted(item({ bonusId: "sofi-675", status: "closed", bonusReceived: 675 }))).toBe(
+      true,
+    );
+  });
+
+  test("an account closed without the bonus ever arriving has not", () => {
+    const closed = item({
+      bonusId: "sofi-675",
+      status: "closed",
+      dates: { opened: "2026-09-04", closed: "2026-10-01" },
+    });
+    expect(hasPosted(closed)).toBe(false);
+  });
+
+  test("nothing before received has posted", () => {
+    for (const status of ["planned", "opened", "requirements_met"] as const) {
+      expect(hasPosted(item({ bonusId: "sofi-675", status }))).toBe(false);
+    }
+  });
+});
+
 describe("ledgerTotals", () => {
   test("sums earned/pending/planned by stage and tallies counts, preferring bonusReceived for earned", () => {
     const bonusesById = Object.fromEntries(fixture.map((b) => [b.id, b]));
@@ -182,7 +224,8 @@ describe("ledgerTotals", () => {
       item({ bonusId: "chase-400", status: "opened" }), // 400
       item({ bonusId: "us-bank-450", status: "requirements_met" }), // 450
       item({ bonusId: "wells-fargo-500", status: "received", bonusReceived: 600 }), // 600 (override)
-      item({ bonusId: "sofi-675", status: "closed" }), // 675 (bonus_max)
+      // Closed *after* being received: still earned, at bonus_max.
+      item({ bonusId: "sofi-675", status: "closed", dates: { received: "2026-09-12" } }), // 675
     ];
 
     const totals = ledgerTotals(items, bonusesById);
@@ -191,8 +234,41 @@ describe("ledgerTotals", () => {
       earned: 1275,
       pending: 850,
       planned: 400,
-      counts: { planned: 1, opened: 1, requirements_met: 1, received: 1, closed: 1 },
+      counts: { planned: 1, opened: 1, requirements_met: 1, received: 1, closed: 1, earned: 2 },
     });
+  });
+
+  // X1, the owner's question: "opened → closed" is an account that was given up on, not a
+  // bonus that paid. It used to add its headline amount to Earned.
+  test("an item that went opened → closed earns nothing and counts as no account", () => {
+    const bonusesById = Object.fromEntries(fixture.map((b) => [b.id, b]));
+    const abandoned = item({
+      bonusId: "sofi-675",
+      status: "closed",
+      dates: { opened: "2026-09-04", closed: "2026-10-01" },
+    });
+
+    const totals = ledgerTotals([abandoned], bonusesById);
+
+    expect(totals.earned).toBe(0);
+    expect(totals.counts.earned).toBe(0);
+    expect(totals.pending).toBe(0); // nor is it still on its way
+    expect(totals.counts.closed).toBe(1); // it is still a closed account
+  });
+
+  test("an item that went received → closed keeps its amount", () => {
+    const bonusesById = Object.fromEntries(fixture.map((b) => [b.id, b]));
+    const paid = item({
+      bonusId: "sofi-675",
+      status: "closed",
+      dates: { opened: "2026-09-04", received: "2026-10-01", closed: "2027-03-30" },
+      bonusReceived: 675,
+    });
+
+    const totals = ledgerTotals([paid], bonusesById);
+
+    expect(totals.earned).toBe(675);
+    expect(totals.counts.earned).toBe(1);
   });
 
   test("an empty tracker produces zero totals and zero counts", () => {
@@ -201,7 +277,7 @@ describe("ledgerTotals", () => {
       earned: 0,
       pending: 0,
       planned: 0,
-      counts: { planned: 0, opened: 0, requirements_met: 0, received: 0, closed: 0 },
+      counts: { planned: 0, opened: 0, requirements_met: 0, received: 0, closed: 0, earned: 0 },
     });
   });
 });

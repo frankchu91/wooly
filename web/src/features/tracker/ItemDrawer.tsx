@@ -61,6 +61,21 @@ function AmountField({
   );
 }
 
+function ApplicantField({ id, initial, onCommit }: DraftFieldProps) {
+  const [value, setValue] = useState(initial);
+  return (
+    <input
+      id={id}
+      type="text"
+      value={value}
+      placeholder={t.tracker.applicantHint}
+      onChange={(event) => setValue(event.target.value)}
+      onBlur={() => onCommit(value)}
+      className={INPUT_CLASS}
+    />
+  );
+}
+
 function NotesField({ id, initial, onCommit }: DraftFieldProps) {
   const [value, setValue] = useState(initial);
   return (
@@ -91,6 +106,7 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
   const toggleCondition = useStore((state) => state.toggleCondition);
   const setBonusReceived = useStore((state) => state.setBonusReceived);
   const setNotes = useStore((state) => state.setNotes);
+  const setApplicant = useStore((state) => state.setApplicant);
   const untrack = useStore((state) => state.untrack);
 
   const baseId = useId();
@@ -112,6 +128,7 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
     checklist.length > 0 && checklist.every((condition) => done.has(condition.id));
   const currentIndex = STATUS_ORDER.indexOf(item.status);
   const reachedStages = STATUS_ORDER.slice(0, currentIndex + 1);
+  const showAmount = currentIndex >= STATUS_ORDER.indexOf("received");
   const safeClose = safeCloseFor(item, bonus);
   // The number field starts on the headline amount so the common case ("it paid what it
   // said") is one blur away, without writing a figure the user never confirmed.
@@ -203,17 +220,27 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
           )}
         </section>
 
-        <section className="flex flex-col gap-2">
-          <Field label={t.tracker.amount} help={t.tracker.amountHelp} htmlFor={`${baseId}-amount`}>
-            <AmountField
-              key={`${item.id}:${item.bonusReceived ?? ""}`}
-              id={`${baseId}-amount`}
-              initial={item.bonusReceived != null ? String(item.bonusReceived) : ""}
-              placeholder={amountPlaceholder}
-              onCommit={commitAmount}
-            />
-          </Field>
-        </section>
+        {/* P3: nothing has posted before `received`, so asking what posted invites a
+         * number the user is guessing at. The field appears the moment the stage does,
+         * and stays editable afterwards — including once the account is closed, which is
+         * often when the figure is finally confirmed. */}
+        {showAmount ? (
+          <section className="flex flex-col gap-2">
+            <Field
+              label={t.tracker.amount}
+              help={t.tracker.amountHelp}
+              htmlFor={`${baseId}-amount`}
+            >
+              <AmountField
+                key={`${item.id}:${item.bonusReceived ?? ""}`}
+                id={`${baseId}-amount`}
+                initial={item.bonusReceived != null ? String(item.bonusReceived) : ""}
+                placeholder={amountPlaceholder}
+                onCommit={commitAmount}
+              />
+            </Field>
+          </section>
+        ) : null}
 
         <section className="flex flex-col gap-1">
           <h3 className={SECTION_HEADING_CLASS}>{t.tracker.safeClose.title}</h3>
@@ -238,6 +265,14 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
               onCommit={(value) => setNotes(item.id, value)}
             />
           </Field>
+          <Field label={t.tracker.applicant} htmlFor={`${baseId}-applicant`}>
+            <ApplicantField
+              key={`${item.id}:${item.applicant ?? ""}`}
+              id={`${baseId}-applicant`}
+              initial={item.applicant ?? ""}
+              onCommit={(value) => setApplicant(item.id, value)}
+            />
+          </Field>
         </section>
 
         {bonus ? (
@@ -250,7 +285,11 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
             >
               {t.bonuses.openDoc}
             </a>
-            {bonus.terms.status === "ok" && bonus.offer_url ? (
+            {/* X5: the link is to the bank's own offer page, which the user can open
+             * whether or not *we* managed to read it. Gating it on `terms.status === "ok"`
+             * hid the most useful link on the drawer from every offer our scraper was
+             * blocked from. */}
+            {bonus.offer_url ? (
               <a
                 href={bonus.offer_url}
                 target="_blank"

@@ -2,7 +2,7 @@ import { Lock } from "lucide-react";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { useState } from "react";
 
-import { receivedAmount } from "../../engine/conditions";
+import { hasPosted, receivedAmount } from "../../engine/conditions";
 import type { Bonus, TrackedItem } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { Badge, BankAvatar, Card, Toggle, cn, dateLabel, money } from "../../ui";
@@ -42,6 +42,19 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
   const [showClosed, setShowClosed] = useState(true);
 
   const rows = sortForLedger(items).filter((item) => showClosed || item.status !== "closed");
+
+  // P2: the two columns worth adding up, over the rows actually on screen — a total that
+  // counted hidden rows would not match the column above it. "Received" counts only what
+  // posted (X1), so it is the same money the Earned card reports.
+  const bonusTotal = rows.reduce(
+    (total, item) => total + (bonusesById[item.bonusId]?.bonus_max ?? 0),
+    0,
+  );
+  const receivedTotal = rows.reduce(
+    (total, item) =>
+      total + (hasPosted(item) ? receivedAmount(item, bonusesById[item.bonusId]) : 0),
+    0,
+  );
 
   return (
     <section aria-labelledby="ledger-table-heading">
@@ -109,7 +122,11 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                 const daysUntilClose = safeClose
                   ? differenceInCalendarDays(parseISO(safeClose.date), today)
                   : null;
-                const isEarned = item.status === "received" || item.status === "closed";
+                const posted = hasPosted(item);
+                // P3: once the money is in (or the account is shut) the DD deadline is
+                // history — it stays on the row as a record, but it stops asking for
+                // anything, so it stops looking like the rest of the live dates.
+                const deadlinePast = item.status === "received" || item.status === "closed";
 
                 return (
                   <tr
@@ -126,13 +143,21 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                       <button
                         type="button"
                         aria-label={t.tracker.ledger.rowLabel(title)}
-                        onClick={() => onSelect(item.id)}
+                        // The row behind this button opens the same drawer, so without
+                        // this the click runs `onSelect` twice for one press.
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onSelect(item.id);
+                        }}
                         className="flex items-center gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       >
                         <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
                         <span className="min-w-0">
-                          <span className="block truncate font-semibold text-ink">
-                            {bonus?.bank ?? item.bonusId}
+                          <span className="flex items-center gap-1.5">
+                            <span className="truncate font-semibold text-ink">
+                              {bonus?.bank ?? item.bonusId}
+                            </span>
+                            {item.applicant ? <Badge tone="neutral">{item.applicant}</Badge> : null}
                           </span>
                           {/* For a missing offer the id is already the name above, so the
                            * second line says what happened instead of repeating it. */}
@@ -165,7 +190,13 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                       )}
                     </td>
 
-                    <td className={cn(CELL_CLASS, urgent && "text-coral-dark")}>
+                    <td
+                      className={cn(
+                        CELL_CLASS,
+                        urgent && "text-coral-dark",
+                        deadlinePast && "text-muted",
+                      )}
+                    >
                       {ddDeadline ? (
                         dateLabel(ddDeadline)
                       ) : (
@@ -174,7 +205,7 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                     </td>
 
                     <td className={CELL_CLASS}>
-                      {item.dates.received || (isEarned && bonus) ? (
+                      {posted ? (
                         <div>
                           <p>
                             {item.dates.received ? (
@@ -183,12 +214,16 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                               <span className="text-muted">{EMPTY}</span>
                             )}
                           </p>
-                          {isEarned && bonus ? (
+                          {bonus ? (
                             <p className="text-xs tabular-nums text-muted">
                               {money(receivedAmount(item, bonus))}
                             </p>
                           ) : null}
                         </div>
+                      ) : item.status === "closed" ? (
+                        // Closed without the bonus ever arriving: an em dash here would
+                        // read as "not yet", which this row will never be.
+                        <span className="text-muted">{t.tracker.ledger.closedNoBonus}</span>
                       ) : (
                         <span className="text-muted">{EMPTY}</span>
                       )}
@@ -225,6 +260,29 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                 );
               })}
             </tbody>
+
+            {rows.length > 0 ? (
+              <tfoot>
+                <tr className="border-t border-mint bg-cream font-semibold">
+                  <th
+                    scope="row"
+                    className={cn(
+                      CELL_CLASS,
+                      "sticky left-0 z-10 bg-cream text-left font-semibold",
+                    )}
+                  >
+                    {t.tracker.ledger.total}
+                  </th>
+                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(bonusTotal)}</td>
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(receivedTotal)}</td>
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                </tr>
+              </tfoot>
+            ) : null}
           </table>
         </div>
       </Card>

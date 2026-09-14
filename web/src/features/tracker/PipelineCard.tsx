@@ -153,8 +153,13 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
   // The card reads as one object, so the whole of it opens the drawer — except the
   // controls that already do something of their own (the menu, Next, and the date form
   // inside it). The title stays a real button, so this is never the only way in.
+  //
+  // `[data-panel]` covers the date-confirm form itself: a click on its padding (or on the
+  // warning line inside it) lands on no control at all, and without this the drawer opens
+  // over the form the user was halfway through filling in.
   function handleCardClick(event: ReactMouseEvent<HTMLElement>) {
-    if ((event.target as HTMLElement).closest("button, a, input, [role=menu]")) return;
+    if ((event.target as HTMLElement).closest("button, a, input, [role=menu], [data-panel]"))
+      return;
     onSelect(item.id);
   }
 
@@ -178,7 +183,10 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
               {bonus?.title ?? item.bonusId}
             </span>
             {bonus ? (
-              <MoneyText value={bonus.bonus_max} size="md" />
+              <span className="flex flex-wrap items-center gap-1.5">
+                <MoneyText value={bonus.bonus_max} size="md" />
+                {item.applicant ? <Badge tone="neutral">{item.applicant}</Badge> : null}
+              </span>
             ) : (
               // The id is already the title; saying it twice explains nothing, and the
               // user still deserves to know why there is no money on this card.
@@ -300,7 +308,7 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
       ) : null}
 
       {pending ? (
-        <div className="flex flex-col gap-2 rounded-control bg-cream p-2.5">
+        <div data-panel className="flex flex-col gap-2 rounded-control bg-cream p-2.5">
           {closingEarly && safeCloseISO ? (
             <p className="text-xs text-coral-dark">
               {t.tracker.closeEarly(dateLabel(safeCloseISO))}

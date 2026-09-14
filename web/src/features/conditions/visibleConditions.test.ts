@@ -109,6 +109,68 @@ describe("splitConditions — what counts as a task", () => {
     expect(notes.map((c) => c.id)).toEqual(["fee", "nc", "other"]);
   });
 
+  // X2, the owner's second question: an offer whose whole requirement is "direct deposit
+  // $200", with no deadline stated anywhere, used to show an empty checklist.
+  describe("a stated direct-deposit amount is always a task (X2)", () => {
+    test("the Chime shape — amount, no days, no count — is one checklist row", () => {
+      const rows = [
+        condition({
+          id: "chime-dd",
+          kind: "direct_deposit",
+          text: "Direct deposit of $200",
+          amount: 200,
+        }),
+      ];
+      const { checklist, notes } = splitConditions(bonusWith(rows));
+
+      expect(checklist.map((c) => c.id)).toEqual(["chime-dd"]);
+      expect(notes).toEqual([]);
+    });
+
+    test("a direct-deposit row with no amount and nothing else is still a note", () => {
+      const rows = [
+        condition({
+          id: "vague",
+          kind: "direct_deposit",
+          text: "Your qualifying direct deposits are what the tiers are based on",
+        }),
+      ];
+      expect(splitConditions(bonusWith(rows)).checklist).toEqual([]);
+    });
+  });
+
+  // X4: DoC's "Additional requirements" glance field arrives as kind `other`, and that
+  // field is a list of tasks — it was the one place the checklist was silently dropping
+  // requirements the post spelled out.
+  describe("glance “Additional requirements” rows are tasks (X4)", () => {
+    test("a row naming figures goes on the checklist", () => {
+      const rows = [
+        condition({
+          id: "chase-other",
+          kind: "other",
+          text: "Deposit $10,000 in new to Chase funds; 5 qualifying transactions",
+        }),
+      ];
+      expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["chase-other"]);
+    });
+
+    test("a row that opens with a requirement verb goes on the checklist without one", () => {
+      const rows = [
+        condition({ id: "verb-other", kind: "other", text: "Open the account in a branch" }),
+      ];
+      expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["verb-other"]);
+    });
+
+    test("a figureless pointer stays a note", () => {
+      const rows = [
+        condition({ id: "pointer", kind: "other", text: "Terms apply, as described on DoC" }),
+      ];
+      const { checklist, notes } = splitConditions(bonusWith(rows));
+      expect(checklist).toEqual([]);
+      expect(notes.map((c) => c.id)).toEqual(["pointer"]);
+    });
+  });
+
   describe("keep_open without a day window (E3)", () => {
     test("stays on the checklist when it opens with a requirement verb", () => {
       const rows = [
@@ -464,5 +526,89 @@ describe("splitConditions — a Bank of America-like condition list (E4)", () =>
 
     expect(checklist.map((c) => c.id)).toEqual(["boa-dd-doc-2000", "boa-tx-make"]);
     expect(notes.map((c) => c.id)).toEqual(["boa-dd-definition", "boa-nc", "boa-tx-earn"]);
+  });
+});
+
+// --- P4: tiered offers. The real Bank of Hawaii savings bonus pays $75–$300 depending on
+// which deposit tier you hit; three "deposit $X" rows read as three jobs when only one of
+// them is yours to choose. ---
+
+describe("splitConditions — a tiered offer keeps only the lowest tier (P4)", () => {
+  const tierRows: Condition[] = [
+    condition({
+      id: "boh-5000",
+      kind: "deposit",
+      amount: 5000,
+      days: 30,
+      source: "bank",
+      text: "Deposit $5,000 within 30 days of account opening to earn $75.",
+    }),
+    condition({
+      id: "boh-10000",
+      kind: "deposit",
+      amount: 10000,
+      days: 30,
+      source: "bank",
+      text: "Deposit $10,000 within 30 days of account opening to earn $150.",
+    }),
+    condition({
+      id: "boh-20000",
+      kind: "deposit",
+      amount: 20000,
+      days: 30,
+      source: "bank",
+      text: "Deposit $20,000 within 30 days of account opening to earn $300.",
+    }),
+  ];
+
+  /** A ranged bonus (`bonus_min !== bonus_max`) — half of what makes a tier a tier. */
+  const tiered = (conditions: Condition[]): Bonus => ({
+    ...bonusWith(conditions),
+    bonus_min: 75,
+    bonus_max: 300,
+  });
+
+  test("one checklist row, and the bigger tiers move to the notes", () => {
+    const { checklist, notes } = splitConditions(tiered(tierRows));
+
+    expect(checklist.map((c) => c.id)).toEqual(["boh-5000"]);
+    expect(notes.map((c) => c.id)).toEqual(["boh-10000", "boh-20000"]);
+  });
+
+  test("the progress chip therefore reads 0/1, not 0/3", () => {
+    expect(splitConditions(tiered(tierRows)).checklist).toHaveLength(1);
+  });
+
+  test("a single-amount offer is untouched, however wide its range", () => {
+    const rows = [
+      condition({ id: "dd", kind: "direct_deposit", amount: 1000, days: 90 }),
+      condition({
+        id: "keep",
+        kind: "keep_open",
+        text: "Keep the account open for 180 days",
+        days: 180,
+      }),
+    ];
+    expect(splitConditions(tiered(rows)).checklist.map((c) => c.id)).toEqual(["dd", "keep"]);
+  });
+
+  test("a fixed-payout offer keeps every deposit row, different amounts or not", () => {
+    // Only a bonus whose own payout varies can be tiered; a flat $500 offer asking for
+    // two different deposits is asking for both.
+    const { checklist } = splitConditions(bonusWith(tierRows));
+    expect(checklist.map((c) => c.id)).toEqual(["boh-5000", "boh-10000", "boh-20000"]);
+  });
+
+  test('tiers written as "Earn $X when you deposit $Y" were already notes (E1)', () => {
+    // The other phrasing these tiers arrive in. E1 routes anything opening with "Earn" to
+    // the notes before P4 is reached, so the chip reads 0/1 by that route instead — the
+    // rule below is what catches the tiers phrased as instructions.
+    const earnRows = tierRows.map((row, i) =>
+      condition({ ...row, id: `${row.id}-earn`, text: `Earn $${(i + 1) * 75} when you deposit` }),
+    );
+    const { checklist, notes } = splitConditions(tiered(earnRows));
+
+    expect(checklist).toEqual([]);
+    expect(notes).toHaveLength(3);
   });
 });

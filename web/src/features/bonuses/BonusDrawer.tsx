@@ -168,7 +168,11 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
             {t.bonuses.conditionsTitle}
           </h3>
           <ConditionList conditions={conditions.checklist} notes={conditions.notes} />
-          {bonus.terms.status === "ok" && bonus.offer_url ? (
+          {/* X5: two independent facts. The link is offered whenever there is a page to
+           * link to — the user's browser is not blocked just because our scraper was —
+           * and the note explains why the conditions above may be thin, which is only
+           * ever about a fetch that failed. */}
+          {bonus.offer_url ? (
             <a
               href={bonus.offer_url}
               target="_blank"
@@ -177,7 +181,8 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
             >
               {t.bonuses.terms.bankPage}
             </a>
-          ) : bonus.terms.status === "blocked" || bonus.terms.status === "error" ? (
+          ) : null}
+          {bonus.terms.status === "blocked" || bonus.terms.status === "error" ? (
             <p className="text-sm text-muted">{t.bonuses.terms.unreadable}</p>
           ) : null}
         </div>

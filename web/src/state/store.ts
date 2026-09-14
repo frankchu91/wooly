@@ -33,7 +33,9 @@ const LEGACY_STATUS_MAP: Record<string, TrackStatus> = { dd_sent: "requirements_
 const toKnownStatus = (value: unknown): TrackStatus | null => {
   if (typeof value !== "string") return null;
   if ((STATUS_ORDER as string[]).includes(value)) return value as TrackStatus;
-  if (value in LEGACY_STATUS_MAP) return LEGACY_STATUS_MAP[value];
+  // `Object.hasOwn`, not `in`: a persisted blob can carry "constructor" or "toString" as
+  // a `dates` key, and `in` would happily resolve those off the prototype chain.
+  if (Object.hasOwn(LEGACY_STATUS_MAP, value)) return LEGACY_STATUS_MAP[value];
   return null;
 };
 
@@ -66,6 +68,9 @@ interface State extends PersistedSlice {
   /** Sets (or, passing `undefined`, clears) the amount the user says actually posted. */
   setBonusReceived(id: string, amount: number | undefined): void;
   setNotes(id: string, text: string): void;
+  /** Sets who the account is for. Whitespace-only text clears the field rather than
+   * storing a blank badge nobody can see but everything has to render. */
+  setApplicant(id: string, text: string): void;
   untrack(id: string): void;
   clearAll(): void;
   exportJSON(): string;
@@ -186,6 +191,11 @@ const normalizeTracker = (imported: unknown[]): TrackedItem[] =>
       }
       if (typeof item.notes === "string") {
         result.notes = item.notes;
+      }
+      // Normalised on the way in, and dropped when it normalises to nothing, so a blob
+      // written by hand (or by an older build) can't put a blank badge on every row.
+      if (typeof item.applicant === "string" && item.applicant.trim() !== "") {
+        result.applicant = item.applicant.trim();
       }
       return result;
     });
@@ -331,6 +341,17 @@ export const useStore = create<State>()(
       setNotes: (id, text) =>
         set((state) => ({
           tracker: state.tracker.map((item) => (item.id === id ? { ...item, notes: text } : item)),
+        })),
+
+      setApplicant: (id, text) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) => {
+            if (item.id !== id) return item;
+            const trimmed = text.trim();
+            const next: TrackedItem = { ...item, applicant: trimmed };
+            if (trimmed === "") delete next.applicant;
+            return next;
+          }),
         })),
 
       untrack: (id) => set((state) => ({ tracker: state.tracker.filter((t) => t.id !== id) })),

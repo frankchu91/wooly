@@ -1,4 +1,4 @@
-import { receivedAmount } from "../../engine/conditions";
+import { hasPosted, receivedAmount } from "../../engine/conditions";
 import { STATUS_ORDER } from "../../engine/types";
 import type { Bonus, TrackedItem, TrackStatus } from "../../engine/types";
 import { t } from "../../i18n/en";
@@ -17,9 +17,11 @@ export interface PipelineProps {
 
 const columnHeadingId = (stage: TrackStatus) => `pipeline-column-${stage}`;
 
-// A received or closed bonus paid what it paid, so its column sums the real amount; the
-// earlier stages have nothing to show but the headline they're chasing.
-const isEarned = (status: TrackStatus) => status === "received" || status === "closed";
+// A bonus that posted paid what it paid, so those columns sum the real amount; the
+// earlier stages have nothing to show but the headline they're chasing. A closed account
+// that never paid adds nothing to its column's sum, though it still sits in the column and
+// counts towards its tally — it is a real account, just not a real payout (X1).
+const isEarnedStage = (status: TrackStatus) => status === "received" || status === "closed";
 
 /**
  * The kanban view of the tracker (spec §4.3.3): the five stages side by side, so the
@@ -42,9 +44,10 @@ export function Pipeline({ items, bonusesById, today, onSelect, onUntrack }: Pip
           const columnItems = items.filter((item) => item.status === stage);
           const sum = columnItems.reduce((total, item) => {
             const bonus = bonusesById[item.bonusId];
-            return (
-              total + (isEarned(stage) ? receivedAmount(item, bonus) : (bonus?.bonus_max ?? 0))
-            );
+            if (isEarnedStage(stage)) {
+              return total + (hasPosted(item) ? receivedAmount(item, bonus) : 0);
+            }
+            return total + (bonus?.bonus_max ?? 0);
           }, 0);
 
           return (

@@ -2,8 +2,10 @@ import { checklistFor } from "../../engine/conditions";
 import type { Bonus, Condition, ConditionKind } from "../../engine/types";
 import { SYNTH_LABELS } from "./synthLabels";
 
-/** The kinds that name something the user has to *do*. `fee`, `new_customer` and `other`
- * describe the offer rather than ask anything of you, so they are never ticked off. */
+/** The kinds that name something the user has to *do*. `fee` and `new_customer` describe
+ * the offer rather than ask anything of you, so they are never ticked off. `other` is
+ * decided per row (see `isActionable`): it is the kind DoC's "Additional requirements"
+ * glance field arrives as, and that field is a list of tasks. */
 const CHECKLIST_KINDS: ReadonlySet<ConditionKind> = new Set<ConditionKind>([
   "direct_deposit",
   "deposit",
@@ -40,15 +42,33 @@ function family(kind: ConditionKind): ConditionKind {
   return kind === "deposit" ? "direct_deposit" : kind;
 }
 
+/** A glance row that names a figure of any sort. DoC's "Additional requirements" field is
+ * written as a list of tasks ("Deposit $10,000 in new to Chase funds; 5 qualifying
+ * transactions"), so a number in it is a requirement, not decoration (X4). */
+const OTHER_HAS_FIGURE = /[$\d]/;
+
 /** True when the condition is a task: an actionable kind whose text either names a day
  * window or a count, or reads as an instruction. A bare dollar figure is not enough on
  * its own (E1) — plenty of fee-waiver and marketing sentences carry one — and a sentence
  * that opens with "Earn" is the reward's own headline, never a requirement (E1). A
  * `keep_open` row with no day window gets one more way in: `must` anywhere in the
  * sentence, not only at the start (E3), since "the account must remain open…" reads as a
- * real requirement without opening on a verb. */
+ * real requirement without opening on a verb.
+ *
+ * Two rows come in regardless of any of that:
+ * - X2: a `direct_deposit` row that states an amount. The glance block's direct-deposit
+ *   field is DoC's answer to "what does this offer ask of you", and it often carries no
+ *   deadline at all — "Direct deposit of $200" with no `days` is still the whole job.
+ *   Left out, an offer whose only requirement is its direct deposit showed an empty
+ *   checklist, which reads as "nothing to do" for the one thing you must do.
+ * - X4: an `other` row with a figure in it or an instruction's opening verb — see
+ *   `OTHER_HAS_FIGURE`. */
 function isActionable(condition: Condition): boolean {
+  if (condition.kind === "other") {
+    return OTHER_HAS_FIGURE.test(condition.text) || REQUIREMENT_VERB.test(condition.text);
+  }
   if (!CHECKLIST_KINDS.has(condition.kind)) return false;
+  if (condition.kind === "direct_deposit" && condition.amount != null) return true;
   if (STARTS_WITH_EARN.test(condition.text)) return false;
   if (condition.kind === "keep_open" && condition.days == null) {
     return REQUIREMENT_VERB.test(condition.text) || CONTAINS_MUST.test(condition.text);
@@ -106,6 +126,38 @@ export function collapseParaphrases(conditions: Condition[]): Condition[] {
   return kept;
 }
 
+/**
+ * P4: a tiered offer ("$100 when you deposit $5,000, $300 when you deposit $20,000") is
+ * one decision, not three tasks. The checklist keeps the lowest tier — the one that earns
+ * the bonus the user is guaranteed, and the only one they have to hit — and the rest move
+ * to the notes, where the bigger numbers are still there to read.
+ *
+ * Recognised by two signals together: several deposit-family rows stating *different*
+ * amounts, and a bonus whose own range says the payout varies (`bonus_min !== bonus_max`).
+ * Either alone is ordinary — an offer can ask for a deposit and a balance of different
+ * sizes, and a range can come from a savings/checking pair — so neither triggers this.
+ *
+ * Returns the trimmed checklist and the rows that were moved, in their original order.
+ */
+function collapseTiers(
+  checklist: Condition[],
+  bonus: Bonus,
+): { checklist: Condition[]; tiers: Condition[] } {
+  const { bonus_min: min, bonus_max: max } = bonus;
+  if (min == null || max == null || min === max) return { checklist, tiers: [] };
+
+  const tiered = checklist.filter((c) => family(c.kind) === "direct_deposit" && c.amount != null);
+  const amounts = new Set(tiered.map((c) => c.amount));
+  if (tiered.length < 2 || amounts.size < 2) return { checklist, tiers: [] };
+
+  const lowest = tiered.reduce((best, c) => ((c.amount ?? 0) < (best.amount ?? 0) ? c : best));
+  const moved = new Set(tiered.filter((c) => c !== lowest));
+  return {
+    checklist: checklist.filter((c) => !moved.has(c)),
+    tiers: checklist.filter((c) => moved.has(c)),
+  };
+}
+
 export interface SplitConditions {
   /** The tickable requirements — what "3/5 done" counts. */
   checklist: Condition[];
@@ -132,9 +184,13 @@ export function splitConditions(bonus: Bonus): SplitConditions {
     (isActionable(condition) ? checklist : notes).push(condition);
   }
 
+  const collapsed = collapseTiers(collapseParaphrases(checklist), bonus);
+
   return {
-    checklist: collapseParaphrases(checklist).slice(0, MAX_CHECKLIST),
-    notes: notes.slice(0, MAX_NOTES),
+    checklist: collapsed.checklist.slice(0, MAX_CHECKLIST),
+    // The tiers the checklist dropped lead the notes: they are the closest thing to a
+    // task in there, and they explain the range on the headline amount.
+    notes: [...collapsed.tiers, ...notes].slice(0, MAX_NOTES),
   };
 }
 

@@ -168,6 +168,10 @@ export const t = {
       noRows: "Every tracked account is closed — turn on “Show closed” to see them.",
       rowLabel: (title: string) => `Open ${title}`,
       missingOffer: "Offer no longer listed",
+      // An account can be closed without the bonus ever arriving; the Received cell says
+      // so rather than showing a figure that never posted.
+      closedNoBonus: "Closed without bonus",
+      total: "Total",
     },
     pipeline: {
       title: "Pipeline",
@@ -208,6 +212,9 @@ export const t = {
     amountHelp: "What actually posted, if it differed from the headline.",
     notes: "Notes",
     notesPlaceholder: "Rep's name, confirmation number, anything worth remembering…",
+    // Households run the same offer more than once; this says whose account a row is.
+    applicant: "Applicant",
+    applicantHint: "e.g. me, partner",
     safeClose: {
       title: "Earliest safe close",
       line: (date: string) => `Safe to close from ${date}`,
