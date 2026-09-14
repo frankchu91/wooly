@@ -102,6 +102,12 @@ function ledgerRow(title: string): HTMLElement {
   return button.closest("tr") as HTMLElement;
 }
 
+/** The totals row, found by its label rather than its position, so a test says what it
+ * means and the row can move again without rewriting them. */
+function totalsRow(): HTMLElement {
+  return screen.getByText(t.tracker.ledger.total).closest("tr") as HTMLElement;
+}
+
 beforeEach(() => {
   useStore.setState(initialState, true);
   localStorage.clear();
@@ -222,28 +228,37 @@ describe("LedgerPage — ledger table", () => {
     expect(within(row).getAllByRole("button")).toHaveLength(1);
   });
 
-  // P2: the spreadsheet this replaces ended in a totals row, and so does this one.
+  // P2: the spreadsheet this replaces ended in a totals row; this one leads with it, so
+  // the sum is the first thing read rather than the last thing scrolled to.
   test("a totals row adds up the bonus column and the money that actually posted", () => {
     seedAllStages();
     renderLedgerPage();
 
-    const footer = screen.getByRole("table").querySelector("tfoot") as HTMLElement;
-    expect(within(footer).getByText(t.tracker.ledger.total)).toBeInTheDocument();
     // 400 + 500 + 400 + 450 + 750 headline; 475 (recorded) + 750 (closed after paying).
-    expect(within(footer).getByText(money(2500))).toBeInTheDocument();
-    expect(within(footer).getByText(money(1225))).toBeInTheDocument();
+    expect(within(totalsRow()).getByText(money(2500))).toBeInTheDocument();
+    expect(within(totalsRow()).getByText(money(1225))).toBeInTheDocument();
   });
 
-  test("the totals row follows “Show closed”, so it always matches the rows above it", async () => {
+  test("the totals sit above the rows they add up", () => {
+    seedAllStages();
+    renderLedgerPage();
+
+    const table = screen.getByRole("table");
+    const rows: HTMLElement[] = Array.from(table.querySelectorAll("tr"));
+    const firstOffer = ledgerRow("Wells Fargo $500 Checking Bonus");
+    expect(rows.indexOf(totalsRow())).toBeLessThan(rows.indexOf(firstOffer));
+    expect(table.querySelector("tfoot")).toBeNull();
+  });
+
+  test("the totals row follows “Show closed”, so it always matches the rows below it", async () => {
     const user = userEvent.setup({ delay: null });
     seedAllStages();
     renderLedgerPage();
 
     await user.click(screen.getByRole("switch", { name: t.tracker.ledger.showClosed }));
 
-    const footer = screen.getByRole("table").querySelector("tfoot") as HTMLElement;
-    expect(within(footer).getByText(money(1750))).toBeInTheDocument(); // 2500 - 750
-    expect(within(footer).getByText(money(475))).toBeInTheDocument(); // 1225 - 750
+    expect(within(totalsRow()).getByText(money(1750))).toBeInTheDocument(); // 2500 - 750
+    expect(within(totalsRow()).getByText(money(475))).toBeInTheDocument(); // 1225 - 750
   });
 
   // P3: the DD deadline stops asking anything once the money is in.

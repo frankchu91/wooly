@@ -105,6 +105,30 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                   {t.tracker.fields.stage}
                 </th>
               </tr>
+
+              {/* The totals sit under the column names rather than at the foot of the
+               * table: the question they answer ("what has all this come to?") is the one
+               * the reader arrives with, and a long ledger would bury it below the fold. */}
+              {rows.length > 0 ? (
+                <tr className="border-b border-mint bg-cream font-semibold">
+                  <th
+                    scope="row"
+                    className={cn(
+                      CELL_CLASS,
+                      "sticky left-0 z-10 bg-cream text-left font-semibold",
+                    )}
+                  >
+                    {t.tracker.ledger.total}
+                  </th>
+                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(bonusTotal)}</td>
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(receivedTotal)}</td>
+                  <td className={CELL_CLASS} />
+                  <td className={CELL_CLASS} />
+                </tr>
+              ) : null}
             </thead>
             <tbody>
               {rows.length === 0 ? (
@@ -271,29 +295,6 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                 );
               })}
             </tbody>
-
-            {rows.length > 0 ? (
-              <tfoot>
-                <tr className="border-t border-mint bg-cream font-semibold">
-                  <th
-                    scope="row"
-                    className={cn(
-                      CELL_CLASS,
-                      "sticky left-0 z-10 bg-cream text-left font-semibold",
-                    )}
-                  >
-                    {t.tracker.ledger.total}
-                  </th>
-                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(bonusTotal)}</td>
-                  <td className={CELL_CLASS} />
-                  <td className={CELL_CLASS} />
-                  <td className={CELL_CLASS} />
-                  <td className={cn(CELL_CLASS, "tabular-nums")}>{money(receivedTotal)}</td>
-                  <td className={CELL_CLASS} />
-                  <td className={CELL_CLASS} />
-                </tr>
-              </tfoot>
-            ) : null}
           </table>
         </div>
       </Card>
