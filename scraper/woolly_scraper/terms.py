@@ -9,6 +9,7 @@ the crawl delay is tracked per host rather than globally, and there is no cross-
 from __future__ import annotations
 
 import hashlib
+import re
 import time
 from pathlib import Path
 from urllib.parse import urlparse
@@ -16,7 +17,7 @@ from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 
-from .conditions import extract_conditions
+from .conditions import classify_sentence, split_sentences
 from .models import Condition
 
 USER_AGENT = (
@@ -25,7 +26,41 @@ USER_AGENT = (
 )
 DEFAULT_DELAY = 5.0
 TIMEOUT = 20
-_STRIP_TAGS = ("script", "style", "noscript", "nav", "footer", "header")
+CAP = 12
+_STRIP_TAGS = ("script", "style", "noscript", "nav", "footer", "header", "title")
+
+# Sentences that survive `extract_conditions`'s generic 40-400 char window but are
+# clearly page furniture, not requirement text, on a *bank* page specifically (this
+# filter is bank-only — the `doc` extraction path in `post_page.py` is untouched).
+# Review round 1 found these in the wild: nav breadcrumbs joined by "|", UI chrome
+# ("Select an offer", "Learn more", "Give feedback", "Site map", "AdChoices",
+# accessibility-toggle links), pricing-table fragments with more than a few "$"
+# figures crammed together, and all-caps/mixed-case navigation labels (high
+# uppercase-letter ratio).
+_REJECT_SUBSTRINGS = (
+    "select an offer",
+    "learn more",
+    "give feedback",
+    "site map",
+    "adchoices",
+    "change to accessible version",
+    "skip to content",
+)
+_DOLLAR_RE = re.compile(r"\$")
+_MAX_DOLLAR_FIGURES = 3
+_MAX_UPPER_RATIO = 0.3
+
+
+def _is_bank_noise(sentence: str) -> bool:
+    if "|" in sentence:
+        return True
+    low = sentence.lower()
+    if any(s in low for s in _REJECT_SUBSTRINGS):
+        return True
+    if len(_DOLLAR_RE.findall(sentence)) > _MAX_DOLLAR_FIGURES:
+        return True
+    letters = [ch for ch in sentence if ch.isalpha()]
+    return bool(letters) and sum(1 for ch in letters if ch.isupper()) / len(letters) > _MAX_UPPER_RATIO
 
 
 class TermsFetcher:
@@ -44,6 +79,11 @@ class TermsFetcher:
         self.sleep = sleep
         self.clock = clock
         self._last_request: dict[str, float] = {}
+        # origin host -> final (post-redirect) host, learned the first time that
+        # origin host is actually fetched; used so a shared tracking/CDN host that
+        # several different bank origins redirect to gets throttled too, not just
+        # each origin host in isolation.
+        self._redirects: dict[str, str] = {}
 
     def _path(self, url: str) -> Path:
         return self.cache_dir / (hashlib.sha1(url.encode()).hexdigest() + ".html")
@@ -63,9 +103,17 @@ class TermsFetcher:
         if p.exists():
             return "ok", p.read_text(encoding="utf-8")
         host = urlparse(url).netloc
-        last = self._last_request.get(host)
-        if last is not None and self.delay > 0:
-            remaining = self.delay - (self.clock() - last)
+        wait_hosts = [host]
+        dest_host = self._redirects.get(host)
+        if dest_host and dest_host != host:
+            wait_hosts.append(dest_host)
+        if self.delay > 0:
+            remaining = 0.0
+            for h in wait_hosts:
+                last = self._last_request.get(h)
+                if last is not None:
+                    r = self.delay - (self.clock() - last)
+                    remaining = max(remaining, r)
             if remaining > 0:
                 self.sleep(remaining)
         try:
@@ -73,7 +121,15 @@ class TermsFetcher:
         except requests.exceptions.RequestException:
             self._last_request[host] = self.clock()
             return "error", ""
-        self._last_request[host] = self.clock()
+        now = self.clock()
+        self._last_request[host] = now
+        final_host = urlparse(getattr(resp, "url", None) or url).netloc or host
+        if final_host != host:
+            # This origin host redirects elsewhere; remember it so a later fetch of a
+            # different url under the same origin also respects the destination's
+            # cooldown, not just the origin's.
+            self._redirects[host] = final_host
+            self._last_request[final_host] = now
         if resp.status_code in (403, 429):
             return "blocked", ""
         if not (200 <= resp.status_code < 300):
@@ -83,9 +139,28 @@ class TermsFetcher:
 
 
 def parse_terms_page(html: str) -> list[Condition]:
-    """Extract bank-sourced conditions from a fetched offer page's visible text."""
+    """Extract bank-sourced conditions from a fetched offer page's visible text.
+
+    This duplicates `conditions.extract_conditions`'s split/classify/dedupe/cap loop
+    rather than calling it, so `_is_bank_noise` can reject page-furniture sentences
+    (nav breadcrumbs, UI chrome, pricing-table fragments) before classification —
+    bank-only; the `doc` extraction path in `post_page.py` still calls
+    `extract_conditions` directly and is unaffected.
+    """
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup(_STRIP_TAGS):
         tag.decompose()
     text = " ".join(soup.get_text(" ").split())
-    return extract_conditions(text, "bank", cap=12)
+    out: list[Condition] = []
+    seen: set[str] = set()
+    for sentence in split_sentences(text):
+        if _is_bank_noise(sentence):
+            continue
+        c = classify_sentence(sentence, "bank")
+        if c is None or c.id in seen:
+            continue
+        seen.add(c.id)
+        out.append(c)
+        if len(out) >= CAP:
+            break
+    return out

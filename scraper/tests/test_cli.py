@@ -170,7 +170,10 @@ class FakeTermsFetcher:
 
     def get(self, url):
         self.calls.append(url)
-        return self.responses[url]
+        resp = self.responses[url]
+        if isinstance(resp, Exception):
+            raise resp
+        return resp
 
 
 def _terms_bonus(id_, offer_url=None, terms_status=None, terms_fetched_at=None, conditions=None):
@@ -275,6 +278,76 @@ def test_terms_cached_only_skips_uncached(tmp_path, monkeypatch):
     assert by_id["a"]["terms"]["status"] == "ok"
     assert by_id["b"]["terms"]["status"] is None  # not cached: skipped, no network call made
     assert fake.calls == ["https://bank-a.test/offer/"]
+
+
+def test_terms_skips_bad_page_and_continues(tmp_path, monkeypatch, capsys):
+    """One offer_url whose fetch/parse blows up must not abort the whole run —
+    mirrors `cmd_enrich`'s `skip {id}: {e}` + continue behaviour."""
+    data = tmp_path / "bonuses.json"
+    bonuses = [
+        _terms_bonus("a", offer_url="https://bank-a.test/offer/"),
+        _terms_bonus("b", offer_url="https://bank-b.test/offer/"),
+    ]
+    cli.save(data, bonuses)
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    ok_html = (
+        "<html><p>Only new checking customers can take advantage of this offer, "
+        "so sign up today.</p></html>"
+    )
+    responses = {
+        "https://bank-a.test/offer/": RuntimeError("boom"),
+        "https://bank-b.test/offer/": ("ok", ok_html),
+    }
+    fake = FakeTermsFetcher(responses)
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data)]) == 0
+
+    doc = json.loads(data.read_text())
+    by_id = {b["id"]: b for b in doc["bonuses"]}
+    assert by_id["a"]["terms"]["status"] is None  # never updated: the fetch raised
+    assert by_id["b"]["terms"]["status"] == "ok"  # the other bonus still got processed
+    err = capsys.readouterr().err
+    assert "skip a: boom" in err
+
+
+def test_terms_cached_only_bypasses_the_30_day_freshness_gate(tmp_path, monkeypatch):
+    """`--cached-only` is the "re-parse after a parser fix" mode: it must reprocess
+    every cached offer_url regardless of terms_status/terms_fetched_at, not just the
+    ones that would otherwise be due for a refresh."""
+    data = tmp_path / "bonuses.json"
+    bonuses = [
+        _terms_bonus(
+            "a",
+            offer_url="https://bank-a.test/offer/",
+            terms_status="ok",
+            terms_fetched_at=date(2026, 9, 13),  # fetched yesterday: not normally a candidate
+        ),
+        _terms_bonus(
+            "b",
+            offer_url="https://bank-b.test/offer/",
+            terms_status="blocked",
+            terms_fetched_at=date(2026, 9, 13),  # also not normally a candidate
+        ),
+    ]
+    cli.save(data, bonuses)
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    responses = {
+        "https://bank-a.test/offer/": ("ok", "<html><p>no requirement sentences here</p></html>"),
+        "https://bank-b.test/offer/": ("ok", "<html><p>no requirement sentences here</p></html>"),
+    }
+    fake = FakeTermsFetcher(
+        responses, cached_urls={"https://bank-a.test/offer/", "https://bank-b.test/offer/"}
+    )
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data), "--cached-only"]) == 0
+
+    doc = json.loads(data.read_text())
+    by_id = {b["id"]: b for b in doc["bonuses"]}
+    assert by_id["a"]["terms"]["fetched_at"] == "2026-09-14"  # re-processed despite being fresh
+    assert by_id["b"]["terms"]["status"] == "ok"  # re-processed despite the blocked cooldown
+    assert set(fake.calls) == {"https://bank-a.test/offer/", "https://bank-b.test/offer/"}
 
 
 def test_list_refuses_to_save_when_too_few_entries(tmp_path, monkeypatch):

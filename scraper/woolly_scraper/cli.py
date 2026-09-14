@@ -127,20 +127,31 @@ def cmd_terms(args) -> int:
     bonuses = load(path)
     fetcher = make_terms_fetcher(Path(args.cache), args.delay)
     t = today()
-    todo = [b for b in bonuses if _terms_candidate(b, t)]
     if args.cached_only:
-        todo = [b for b in todo if fetcher.has_cached(b.offer_url)]
+        # "Re-parse everything already cached" (e.g. after a parser fix), like
+        # `enrich --cached-only`: this bypasses the 30-day freshness gate entirely,
+        # not just the "is it cached" check, since the whole point is reprocessing
+        # pages we already have regardless of when they were last fetched.
+        todo = [
+            b for b in bonuses if b.enriched and b.offer_url and fetcher.has_cached(b.offer_url)
+        ]
+    else:
+        todo = [b for b in bonuses if _terms_candidate(b, t)]
     todo = todo[: args.limit] if args.limit else todo
     done = 0
     by_id = {b.id: b for b in bonuses}
     for b in todo:
-        status, html = fetcher.get(b.offer_url)
-        bank_conditions = parse_terms_page(html) if status == "ok" else []
-        conditions = (
-            dedupe_conditions([c for c in b.conditions if c.source == "doc"] + bank_conditions)
-            if status == "ok"
-            else b.conditions
-        )
+        try:
+            status, html = fetcher.get(b.offer_url)
+            bank_conditions = parse_terms_page(html) if status == "ok" else []
+            conditions = (
+                dedupe_conditions([c for c in b.conditions if c.source == "doc"] + bank_conditions)
+                if status == "ok"
+                else b.conditions
+            )
+        except Exception as e:  # noqa: BLE001 - one bad page must not kill the run
+            print(f"skip {b.id}: {e}", file=sys.stderr)
+            continue
         by_id[b.id] = dataclasses.replace(
             b,
             terms_status=status,
