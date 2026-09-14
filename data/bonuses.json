@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T08:31:36+00:00",
+  "generated_at": "2026-09-14T09:22:07+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -39,7 +39,24 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2023-02-26",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "4116e9a3",
+          "kind": "direct_deposit",
+          "text": "Your friend or family member opens an Affinity checking account and establishes recurring direct deposits totaling $500 or more per month.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://share.affinityfcu.org/zone/microsite?journey.campaign_id=7134729748330288377",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ak-co-ct-id-in-ma-me-mi-ny-oh-or-pa-ut-vt-or-wa-in-branch-keybank-1000-business-checking-bonus",
@@ -78,7 +95,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-25",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": "error",
+        "url": "https://www.key.com/small-business/promo/bb-1000-offer.html",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "al-local-bank-250-checking-bonus",
@@ -113,7 +137,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "american-express-business-checking-20000-membership-rewards-points-bonus-1-10-apy-earn-points-with-debit-card-spend",
@@ -149,7 +180,114 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2023-01-31",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "bbe3915a",
+          "kind": "fee",
+          "text": "Earn Membership Rewards ® points, enjoy no monthly fees, and get the powerful backing of American Express with 24/7 support from our specialists.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "597f5f64",
+          "kind": "fee",
+          "text": "Benefits of Amex ® Business Checking No monthly maintenance fees ¤ 24/7 support - specialists are a click or call away Earn % APY ‡ on balances up to $500k This is business banking that rewards you.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "6360dd56",
+          "kind": "balance",
+          "text": "How much can you earn over a year with an APY of % on balances up to $500k? $3,900 $100k $300k $500k Account Balance Calculator is for illustration only, rounded to the nearest dollar, and assumes that you earn % APY (capped at $500,000) and maintain your account balance selected above for an entire year.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3f5a1a20",
+          "kind": "fee",
+          "text": "‡ Read more about rates and fees so you know exactly what to expect.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "008c8815",
+          "kind": "balance",
+          "text": "Transparent Pricing No monthly maintenance fees or minimum balance requirements, plus a competitive APY, help make business checking a breeze.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "becacefa",
+          "kind": "fee",
+          "text": "Here's a handy rates and fees table so you know exactly what to expect.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "63e622cf",
+          "kind": "fee",
+          "text": "Send or receive money with no fee using Zelle ® right from the Amex ® App or online.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "fc16ba90",
+          "kind": "fee",
+          "text": "Slide 1 of 2 Currently Selected Slide Slide 2 of 2 Send or receive money with no fee using Zelle ® right from the Amex ® App or online.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d9a427ac",
+          "kind": "fee",
+          "text": "With American Express ® Business Checking, you can enjoy no fee withdrawals at 70,000+ Allpoint ® and MoneyPass ® ATM locations nationwide.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e4e06a88",
+          "kind": "fee",
+          "text": "You can also use your American Express Business Checking Debit Card at any ATMs where American Express is accepted, fees may apply.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e689f594",
+          "kind": "fee",
+          "text": "‡ Offer & Benefit Terms ¤ Rates & Fees Apply Now ‡ Offer & Benefit Terms ¤ Rates & Fees Apply Now Apply Now ‡ Offer & Benefit Terms ¤ Rates & Fees More from American Express More from If you’d like Payment Solutions Discover new ways to control employee spending, streamline vendor payments, and automate Accounts Payable to put more time back on your side.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.americanexpress.com/en-us/business/checking/",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ar-tx-tn-ok-mo-ks-simmons-bank-300-checking-bonus",
@@ -185,7 +323,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-03-31",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "axos-bank-100-business-checking-bonus-business-must-be-incorporated-after-6-1-20",
@@ -224,7 +369,78 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2025-11-12",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "9e2e7356",
+          "kind": "balance",
+          "text": "Maintain an average daily balance of $3,000 over your account’s first few months.",
+          "amount": 3000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "ac722052",
+          "kind": "fee",
+          "text": "No monthly maintenance fees Forget the monthly maintenance fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "a7a8af11",
+          "kind": "fee",
+          "text": "Unlimited Transactions Without transaction fees, you keep more money to put into your business.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "45f9be8e",
+          "kind": "fee",
+          "text": "Unlimited domestic ATM fee reimbursements Never worry about ATM fees again.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "211c49bd",
+          "kind": "fee",
+          "text": "Get reimbursed whenever you are charged a fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "a540434e",
+          "kind": "deposit",
+          "text": "Expand FDIC coverage up to $265 MM with Axos Bank Insured Cash Sweep through IntraFi® Network Deposits SM .",
+          "amount": 265,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "016c41eb",
+          "kind": "balance",
+          "text": "No initial deposit or minimum balance requirements.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.axosbank.com/basicbusinesschecking",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "az-ca-fl-in-mi-nj-ny-oh-wi-flagstar-bank-250-350-checking-bonus",
@@ -267,7 +483,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-co-bank-of-colorado-300-checking-bonus",
@@ -302,7 +525,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-fl-il-ks-mo-mn-wi-bmo-harris-200-500-business-checking-bonus",
@@ -350,7 +580,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-ia-in-branch-bankers-trust-250-checking-bonus",
@@ -386,7 +623,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-nd-only-100-western-state-bank-checking-account-promotion",
@@ -423,7 +667,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-ok-only-midfirst-bank-200-checking-promotion-direct-deposit-not-required-100-savings",
@@ -460,7 +711,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-only-desert-financial-credit-union-100-referral-bonus-for-both-parties",
@@ -495,7 +753,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "az-only-oneaz-credit-union-300-checking-bonus",
@@ -530,7 +795,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "bank-of-america-100-500-checking-bonus",
@@ -569,7 +841,114 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-02",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "f361bca0",
+          "kind": "direct_deposit",
+          "text": "Up to $500 Tiered Checking offer | Bank of America BANK OF AMERICA ADVANTAGE BANKING New checking customers choose your cash offer Open a new eligible checking account and get a $100 cash offer with qualifying debit or Zelle® 1 transactions 2 OR an up to $500 cash offer with Qualifying Direct Deposits.",
+          "amount": 500,
+          "days": null,
+          "count": 1,
+          "source": "bank"
+        },
+        {
+          "id": "21752cc5",
+          "kind": "direct_deposit",
+          "text": "Select an offer to learn more: Select an offer to learn more: Up to $500 offer $100 offer Change to accessible version Advantage Plus Banking Advantage Relationship Banking Advantage Plus Banking Earn up to $500 cash offer with Qualifying Direct Deposits.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2e7cd7a0",
+          "kind": "direct_deposit",
+          "text": "3 Open account Multiple ways to waive your monthly maintenance fee, including direct deposit Minimum account opening $100 $12 or $0 monthly maintenance fee Learn more Offers Balance Connect® for overdraft protection 4 No interest earned Advantage Relationship Banking Earn up to $500 cash offer with Qualifying Direct Deposits.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "77e13ee0",
+          "kind": "fee",
+          "text": "3 Open account No fees on select banking services 5 Minimum account opening $100 $25 or $0 monthly maintenance fee Learn more Offers Balance Connect® for overdraft protection 4 Earns interest ( See rates ) Here's how to qualify 3 : Open a new eligible Bank of America Advantage Plus Banking® or Bank of America Advantage Relationship Banking® account through this offer page by September 30, 2026.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5a64ea9f",
+          "kind": "new_customer",
+          "text": "Only new checking customers can take advantage of this offer.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "02623b8b",
+          "kind": "direct_deposit",
+          "text": "Set up and receive Qualifying Direct Deposits into your new account within 90 days of account opening (\"Deposit Period\").",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "bbb44f3a",
+          "kind": "direct_deposit",
+          "text": "Your bonus amount will be based on the total amount of your Qualifying Direct Deposits received in the first 90 days.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "9ee0d4ba",
+          "kind": "direct_deposit",
+          "text": "Cash Bonus Total Direct Deposits $100 $2,000 $300 $5,000 $500 $10,000+ After the Deposit Period ends and all requirements are met, we'll attempt to deposit the bonus into your new account within 60 days.",
+          "amount": 100,
+          "days": 60,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "336c92b2",
+          "kind": "transactions",
+          "text": "SafeBalance Banking® Earn $100 cash offer with qualifying debit or Zelle® 1 transactions.",
+          "amount": 100,
+          "days": null,
+          "count": 1,
+          "source": "bank"
+        },
+        {
+          "id": "2de4a9f7",
+          "kind": "fee",
+          "text": "2 Open account A great start for students and young adults — no monthly fee if under age 25 6 $4.95 or $0 monthly maintenance fee Learn more Helps prevent overspending 7 — no Overdraft Item Fees No paper check writing No interest earned Here’s how to qualify 2 : Open a new eligible Bank of America Advantage SafeBalance Banking® account through this offer page by September 30, 2026.",
+          "amount": 4,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "4dd655b6",
+          "kind": "transactions",
+          "text": "Make at least 20 qualifying debit card or Zelle® 1 transactions 2 from your new account within 60 days of account opening.",
+          "amount": null,
+          "days": 60,
+          "count": 1,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://promotions.bankofamerica.com/en/offers/chooseyourchecking500100",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "bank-of-america-400-750-business-checking-bonus",
@@ -605,7 +984,42 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-04",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "f7b873b5",
+          "kind": "deposit",
+          "text": "Business Checking | Bank of America Earn a cash bonus of up to $750 When you open a new eligible Business Advantage Banking account and make and maintain New Money Deposits.",
+          "amount": 750,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "26809ffb",
+          "kind": "deposit",
+          "text": "Cash Bonus New Money Deposits $400 $5,000 $750 $15,000 Maintain a daily balance during the Maintenance Period in that new Business Advantage Banking account.",
+          "amount": 400,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "06b2ba95",
+          "kind": "balance",
+          "text": "During the Maintenance Period, if your daily balance drops below $5,000, you will no longer be eligible for a cash bonus.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://promotions.bankofamerica.com/smallbusiness/biz2toffer",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "bluevine-business-checking-300-bonus",
@@ -644,7 +1058,69 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-04-08",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "839b8ab6",
+          "kind": "deposit",
+          "text": "After opening your account, deposit a total of $5,000 within the first 30 days.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c733e0f7",
+          "kind": "fee",
+          "text": "Save on fees, protect your money, and earn high-yield interest on your checking balances— no need to move cash around.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "9e9c202f",
+          "kind": "balance",
+          "text": "Enjoy no monthly BVSUP-00122 or overdraft fees, no minimum balance, free standard ACH, and unlimited transactions.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f97e12ec",
+          "kind": "fee",
+          "text": "BVSUP-00043 Our most active customers save nearly $700/year in fees.",
+          "amount": 700,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d2979bc4",
+          "kind": "fee",
+          "text": "BVSUP-00108 Sign up for our Plus or Premier checking plans to get up to 3.0% APY and discounts on most Standard payment fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "8bc0909b",
+          "kind": "deposit",
+          "text": "BVSUP-00084 $3 million in FDIC coverage Know your business checking deposits are safe up to $3 million.",
+          "amount": 3,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.bluevine.com/partner/nw300-checking",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ca-california-coast-credit-union-150-checking-bonus-direct-deposit-required",
@@ -679,7 +1155,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-first-us-community-credit-union-300-checking-bonus",
@@ -714,7 +1197,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-frontwave-credit-union-200-checking-bonus",
@@ -749,7 +1239,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-long-beach-only-200-southland-credit-union-checking-bonus",
@@ -784,7 +1281,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-california-credit-union-100-checking-bonus",
@@ -819,7 +1323,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-financial-partners-credit-union-100-referral-bonus",
@@ -854,7 +1365,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-heritage-community-credit-union-500-checking-bonus",
@@ -889,7 +1407,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-keypoint-credit-union-200-checking-bonus",
@@ -924,7 +1449,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-keypoint-credit-union-500-business-checking-bonus",
@@ -963,7 +1495,42 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-12",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "30e3e2b3",
+          "kind": "balance",
+          "text": "If minimum average daily balance and qualified activity requirements are met, a $500 bonus will be applied within 30 calendar days of meeting requirements and credited to Elite Business Checking.",
+          "amount": 500,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2c6b9d0f",
+          "kind": "keep_open",
+          "text": "Business account must be opened using a valid Employer Identification Number (EIN).",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f4852e18",
+          "kind": "fee",
+          "text": "You are leaving KeyPoint Credit Union KeyPoint does not provide, and is not liable for any third-party site’s products, services, disclosures, privacy policy, security policy, website content, and other terms and conditions.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://kpcu.com/Checking/Business-Checking",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ca-only-logix-bank-150-checking-promotion",
@@ -998,7 +1565,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-orange-countys-credit-union-100-checking-referral-bonus-direct-deposit-not-required",
@@ -1033,7 +1607,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-sacramento-credit-union-150-checking-bonus",
@@ -1068,7 +1649,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-san-mateo-credit-union-100-checking-bonus-direct-deposit-not-required--regional",
@@ -1103,7 +1691,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-san-mateo-credit-union-100-checking-bonus-direct-deposit-not-required--state",
@@ -1138,7 +1733,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-stanford-federal-credit-union-100-checking-bonus",
@@ -1173,7 +1775,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-only-use-credit-union-100-referral-bonus",
@@ -1208,7 +1817,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-safe-1-credit-union-200-checking-bonus-no-direct-deposit-required",
@@ -1243,7 +1859,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-travis-credit-union-250-checking-bonus",
@@ -1278,7 +1901,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ca-usc-credit-union-250-checking-bonus",
@@ -1313,7 +1943,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "capital-one-300-1500-savings-bonus-requires-20000-100000-deposit",
@@ -1352,7 +1989,42 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-11",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "1330a72e",
+          "kind": "deposit",
+          "text": "Deposit Deposit $20,000+ of external funds during the 15-day Initial Funding Period after opening your account.",
+          "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e25ae3ea",
+          "kind": "deposit",
+          "text": "Deposit Bonus $20,000+ $300 $50,000+ $750 $100,000+ $1,500 Open with promo code To learn more, see full offer details and requirements .",
+          "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d7144dbf",
+          "kind": "fee",
+          "text": "No fees or minimums So more of your money stays yours.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.capitalone.com/bank/bonus1500/",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "capital-one-500-1000-business-checking-bonus",
@@ -1391,7 +2063,87 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-03-10",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "863e8ea1",
+          "kind": "deposit",
+          "text": "Deposit money Deposit at least $5,000 from non-Capital One accounts within 30 days of account opening.",
+          "amount": 5000,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7070bc35",
+          "kind": "balance",
+          "text": "Maintain minimum required balance Maintain the minimum required end of day balance for at least 60 days during the first 90 days of account opening.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "ea6d35db",
+          "kind": "transactions",
+          "text": "Complete transactions requirement Make 10 qualifying electronic transactions within 90 days of account opening.",
+          "amount": null,
+          "days": 90,
+          "count": 10,
+          "source": "bank"
+        },
+        {
+          "id": "4faa9aa0",
+          "kind": "fee",
+          "text": "Unlimited no-fee digital transactions Unlimited free digital transactions including mobile deposits, ACH payments, and select online bill pay options.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "10f879c0",
+          "kind": "fee",
+          "text": "3 No-fee access to 70,000+ ATMs Access your money with no fees at Capital One, MoneyPassÂ® and AllpointÂ® ATMs.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3b983c7d",
+          "kind": "fee",
+          "text": "Open now Basic Checking For everyday checking needs Spend less time worrying about fees and more time building your business.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "eed4593a",
+          "kind": "transactions",
+          "text": "Manage bills, enjoy low-cost domestic wires 5 and make no-fee digital transactions like mobile deposits and ACH.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "49f3ab3e",
+          "kind": "fee",
+          "text": "Enjoy free incoming domestic wires, 5 free outgoing domestic wires per month 6 and get up to 2 Basic Checking accounts with no monthly service fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.capitalone.com/small-business/bank/bizchecking500/",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "chase-business-checking-500-online-bonus-no-direct-deposit-required",
@@ -1430,7 +2182,105 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-17",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "21c671c2",
+          "kind": "new_customer",
+          "text": "For new business checking customers with qualifying activities.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "01c4225f",
+          "kind": "fee",
+          "text": "2 The Monthly Service Fee can be reduced from $15 to $0.",
+          "amount": 15,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "fcb78302",
+          "kind": "deposit",
+          "text": "OR Open account in branch Participants compensated Select your offer and start now Earn $ 500 with a minimum deposit of $10,000 in new money OR Earn $ 400 with a minimum deposit of $2,000 in new money Open Open a new Chase Business Complete Checking account online or present this offer at your local Chase branch.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "890b5906",
+          "kind": "balance",
+          "text": "Deposit Deposit the minimum amount in new money shown above within 30 days of offer enrollment and maintain that balance for 60 days from offer enrollment.",
+          "amount": null,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "26bb77f3",
+          "kind": "transactions",
+          "text": "Complete Complete 5 qualifying transactions * within 90 days of offer enrollment.",
+          "amount": null,
+          "days": 90,
+          "count": 5,
+          "source": "bank"
+        },
+        {
+          "id": "7a864244",
+          "kind": "balance",
+          "text": "Waive the $15 Monthly Service Fee 1 in multiple ways like keeping a minimum $2,000 balance, plus use built-in offerings such as card acceptance, invoicing, 6 Chase Customer Insights 7 and Tap to Pay on iPhone.",
+          "amount": 15,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3d2af8ba",
+          "kind": "fee",
+          "text": "8 Bank with confidence Feel confident knowing we have the largest branch network in the U.S., with 5,000 branches that provide personalized service and can help with your complex banking needs.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "8604e714",
+          "kind": "fee",
+          "text": "active, in good standing, not expired, in compliance) and be available without a fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c1f8906c",
+          "kind": "fee",
+          "text": "validation must indicate valid status (e.g., active, in good standing, not expired, in compliance) and be available without a fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "96f63314",
+          "kind": "fee",
+          "text": "Media Center Careers Site Map Privacy & Security Terms of Use Accessibility AdChoices Give feedback Member FDIC Equal Housing Opportunity ©2026 JPMorgan Chase & Co.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.chase.com/business/banking/checking-offer",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "chime-earn-10000-swagbucks-for-opening-a-new-account-receiving-a-direct-deposit",
@@ -1469,7 +2319,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-20",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "citi-300-checking-bonus--checking",
@@ -1508,7 +2365,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-28",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://banking.citi.com/cbol/OM/checking/enhanced-direct-deposit-offer/default.htm?BT_TX=1&ProspectID=45A3B47DEC24426BB847622BFFE3A444",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "citi-300-checking-bonus--savings",
@@ -1547,7 +2411,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-28",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": "error",
+        "url": "https://banking.citi.com/cbol/checking/tiered/default.htm?venue=GoogleBR&cmp=knc_acquire_2207_BAUCHK_Multi_Google_BR&gclid=Cj0KCQjw27mhBhC9ARIsAIFsETF6eGwWVjwKlkdph7xlIEEuASamm3vH1V4huLyb9THTOrl19LLovZsaAqOFEALw_wcB&gclsrc=aw.ds&BT_TX=1&ProspectID=4C57CC7F2B114FAA81C235424EA5A370",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "co-arapahoe-credit-union-200-referral-bonus",
@@ -1582,7 +2453,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "co-nm-az-in-branch-only-bank-of-colorado-500-business-checking-bonus",
@@ -1621,7 +2499,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-06",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "co-only-air-academy-credit-union-250-checking-bonus",
@@ -1656,7 +2541,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "co-only-bok-financial-1500-business-checking-bonus",
@@ -1692,7 +2584,33 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-03",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "d411437f",
+          "kind": "fee",
+          "text": "See disclosures for additional offer details and eligibility requirements.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3078bdc9",
+          "kind": "fee",
+          "text": "Business Checking Filtering by: Business Checking Business Access Business Advantage Description Simplified business account that offers essential solutions for managing your growing business – all without a monthly service fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.bokfinancial.com/landing-pages/offers/colorado-business-checking-offer",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "co-only-bok-financial-950-checking-savings-bonus",
@@ -1727,7 +2645,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "co-only-ent-credit-union-200-checking-bonus-direct-deposit-not-required-2",
@@ -1762,7 +2687,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ct-de-d-c-md-nj-ny-pa-va-wv-in-branch-mt-bank-400-business-checking-bonus",
@@ -1801,7 +2733,96 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-05",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "68b67758",
+          "kind": "new_customer",
+          "text": "M&T Business Banking | M&T Bank Skip to Main Content Why choose one bonus? Earn up to $2,250 with M&T Business Checking and Merchant Services.{ {d1387*}},{ {d2016*}} LIMITED TIME OFFER New business checking customers can earn up to a $1,500 cash bonus { {d1387*}} when opening an M&T Business Checking account with required activities.",
+          "amount": 2250,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "1b894bc5",
+          "kind": "balance",
+          "text": "(Promo code automatically applies when you open your account online.) Maintain the average ledger balance requirement Maintain an average ledger balance of at least $5,000 in the third full month after you open your account.{ {d1387*}} Get your cash bonus Enjoy your cash bonus!",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c8f5ab4b",
+          "kind": "fee",
+          "text": "$5 monthly account maintenance fee , waived if you meet activity requirements.",
+          "amount": 5,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "20fa7ce1",
+          "kind": "transactions",
+          "text": "{ {d2081*}},{ {d2080*}} 25 transactions every month at no charge—ideal for light activity{ {d2077*}}.",
+          "amount": null,
+          "days": null,
+          "count": 25,
+          "source": "bank"
+        },
+        {
+          "id": "7ca7c5d1",
+          "kind": "transactions",
+          "text": "$15 monthly account maintenance fee, waived with qualifying activity.{ {d2081*}}, { {d2093*}} 250 transactions every month at no charge —great for moderate volume{ {d2077*}}.",
+          "amount": 15,
+          "days": null,
+          "count": 250,
+          "source": "bank"
+        },
+        {
+          "id": "7d1f84d9",
+          "kind": "transactions",
+          "text": "$25 monthly account maintenance fee, waived with qualifying activity.{ {d2081*}}, { {d2078*}} 500 transactions every month at no charge.{ {d2077*}} Unlimited debit card transactions.",
+          "amount": 25,
+          "days": null,
+          "count": 500,
+          "source": "bank"
+        },
+        {
+          "id": "e50fec8d",
+          "kind": "deposit",
+          "text": "Deposit up to $20,000 monthly, in currency deposited or supplied monthly at no extra cost{ {d489*}}.",
+          "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e793a7a9",
+          "kind": "fee",
+          "text": "M&T Business Credit Card - Flexible spending, rewards, and fee-waiver eligibility.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c695ec9a",
+          "kind": "transactions",
+          "text": "Your Brand, Your Card Make every transaction a reflection of your business with a debit card that features your logo and design{ {d2091*}}.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://campaigns.mtb.com/bizbonus",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ct-de-ma-mi-nh-nj-ny-oh-pa-ri-vt-citizens-bank-400-checking-bonus-2",
@@ -1846,7 +2867,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ct-only-savings-bank-of-danbury-100-300-checking-bonus",
@@ -1881,7 +2909,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ct-only-union-savings-bank-250-500-business-checking-bonus",
@@ -1916,7 +2951,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ct-only-union-savings-bank-300-checking-savings-bonus",
@@ -1951,7 +2993,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "dc-de-pa-va-wv-md-secu-250-checking-bonus",
@@ -1991,7 +3040,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "de-dc-md-nj-pa-va-only-fulton-bank-200-checking-bonus-direct-deposit-not-required",
@@ -2031,7 +3087,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "de-dc-md-nj-pa-va-only-fulton-bank-300-checking-bonus",
@@ -2070,7 +3133,42 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-13",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "8c4d9294",
+          "kind": "balance",
+          "text": "Plus, there are no monthly maintenance fees and no minimum daily balance requirement.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "25773c2e",
+          "kind": "deposit",
+          "text": "Deposit New Money Deposit at least $5,000 of new money within 60 days of account opening.",
+          "amount": 5000,
+          "days": 60,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "fbc297c0",
+          "kind": "deposit",
+          "text": "Deposit at least $5,000 of new money within 60 days of account opening.",
+          "amount": 5000,
+          "days": 60,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.fultonbank.com/offers/small-business-checking",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "elevations-credit-union-350-checking-bonus",
@@ -2105,7 +3203,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "etrade-400-savings-bonus-requires-20k-deposit-4-intro-rate",
@@ -2141,7 +3246,69 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-05",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "04dc4d66",
+          "kind": "deposit",
+          "text": "Savings Account Promo: Earn $400 Cash Bonus | E*TRADE Savings Offer Morgan Stanley Private Bank Now get 4.00% APY for 6 months, 1 plus a $400 cash bonus 2 Open and fund a new Premium Savings Account by 9/30.",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "902ca5cb",
+          "kind": "deposit",
+          "text": "Plus, you'll earn a cash bonus when you deposit at least $20,000 of qualifying new money within the first 30 days of account opening.",
+          "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "98eaa5c9",
+          "kind": "balance",
+          "text": "Maintain your balance for 45 additional days after the 30-day funding period ends to earn your cash bonus.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "ac331425",
+          "kind": "deposit",
+          "text": "Open an account Learn more arrow_forward Easily move money with instant transfers to and from E*TRADE brokerage accounts No minimum deposit or monthly account fees Bank Deposits FDIC-insured up to $500,000 if certain conditions are met 6 Certificates of Deposit Looking for other savings solutions? Lock in a fixed rate up to 4.10% APY when you open and fund a new Bank CD account.",
+          "amount": 500000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "373d7067",
+          "kind": "deposit",
+          "text": "Any funds you deposit up to the $10,000,000 maximum balance amount will automatically earn the boosted rate for six months from the account opening date.",
+          "amount": 10000000,
+          "days": 180,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "1387ea4d",
+          "kind": "deposit",
+          "text": "You'll get a $400 cash bonus based on a deposit of at least $20,000.",
+          "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://us.etrade.com/promo/savings",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "existing-customers-ameriprise-400-checking-up-to-1000-savings-bonus",
@@ -2177,7 +3344,123 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-02",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "36bbab9e",
+          "kind": "fee",
+          "text": "Fully integrated with the secure site on ameriprise.com and the Ameriprise Financial app , 1,2 the account offers checks, debit card 3 and more with no monthly maintenance fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "ab728905",
+          "kind": "deposit",
+          "text": "4 Getting started is easy with a simple online application and minimum opening deposit of $25.",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f714e590",
+          "kind": "direct_deposit",
+          "text": "Set up qualifying direct deposits of $1,500 or more within 90 days of account opening.",
+          "amount": 1500,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "37635af9",
+          "kind": "deposit",
+          "text": "Deposit: Earn: _______________________________________ $25,000 - $49,999.99 $350 _______________________________________ $50,000 - $99,999.99 $650 _______________________________________ $100,000 or more $1,000 2.",
+          "amount": 25000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "44ccb13f",
+          "kind": "balance",
+          "text": "Maintain your qualifying balance amount for 90 days.",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5c011130",
+          "kind": "fee",
+          "text": "We’ll reimburse ATM withdrawal fees up to applicable limits.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "24d9ce7e",
+          "kind": "fee",
+          "text": "9 No account fees coins Keep more of your money with no maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "39c139ad",
+          "kind": "direct_deposit",
+          "text": "Direct deposit Get your paycheck, social security, or pension deposited into your checking account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "45581530",
+          "kind": "direct_deposit",
+          "text": "14 Switching your direct deposit to Ameriprise is simple and quick in the secure site or the Ameriprise app.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "46166c9d",
+          "kind": "deposit",
+          "text": "To receive the savings bonus offer: 1) Open a Savings Account from July 1, 2026, to December 29, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days.",
+          "amount": 25000,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d1a496d9",
+          "kind": "new_customer",
+          "text": "1 If you do not have secure site access or have any questions, please contact Ameriprise Bank Customer Service Center at 800.862.7919.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c6180111",
+          "kind": "fee",
+          "text": "4 The Ameriprise Bank Checking Account has no account fees that include maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.ameriprise.com/products/ameriprise-bank/checking",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "existing-customers-ameriprise-up-to-900-checking-savings-bonus",
@@ -2213,7 +3496,123 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-03",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "36bbab9e",
+          "kind": "fee",
+          "text": "Fully integrated with the secure site on ameriprise.com and the Ameriprise Financial app , 1,2 the account offers checks, debit card 3 and more with no monthly maintenance fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "ab728905",
+          "kind": "deposit",
+          "text": "4 Getting started is easy with a simple online application and minimum opening deposit of $25.",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f714e590",
+          "kind": "direct_deposit",
+          "text": "Set up qualifying direct deposits of $1,500 or more within 90 days of account opening.",
+          "amount": 1500,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "37635af9",
+          "kind": "deposit",
+          "text": "Deposit: Earn: _______________________________________ $25,000 - $49,999.99 $350 _______________________________________ $50,000 - $99,999.99 $650 _______________________________________ $100,000 or more $1,000 2.",
+          "amount": 25000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "44ccb13f",
+          "kind": "balance",
+          "text": "Maintain your qualifying balance amount for 90 days.",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5c011130",
+          "kind": "fee",
+          "text": "We’ll reimburse ATM withdrawal fees up to applicable limits.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "24d9ce7e",
+          "kind": "fee",
+          "text": "9 No account fees coins Keep more of your money with no maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "39c139ad",
+          "kind": "direct_deposit",
+          "text": "Direct deposit Get your paycheck, social security, or pension deposited into your checking account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "45581530",
+          "kind": "direct_deposit",
+          "text": "14 Switching your direct deposit to Ameriprise is simple and quick in the secure site or the Ameriprise app.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "46166c9d",
+          "kind": "deposit",
+          "text": "To receive the savings bonus offer: 1) Open a Savings Account from July 1, 2026, to December 29, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days.",
+          "amount": 25000,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d1a496d9",
+          "kind": "new_customer",
+          "text": "1 If you do not have secure site access or have any questions, please contact Ameriprise Bank Customer Service Center at 800.862.7919.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c6180111",
+          "kind": "fee",
+          "text": "4 The Ameriprise Bank Checking Account has no account fees that include maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.ameriprise.com/products/ameriprise-bank/checking",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "fifth-third-200-checking-bonus-fl-ga-il-ky-mi-nc-oh-tn-wv",
@@ -2261,7 +3660,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-addition-financial-300-checking-bonus",
@@ -2296,7 +3702,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-ga-ithink-financial-125-checking-bonus",
@@ -2332,7 +3745,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-in-branch-only-seacoast-bank-350-checking-150-savings-bonus",
@@ -2368,7 +3788,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-in-ky-oh-tn-republic-bank-200-checking-bonus-2",
@@ -2407,7 +3834,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-ma-nj-ny-vt-trustco-bank-200-business-checking-bonus-no-requirements",
@@ -2446,7 +3880,42 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-11",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "ab34d7ce",
+          "kind": "fee",
+          "text": "Join the team that’s committed to creating a banking experience that feels like coming home.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f3a840e2",
+          "kind": "direct_deposit",
+          "text": "Switch your direct deposits and automatic payments at the click of a button and see how much easier banking can be.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "beab02b7",
+          "kind": "fee",
+          "text": "Fast decisions, low closing costs, and no borrower-paid PMI.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.trustcobank.com/checking-bonus-2/",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "fl-ma-nj-ny-vt-trustco-bank-250-stanley-cup-checking-bonus",
@@ -2485,7 +3954,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-mi-dfcu-financial-175-referral-checking-bonus",
@@ -2521,7 +3997,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-only-community-first-credit-union-160-amazon-checking-bonus",
@@ -2556,7 +4039,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-only-community-first-credit-union-of-florida-100-checking-sign-up-bonus-no-bonus-requirements",
@@ -2591,7 +4081,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-only-florida-credit-union-300-checking-bonus",
@@ -2626,7 +4123,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-only-midflorida-credit-union-200-checking-bonus",
@@ -2661,7 +4165,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-power-financial-credit-union-100-checking-bonus-no-direct-deposit-required",
@@ -2696,7 +4207,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "fl-sc-grow-financial-federal-credit-union-200-checking-bonus-no-direct-deposit-required",
@@ -2731,7 +4249,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "found-125-business-checking-bonus",
@@ -2767,7 +4292,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-17",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "four-leaf-federal-credit-union-550-checking-bonus-fka-as-bethpage-federalcredit-union",
@@ -2806,7 +4338,123 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-04",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "0b3d00f7",
+          "kind": "fee",
+          "text": "From applying for a credit card to closing on your mortgage, to opening your child’s first savings account, FourLeaf is here for you.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7c2edb2b",
+          "kind": "new_customer",
+          "text": "Up to $550.00 Checking Bonus Offer [1] Offer details: To be eligible for the FourLeaf Checking Up to $550 Bonus Offer and receive up to a maximum of $550.00 in bonuses, you must not have an existing FourLeaf checking account in which you are the primary account holder on the checking account and have not previously received a new checking account opening related bonus from FourLeaf.",
+          "amount": 550,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "fb87092b",
+          "kind": "direct_deposit",
+          "text": "To receive the initial $350.00 bonus (the “First Direct Deposit Bonus”), you must open a Free Checking, Smart Checking, or Student Checking account with FourLeaf between February 2, 2026 and December 31, 2026, which is subject to approval, and have a Qualifying Direct Deposit (as defined below) post to the checking account within ninety (90) calendar days of account opening date.",
+          "amount": 350,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5238d7d0",
+          "kind": "direct_deposit",
+          "text": "The First Direct Deposit Bonus will be deposited to the checking account within sixty (60) calendar days following the initial Qualifying Direct Deposit.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "a592e57a",
+          "kind": "direct_deposit",
+          "text": "To receive an additional $100.00 bonus (the “Second Direct Deposit Bonus”), you must continue to have a Qualifying Direct Deposit post to the checking account for twelve (12) consecutive months following the month of the initial Qualifying Direct Deposit.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5280fb66",
+          "kind": "direct_deposit",
+          "text": "The Second Direct Deposit Bonus will be deposited to the checking account within sixty (60) calendar days of receiving the applicable Qualifying Direct Deposit for the Second Direct Deposit Bonus.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c2db80e0",
+          "kind": "direct_deposit",
+          "text": "To receive an additional $100.00 bonus (the “Third Direct Deposit Bonus”), you must continue to have a Qualifying Direct Deposit post to the checking account for twenty-four (24) consecutive months following the month of the initial Qualifying Direct Deposit.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "90cc3b9d",
+          "kind": "direct_deposit",
+          "text": "The Third Direct Deposit Bonus will be deposited to the checking account within sixty (60) calendar days of receiving the applicable Qualifying Direct Deposit for the Third Direct Deposit Bonus.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "88efc26f",
+          "kind": "keep_open",
+          "text": "The checking account must remain open and in good standing up to and including the date each bonus is deposited to receive the applicable bonus.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "c635d350",
+          "kind": "direct_deposit",
+          "text": "A Qualifying Direct Deposit is a recurring electronic deposit of a paycheck, pension, or government benefits (such as Social Security) from an employer, the government, or similar third party of $500.00 or more.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2e6cff58",
+          "kind": "direct_deposit",
+          "text": "Certain types of electronically deposited funds may not be considered a Qualifying Direct Deposit including ATM deposits, debit card transfers, online banking transfers or deposits, and person to person payments such as Zelle®.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2233e695",
+          "kind": "direct_deposit",
+          "text": "The Free Checking Account earns a 0.40% Annual Percentage Yield (APY) for each month that the member (i) is enrolled in online banking with eStatements, (ii) receives direct deposit into the Free Checking Account, and (iii) makes 10 point-of-sale debit card transactions from the Free Checking Account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.fourleaffcu.com/queens-open-an-account/",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ga-nc-sc-south-state-bank-100-checking-bonus-direct-deposit-not-required",
@@ -2848,7 +4496,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ga-nc-sc-va-fl-al-south-state-bank-400-business-checking-bonus",
@@ -2887,7 +4542,33 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-02",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "c06f53ae",
+          "kind": "deposit",
+          "text": "To open an account at a branch location, a $50 minimum deposit is required.",
+          "amount": 50,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "ce440895",
+          "kind": "new_customer",
+          "text": "The Bonus is not available if the business has previously received a bonus on an eligible SouthState business/commercial checking account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.southstatebank.com/small-business/bank/earn400",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "ga-only-delta-community-credit-union-200-checking-bonus-direct-deposit-not-required",
@@ -2922,7 +4603,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "grasshopper-200-business-checking-referral-bonus",
@@ -2961,7 +4649,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2025-12-15",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "hi-bank-of-hawaii-100-400-checking-bonus",
@@ -2996,7 +4691,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "hi-bank-of-hawaii-200-savings-bonus",
@@ -3035,7 +4737,123 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-07",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "a9cadabf",
+          "kind": "deposit",
+          "text": "Get started Savings Promotion Save your way with our tiered savings offer Earn $75 when you deposit $5,000 and meet promotion requirements.",
+          "amount": 75,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "62240708",
+          "kind": "deposit",
+          "text": "Earn $150 when you deposit $10,000 and meet promotion requirements.",
+          "amount": 150,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d7ceeca7",
+          "kind": "deposit",
+          "text": "Earn $300 when you deposit $20,000 and meet promotion requirements.",
+          "amount": 300,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "00ac3e19",
+          "kind": "deposit",
+          "text": "A Bankohana Bonus Rate Savings account requires a Bankohana checking account which can be opened with a deposit of $500.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2f5d5f78",
+          "kind": "deposit",
+          "text": "Fund your account Make your required deposits of $5,000, $10,000, or $20,000 within 30 days of account opening.",
+          "amount": 5000,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d2848980",
+          "kind": "balance",
+          "text": "Maintain your balance After the first 30 days, maintain your daily balance of $5,000, $10,000, or $20,000 for the next 60 days.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "79a5e05e",
+          "kind": "deposit",
+          "text": "View rates $100 minimum opening deposit Waived $5 monthly service fee when maintaining a daily balance of $300 Open now More Less Bonus Rate Savings Earns interest and rewards active savers with bonus interest when you deposit $25 or more each month and make no withdrawals that month.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7f837e2a",
+          "kind": "deposit",
+          "text": "View rates $100 minimum opening deposit Waived $5 monthly service fee when maintaining a daily balance of $500 or deposit $25 or more and make no withdrawals that month Open now More Less Bankohana Bonus Rate Savings 2 Earns preferred interest and rewards active savers with bonus interest when you deposit $25 or more each month and make no withdrawals that month.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "548d043e",
+          "kind": "deposit",
+          "text": "View rates $100 minimum opening deposit No minimum balance requirement Requires a Bankohana account 2 Open now More Less Take advantage of higher rates and premium benefits with our Bankohana Saving Special.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e2eb949f",
+          "kind": "balance",
+          "text": "Can my savings account balance fluctuate during the promotion? Yes, your account balance may fluctuate, however you will need to maintain a Daily Account Balance of $5,000, $10,000, or $20,000 every day from Day 31 through Day 90 after Account opening to qualify for the bonus.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "642c71b4",
+          "kind": "balance",
+          "text": "If your Daily Account Balance falls below the required minimum amount for even one (1) day during the Maintenance Period, you will not receive the bonus.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "b1be0973",
+          "kind": "fee",
+          "text": "If my account balance drops, will I still be eligible for the offer? If your account balance is reduced by any fees during the Maintenance Period, you will need to add money on that day to keep your balance at or above the required minimum of the tier you wish to remain in.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://www.boh.com/personal/bank-accounts/pr/savings-offer",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "hsbc-up-to-4000-checking-bonus-2",
@@ -3074,7 +4892,14 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-20",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ia-greater-iowa-credit-union-300-checking-bonus-direct-deposit-not-required",
@@ -3109,7 +4934,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ia-il-in-ks-mi-mn-mo-oh-and-wi-associated-bank-up-to-750-business-checking-bonus",
@@ -3142,7 +4974,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ia-in-branch-only-collins-community-credit-union-100-checking-bonus",
@@ -3177,7 +5016,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "id-only-westmark-credit-union-250-checking-bonus-direct-deposit-not-required",
@@ -3212,7 +5058,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-in-ky-oh-first-financial-bank-100-150-checking-referral-bonus",
@@ -3250,7 +5103,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-in-mn-wi-only-associated-bank-500-checking-bonus",
@@ -3293,7 +5153,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-mi-mo-wi-cibc-us-200-checking-bonus-in-branch-only",
@@ -3332,7 +5199,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-ne-ks-tx-co-in-branch-fnbo-bank-250-business-checking-bonus",
@@ -3365,7 +5239,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-only-old-second-bank-300-checking-bonus",
@@ -3400,7 +5281,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-only-u-of-i-community-credit-union-150-checking-bonus-direct-deposit-not-required",
@@ -3433,7 +5321,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-only-wintrust-bank-300-checking-bonus",
@@ -3472,7 +5367,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-or-ca-only-cefcu-125-checking-bonus-direct-deposit-not-required",
@@ -3508,7 +5410,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-wi-mn-in-az-fl-ks-mo-bmo-harris-350-checking-300-savings-bonus",
@@ -3541,7 +5450,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "il-wi-only-byline-bank-450-checking-bonus",
@@ -3577,7 +5493,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "in-ky-mn-mi-old-national-bank-300-450-checking-bonus",
@@ -3620,7 +5543,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "in-lake-porter-county-purdue-federal-credit-union-150-checking-bonus",
@@ -3653,7 +5583,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "in-mi-everwise-credit-union-250-checking-bonus-direct-deposit-not-required",
@@ -3688,7 +5625,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "in-only-inova-federal-credit-union-250-checking-bonus",
@@ -3723,7 +5667,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ks-co-only-sunflower-bank-200-checking-savings-bonus",
@@ -3763,7 +5714,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ks-mo-ar-ok-equity-bank-1000-business-checking-bonus",
@@ -3796,7 +5754,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ks-mo-ar-ok-ne-equity-bank-400-checking-bonus",
@@ -3835,7 +5800,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "la-ms-fl-al-tx-hancock-whitney-200-business-checking",
@@ -3868,7 +5840,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "la-ms-fl-al-tx-hancock-whitney-bank-600-checking-savings-bonus",
@@ -3901,7 +5880,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "live-oak-bank-300-savings-bonus",
@@ -3934,7 +5920,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-ct-me-nh-ri-vt-cambridge-savings-bank-400-checking-bonus",
@@ -3970,7 +5963,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-ct-ri-bankesb-east-hampton-savings-bank-200-checking-bonus-direct-deposit-no-required",
@@ -4008,7 +6008,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-ct-ri-nh-trunoth-bank-300-checking-bonus-direct-deposit-not-required",
@@ -4046,7 +6053,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-fidelity-bank-up-to-250-checking-bonus",
@@ -4082,7 +6096,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-nh-me-ri-ct-vt-country-bank-200-checking-bonus",
@@ -4122,7 +6143,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-nh-me-ri-eastern-bank-750-checking-savings-bonus",
@@ -4160,7 +6188,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-ny-ct-ri-or-vt-berkshire-bank-300-checking-bonus",
@@ -4199,7 +6234,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-only-abington-bank-200-checking-bonus",
@@ -4236,7 +6278,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-only-metro-credit-union-300-checking-bonus",
@@ -4271,7 +6320,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-only-middlesex-savings-bank-200-checking-bonus-direct-deposit-not-required",
@@ -4306,7 +6362,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ma-pittsfield-coop-bank-750-checking-bonus",
@@ -4341,7 +6404,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "md-d-c-va-lafayette-federal-credit-union-100-checking-bonus-2",
@@ -4377,7 +6447,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "md-only-tower-federal-credit-union-100-checking-bonus-no-requirements",
@@ -4412,7 +6489,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "md-pa-de-wv-va-d-c-secu-350-business-checking-bonus",
@@ -4445,7 +6529,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "me-nh-camden-national-bank-300-checking-bonus-2",
@@ -4482,7 +6573,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "me-nh-in-branch-only-bar-harbor-bank-trust-100-checking-bonus",
@@ -4519,7 +6617,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "me-vt-nh-bar-harbor-bank-trust-300-checking-bonus",
@@ -4552,7 +6657,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-4font-credit-union-400-checking-bonus-direct-deposit-not-required",
@@ -4587,7 +6699,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-alpena-alcona-area-credit-union-125-youth-275-adult-checking-bonus-direct-deposit-not-required",
@@ -4622,7 +6741,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-community-choice-credit-union-100-checking-bonus",
@@ -4657,7 +6783,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-first-merchants-bank-300-750-business-checking-bonus",
@@ -4690,7 +6823,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-first-merchants-bank-400-600-checking-bonus",
@@ -4725,7 +6865,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-oh-cornerstone-community-financial-credit-union-300-checking-bonus",
@@ -4761,7 +6908,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-only-credit-union-one-200-checking-bonus-2",
@@ -4796,7 +6950,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mi-portland-federal-credit-union-pfcu-100-referral-bonus",
@@ -4831,7 +6992,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mn-blaze-credit-union-150-checking-bonus-direct-deposit-not-required",
@@ -4866,7 +7034,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mo-alltru-credit-union-400-checking-bonus",
@@ -4901,7 +7076,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mo-guaranty-bank-500-business-checking-bonus",
@@ -4934,7 +7116,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mo-ilvantage-credit-union-250-checking-bonus-direct-deposit-not-required",
@@ -4970,7 +7159,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "mo-ks-only-hawthorn-bank-300-checking-bonus",
@@ -5006,7 +7202,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "moomoo-brokerage-bonus-up-to-1000-with-50000-deposit-more",
@@ -5039,7 +7242,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nh-ma-ri-ct-de-ny-nj-pa-or-fl-in-branch-santander-400-checking-bonus",
@@ -5081,7 +7291,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nj-columbia-bank-200-chehking-account-bonus",
@@ -5116,7 +7333,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nj-pa-in-branch-only-the-bank-of-princeton-100-checking-bonus",
@@ -5152,7 +7376,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nj-pa-only-provident-bank-250-checking-bonus-10-7-10-12",
@@ -5189,7 +7420,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nj-pa-only-unity-bank-300-400-checking-bonus",
@@ -5225,7 +7463,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nm-tx-gecu-federal-credit-union-300-checking-bonus",
@@ -5261,7 +7506,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "northeastern-pa-only-fidelity-bank-400-checking",
@@ -5294,7 +7546,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nv-farm-bureau-bank-150-personal-checking-250-business-checking-bonus",
@@ -5327,7 +7586,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nv-only-greater-nevada-credit-union-100-checking-bonus",
@@ -5362,7 +7628,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-canadaigua-national-bank-300-checking-bonus",
@@ -5397,7 +7670,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-greenpoint-branch-apple-bank-300-checking-bonus",
@@ -5432,7 +7712,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-only-jovia-financial-credit-union-125-checking-bonus",
@@ -5467,7 +7754,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-only-summit-federal-credit-union-up-to-300-checking-bonus-direct-deposit-not-required",
@@ -5502,7 +7796,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-pa-nj-visions-federal-credit-union-200-checking-bonus",
@@ -5539,7 +7840,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-reliant-community-credit-union-150-checking-bonus-25-referral-bonus",
@@ -5574,7 +7882,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-suffolk-credit-union-300-checking-bonus-no-direct-deposit-required",
@@ -5609,7 +7924,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ny-suffolk-federal-credit-union-100-checking-bonus-direct-deposit-not-required",
@@ -5644,7 +7966,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "nyc-muncipal-credit-union-100-checking-bonus",
@@ -5677,7 +8006,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "oh-ky-cinfed-credit-union-100-checking-bonus",
@@ -5714,7 +8050,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "oh-mi-pa-ky-wv-huntington-bank-200-checking-promotion-no-direct-deposit-requirement",
@@ -5770,7 +8113,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "oh-mi-pa-ky-wv-il-wi-huntington-bank-500-750-business-checking-bonuses",
@@ -5803,7 +8153,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "oh-only-myusa-credit-union-200-checking-bonus",
@@ -5838,7 +8195,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "oh-westfield-bank-100-checking-bonus-no-direct-deposit-required",
@@ -5873,7 +8237,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ok-az-midfirst-250-business-checking-bonus",
@@ -5906,7 +8277,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ok-bank-of-oklahoma-300-in-branch-college-checking-bonus-direct-deposit-not-required",
@@ -5947,7 +8325,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ok-ks-ar-highly-select-areas-truity-credit-union-100-checking-bonus-no-bonus-requirements",
@@ -5983,7 +8368,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ok-select-branches-only-ttcu-federal-credit-union-500-checking-bonus",
@@ -6018,7 +8410,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "or-embold-credit-union-200-checking-bonus",
@@ -6053,7 +8452,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "or-wa-red-canoe-credit-union-150-checking-bonus-direct-deposit-not-required",
@@ -6089,7 +8495,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-freedom-credit-union-100-checking-bonus-100-per-person-refer",
@@ -6124,7 +8537,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-md-only-acnb-1000-2000-checking-bonus",
@@ -6157,7 +8577,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-nj-only-first-commonwealth-federal-credit-union-300-checking-bonus",
@@ -6193,7 +8620,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-northwest-bank-160-checking-bonus",
@@ -6231,7 +8665,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-ny-cn-bank-400-checking-bonus",
@@ -6268,7 +8709,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-oh-st-bank-350-checking-bonus-no-direct-deposit",
@@ -6304,7 +8752,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-oh-st-bank-600-business-checking-bonus-requires-payment-processing",
@@ -6337,7 +8792,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-only-clearview-credit-union-412-checking-bonus-direct-deposit-not-required",
@@ -6372,7 +8834,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-only-penn-community-bank-350-checking-bonus-50-savings-direct-deposit-not-required",
@@ -6408,7 +8877,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-only-propell-credit-union-150-checking-bonus",
@@ -6443,7 +8919,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-only-psecu-100-250-checking-bonus",
@@ -6476,7 +8959,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-service-1st-federal-credit-union-300-checking-bonus",
@@ -6511,7 +9001,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pa-trumark-financial-150-checking-bonus",
@@ -6546,7 +9043,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "percapita-fintech-300-checking-bonus-25-per-month-direct-deposit-not-required",
@@ -6579,7 +9083,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "picatinny-credit-union-150-checking-bonus-morris-county-nj",
@@ -6612,7 +9123,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pnc-up-to-250-400-checking-bonus",
@@ -6645,7 +9163,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "pnc-up-to-500-business-checking-bonus-al-dc-de-fl-ga-il-in-ky-md-mi-mo-nc-nj-ny-oh-pa-sc-va-wi-and-wv",
@@ -6678,7 +9203,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "provident-credit-union-150-business-checking-bonus",
@@ -6711,7 +9243,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "raisin-up-to-200-savings-bonus-referral-savebetter",
@@ -6744,7 +9283,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "regions-bank-400-checking-bonus-50-referral-al-ar-fl-ga-il-in-ia-ky-la-ms-mo-nc-sc-tn-tx-2",
@@ -6793,7 +9339,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "select-counties-mn-bell-bank-500-business-checking",
@@ -6826,7 +9379,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "sofi-checking-5000-direct-deposit-required",
@@ -6859,7 +9419,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "spruce-money-fintech-100-bonus",
@@ -6892,7 +9459,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "st-marys-bank-300-checking-bonus",
@@ -6927,7 +9501,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "star-financial-bank-200-checking-bonus",
@@ -6962,7 +9543,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "targeted-chase-900-checking-savings-bonus",
@@ -6995,7 +9583,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "targeted-td-bank-300-checking-200-savings-bonus",
@@ -7045,7 +9640,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "teachers-federal-credit-union-300-checking-bonus",
@@ -7081,7 +9683,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tn-ar-ms-al-ga-ky-fl-nc-va-first-horizon-bank-450-checking-bonus-direct-deposit-not-required",
@@ -7128,7 +9737,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tn-ga-al-firstbank-250-checking-bonus",
@@ -7165,7 +9781,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tn-rutherford-only-redstone-federal-credit-union-500-checking-bonus",
@@ -7201,7 +9824,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "truist-200-business-checking-bonus-al-ar-ga-fl-in-ky-md-ms-nc-nj-oh-pa-sc-tn-tx-va-wv-or-dc",
@@ -7234,7 +9864,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "truist-300-checking-bonus-al-ar-ga-fl-in-ky-md-ms-nc-nj-oh-pa-sc-tn-tx-va-wv-or-dc",
@@ -7285,7 +9922,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "two-new-american-express-charles-schwab-cards-available-sign-ups-eligibility-requirements",
@@ -7318,7 +9962,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-la-credit-human-300-checking-bonus",
@@ -7354,7 +10005,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-mo-ok-regent-bank-200-referral-bonus-100-for-referrer",
@@ -7391,7 +10049,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-only-broadway-bank-200-checking-bonus",
@@ -7426,7 +10091,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-only-broadway-bank-300-500-business-checking-bonus",
@@ -7459,7 +10131,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-only-first-national-bank-texas-300-checking-bonus",
@@ -7497,7 +10176,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-only-neighborhood-credit-union-100-checking-bonus",
@@ -7532,7 +10218,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-pecu-200-checking-bonus-direct-deposit-not-required",
@@ -7567,7 +10260,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-select-counties-primeway-federal-credit-union-100-referral-checking-bonus",
@@ -7602,7 +10302,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "tx-the-woodlands-only-bank-of-texas-400-800-checking-bonus",
@@ -7635,7 +10342,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "u-s-bank-400-900-business-checking-bonus",
@@ -7668,7 +10382,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "u-s-bank-450-100-checking-bonus",
@@ -7701,7 +10422,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "united-launches-new-mileageplus-debit-card-10000-miles-signup-bonus-more",
@@ -7734,7 +10462,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "unknown-location-restrictions-keybank-200-checking-bonus",
@@ -7783,7 +10518,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ut-nv-az-id-or-nm-ca-america-first-credit-union-150-savings-200-checking-bonus",
@@ -7819,7 +10561,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "va-city-national-bank-100-checking-bonus--regional",
@@ -7855,7 +10604,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "va-city-national-bank-100-checking-bonus--state",
@@ -7892,7 +10648,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "va-only-1st-advantage-federal-credit-union-100-checking-bonus",
@@ -7928,7 +10691,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wa-id-mt-or-horizon-credit-union-200-checking-bonus-direct-deposit-not-required",
@@ -7966,7 +10736,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wa-id-numerica-credit-union-200-checking-bonus-direct-deposit-not-required",
@@ -8002,7 +10779,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wa-only-kitsap-credit-union-330-checking-bonus",
@@ -8037,7 +10821,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wa-only-verity-credit-union-150-checking-bonus",
@@ -8072,7 +10863,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wa-only-wecu-250-checking-bonus",
@@ -8107,7 +10905,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wa-only-wsecu-300-checking-bonus",
@@ -8142,7 +10947,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wells-fargo-400-825-business-checking-bonus",
@@ -8175,7 +10987,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wells-fargo-500-checking-bonus",
@@ -8211,7 +11030,123 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-23",
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [
+        {
+          "id": "172fce8e",
+          "kind": "direct_deposit",
+          "text": "Get $500 with a new Everyday Checking account | Wells Fargo Get a $ 500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
+          "amount": 500,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "24ece8de",
+          "kind": "fee",
+          "text": "Learn how to avoid the $15 monthly service fee .",
+          "amount": 15,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "65431900",
+          "kind": "deposit",
+          "text": "$25 minimum opening deposit if opening in branch.",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "671cc74b",
+          "kind": "direct_deposit",
+          "text": "2 Deposit Make $1,000 or more in qualifying direct deposits within the first 90 days of opening.",
+          "amount": 1000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5bf331cd",
+          "kind": "new_customer",
+          "text": "* How to qualify for this offer To be eligible: Offer is for new consumer checking customers only and is available only to the primary owner of the new checking account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "029d5f4d",
+          "kind": "deposit",
+          "text": "To receive the $500 bonus: you must use your bonus offer code when opening a new Wells Fargo consumer checking account, which is subject to approval, by October 6, 2026 and receive $1,000 or more in qualifying electronic deposits within 90 calendar days of account opening (the \"qualification period\").",
+          "amount": 1000,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "769bc3cd",
+          "kind": "fee",
+          "text": "Talk with a banker or see the \"Consumer Account Fee and Information Schedule\" and \"Deposit Account Agreement\" available at wellsfargo.com/depositdisclosures for complete checking account details, including the applicable monthly service fee and options to avoid it.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "94464cbd",
+          "kind": "fee",
+          "text": "The actions required for this bonus are separate from the actions available to avoid the monthly service fee.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "1cc1387f",
+          "kind": "fee",
+          "text": "** The Wells Fargo Everyday Checking account monthly service fee is $15.",
+          "amount": 15,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "56838500",
+          "kind": "balance",
+          "text": "The monthly service fee can be avoided with one of the following each fee period: $1,500 minimum daily balance.",
+          "amount": 1500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f2b0f021",
+          "kind": "deposit",
+          "text": "$5,000 or more in qualifying deposit balances, investment balances, or both.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "1729df0a",
+          "kind": "fee",
+          "text": "On the last business day of each fee period balances in eligible Wells Fargo accounts will be automatically totaled.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": null,
+      "terms": {
+        "status": "ok",
+        "url": "https://accountoffers.wellsfargo.com/offerbonus/",
+        "fetched_at": "2026-09-14"
+      }
     },
     {
       "id": "wi-il-in-branch-only-northshore-bank-500-business-checking-bonus",
@@ -8244,7 +11179,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-il-only-north-shore-bank-300-checking-bonus-direct-deposit-optional",
@@ -8279,7 +11221,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-il-onlyheritage-credit-union-100-checking-bonus",
@@ -8315,7 +11264,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-kohler-credit-union-100-referral-checking-bonus",
@@ -8350,7 +11306,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-mn-mi-ccfbank-200-checking-bonus",
@@ -8387,7 +11350,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-mn-only-trustone-financial-350-checking-bonus",
@@ -8423,7 +11393,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-only-oostburg-state-bank-300-checking-bonus",
@@ -8458,7 +11435,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-only-summit-credit-union-100-checking-bonus",
@@ -8493,7 +11477,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-only-waterstone-bank-250-business-checking-bonus",
@@ -8526,7 +11517,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-veterans-only-150-first-bank-financial-centre-fbfc-checking-bonus-no-direct-deposit-or-monthly-fees",
@@ -8561,7 +11559,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "wi-waterstone-bank-256-checking-promotion-1000-scorecard-points",
@@ -8596,7 +11601,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ymmv-ct-de-ma-mi-nh-nj-ny-oh-pa-ri-vt-va-d-c-md-fl-citizens-bank-750-business-checking-bonus",
@@ -8629,7 +11641,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ymmv-in-branch-citibank-business-up-to-2000-checking-bonus",
@@ -8662,7 +11681,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     },
     {
       "id": "ymmv-select-ca-areas-only-1st-united-credit-union-200-business-checking-bonus",
@@ -8695,7 +11721,14 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-09-14"
+      "last_seen": "2026-09-14",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
     }
   ]
 }
