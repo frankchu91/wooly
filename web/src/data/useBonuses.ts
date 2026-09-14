@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import type { Dataset } from "../engine/types";
 import { loadBonuses } from "./loadBonuses";
 
-let cached: Promise<Dataset> | null = null;
+const cache = new Map<typeof fetch, Promise<Dataset>>();
+
+/** Test helper: clears every cached dataset promise, regardless of which fetchImpl created it. */
+export function resetBonusesCache(): void {
+  cache.clear();
+}
 
 export function useBonuses(fetchImpl: typeof fetch = fetch): {
   data: Dataset | null;
@@ -15,8 +20,12 @@ export function useBonuses(fetchImpl: typeof fetch = fetch): {
 
   useEffect(() => {
     let cancelled = false;
-    if (!cached) cached = loadBonuses(fetchImpl);
-    cached.then(
+    let promise = cache.get(fetchImpl);
+    if (!promise) {
+      promise = loadBonuses(fetchImpl);
+      cache.set(fetchImpl, promise);
+    }
+    promise.then(
       (ds) => {
         if (!cancelled) {
           setData(ds);
@@ -33,11 +42,12 @@ export function useBonuses(fetchImpl: typeof fetch = fetch): {
     return () => {
       cancelled = true;
     };
+    // fetchImpl is intentionally excluded: it's captured per `attempt`, not re-run on every render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attempt]);
 
   const retry = () => {
-    cached = null;
+    cache.delete(fetchImpl);
     setAttempt((n) => n + 1);
   };
 
