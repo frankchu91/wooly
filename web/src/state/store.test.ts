@@ -211,6 +211,23 @@ describe("export / clearAll / import", () => {
 });
 
 describe("hydration", () => {
+  test("a blob already in localStorage is loaded as the module initialises", async () => {
+    // `merge` runs while `create(persist(...))` is still executing, so anything it
+    // touches must already be initialised. A throw there is swallowed by persist and the
+    // user's profile just silently never appears — which is why this imports the module
+    // fresh with the blob already in place, rather than calling `rehydrate()` later.
+    localStorage.setItem(
+      "woolly.v1",
+      JSON.stringify({ state: { profile: { state: "MA", monthlyDD: 4200 } }, version: 1 }),
+    );
+    vi.resetModules();
+
+    const fresh = await import("./store");
+
+    expect(fresh.useStore.getState().profile?.state).toBe("MA");
+    expect(fresh.useStore.getState().profile?.monthlyDD).toBe(4200);
+  });
+
   test("a partial profile (no prefs, no numbers) hydrates with defaults filled in", async () => {
     localStorage.setItem(
       "woolly.v1",

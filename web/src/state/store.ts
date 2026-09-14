@@ -4,6 +4,17 @@ import { persist } from "zustand/middleware";
 import { defaultProfile } from "../engine/types";
 import type { HistoryEntry, PlanItem, Profile } from "../engine/types";
 
+/** The current calendar month as `YYYY-MM`.
+ *
+ * Declared before the store, not after it: `persist`'s `merge` runs while the store is
+ * being created, and it reaches this through `normalizeProfile`. A `const` arrow
+ * function down at the bottom of the file would still be in its temporal dead zone at
+ * that moment, and the resulting throw is swallowed by persist's hydration — leaving a
+ * returning user's profile silently unloaded. */
+export function currentMonth(): string {
+  return format(new Date(), "yyyy-MM");
+}
+
 export type TrackStatus = "planned" | "opened" | "dd_sent" | "received" | "closed";
 
 export interface TrackedItem {
@@ -248,5 +259,3 @@ export const useStore = create<State>()(
     },
   ),
 );
-
-export const currentMonth = (): string => format(new Date(), "yyyy-MM");

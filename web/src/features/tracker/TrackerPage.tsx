@@ -82,7 +82,12 @@ export function TrackerPage() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             {groups.map((group) => (
-              <section key={group.status}>
+              <section
+                key={group.status}
+                // A lone group would otherwise sit in the left half with nothing beside
+                // it; two or more share the row.
+                className={groups.length === 1 ? "lg:col-span-2" : undefined}
+              >
                 <div className="mb-3 flex items-center gap-2">
                   <h2 className="font-heading text-lg font-semibold text-ink">
                     {t.tracker.statuses[group.status]}
