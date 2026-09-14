@@ -168,10 +168,10 @@ describe("splitConditions — paraphrase collapse", () => {
   });
 
   test("two different non-null amounts sharing a day window do not collapse (E2)", () => {
-    // A real case from Wells Fargo's bank page: a $500 reward figure the scraper's
-    // amount-selection quirk mistakes for the requirement, sitting in a sentence that
-    // otherwise shares the doc row's 90-day window. Merging on the day window alone
-    // would silently throw away a genuinely different (if wrong) figure.
+    // Two rows that genuinely disagree on the dollar figure but happen to share a day
+    // window (e.g. a $500 reward figure vs. a $1,000 requirement figure, both parsed
+    // with a 90-day window) are not the same requirement. Merging on the day window
+    // alone would silently throw away a genuinely different figure.
     const rows = [
       condition({ id: "doc-dd", amount: 1000, days: 90 }),
       condition({ id: "bank-dd", amount: 500, days: 90, source: "bank" }),
@@ -293,14 +293,13 @@ describe("splitConditions — the Wells Fargo fixture", () => {
 // --- E4: real, regenerated `data/bonuses.json` rows (post round-2 F1–F3), built inline
 // rather than read from the file, so this test doesn't depend on a scraper run. ---
 
-describe("splitConditions — the real Wells Fargo condition list (E4)", () => {
-  // The bank's own page mangles a bulleted list into one sentence stream, so
-  // `wf-dd-bank-500` carries the reward's own `$500` (not the $1,000 deposit named
-  // later in the same sentence) as its `amount` — a pre-existing scraper limitation
-  // (see the report's Concerns), not something round 2's rules touch. Because that
-  // figure genuinely disagrees with the doc row's $1,000, E2's tightened collapse
-  // rule correctly does *not* treat the two as paraphrases, so both survive — the
-  // checklist below is 2 rows, not the 1 a same-amount match would have produced.
+describe("splitConditions — the real Wells Fargo condition list (E4/H1)", () => {
+  // The bank's own page mangles a bulleted list into one sentence stream. Round 3's
+  // H1 widened the scraper's reward-figure skip to look 6 words ahead instead of only
+  // at the very next token, so `wf-dd-bank-1000` now carries the real $1,000 deposit
+  // figure (not either of the two `$500` reward mentions that precede it) — matching
+  // the doc row's $1,000/90 days, so E2's collapse correctly treats them as the same
+  // requirement and only 1 row survives to the checklist.
   const wfRows: Condition[] = [
     condition({
       id: "wf-dd-doc",
@@ -322,9 +321,9 @@ describe("splitConditions — the real Wells Fargo condition list (E4)", () => {
       text: "To receive the $500 bonus: you must use your bonus offer code when opening a new Wells Fargo consumer checking account, which is subject to approval, by October 6, 2026 and receive $1,000 or more in qualifying electronic deposits within 90 calendar days of account opening (the qualification period).",
     }),
     condition({
-      id: "wf-dd-bank-500",
+      id: "wf-dd-bank-1000",
       kind: "direct_deposit",
-      amount: 500,
+      amount: 1000,
       days: 90,
       source: "bank",
       text: "Get a $500 new checking customer bonus As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
@@ -388,10 +387,10 @@ describe("splitConditions — the real Wells Fargo condition list (E4)", () => {
     }),
   ];
 
-  test("2 checklist rows survive (the DD/deposit duplicate is gone); the fee-waiver bullets and the $25/new-customer lines are notes", () => {
+  test("1 checklist row survives (doc and bank now agree on $1,000/90 days); the fee-waiver bullets and the $25/new-customer lines are notes", () => {
     const { checklist, notes } = splitConditions(bonusWith(wfRows));
 
-    expect(checklist.map((c) => c.id)).toEqual(["wf-dd-doc", "wf-dd-bank-500"]);
+    expect(checklist.map((c) => c.id)).toEqual(["wf-dd-doc"]);
     // Capped at MAX_NOTES=6: wf-dep-500-or (the 7th note) is dropped.
     expect(notes.map((c) => c.id)).toEqual([
       "wf-nc",

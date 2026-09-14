@@ -300,6 +300,52 @@ def test_classify_sentence_or_word_join_count_survives_the_footnote_strip():
     assert "Zelle transactions from" in c.text
 
 
+# --- Round 3: H1, the reward-figure skip looks 6 words ahead, not just at the next
+# token, so a reward figure named a few words later (real Wells Fargo bank copy) is
+# still recognised as the reward, not the requirement. ---
+
+
+def test_classify_sentence_deposit_amount_skips_reward_figure_several_words_later():
+    text = (
+        "Get a $500 new checking customer bonus and make $1,000 or more in "
+        "qualifying direct deposits within 90 days of account opening."
+    )
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "direct_deposit"
+    assert c.amount == 1000
+    assert c.days == 90
+
+
+def test_classify_sentence_deposit_amount_skips_reward_figure_immediately_before_bonus():
+    text = (
+        "As a new checking customer, enjoy a $500 bonus when you open a new "
+        "account and make $1,000 or more in qualifying direct deposits within 90 days."
+    )
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "direct_deposit"
+    assert c.amount == 1000
+    assert c.days == 90
+
+
+def test_classify_sentence_real_wells_fargo_bank_sentence_takes_the_requirement_figure():
+    # The real Wells Fargo bank-page sentence this rule was written for: two reward
+    # mentions of $500 (one four words before "bonus", one immediately before it)
+    # followed by the actual $1,000 direct deposit requirement.
+    text = (
+        "Get a $500 new checking customer bonus * As a new Wells Fargo checking "
+        "customer, enjoy a $500 bonus when you open a new Everyday Checking account "
+        "** and make $1,000 or more in qualifying direct deposits within 90 days of "
+        "account opening."
+    )
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "direct_deposit"
+    assert c.amount == 1000
+    assert c.days == 90
+
+
 def test_condition_id_is_stable_and_based_on_kind_and_normalised_text():
     a = classify_sentence(WF_DD_SENTENCE, "doc")
     b = classify_sentence(WF_DD_SENTENCE + ".", "doc")  # trailing punctuation shouldn't change id

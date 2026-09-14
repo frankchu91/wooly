@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T11:10:06+00:00",
+  "generated_at": "2026-09-14T11:24:35+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -504,15 +504,6 @@
           "kind": "balance",
           "text": "Maintain an average daily balance of $3,000 over your account’s first few months.",
           "amount": 3000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "a540434e",
-          "kind": "deposit",
-          "text": "Expand FDIC coverage up to $265 MM with Axos Bank Insured Cash Sweep through IntraFi® Network Deposits SM .",
-          "amount": 265,
           "days": null,
           "count": null,
           "source": "bank"
@@ -2269,7 +2260,7 @@
           "id": "4ea04350",
           "kind": "deposit",
           "text": "To earn $1,000 bonus—1) Within 30 days of account opening, deposit at least $30,000 from an external source (cash deposits and funds sourced from an account with another financial institution that was not affiliated with Capital One prior to January 1, 2025, qualify;",
-          "amount": 30000,
+          "amount": null,
           "days": 30,
           "count": null,
           "source": "doc"
@@ -3591,7 +3582,7 @@
           "id": "2628b142",
           "kind": "deposit",
           "text": "At the end of the Deposit Period, all net new funds will be totaled to determine whether you have satisfied the deposit requirement of $20,000 for this offer.",
-          "amount": 20000,
+          "amount": null,
           "days": null,
           "count": null,
           "source": "doc"
@@ -4684,7 +4675,7 @@
           "id": "fb87092b",
           "kind": "direct_deposit",
           "text": "To receive the initial $350.00 bonus (the “First Direct Deposit Bonus”), you must open a Free Checking, Smart Checking, or Student Checking account with FourLeaf between February 2, 2026 and December 31, 2026, which is subject to approval, and have a Qualifying Direct Deposit (as defined below) post to the checking account within ninety (90) calendar days of account opening date.",
-          "amount": 350,
+          "amount": null,
           "days": 90,
           "count": null,
           "source": "doc"
@@ -4702,7 +4693,7 @@
           "id": "a592e57a",
           "kind": "direct_deposit",
           "text": "To receive an additional $100.00 bonus (the “Second Direct Deposit Bonus”), you must continue to have a Qualifying Direct Deposit post to the checking account for twelve (12) consecutive months following the month of the initial Qualifying Direct Deposit.",
-          "amount": 100,
+          "amount": null,
           "days": null,
           "count": null,
           "source": "doc"
@@ -4720,7 +4711,7 @@
           "id": "c2db80e0",
           "kind": "direct_deposit",
           "text": "To receive an additional $100.00 bonus (the “Third Direct Deposit Bonus”), you must continue to have a Qualifying Direct Deposit post to the checking account for twenty-four (24) consecutive months following the month of the initial Qualifying Direct Deposit.",
-          "amount": 100,
+          "amount": null,
           "days": null,
           "count": null,
           "source": "doc"
@@ -7682,7 +7673,7 @@
           "id": "39c32d72",
           "kind": "deposit",
           "text": "Once the qualifying account is opened, make deposits totaling $2,500 by 10/31/21 to get the bonus.",
-          "amount": 2500,
+          "amount": null,
           "days": null,
           "count": null,
           "source": "doc"
@@ -10119,17 +10110,20 @@
         "deadline_days": null
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Can fund up to $100 with a credit card",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-08-10",
       "last_seen": "2026-09-14",
       "conditions": [],
       "hold_days": null,
@@ -10283,22 +10277,47 @@
       "dd": {
         "required": true,
         "amount": 250,
-        "deadline_days": null
+        "deadline_days": 45
       },
       "pull": "soft",
-      "chexsystems": null,
-      "cc_funding": null,
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "chexsystems": "Yes",
+      "cc_funding": "Up to $15 with a Visa or Mastercard",
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-01-01",
       "last_seen": "2026-09-14",
-      "conditions": [],
+      "conditions": [
+        {
+          "id": "6ee3f620",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $200",
+          "amount": 200,
+          "days": 45,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "aabf3a56",
+          "kind": "other",
+          "text": "See below",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
       "hold_days": null,
       "terms": {
         "status": null,
@@ -12401,7 +12420,7 @@
           "id": "ff376bc0",
           "kind": "direct_deposit",
           "text": "Get a $500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
-          "amount": 500,
+          "amount": 1000,
           "days": 90,
           "count": null,
           "source": "bank"

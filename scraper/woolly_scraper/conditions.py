@@ -70,6 +70,16 @@ One side effect of F2, seen against the real Bank of America page: a sentence wh
 the keyword ("...or Zelle® 1 transactions.") no longer classifies at all once that digit
 is gone — it was never a real "N transactions" requirement (it's the $100 offer's own
 marketing line), so `None` is the correct call, not a lost condition.
+
+Round 3 (small):
+
+H1. The reward-figure skip in `_parse_amount` (see amendment 2 above) only ever caught a
+   "bonus/cash/reward/offer" word sitting *immediately* after the `$` figure. The real
+   Wells Fargo bank copy names the reward a few words later ("Get a $500 new checking
+   customer bonus", "enjoy a $500 bonus when you open") — the reward word is still
+   naming that same figure, just not adjacent to it. The skip now looks at the next 6
+   words after each `$` figure (not only the very next token) for one of those words,
+   and still takes the first `$` figure that has none nearby.
 """
 
 from __future__ import annotations
@@ -203,9 +213,13 @@ _KIND_CHECKS: list[tuple[str, re.Pattern[str] | None]] = [
 
 _DEPOSIT_WORD_RE = re.compile(r"\b(deposits?|funds?)\b", re.IGNORECASE)
 
-# amount for direct_deposit/deposit: first "$" figure NOT immediately naming the reward.
+# amount for direct_deposit/deposit: first "$" figure that doesn't name the reward.
 _AMOUNT_RE = re.compile(r"\$\s?([\d,]+)")
-_REWARD_WORD_RE = re.compile(r"\s*(?:bonus|cash|reward|offer)\b", re.IGNORECASE)
+# H1: the reward word can trail a few words after the figure ("Get a $500 new checking
+# customer bonus"), not just sit immediately next to it.
+_WORD_RE = re.compile(r"[A-Za-z']+")
+_REWARD_WORDS = {"bonus", "cash", "reward", "offer"}
+_REWARD_WORD_LOOKAHEAD = 6
 
 _SENTENCE_END_RE = re.compile(r"(?<=[.;!])\s+")
 _LINE_SPLIT_RE = re.compile(r"[\r\n]+")
@@ -232,12 +246,18 @@ def _parse_count(text: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
+def _reward_word_nearby(text: str, start: int) -> bool:
+    """H1: is one of bonus/cash/reward/offer among the next 6 words from `start`?"""
+    words = _WORD_RE.findall(text[start:])[:_REWARD_WORD_LOOKAHEAD]
+    return any(w.lower() in _REWARD_WORDS for w in words)
+
+
 def _parse_amount(text: str, kind: str) -> int | None:
     if kind not in ("direct_deposit", "deposit"):
         return parse_money(text)
     for m in _AMOUNT_RE.finditer(text):
-        if _REWARD_WORD_RE.match(text, m.end()):
-            continue  # "$500 bonus" names the reward, not the requirement
+        if _reward_word_nearby(text, m.end()):
+            continue  # "$500 ... bonus" names the reward, not the requirement
         return int(m.group(1).replace(",", ""))
     return None
 
