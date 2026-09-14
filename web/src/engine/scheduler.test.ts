@@ -42,6 +42,9 @@ const makeBonus = (overrides: Partial<Bonus> & { id: string; bank: string }): Bo
   enriched_at: "2026-09-13",
   post_modified: null,
   last_seen: "2026-09-13",
+  conditions: [],
+  hold_days: null,
+  terms: { status: "none", url: null, fetched_at: null },
   ...overrides,
 });
 

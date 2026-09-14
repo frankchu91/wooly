@@ -1,5 +1,25 @@
 export type Section = "checking" | "savings" | "business" | "state" | "regional";
 export type Pull = "soft" | "hard" | "unknown";
+export type ConditionKind =
+  | "direct_deposit"
+  | "deposit"
+  | "balance"
+  | "transactions"
+  | "keep_open"
+  | "fee"
+  | "new_customer"
+  | "other";
+export type ConditionSource = "doc" | "bank";
+export type TermsStatus = "none" | "ok" | "blocked" | "error";
+export interface Condition {
+  id: string;
+  kind: ConditionKind;
+  text: string;
+  amount: number | null;
+  days: number | null;
+  count: number | null;
+  source: ConditionSource;
+}
 export interface Bonus {
   id: string;
   bank: string;
@@ -25,6 +45,9 @@ export interface Bonus {
   enriched_at: string | null;
   post_modified: string | null;
   last_seen: string;
+  conditions: Condition[];
+  hold_days: number | null;
+  terms: { status: TermsStatus | null; url: string | null; fetched_at: string | null };
 }
 export interface HistoryEntry {
   bank: string;

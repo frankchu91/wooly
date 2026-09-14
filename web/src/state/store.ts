@@ -15,7 +15,7 @@ export function currentMonth(): string {
   return format(new Date(), "yyyy-MM");
 }
 
-export type TrackStatus = "planned" | "opened" | "dd_sent" | "received" | "closed";
+export type TrackStatus = "planned" | "opened" | "requirements_met" | "received" | "closed";
 
 export interface TrackedItem {
   id: string;
@@ -23,12 +23,40 @@ export interface TrackedItem {
   status: TrackStatus;
   dates: Partial<Record<TrackStatus, string>>;
   openMonth: string;
+  /** Ids of the bonus's `Condition`s (see `engine/conditions.ts`) the user has ticked
+   * off. Always an array, even when empty. */
+  conditionsDone: string[];
+  /** The amount the user says actually posted, when it differs from — or simply
+   * confirms — the bonus's headline `bonus_max`. Undefined until they enter one. */
+  bonusReceived?: number;
+  notes?: string;
 }
 
 // The order `advance` walks through; `closed` has no successor, so advancing there is a
 // no-op. Exported so the tracker UI orders its groups the same way instead of keeping a
 // second copy of the list.
-export const STATUS_ORDER: TrackStatus[] = ["planned", "opened", "dd_sent", "received", "closed"];
+export const STATUS_ORDER: TrackStatus[] = [
+  "planned",
+  "opened",
+  "requirements_met",
+  "received",
+  "closed",
+];
+
+// v1 called this stage "dd_sent"; v2 renamed it "requirements_met" (it now covers every
+// condition, not just direct deposit). Both a persisted item's `status` and its `dates`
+// keys need this rename on the way in from an older blob.
+const LEGACY_STATUS_MAP: Record<string, TrackStatus> = { dd_sent: "requirements_met" };
+
+/** Resolves a persisted status-like string (a current `TrackStatus`, or a known legacy
+ * name) to today's `TrackStatus` — or `null` when it's neither, so callers can drop the
+ * value instead of guessing. */
+const toKnownStatus = (value: unknown): TrackStatus | null => {
+  if (typeof value !== "string") return null;
+  if ((STATUS_ORDER as string[]).includes(value)) return value as TrackStatus;
+  if (value in LEGACY_STATUS_MAP) return LEGACY_STATUS_MAP[value];
+  return null;
+};
 
 // The shape actually written to localStorage (see `partialize` below) — the plan itself
 // is derived from these plus the loaded bonus dataset, and is never persisted.
@@ -45,6 +73,15 @@ interface State extends PersistedSlice {
   restore(id: string): void;
   trackPlan(items: PlanItem[]): void;
   advance(id: string, date: string): void;
+  /** Moves a tracked item directly to `status`, recording `dateISO` under that stage —
+   * unlike `advance`, this can move to any stage, not just the next one (e.g. the
+   * tracker's "Move to…" menu, or the drawer's per-stage date inputs). */
+  setStatus(id: string, status: TrackStatus, dateISO: string): void;
+  /** Ticks or unticks one condition (by id) on a tracked item's checklist. */
+  toggleCondition(id: string, conditionId: string): void;
+  /** Sets (or, passing `undefined`, clears) the amount the user says actually posted. */
+  setBonusReceived(id: string, amount: number | undefined): void;
+  setNotes(id: string, text: string): void;
   untrack(id: string): void;
   clearAll(): void;
   exportJSON(): string;
@@ -125,8 +162,10 @@ const normalizeProfile = (imported: unknown): Profile | null => {
 };
 
 // Filters/repairs each imported tracked item so `status` is always a known
-// `TrackStatus` (defaulting to "planned") and `dates` is always an object (defaulting
-// to `{}`) — an older or hand-edited export may be missing either.
+// `TrackStatus` (defaulting to "planned", mapping v1's "dd_sent" to
+// "requirements_met"), `dates` is always an object with the same rename applied to its
+// keys, and `conditionsDone` is always an array — an older, hand-edited, or v1 export
+// may be missing any of these, or a v1 export's `dd_sent` never renamed.
 const normalizeTracker = (imported: unknown[]): TrackedItem[] =>
   imported
     .filter(
@@ -137,16 +176,28 @@ const normalizeTracker = (imported: unknown[]): TrackedItem[] =>
     )
     .map((item) => {
       const bonusId = item.bonusId as string;
-      const status: TrackStatus = STATUS_ORDER.includes(item.status as TrackStatus)
-        ? (item.status as TrackStatus)
-        : "planned";
-      const dates: Partial<Record<TrackStatus, string>> =
+      const status: TrackStatus = toKnownStatus(item.status) ?? "planned";
+      const rawDates =
         typeof item.dates === "object" && item.dates !== null
-          ? (item.dates as Partial<Record<TrackStatus, string>>)
+          ? (item.dates as Record<string, unknown>)
           : {};
+      const dates: Partial<Record<TrackStatus, string>> = {};
+      for (const [key, value] of Object.entries(rawDates)) {
+        if (typeof value !== "string") continue;
+        const mappedKey = toKnownStatus(key);
+        if (mappedKey) dates[mappedKey] = value;
+      }
       const openMonth = typeof item.openMonth === "string" ? item.openMonth : "";
       const id = typeof item.id === "string" ? item.id : bonusId;
-      return { id, bonusId, status, dates, openMonth };
+      const conditionsDone: string[] = Array.isArray(item.conditionsDone)
+        ? item.conditionsDone.filter((c): c is string => typeof c === "string")
+        : [];
+      const bonusReceived: number | undefined =
+        typeof item.bonusReceived === "number" && Number.isFinite(item.bonusReceived)
+          ? item.bonusReceived
+          : undefined;
+      const notes: string | undefined = typeof item.notes === "string" ? item.notes : undefined;
+      return { id, bonusId, status, dates, openMonth, conditionsDone, bonusReceived, notes };
     });
 
 /**
@@ -206,6 +257,7 @@ export const useStore = create<State>()(
               status: "planned",
               dates: {},
               openMonth: item.openMonth,
+              conditionsDone: [],
             }));
           return additions.length === 0 ? state : { tracker: [...state.tracker, ...additions] };
         }),
@@ -219,6 +271,44 @@ export const useStore = create<State>()(
             const nextStatus = STATUS_ORDER[nextIndex];
             return { ...item, status: nextStatus, dates: { ...item.dates, [nextStatus]: date } };
           }),
+        })),
+
+      setStatus: (id, status, dateISO) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) =>
+            item.id === id
+              ? { ...item, status, dates: { ...item.dates, [status]: dateISO } }
+              : item,
+          ),
+        })),
+
+      toggleCondition: (id, conditionId) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) => {
+            if (item.id !== id) return item;
+            const done = item.conditionsDone.includes(conditionId);
+            return {
+              ...item,
+              conditionsDone: done
+                ? item.conditionsDone.filter((c) => c !== conditionId)
+                : [...item.conditionsDone, conditionId],
+            };
+          }),
+        })),
+
+      setBonusReceived: (id, amount) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) => {
+            if (item.id !== id) return item;
+            const next: TrackedItem = { ...item, bonusReceived: amount };
+            if (amount === undefined) delete next.bonusReceived;
+            return next;
+          }),
+        })),
+
+      setNotes: (id, text) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) => (item.id === id ? { ...item, notes: text } : item)),
         })),
 
       untrack: (id) => set((state) => ({ tracker: state.tracker.filter((t) => t.id !== id) })),
@@ -247,7 +337,7 @@ export const useStore = create<State>()(
     }),
     {
       name: STORAGE_KEY,
-      version: 1,
+      version: 2,
       partialize: (state) => ({
         profile: state.profile,
         skippedIds: state.skippedIds,

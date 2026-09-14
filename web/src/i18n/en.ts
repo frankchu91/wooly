@@ -140,7 +140,7 @@ export const t = {
     statuses: {
       planned: "Planned",
       opened: "Opened",
-      dd_sent: "DD sent",
+      requirements_met: "Requirements done",
       received: "Bonus received",
       closed: "Closed",
     },
@@ -157,6 +157,28 @@ export const t = {
       cta: "Build a plan",
     },
     pro: "Pro (coming soon): reminders, a direct-deposit manager, and automatic tracking via bank sync.",
+  },
+  conditions: {
+    kinds: {
+      direct_deposit: "Direct deposit",
+      deposit: "Deposit",
+      balance: "Balance",
+      transactions: "Transactions",
+      keep_open: "Keep open",
+      fee: "Fee",
+      new_customer: "New customer",
+      other: "Other",
+    },
+    sources: {
+      doc: "DoC",
+      bank: "Bank",
+    },
+    synth: {
+      dd: (amount: number, days: number) => `Direct deposit of $${amount} within ${days} days`,
+      ddUnknown: (days: number) =>
+        `Direct deposit required within ${days} days — amount not listed`,
+      keepOpen: (days: number) => `Keep the account open for ${days} days`,
+    },
   },
   bonuses: {
     title: "All offers",

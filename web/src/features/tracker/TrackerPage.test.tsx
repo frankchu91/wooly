@@ -39,6 +39,7 @@ function trackedItem(overrides: Partial<TrackedItem>): TrackedItem {
     status: "planned",
     dates: {},
     openMonth: "2026-09",
+    conditionsDone: [],
     ...overrides,
   };
 }
@@ -82,9 +83,9 @@ describe("TrackerPage", () => {
     const receivedGroup = receivedHeading.closest("section") as HTMLElement;
     expect(within(receivedGroup).getByText("US Bank $450 Checking Bonus")).toBeInTheDocument();
 
-    // Empty groups (dd_sent, closed) are omitted entirely.
+    // Empty groups (requirements_met, closed) are omitted entirely.
     expect(
-      screen.queryByRole("heading", { name: t.tracker.statuses.dd_sent }),
+      screen.queryByRole("heading", { name: t.tracker.statuses.requirements_met }),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("heading", { name: t.tracker.statuses.closed }),

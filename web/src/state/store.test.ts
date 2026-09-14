@@ -61,6 +61,7 @@ describe("trackPlan", () => {
         status: "planned",
         dates: {},
         openMonth: "2026-09",
+        conditionsDone: [],
       },
     ]);
   });
@@ -82,7 +83,7 @@ describe("trackPlan", () => {
 });
 
 describe("advance", () => {
-  test("moves planned -> opened -> dd_sent -> received -> closed, recording each date", () => {
+  test("moves planned -> opened -> requirements_met -> received -> closed, recording each date", () => {
     useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
 
     useStore.getState().advance("wells-fargo-500", "2026-09-01");
@@ -92,8 +93,8 @@ describe("advance", () => {
 
     useStore.getState().advance("wells-fargo-500", "2026-09-15");
     item = useStore.getState().tracker[0];
-    expect(item.status).toBe("dd_sent");
-    expect(item.dates.dd_sent).toBe("2026-09-15");
+    expect(item.status).toBe("requirements_met");
+    expect(item.dates.requirements_met).toBe("2026-09-15");
 
     useStore.getState().advance("wells-fargo-500", "2026-10-01");
     item = useStore.getState().tracker[0];
@@ -152,6 +153,7 @@ describe("export / clearAll / import", () => {
         status: "planned",
         dates: {},
         openMonth: "2026-09",
+        conditionsDone: [],
       },
     ]);
   });
@@ -207,6 +209,70 @@ describe("export / clearAll / import", () => {
     const item = useStore.getState().tracker[0];
     expect(item.dates).toEqual({});
     expect(item.status).toBe("planned");
+    expect(item.conditionsDone).toEqual([]);
+  });
+});
+
+describe("setStatus", () => {
+  test("moves a tracked item directly to any stage, recording the date under it", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+
+    useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-01");
+
+    const item = useStore.getState().tracker[0];
+    expect(item.status).toBe("received");
+    expect(item.dates.received).toBe("2026-11-01");
+  });
+
+  test("can move backward, e.g. correcting a mistaken advance", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+    useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-01");
+
+    useStore.getState().setStatus("wells-fargo-500", "opened", "2026-09-01");
+
+    const item = useStore.getState().tracker[0];
+    expect(item.status).toBe("opened");
+    expect(item.dates.opened).toBe("2026-09-01");
+    // The earlier date isn't erased — only the status pointer moves.
+    expect(item.dates.received).toBe("2026-11-01");
+  });
+});
+
+describe("toggleCondition", () => {
+  test("ticks a condition id onto conditionsDone, then unticks it", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+
+    useStore.getState().toggleCondition("wells-fargo-500", "wf-dd");
+    expect(useStore.getState().tracker[0].conditionsDone).toEqual(["wf-dd"]);
+
+    useStore.getState().toggleCondition("wells-fargo-500", "wf-new-customer");
+    expect(useStore.getState().tracker[0].conditionsDone).toEqual(["wf-dd", "wf-new-customer"]);
+
+    useStore.getState().toggleCondition("wells-fargo-500", "wf-dd");
+    expect(useStore.getState().tracker[0].conditionsDone).toEqual(["wf-new-customer"]);
+  });
+});
+
+describe("setBonusReceived", () => {
+  test("sets the recorded amount, and clears it when passed undefined", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+
+    useStore.getState().setBonusReceived("wells-fargo-500", 500);
+    expect(useStore.getState().tracker[0].bonusReceived).toBe(500);
+
+    useStore.getState().setBonusReceived("wells-fargo-500", undefined);
+    expect(useStore.getState().tracker[0].bonusReceived).toBeUndefined();
+    expect("bonusReceived" in useStore.getState().tracker[0]).toBe(false);
+  });
+});
+
+describe("setNotes", () => {
+  test("sets the freeform notes text", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+
+    useStore.getState().setNotes("wells-fargo-500", "Called support, DD posted on the 3rd.");
+
+    expect(useStore.getState().tracker[0].notes).toBe("Called support, DD posted on the 3rd.");
   });
 });
 
@@ -270,7 +336,14 @@ describe("hydration", () => {
     expect(typeof hydrated?.startMonth).toBe("string");
     expect(useStore.getState().skippedIds).toEqual([]);
     expect(useStore.getState().tracker).toEqual([
-      { id: "chase-400", bonusId: "chase-400", status: "planned", dates: {}, openMonth: "" },
+      {
+        id: "chase-400",
+        bonusId: "chase-400",
+        status: "planned",
+        dates: {},
+        openMonth: "",
+        conditionsDone: [],
+      },
     ]);
   });
 
@@ -289,6 +362,35 @@ describe("hydration", () => {
     expect(useStore.getState().profile?.monthlyDD).toBe(4000);
     expect(useStore.getState().skippedIds).toEqual(["chase-400"]);
   });
+
+  test("a v1 blob with a dd_sent tracked item migrates it to requirements_met", async () => {
+    localStorage.setItem(
+      "woolly.v1",
+      JSON.stringify({
+        state: {
+          profile: null,
+          skippedIds: [],
+          tracker: [
+            {
+              id: "wells-fargo-500",
+              bonusId: "wells-fargo-500",
+              status: "dd_sent",
+              dates: { opened: "2026-09-01", dd_sent: "2026-09-15" },
+              openMonth: "2026-09",
+            },
+          ],
+        },
+        version: 1,
+      }),
+    );
+
+    await useStore.persist.rehydrate();
+
+    const item = useStore.getState().tracker[0];
+    expect(item.status).toBe("requirements_met");
+    expect(item.dates).toEqual({ opened: "2026-09-01", requirements_met: "2026-09-15" });
+    expect(item.conditionsDone).toEqual([]);
+  });
 });
 
 describe("persistence", () => {
@@ -298,7 +400,7 @@ describe("persistence", () => {
     expect(raw).not.toBeNull();
     const parsed = JSON.parse(raw as string);
     expect(parsed.state.profile).toEqual(profile);
-    expect(parsed.version).toBe(1);
+    expect(parsed.version).toBe(2);
   });
 
   test("persisted state omits the derived plan (only profile, skippedIds, tracker)", () => {
