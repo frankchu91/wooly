@@ -1,0 +1,30 @@
+[project]
+name = "woolly-scraper"
+version = "0.1.0"
+description = "Scrapes Doctor of Credit bank bonuses into data/bonuses.json"
+requires-python = ">=3.12"
+dependencies = [
+  "requests>=2.32",
+  "beautifulsoup4>=4.12",
+  "python-dateutil>=2.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+woolly-scrape = "woolly_scraper.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["woolly_scraper*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
