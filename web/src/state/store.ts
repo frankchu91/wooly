@@ -1,7 +1,8 @@
 import { format } from "date-fns";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { PlanItem, Profile } from "../engine/types";
+import { defaultProfile } from "../engine/types";
+import type { HistoryEntry, PlanItem, Profile } from "../engine/types";
 
 export type TrackStatus = "planned" | "opened" | "dd_sent" | "received" | "closed";
 
@@ -63,6 +64,67 @@ const isPersistedSlice = (value: unknown): value is PersistedSlice => {
 
   return profileOk && skippedIdsOk && trackerOk;
 };
+
+// `imported`'s numeric fields may be missing, non-numeric, or non-finite (e.g. from a
+// hand-edited or older export) — fall back to `fallback` whenever coercion doesn't
+// yield a finite number.
+const toFiniteNumber = (value: unknown, fallback: number): number => {
+  if (value === null || value === undefined) return fallback;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : fallback;
+};
+
+// `isPersistedSlice` only checks that a non-null `profile` has a string `state` and a
+// numeric `monthlyDD` — an imported profile can still be missing every other `Profile`
+// field (an older export, or a hand-edited file). This fills those gaps from
+// `defaultProfile` so the result always satisfies the full `Profile` shape `buildPlan`
+// expects.
+const normalizeProfile = (imported: Profile | null): Profile | null => {
+  if (imported === null) return null;
+  const defaults = defaultProfile(currentMonth());
+  const raw = imported as unknown as Record<string, unknown>;
+
+  const history: HistoryEntry[] = Array.isArray(raw.history)
+    ? raw.history.filter(
+        (h): h is HistoryEntry =>
+          typeof h === "object" &&
+          h !== null &&
+          typeof (h as Record<string, unknown>).bank === "string",
+      )
+    : [];
+  const prefsInput =
+    typeof raw.prefs === "object" && raw.prefs !== null
+      ? (raw.prefs as Record<string, unknown>)
+      : {};
+
+  return {
+    ...defaults,
+    ...imported,
+    maxSplits: toFiniteNumber(raw.maxSplits, defaults.maxSplits),
+    horizonMonths: toFiniteNumber(raw.horizonMonths, defaults.horizonMonths),
+    history,
+    prefs: { ...defaults.prefs, ...prefsInput },
+  };
+};
+
+// Filters/repairs each imported tracked item so `status` is always a known
+// `TrackStatus` (defaulting to "planned") and `dates` is always an object (defaulting
+// to `{}`) — an older or hand-edited export may be missing either.
+const normalizeTracker = (imported: TrackedItem[]): TrackedItem[] =>
+  imported.map((raw) => {
+    const item = raw as unknown as Record<string, unknown>;
+    const bonusId = item.bonusId as string;
+    const status: TrackStatus = STATUS_ORDER.includes(item.status as TrackStatus)
+      ? (item.status as TrackStatus)
+      : "planned";
+    const dates: Partial<Record<TrackStatus, string>> =
+      typeof item.dates === "object" && item.dates !== null
+        ? (item.dates as Partial<Record<TrackStatus, string>>)
+        : {};
+    const openMonth = typeof item.openMonth === "string" ? item.openMonth : "";
+    const id = typeof item.id === "string" ? item.id : bonusId;
+    return { id, bonusId, status, dates, openMonth };
+  });
 
 export const useStore = create<State>()(
   persist(
@@ -128,7 +190,11 @@ export const useStore = create<State>()(
           throw new Error("bad import");
         }
         if (!isPersistedSlice(parsed)) throw new Error("bad import");
-        set({ profile: parsed.profile, skippedIds: parsed.skippedIds, tracker: parsed.tracker });
+        set({
+          profile: normalizeProfile(parsed.profile),
+          skippedIds: parsed.skippedIds,
+          tracker: normalizeTracker(parsed.tracker),
+        });
       },
     }),
     {

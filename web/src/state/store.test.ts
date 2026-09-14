@@ -181,6 +181,33 @@ describe("export / clearAll / import", () => {
     useStore.getState().importJSON(JSON.stringify({ profile: null, skippedIds: [], tracker: [] }));
     expect(useStore.getState().profile).toBeNull();
   });
+
+  test("importJSON normalizes a partial profile by merging it over defaults", () => {
+    useStore
+      .getState()
+      .importJSON(
+        JSON.stringify({ profile: { state: "MA", monthlyDD: 3000 }, skippedIds: [], tracker: [] }),
+      );
+    const imported = useStore.getState().profile;
+    expect(imported?.state).toBe("MA");
+    expect(imported?.monthlyDD).toBe(3000);
+    expect(imported?.maxSplits).toBe(2);
+    expect(imported?.horizonMonths).toBe(12);
+    expect(imported?.prefs.avoidHardPull).toBe(true);
+  });
+
+  test("importJSON normalizes a tracker item missing dates and status", () => {
+    useStore.getState().importJSON(
+      JSON.stringify({
+        profile: null,
+        skippedIds: [],
+        tracker: [{ id: "chase-400", bonusId: "chase-400", openMonth: "2026-09" }],
+      }),
+    );
+    const item = useStore.getState().tracker[0];
+    expect(item.dates).toEqual({});
+    expect(item.status).toBe("planned");
+  });
 });
 
 describe("persistence", () => {
