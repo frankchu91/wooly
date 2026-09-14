@@ -31,11 +31,16 @@ function bonusWith(conditions: Condition[]): Bonus {
 }
 
 describe("splitConditions — what counts as a task", () => {
-  test("kinds that name an action go on the checklist when they carry a figure", () => {
+  test("kinds that name an action go on the checklist when they carry a day window, a count, or a verb", () => {
     const rows = [
       condition({ id: "dd", kind: "direct_deposit", amount: 1000, days: 90 }),
       condition({ id: "dep", kind: "deposit", text: "Deposit $300 in new funds", amount: 300 }),
-      condition({ id: "bal", kind: "balance", text: "Average balance of $1,500", amount: 1500 }),
+      condition({
+        id: "bal",
+        kind: "balance",
+        text: "Maintain a minimum average balance of $1,500",
+        amount: 1500,
+      }),
       condition({ id: "tx", kind: "transactions", text: "10 debit purchases", count: 10 }),
       condition({ id: "keep", kind: "keep_open", text: "Stay open 180 days", days: 180 }),
     ];
@@ -49,6 +54,22 @@ describe("splitConditions — what counts as a task", () => {
     ]);
   });
 
+  test("a bare dollar figure with no day window, count, or verb is a note, not a task (E1)", () => {
+    const rows = [
+      condition({ id: "dd", kind: "direct_deposit", amount: 1000, days: 90 }),
+      condition({
+        id: "fig",
+        kind: "balance",
+        text: "$5,000 or more in qualifying deposit balances",
+        amount: 5000,
+      }),
+    ];
+    const { checklist, notes } = splitConditions(bonusWith(rows));
+
+    expect(checklist.map((c) => c.id)).toEqual(["dd"]);
+    expect(notes.map((c) => c.id)).toEqual(["fig"]);
+  });
+
   test("a figureless row still counts when it opens with a requirement verb", () => {
     const rows = [
       condition({ id: "verb", text: "Set up a qualifying direct deposit from your employer" }),
@@ -58,6 +79,22 @@ describe("splitConditions — what counts as a task", () => {
 
     expect(checklist.map((c) => c.id)).toEqual(["verb"]);
     expect(notes.map((c) => c.id)).toEqual(["prose"]);
+  });
+
+  test('a sentence that opens with "Earn" is the reward\'s own headline, never a task (E1)', () => {
+    const rows = [
+      condition({
+        id: "earn",
+        kind: "transactions",
+        text: "Earn $100 cash offer with qualifying debit or Zelle transactions",
+        amount: 100,
+        days: 60, // even carrying a day window, "Earn" still routes it to notes
+      }),
+    ];
+    const { checklist, notes } = splitConditions(bonusWith(rows));
+
+    expect(checklist).toEqual([]);
+    expect(notes.map((c) => c.id)).toEqual(["earn"]);
   });
 
   test("fee, new_customer and other rows are notes, however many figures they carry", () => {
@@ -70,6 +107,39 @@ describe("splitConditions — what counts as a task", () => {
 
     expect(checklist).toEqual([]);
     expect(notes.map((c) => c.id)).toEqual(["fee", "nc", "other"]);
+  });
+
+  describe("keep_open without a day window (E3)", () => {
+    test("stays on the checklist when it opens with a requirement verb", () => {
+      const rows = [
+        condition({ id: "keep", kind: "keep_open", text: "Keep the account open and active" }),
+      ];
+      expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["keep"]);
+    });
+
+    test('stays on the checklist when it contains "must", even mid-sentence', () => {
+      const rows = [
+        condition({
+          id: "keep",
+          kind: "keep_open",
+          text: "The account must remain open until the bonus posts",
+        }),
+      ];
+      expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["keep"]);
+    });
+
+    test("is a note otherwise", () => {
+      const rows = [
+        condition({
+          id: "keep",
+          kind: "keep_open",
+          text: "The account stays enrolled in the offer",
+        }),
+      ];
+      const { checklist, notes } = splitConditions(bonusWith(rows));
+      expect(checklist).toEqual([]);
+      expect(notes.map((c) => c.id)).toEqual(["keep"]);
+    });
   });
 });
 
@@ -88,13 +158,45 @@ describe("splitConditions — paraphrase collapse", () => {
     expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["doc-dd"]);
   });
 
-  test("agreeing on days alone is enough to be a paraphrase", () => {
+  test("agreeing on days is enough to be a paraphrase when one side names no amount", () => {
+    const rows = [
+      condition({ id: "doc-dd", amount: 1000, days: 90 }),
+      condition({ id: "bank-dd", amount: null, days: 90, source: "bank" }),
+    ];
+
+    expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["doc-dd"]);
+  });
+
+  test("two different non-null amounts sharing a day window do not collapse (E2)", () => {
+    // A real case from Wells Fargo's bank page: a $500 reward figure the scraper's
+    // amount-selection quirk mistakes for the requirement, sitting in a sentence that
+    // otherwise shares the doc row's 90-day window. Merging on the day window alone
+    // would silently throw away a genuinely different (if wrong) figure.
     const rows = [
       condition({ id: "doc-dd", amount: 1000, days: 90 }),
       condition({ id: "bank-dd", amount: 500, days: 90, source: "bank" }),
     ];
 
-    expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual(["doc-dd"]);
+    expect(splitConditions(bonusWith(rows)).checklist.map((c) => c.id)).toEqual([
+      "doc-dd",
+      "bank-dd",
+    ]);
+  });
+
+  test("direct_deposit and deposit are one family, so they collapse into each other (E2)", () => {
+    const rows = [
+      condition({ id: "dd", kind: "direct_deposit", amount: 1000, days: 90 }),
+      condition({
+        id: "dep",
+        kind: "deposit",
+        text: "Deposit $1,000 or more in qualifying deposits within 90 days",
+        amount: 1000,
+        days: 90,
+        source: "bank",
+      }),
+    ];
+
+    expect(collapseParaphrases(rows).map((c) => c.id)).toEqual(["dd"]);
   });
 
   test("the row with more figures wins, in the earlier row's place", () => {
@@ -113,15 +215,27 @@ describe("splitConditions — paraphrase collapse", () => {
     expect(collapseParaphrases([doc, bank]).map((c) => c.id)).toEqual(["doc"]);
   });
 
-  test("different kinds never collapse, and figureless rows never do", () => {
-    const dd = condition({ id: "dd", amount: 1000 });
-    const deposit = condition({ id: "dep", kind: "deposit", text: "Deposit $1,000", amount: 1000 });
+  test("a tie between two rows from the same kind of source keeps the shorter text", () => {
+    const long = condition({
+      id: "long",
+      amount: 1000,
+      text: "Receive $1,000 in direct deposits, a very long way of saying it",
+    });
+    const short = condition({ id: "short", amount: 1000, text: "DD $1,000" });
+
+    expect(collapseParaphrases([long, short]).map((c) => c.id)).toEqual(["short"]);
+    expect(collapseParaphrases([short, long]).map((c) => c.id)).toEqual(["short"]);
+  });
+
+  test("unrelated kinds never collapse, and figureless rows never do", () => {
+    const bal = condition({ id: "bal", kind: "balance", amount: 1000 });
+    const tx = condition({ id: "tx", kind: "transactions", amount: 1000 });
     const bare = condition({ id: "bare", text: "Keep the account open", kind: "keep_open" });
     const bareToo = condition({ id: "bare2", text: "Keep it open please", kind: "keep_open" });
 
-    expect(collapseParaphrases([dd, deposit, bare, bareToo]).map((c) => c.id)).toEqual([
-      "dd",
-      "dep",
+    expect(collapseParaphrases([bal, tx, bare, bareToo]).map((c) => c.id)).toEqual([
+      "bal",
+      "tx",
       "bare",
       "bare2",
     ]);
@@ -173,5 +287,183 @@ describe("splitConditions — the Wells Fargo fixture", () => {
 
     expect(checklist.map((c) => c.kind)).toEqual(["direct_deposit", "keep_open"]);
     expect(notes.map((c) => c.kind)).toEqual(["new_customer"]);
+  });
+});
+
+// --- E4: real, regenerated `data/bonuses.json` rows (post round-2 F1–F3), built inline
+// rather than read from the file, so this test doesn't depend on a scraper run. ---
+
+describe("splitConditions — the real Wells Fargo condition list (E4)", () => {
+  // The bank's own page mangles a bulleted list into one sentence stream, so
+  // `wf-dd-bank-500` carries the reward's own `$500` (not the $1,000 deposit named
+  // later in the same sentence) as its `amount` — a pre-existing scraper limitation
+  // (see the report's Concerns), not something round 2's rules touch. Because that
+  // figure genuinely disagrees with the doc row's $1,000, E2's tightened collapse
+  // rule correctly does *not* treat the two as paraphrases, so both survive — the
+  // checklist below is 2 rows, not the 1 a same-amount match would have produced.
+  const wfRows: Condition[] = [
+    condition({
+      id: "wf-dd-doc",
+      kind: "direct_deposit",
+      amount: 1000,
+      days: 90,
+      text: "Direct deposit of $1000",
+    }),
+    condition({
+      id: "wf-nc",
+      kind: "new_customer",
+      text: "To be eligible: Offer is for new consumer checking customers only and is available only to the primary owner of the new checking account.",
+    }),
+    condition({
+      id: "wf-dep-doc-long",
+      kind: "deposit",
+      amount: 1000,
+      days: 90,
+      text: "To receive the $500 bonus: you must use your bonus offer code when opening a new Wells Fargo consumer checking account, which is subject to approval, by October 6, 2026 and receive $1,000 or more in qualifying electronic deposits within 90 calendar days of account opening (the qualification period).",
+    }),
+    condition({
+      id: "wf-dd-bank-500",
+      kind: "direct_deposit",
+      amount: 500,
+      days: 90,
+      source: "bank",
+      text: "Get a $500 new checking customer bonus As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
+    }),
+    condition({
+      id: "wf-dep-bank-25",
+      kind: "deposit",
+      amount: 25,
+      source: "bank",
+      text: "$25 minimum opening deposit if opening in branch.",
+    }),
+    condition({
+      id: "wf-dd-bank-verb",
+      kind: "direct_deposit",
+      amount: 1000,
+      source: "bank",
+      text: "Deposit Make $1,000 or more in qualifying direct deposits within the first 90 days of opening.",
+    }),
+    condition({
+      id: "wf-dep-bank-long",
+      kind: "deposit",
+      amount: 1000,
+      days: 90,
+      source: "bank",
+      text: "To receive the $500 bonus: you must use your bonus offer code when opening a new Wells Fargo consumer checking account, which is subject to approval, by October 6, 2026 and receive $1,000 or more in qualifying electronic deposits within 90 calendar days of account opening (the qualification period).",
+    }),
+    condition({
+      id: "wf-fee",
+      kind: "fee",
+      amount: 15,
+      source: "bank",
+      text: "The Wells Fargo Everyday Checking account monthly service fee is $15.",
+    }),
+    condition({
+      id: "wf-dep-5000-a",
+      kind: "deposit",
+      amount: 5000,
+      source: "bank",
+      text: "$5,000 or more in qualifying deposit balances, investment balances, or both.",
+    }),
+    condition({
+      id: "wf-dep-500-a",
+      kind: "deposit",
+      amount: 500,
+      source: "bank",
+      text: "$500 or more in total qualifying electronic deposits.",
+    }),
+    condition({
+      id: "wf-dep-5000-or",
+      kind: "deposit",
+      amount: 5000,
+      source: "bank",
+      text: "OR $5,000 or more in qualifying deposit balances, investment balances, or both.",
+    }),
+    condition({
+      id: "wf-dep-500-or",
+      kind: "deposit",
+      amount: 500,
+      source: "bank",
+      text: "OR $500 or more in total qualifying electronic deposits.",
+    }),
+  ];
+
+  test("2 checklist rows survive (the DD/deposit duplicate is gone); the fee-waiver bullets and the $25/new-customer lines are notes", () => {
+    const { checklist, notes } = splitConditions(bonusWith(wfRows));
+
+    expect(checklist.map((c) => c.id)).toEqual(["wf-dd-doc", "wf-dd-bank-500"]);
+    // Capped at MAX_NOTES=6: wf-dep-500-or (the 7th note) is dropped.
+    expect(notes.map((c) => c.id)).toEqual([
+      "wf-nc",
+      "wf-dep-bank-25",
+      "wf-fee",
+      "wf-dep-5000-a",
+      "wf-dep-500-a",
+      "wf-dep-5000-or",
+    ]);
+  });
+});
+
+describe("splitConditions — a Bank of America-like condition list (E4)", () => {
+  const boaRows: Condition[] = [
+    condition({
+      id: "boa-dd-doc-2000",
+      kind: "direct_deposit",
+      amount: 2000,
+      days: 90,
+      text: "Direct deposit of $2000",
+    }),
+    condition({
+      // F1 (scraper): "ninety (90) days" now parses to days: 90.
+      id: "boa-dd-doc-paren",
+      kind: "direct_deposit",
+      days: 90,
+      text: 'Set up and receive Qualifying Direct Deposits into that eligible personal checking account within ninety (90) days of account opening ("Deposit Period").',
+    }),
+    condition({
+      id: "boa-dd-definition",
+      kind: "direct_deposit",
+      text: 'A "Qualifying Direct Deposit" is a direct deposit of regular monthly income, such as your salary, pension, or Social Security benefits.',
+    }),
+    condition({
+      id: "boa-nc",
+      kind: "new_customer",
+      source: "bank",
+      text: "Only new checking customers can take advantage of this offer.",
+    }),
+    condition({
+      id: "boa-dd-bank",
+      kind: "direct_deposit",
+      days: 90,
+      source: "bank",
+      text: 'Set up and receive Qualifying Direct Deposits into your new account within 90 days of account opening ("Deposit Period").',
+    }),
+    condition({
+      // F2 (scraper) strips the "® 1" footnote before this ever reaches count parsing;
+      // E1 sends it to notes anyway because it opens with "Earn" — the $100 offer's own
+      // headline, not a task.
+      id: "boa-tx-earn",
+      kind: "transactions",
+      amount: 100,
+      source: "bank",
+      text: "Earn $100 cash offer with qualifying debit or Zelle transactions.",
+    }),
+    condition({
+      // F2 + F3 (scraper): the footnote digits after "Zelle" and "transactions" are
+      // gone and the "or Zelle" join no longer defeats the count — count: 20, not 1.
+      id: "boa-tx-make",
+      kind: "transactions",
+      days: 60,
+      count: 20,
+      source: "bank",
+      text: "Make at least 20 qualifying debit card or Zelle transactions from your new account within 60 days of account opening.",
+    }),
+  ];
+
+  test("checklist is the DD (family-collapsed to one row) plus the transaction count; notes hold the definition, new-customer line and the Earn headline", () => {
+    const { checklist, notes } = splitConditions(bonusWith(boaRows));
+
+    expect(checklist.map((c) => c.id)).toEqual(["boa-dd-doc-2000", "boa-tx-make"]);
+    expect(notes.map((c) => c.id)).toEqual(["boa-dd-definition", "boa-nc", "boa-tx-earn"]);
   });
 });

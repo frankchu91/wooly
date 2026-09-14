@@ -12,46 +12,72 @@ const CHECKLIST_KINDS: ReadonlySet<ConditionKind> = new Set<ConditionKind>([
   "keep_open",
 ]);
 
-/** The same opening verbs the scraper's bank-source gate uses (`terms.is_actionable`),
- * so a sentence that survived the scrape for reading like an instruction is treated as
- * one here too. */
+/** The same opening verbs the scraper's bank-source gate uses (`terms.is_actionable`) —
+ * minus `Only new`, which names a `new_customer` condition, a kind this list never
+ * checks — so a sentence that survived the scrape for reading like an instruction is
+ * treated as one here too. */
 const REQUIREMENT_VERB =
-  /^(?:Set up|Receive|Make|Maintain|Complete|Keep|Deposit|Open|Only new|Must|You must)\b/;
+  /^(?:Set up|Receive|Make|Maintain|Complete|Keep|Deposit|Open|Must|You must)\b/;
+
+/** `must` appearing anywhere, not just as the opening word — a `keep_open` sentence
+ * often reads "the account must remain open…" rather than starting with a verb. */
+const CONTAINS_MUST = /\bmust\b/i;
+
+/** A sentence opening with "Earn" describes the reward, not a task — DoC and bank pages
+ * both use it for headline copy ("Earn $100 cash offer…") that happens to carry a kind
+ * keyword and even a stray figure. */
+const STARTS_WITH_EARN = /^Earn\b/;
 
 /** A checklist longer than this is a wall, not a list; anything past it is noise the
  * scraper didn't catch. Notes are capped the same way. */
 export const MAX_CHECKLIST = 6;
 export const MAX_NOTES = 6;
 
-/** True when the condition is a task: an actionable kind that either carries a figure or
- * reads as an instruction. */
+/** `direct_deposit` and `deposit` are the same requirement described two ways — DoC's
+ * structured field vs. a bank page's own prose — so the paraphrase collapse (E2) treats
+ * them as one family instead of requiring an exact kind match. */
+function family(kind: ConditionKind): ConditionKind {
+  return kind === "deposit" ? "direct_deposit" : kind;
+}
+
+/** True when the condition is a task: an actionable kind whose text either names a day
+ * window or a count, or reads as an instruction. A bare dollar figure is not enough on
+ * its own (E1) — plenty of fee-waiver and marketing sentences carry one — and a sentence
+ * that opens with "Earn" is the reward's own headline, never a requirement (E1). A
+ * `keep_open` row with no day window gets one more way in: `must` anywhere in the
+ * sentence, not only at the start (E3), since "the account must remain open…" reads as a
+ * real requirement without opening on a verb. */
 function isActionable(condition: Condition): boolean {
   if (!CHECKLIST_KINDS.has(condition.kind)) return false;
-  return (
-    condition.amount != null ||
-    condition.days != null ||
-    condition.count != null ||
-    REQUIREMENT_VERB.test(condition.text)
-  );
+  if (STARTS_WITH_EARN.test(condition.text)) return false;
+  if (condition.kind === "keep_open" && condition.days == null) {
+    return REQUIREMENT_VERB.test(condition.text) || CONTAINS_MUST.test(condition.text);
+  }
+  return condition.days != null || condition.count != null || REQUIREMENT_VERB.test(condition.text);
 }
 
 const numericCount = (c: Condition) =>
   Number(c.amount != null) + Number(c.days != null) + Number(c.count != null);
 
-/** Two rows describe the same requirement when they share a kind and agree on a figure —
- * the same rule in two voices ("Receive $1,000 in direct deposits within 90 days" from
- * DoC, "Make $1,000 or more in qualifying direct deposits" from the bank). A bare row
- * with no figures is never assumed to duplicate anything. */
+/** Two rows describe the same requirement when they share a family (E2) and either
+ * agree on a non-null amount, or agree on a non-null day window where at least one side
+ * has no amount of its own to disagree with. That second clause is deliberately narrower
+ * than "same days": two rows that both name a *different* dollar figure but happen to
+ * share a day window are not assumed to be the same rule (a $500 figure and a $1,000
+ * figure at 90 days are not paraphrases of each other just because the window matches).
+ * A bare row with no figures is never assumed to duplicate anything. */
 function isParaphrase(a: Condition, b: Condition): boolean {
-  if (a.kind !== b.kind) return false;
+  if (family(a.kind) !== family(b.kind)) return false;
   if (a.amount != null && a.amount === b.amount) return true;
-  return a.days != null && a.days === b.days;
+  return a.days != null && a.days === b.days && (a.amount == null || b.amount == null);
 }
 
 /**
- * Collapses paraphrases, keeping the row that says the most: more non-null figures wins,
- * and a tie goes to the DoC-sourced row (the bank's own wording is usually the marketing
- * one). Order is preserved — the surviving row sits where the first of the pair did.
+ * Collapses paraphrases, keeping the row that says the most: more non-null figures wins;
+ * a tie goes to the DoC-sourced row (the bank's own wording is usually the marketing
+ * one); a tie between two rows from the same kind of source goes to the shorter text
+ * (the plainer statement of the same rule). Order is preserved — the surviving row sits
+ * where the first of the pair did.
  */
 export function collapseParaphrases(conditions: Condition[]): Condition[] {
   const kept: Condition[] = [];
@@ -63,12 +89,18 @@ export function collapseParaphrases(conditions: Condition[]): Condition[] {
       continue;
     }
     const incumbent = kept[index];
-    const beatsOnFigures = numericCount(condition) > numericCount(incumbent);
-    const beatsOnSource =
-      numericCount(condition) === numericCount(incumbent) &&
-      condition.source === "doc" &&
-      incumbent.source !== "doc";
-    if (beatsOnFigures || beatsOnSource) kept[index] = condition;
+    const incumbentFigures = numericCount(incumbent);
+    const candidateFigures = numericCount(condition);
+    const incumbentIsDoc = incumbent.source === "doc";
+    const candidateIsDoc = condition.source === "doc";
+
+    let replace = candidateFigures > incumbentFigures;
+    if (!replace && candidateFigures === incumbentFigures) {
+      if (candidateIsDoc && !incumbentIsDoc) replace = true;
+      else if (candidateIsDoc === incumbentIsDoc)
+        replace = condition.text.length < incumbent.text.length;
+    }
+    if (replace) kept[index] = condition;
   }
 
   return kept;
