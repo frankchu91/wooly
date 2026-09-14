@@ -79,6 +79,23 @@ Patterns → kind (first match wins): `direct deposit` → `direct_deposit`; `de
 `new_customer`; else `other`. `amount` = first `$` figure, `days` = first `within|for N days`
 (months × 30), `count` = first `N (qualifying )?(direct deposits|deposits|transactions)`.
 
+Amendments from execution (2026-09-14, controller rulings; the code is the reference):
+- A sentence that matches no requirement pattern is dropped, not `other`; only the glance
+  "Additional requirements" line yields `other`.
+- Exclusions → dropped: negation clauses ("does not count", "not eligible", "excluded"),
+  legal boilerplate, pointer sentences ("Learn how…", "Talk with a banker…", "See the …",
+  "for complete account details"), leading all-caps brand runs, sentences containing `|`,
+  button/nav phrases, more than three `$` figures, uppercase ratio > 0.3 (bank pages only).
+- Fee-waiver sentences ("…fee can be avoided with $1,500 minimum daily balance") are kind
+  `fee`, never `balance`/`deposit`. A negated keep-open ("bonus will not be paid if closed
+  within 90 days") is kind `keep_open` with `days`.
+- `amount` for deposit kinds skips any `$X` followed within six words by
+  `bonus|cash|reward|offer`; `$ 500` is normalised to `$500`; leading markers (`*`, `2 `) are
+  stripped; footnote digits (`Zelle® 1`) are removed before parsing; "ninety (90) days" parses.
+- Bank-page conditions must carry `amount`/`days`/`count` or start with a requirement verb.
+- `enrich --cached-only` and `terms --cached-only` re-parse every cached page regardless of
+  the 30-day gate (the "after a parser fix" mode).
+
 CLI: `woolly-scrape terms [--limit N] [--cached-only] [--delay 5]`. Nightly workflow adds
 `terms --limit 20` after `enrich`. `list`/`enrich` are unchanged except that `apply_post` now
 also fills `conditions` (doc) and `hold_days`, and re-enrichment preserves `bank` conditions.
@@ -93,16 +110,28 @@ also fills `conditions` (doc) and `hold_days`, and re-enrichment preserves `bank
   if none of kind `keep_open` and `etf?.days`, synthesise "Keep the account open for N days".
 - `earliestCloseDate(bonus, openedISO): string` — `opened + (hold_days ?? etf.days ?? 180)`.
 - `receivedAmount(item, bonus)` — `item.bonusReceived ?? bonus.bonus_max ?? 0`.
-- `ledgerTotals(items, bonuses)` — `{ earned, pending, planned, counts }` where earned sums
+- `ledgerTotals(items, bonusesById)` — `{ earned, pending, planned, counts }` where earned sums
   `received`+`closed`, pending sums `opened`+`requirements_met`, planned sums `planned`.
+- `checklistFor` takes injected `labels` for the synthesised texts so the engine never imports
+  the copy file; `TrackStatus`/`TrackedItem`/`STATUS_ORDER` live in `engine/types.ts`.
+- UI-side split (`features/conditions/splitConditions`): the **checklist** holds only
+  actionable rows (kinds direct_deposit/deposit/balance/transactions/keep_open that carry
+  `days` or `count`, or start with a requirement verb; amount alone is not enough; "Earn …"
+  marketing lines are excluded); everything else is shown collapsed under "Also note".
+  Paraphrases are collapsed per family (direct_deposit ≈ deposit) on equal amount or days,
+  keeping the richer, doc-first, shorter row; checklist and notes are capped at 6.
+  Progress counts (`n/m done`) use the checklist only.
 
 ### 4.2 Store v2
 
 `version: 2`, `migrate`: v1 `dd_sent` → `requirements_met`; new optional fields on
 `TrackedItem`: `conditionsDone: string[]` (condition ids), `bonusReceived?: number`,
 `notes?: string`. New actions: `setStatus(id, status, dateISO)` (records the date, allows
-moving to any stage), `toggleCondition(id, conditionId)`, `setBonusReceived(id, amount|undefined)`,
-`setNotes(id, text)`. `advance` stays (next stage + date).
+moving to any stage; moving to an earlier stage clears later-stage dates and `bonusReceived`
+when moving before `received`), `setDate(id, stage, dateISO)` (corrects a reached stage's date
+without moving), `toggleCondition(id, conditionId)`, `setBonusReceived(id, amount|undefined)`,
+`setNotes(id, text)`. `advance` stays (next stage + date). Hydration normalises persisted
+items and omits undefined optional keys.
 
 ### 4.3 Tracker page (`/tracker`)
 
@@ -145,6 +174,17 @@ Top to bottom, one screen:
 
 All new strings in `en.ts` under `t.tracker.*` (stages, ledger, table headers, drawer),
 `t.conditions.*` (kinds, sources, synthesised texts), `t.bonuses.terms.*`.
+
+### 4.6 Tracker amendments from the walkthrough
+
+- The pipeline becomes a five-column grid at `xl` (no scroll on desktop); it scrolls
+  horizontally inside its own container below that.
+- Ledger rows: the offer title is a real button (keyboard), the row itself is a mouse
+  target; the Offer column is sticky on small screens; the requirements chip reads `0/3`
+  (`—` when the checklist is empty); an offer missing from the dataset shows its id once with
+  "Offer no longer listed".
+- The whole pipeline card body opens the drawer; untracking clears `?item=`; columns are
+  labelled by their headings. "Amount received" is a placeholder, not a prefilled value.
 
 ## 5. Testing
 
