@@ -50,20 +50,19 @@ def parse_money_range(s: str) -> tuple[int | None, int | None]:
 
 
 def extract_states(s: str) -> list[str]:
-    """Return USPS codes that appear as a comma/dash separated list of 2-letter tokens."""
+    """Return USPS codes that appear as a comma/dash separated list of 2-letter tokens.
+
+    Each occurrence must itself be preceded by a list-ish delimiter (" – ", " - ", ":",
+    "[" or ","); a code that also appears elsewhere in the string outside that context
+    (e.g. as part of a bank name) is not matched by that other occurrence.
+    """
     if re.search(r"\bnationwide\b", s, re.IGNORECASE):
         return []
-    tokens = re.findall(r"\b([A-Z]{2})\b", s)
-    found = [t for t in tokens if t in US_STATES]
-    # require the codes to appear in a list-ish context: after " – ", " - ", ":", "[" or ","
-    if not found:
-        return []
-    listish = re.findall(r"(?:[–\-:,\[]\s*)([A-Z]{2})\b", s)
-    keep = [t for t in found if t in listish]
     out: list[str] = []
-    for t in keep:
-        if t not in out:
-            out.append(t)
+    for m in re.finditer(r"[–\-:,\[]\s*([A-Z]{2})\b", s):
+        code = m.group(1)
+        if code in US_STATES and code not in out:
+            out.append(code)
     return out
 
 

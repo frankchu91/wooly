@@ -31,6 +31,11 @@ def test_extract_states():
     assert extract_states("4Front Credit Union $400 – MI – Direct Deposit Not Required") == ["MI"]
     assert extract_states("Availability: Nationwide") == []
     assert extract_states("Availability: CA, NV only") == ["CA", "NV"]
+    # a code repeated once in list context and once outside it: only the list
+    # occurrence counts
+    assert extract_states("IN Bank $200 Checking Bonus – IN, KY") == ["IN", "KY"]
+    # no list context at all, even though the code appears twice
+    assert extract_states("Bank of MA $100 for MA residents") == []
 
 
 def test_normalize_bank():
