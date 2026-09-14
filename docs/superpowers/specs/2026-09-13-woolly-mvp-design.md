@@ -171,7 +171,8 @@ type Profile = {
   prefs: { avoidHardPull: boolean; avoidChexSensitive: boolean; includeBusiness: boolean; includeSavings: boolean; };
   history: Array<{ bank: string; lastBonusAt?: string /* YYYY-MM */; accountOpen: boolean }>;
   horizonMonths: number;                // default 12
-  startMonth: string;                   // YYYY-MM, default = current month
+  startMonth: string;                   // YYYY-MM; the app always passes the *current* month
+                                        // to buildPlan (a persisted value is never reused)
 };
 ```
 
@@ -191,8 +192,11 @@ Warnings (soft): `not_enriched`, `dd_unknown`, `expires_soon` (< 30 days), `has_
 
 ```
 hold_months = ceil((etf.days ?? 180) / 30)
-net      = bonus_max − (monthly_fee.avoidable ? 0 : monthly_fee.amount × hold_months)
-ddCost   = dd.required === false ? 0 : (dd.amount ?? 500)           // unknown DD → assume $500
+net      = (bonus_min ?? bonus_max) − (monthly_fee.avoidable ? 0 : monthly_fee.amount × hold_months)
+                                                                     // conservative: tiered "up to" offers
+                                                                     // score on their floor
+ddCost   = dd.required === false ? 0 : (dd.amount ?? ASSUMED_DD_AMOUNT)  // unknown DD → assume $500;
+                                                                     // the scheduler uses the same constant
 timeCost = max(etf.days ?? 0, dd.deadline_days ?? 60) / 30           // months the slot is busy
 score    = net / (1 + ddCost / 1000) / (1 + timeCost / 6)
 ```
@@ -208,9 +212,13 @@ Greedy month-by-month over `horizonMonths`:
 2. Each month has `capacity = monthlyDD` and `slots = maxSplits` (6 if achPushCountsAsDD).
 3. Iterate candidates; a candidate is placed in the earliest month `m` where it can
    receive its full `dd.amount` across months `m … m + ceil(deadline_days/30) − 1` without
-   exceeding any month's remaining capacity or slots. Bonuses with `dd.required === false`
-   consume no capacity but do consume a slot (to avoid 15 accounts in one month) — cap at
-   `3` no-DD openings per month.
+   exceeding any month's remaining capacity or slots. A DD bonus consumes a payroll slot
+   only in the months where it actually receives DD (`take > 0`); unknown DD amounts are
+   scheduled as `ASSUMED_DD_AMOUNT` ($500). Bonuses with `dd.required === false` consume
+   neither capacity nor a slot; they are capped at `3` openings per month.
+   A start month whose first day is after the bonus's `expiration` is never used; a bonus
+   with no valid start month is skipped with reason `expires_first`. A candidate that fits
+   no window at all is skipped with reason `no_capacity`.
 4. One bonus per bank per plan; a bank in the plan re-becomes available only after its
    `anti_churn_months` (out of horizon for MVP, so effectively one per bank).
 5. Output:
@@ -219,7 +227,9 @@ Greedy month-by-month over `horizonMonths`:
 type Plan = {
   months: Array<{ month: string; items: PlanItem[]; ddUsed: number; slotsUsed: number }>;
   skipped: Array<{ bonus: Bonus; reasons: Reason[] }>;
-  totals: { projected: number; accounts: number; avgDDUsed: number };
+  totals: { projected: number; projectedMin: number; accounts: number; avgDDUsed: number };
+  // projected = sum of bonus_max; projectedMin = sum of (bonus_min ?? bonus_max). The UI
+  // shows a range when they differ and labels it "up to".
 };
 type PlanItem = {
   bonus: Bonus; openMonth: string; ddSchedule: Array<{ month: string; amount: number }>;
@@ -321,7 +331,12 @@ Bonus data cached in memory; fetched from `/bonuses.json` with a loading skeleto
 
 ### 5.4 Error and edge handling
 
-- Data fetch fails → full-page friendly error with retry; app never crashes.
+- Data fetch fails → friendly error with retry inside the persistent shell; app never crashes.
+- Any render error → router `errorElement` (friendly card with "Go home" and "Clear local
+  data"); unknown paths → a not-found page. Persisted state is normalised on hydration and
+  migrated across `version` bumps rather than dropped.
+- Colour contrast: text on light backgrounds uses `coral-dark` (#B9482A) / `primary-dark`,
+  never the decorative `coral`/`primary` on `mint` — spec §5.1's 4.5:1 applies to text.
 - Profile missing on `/plan` or `/tracker` → redirect to `/start` with a toast.
 - Plan empty (everything skipped) → EmptyState explaining the top three reasons and a
   button to relax preferences.
@@ -359,3 +374,8 @@ Bonus data cached in memory; fetched from `/bonuses.json` with a loading skeleto
   candidates and a 12-month horizon. Can be swapped later behind the same `Plan` type.
 - Vite + React over Next.js: no server features needed; simplest static build.
 - English-only UI at launch with strings externalised.
+- Amendments from the 2026-09-14 whole-branch review: scoring on `bonus_min` (honest
+  headline), slot released once DD is satisfied (the earlier "slot for the whole window"
+  reading halved throughput), `expires_first` reason, `startMonth` always current, error
+  boundary + 404, hydration migration, `coral-dark` for text contrast, `tailwind-merge` for
+  primitive class overrides.
