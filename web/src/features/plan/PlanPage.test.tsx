@@ -106,6 +106,31 @@ describe("PlanPage", () => {
     expect(screen.queryByRole("button", { name: t.plan.restore })).not.toBeInTheDocument();
   });
 
+  test("shows one page-level verify notice when any placed offer is unenriched", () => {
+    // bmo-400 is the fixture's unenriched offer; monthlyDD 5000 leaves room for it.
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MA" } });
+
+    renderPlanPage();
+    flushCountUp();
+
+    const placed = buildPlan(fixture, { ...defaultProfile("2026-09"), state: "MA" }, { today })
+      .months.flatMap((m) => m.items)
+      .some((item) => !item.bonus.enriched);
+    expect(placed).toBe(true);
+    expect(screen.getAllByText(t.plan.unverifiedNotice)).toHaveLength(1);
+  });
+
+  test("an empty month is a one-line row, not a full-height column", () => {
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MA" } });
+
+    renderPlanPage();
+    flushCountUp();
+
+    // The fixture can't fill twelve months, so at least one month is quiet.
+    expect(screen.getAllByText(t.plan.emptyMonth).length).toBeGreaterThan(0);
+    expect(screen.queryByText("—")).not.toBeInTheDocument();
+  });
+
   test("renders the empty state when nothing fits the profile", () => {
     useStore.setState({
       profile: {

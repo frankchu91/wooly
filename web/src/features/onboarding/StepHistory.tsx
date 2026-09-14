@@ -94,6 +94,9 @@ export function StepHistory({
                   className="rounded-control border border-muted/25 bg-surface px-3 py-1.5 text-sm text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 />
                 {entry.lastBonusAt === undefined ? <span>{t.onboarding.history.never}</span> : null}
+                {/* `type="month"` falls back to a plain text box in browsers that don't
+                 * support it — which is exactly when the expected format matters. */}
+                <span>{t.onboarding.history.monthHelp}</span>
               </label>
               <Toggle
                 checked={entry.accountOpen}

@@ -1,16 +1,11 @@
-import clsx from "clsx";
 import { addDays, differenceInCalendarDays, format, parseISO } from "date-fns";
 import { useState } from "react";
 
 import type { Bonus } from "../../engine/types";
 import { t } from "../../i18n/en";
-import { useStore } from "../../state/store";
+import { STATUS_ORDER, useStore } from "../../state/store";
 import type { TrackedItem, TrackStatus } from "../../state/store";
-import { Badge, BankAvatar, Button, Card, MoneyText, dateLabel } from "../../ui";
-
-/** The order `advance` walks through — mirrors `STATUS_ORDER` in `state/store.ts`,
- * which isn't exported. */
-export const STATUS_ORDER: TrackStatus[] = ["planned", "opened", "dd_sent", "received", "closed"];
+import { Badge, BankAvatar, Button, Card, MoneyText, cn, dateLabel, monthLabel } from "../../ui";
 
 // Fallbacks for when the tracked bonus itself doesn't specify these — matches the
 // defaults used by the plan scheduler (`engine/scheduler.ts`).
@@ -39,13 +34,17 @@ export function TrackedCard({ item, bonus }: TrackedCardProps) {
   const currentIndex = STATUS_ORDER.indexOf(item.status);
   const nextStatus: TrackStatus | undefined = STATUS_ORDER[currentIndex + 1];
 
+  // A no-DD bonus has no direct-deposit deadline, so it gets neither the date line nor
+  // the countdown badge — an invented deadline is worse than none.
+  const needsDD = bonus == null || bonus.dd.required !== false;
   const opened = item.dates.opened;
-  const ddDeadlineISO = opened
-    ? format(
-        addDays(parseISO(opened), bonus?.dd?.deadline_days ?? DEFAULT_DD_DEADLINE_DAYS),
-        "yyyy-MM-dd",
-      )
-    : null;
+  const ddDeadlineISO =
+    opened && needsDD
+      ? format(
+          addDays(parseISO(opened), bonus?.dd?.deadline_days ?? DEFAULT_DD_DEADLINE_DAYS),
+          "yyyy-MM-dd",
+        )
+      : null;
   const safeCloseISO = opened
     ? format(
         addDays(
@@ -79,7 +78,16 @@ export function TrackedCard({ item, bonus }: TrackedCardProps) {
           <h3 className="line-clamp-2 font-heading text-sm font-semibold text-ink">
             {bonus?.title ?? item.bonusId}
           </h3>
-          {bonus ? <MoneyText value={bonus.bonus_max} size="md" /> : null}
+          {bonus ? (
+            <MoneyText
+              value={bonus.bonus_max}
+              range={[bonus.bonus_min, bonus.bonus_max]}
+              size="md"
+            />
+          ) : null}
+          {item.status === "planned" && item.openMonth ? (
+            <p className="text-xs text-muted">{t.tracker.plannedFor(monthLabel(item.openMonth))}</p>
+          ) : null}
         </div>
       </div>
 
@@ -92,7 +100,7 @@ export function TrackedCard({ item, bonus }: TrackedCardProps) {
           >
             <span
               aria-hidden="true"
-              className={clsx(
+              className={cn(
                 "h-2.5 w-2.5 rounded-full",
                 index <= currentIndex ? "bg-primary" : "bg-mint",
               )}
@@ -142,7 +150,9 @@ export function TrackedCard({ item, bonus }: TrackedCardProps) {
               </Button>
             </div>
           ) : (
-            <Button onClick={openAdvanceForm}>{t.tracker.advance}</Button>
+            <Button variant="secondary" onClick={openAdvanceForm}>
+              {t.tracker.advance}
+            </Button>
           )
         ) : null}
 

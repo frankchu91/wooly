@@ -1,18 +1,27 @@
 import { useData } from "../../data/DataContext";
 import type { Bonus } from "../../engine/types";
 import { t } from "../../i18n/en";
-import { useStore } from "../../state/store";
+import { STATUS_ORDER, useStore } from "../../state/store";
 import type { TrackedItem, TrackStatus } from "../../state/store";
-import { Badge, Button, EmptyState, MoneyText } from "../../ui";
-import { STATUS_ORDER, TrackedCard } from "./TrackedCard";
+import { Badge, Button, Card, EmptyState, MoneyText } from "../../ui";
+import { TrackedCard } from "./TrackedCard";
 
 const STATUSES_COUNTING_AS_EARNED: TrackStatus[] = ["received", "closed"];
 
-function sumBonusMax(items: TrackedItem[], bonuses: Bonus[]): number {
-  return items.reduce((sum, item) => {
+/** Sums `bonus_max` (the headline) and `bonus_min` (what a typical user clears) over a
+ * set of tracked items, so the caller can show a range where the two diverge. */
+function sumBonuses(
+  items: TrackedItem[],
+  bonuses: Bonus[],
+): { min: number; max: number; differs: boolean } {
+  let min = 0;
+  let max = 0;
+  for (const item of items) {
     const bonus = bonuses.find((b) => b.id === item.bonusId);
-    return sum + (bonus?.bonus_max ?? 0);
-  }, 0);
+    max += bonus?.bonus_max ?? 0;
+    min += bonus?.bonus_min ?? bonus?.bonus_max ?? 0;
+  }
+  return { min, max, differs: min !== max };
 }
 
 export function TrackerPage() {
@@ -20,11 +29,13 @@ export function TrackerPage() {
   const tracker = useStore((state) => state.tracker);
   const profile = useStore((state) => state.profile);
 
-  const earned = sumBonusMax(
+  // A received bonus paid what it paid, so "Earned" shows the max outright; anything
+  // still in progress could land anywhere in its range, so that one shows the range.
+  const earned = sumBonuses(
     tracker.filter((item) => STATUSES_COUNTING_AS_EARNED.includes(item.status)),
     data.bonuses,
   );
-  const inProgress = sumBonusMax(
+  const inProgress = sumBonuses(
     tracker.filter((item) => !STATUSES_COUNTING_AS_EARNED.includes(item.status)),
     data.bonuses,
   );
@@ -46,16 +57,13 @@ export function TrackerPage() {
         />
       ) : (
         <>
-          {/* A plain element rather than the shared `Card` — see `SummaryBar`'s note on
-           * why a `bg-ink` override via `className` doesn't reliably beat `Card`'s own
-           * `bg-surface`. */}
-          <div className="flex flex-col gap-4 rounded-card bg-ink p-5 text-cream shadow-card sm:flex-row sm:items-center sm:gap-10">
+          <Card tone="ink" className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
             <div>
               <p className="text-xs font-medium uppercase tracking-wide text-cream/70">
                 {t.tracker.earned}
               </p>
               <div className="mt-1">
-                <MoneyText value={earned} size="xl" />
+                <MoneyText value={earned.max} size="xl" />
               </div>
             </div>
             <div>
@@ -63,12 +71,16 @@ export function TrackerPage() {
                 {t.tracker.inProgress}
               </p>
               <div className="mt-1">
-                <MoneyText value={inProgress} size="xl" />
+                <MoneyText
+                  value={inProgress.max}
+                  range={inProgress.differs ? [inProgress.min, inProgress.max] : undefined}
+                  size="xl"
+                />
               </div>
             </div>
-          </div>
+          </Card>
 
-          <div className="flex flex-col gap-6">
+          <div className="grid gap-6 lg:grid-cols-2">
             {groups.map((group) => (
               <section key={group.status}>
                 <div className="mb-3 flex items-center gap-2">
@@ -92,11 +104,9 @@ export function TrackerPage() {
         </>
       )}
 
-      {/* Same reasoning as the ink card above — `bg-mint` needs to win outright, so this
-       * skips the shared `Card` rather than overriding its background via `className`. */}
-      <div className="rounded-card bg-mint p-5 shadow-card">
+      <Card tone="mint">
         <p className="text-sm text-primary-dark">{t.tracker.pro}</p>
-      </div>
+      </Card>
     </div>
   );
 }

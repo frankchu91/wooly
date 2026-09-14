@@ -9,13 +9,17 @@ export interface MonthColumnProps {
 }
 
 /** One month of the timeline: an `<li>` inside the timeline `<ol>`, holding a DD meter
- * and a `<ul>` of `PlanCard`s (or a muted em dash when the month is empty). */
+ * and a `<ul>` of `PlanCard`s (or a single muted line when the month is empty — an empty
+ * month is normal, not a hole in the plan, so it doesn't get a card-sized void). */
 export function MonthColumn({ month, monthlyDD }: MonthColumnProps) {
   const pct = monthlyDD > 0 ? Math.min(100, (month.ddUsed / monthlyDD) * 100) : 0;
   const meterLabel = t.plan.ddUsed(money(month.ddUsed), money(monthlyDD));
 
   return (
-    <li className="flex flex-col gap-3 rounded-card bg-mint/20 p-3">
+    // `self-start` keeps a column at its natural height instead of stretching to match
+    // the tallest one in its grid row, which is what turned a quiet month into a tall
+    // empty box.
+    <li className="flex flex-col gap-3 self-start rounded-card bg-mint/20 p-3">
       <h3 className="font-heading text-sm font-semibold text-ink">{monthLabel(month.month)}</h3>
 
       <div className="flex flex-col gap-1">
@@ -42,7 +46,7 @@ export function MonthColumn({ month, monthlyDD }: MonthColumnProps) {
           ))}
         </ul>
       ) : (
-        <p className="py-6 text-center text-sm text-muted">—</p>
+        <p className="text-xs text-muted">{t.plan.emptyMonth}</p>
       )}
     </li>
   );

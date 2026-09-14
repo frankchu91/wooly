@@ -5,7 +5,7 @@ import { useData } from "../../data/DataContext";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { usePlan } from "../../state/usePlan";
-import { Button, EmptyState, Segmented, toast } from "../../ui";
+import { Button, Card, EmptyState, Segmented, toast } from "../../ui";
 import { MonthColumn } from "./MonthColumn";
 import { SkippedList } from "./SkippedList";
 import { SummaryBar } from "./SummaryBar";
@@ -39,6 +39,9 @@ export function PlanPage() {
   if (!profile || !plan) return null;
 
   const allItems = plan.months.flatMap((month) => month.items);
+  // Most of the dataset is list-page data only, so the "go and check" instruction is a
+  // page-level notice rather than a red line repeated on every card.
+  const hasUnverified = allItems.some((item) => !item.bonus.enriched);
 
   function handleTrack() {
     trackPlan(allItems);
@@ -69,11 +72,18 @@ export function PlanPage() {
             options={HORIZON_OPTIONS}
             value={String(profile.horizonMonths)}
             onChange={(value) => updateProfile({ horizonMonths: Number(value) })}
+            aria-label={t.plan.horizon}
           />
         </div>
       </div>
 
       <SummaryBar plan={plan} />
+
+      {hasUnverified ? (
+        <Card tone="mint">
+          <p className="text-sm text-primary-dark">{t.plan.unverifiedNotice}</p>
+        </Card>
+      ) : null}
 
       <ol className="flex flex-col gap-4 md:grid md:grid-cols-3 lg:grid-cols-4">
         {plan.months.map((month) => (

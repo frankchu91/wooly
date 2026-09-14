@@ -123,6 +123,64 @@ describe("BonusesPage", () => {
     expect(within(dialog).getByText(t.bonuses.eligible)).toBeInTheDocument();
   });
 
+  test("an ineligible offer offers to change preferences instead of 'Add to plan'", async () => {
+    const user = userEvent.setup({ delay: null });
+    // fourfront-400 needs a hard pull, which the default profile asks to avoid.
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MI" } });
+    renderPage();
+
+    await user.click(screen.getByText(/4Front Credit Union \$400/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).queryByRole("button", { name: t.bonuses.addToPlan })).toBeNull();
+    expect(within(dialog).getByText(t.plan.reasons.hard_pull)).toBeInTheDocument();
+    expect(within(dialog).getByRole("link", { name: t.bonuses.changePrefs })).toHaveAttribute(
+      "href",
+      "/start?step=1",
+    );
+  });
+
+  test("an out-of-state offer offers nothing — there is no preference to change", async () => {
+    const user = userEvent.setup({ delay: null });
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "NY" } });
+    renderPage();
+
+    await user.click(screen.getByText(/Eastern Bank \$750/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.plan.reasons.not_in_state)).toBeInTheDocument();
+    expect(within(dialog).queryByRole("button", { name: t.bonuses.addToPlan })).toBeNull();
+    expect(within(dialog).queryByRole("link", { name: t.bonuses.changePrefs })).toBeNull();
+  });
+
+  test("an eligible offer the scheduler couldn't fit says so on a disabled button", async () => {
+    const user = userEvent.setup({ delay: null });
+    // A one-month horizon: eastern-750's $500 DD still fits the month (so it stays
+    // eligible), but its 60-day window doesn't fit the horizon, so it never gets placed.
+    useStore.setState({
+      profile: { ...defaultProfile("2026-09"), state: "MA", monthlyDD: 500, horizonMonths: 1 },
+    });
+    renderPage();
+
+    await user.click(screen.getByText(/Eastern Bank \$750/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.bonuses.eligible)).toBeInTheDocument();
+    expect(within(dialog).getByRole("button", { name: t.bonuses.notPlaced })).toBeDisabled();
+    expect(within(dialog).queryByRole("button", { name: t.bonuses.addToPlan })).toBeNull();
+  });
+
+  test("the verify chip is paired with an instruction, not left as a shrug", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(screen.getByText(/BMO \$400/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.bonuses.verify)).toBeInTheDocument();
+    expect(within(dialog).getByText(t.bonuses.verifyBody)).toBeInTheDocument();
+  });
+
   test("the result count reflects the filtered results", async () => {
     const user = userEvent.setup({ delay: null });
     renderPage();

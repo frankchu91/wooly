@@ -7,6 +7,7 @@ import { fixture } from "../../data/fixture";
 import type { PlanItem } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
+import { money } from "../../ui";
 import { PlanCard } from "./PlanCard";
 
 const initialState = useStore.getState();
@@ -15,24 +16,74 @@ beforeEach(() => {
   useStore.setState(initialState, true);
 });
 
-const item: PlanItem = {
+const bonusById = (id: string) => {
+  const found = fixture.find((b) => b.id === id);
+  if (!found) throw new Error(`fixture missing ${id}`);
+  return found;
+};
+
+const makeItem = (overrides: Partial<PlanItem> = {}): PlanItem => ({
   bonus: fixture[0],
   openMonth: "2026-09",
   ddSchedule: [{ month: "2026-09", amount: 1000 }],
   ddDeadline: "2026-12-11",
   safeCloseDate: "2027-03-11",
   warnings: [],
-};
+  ...overrides,
+});
 
-function renderCard() {
+const item = makeItem();
+
+function renderCard(planItem: PlanItem = item) {
   return render(
     <MemoryRouter>
       <ul>
-        <PlanCard item={item} />
+        <PlanCard item={planItem} />
       </ul>
     </MemoryRouter>,
   );
 }
+
+describe("PlanCard content", () => {
+  test("shows the DD deadline for a bonus that requires a direct deposit", () => {
+    renderCard();
+    expect(screen.getByText(new RegExp(t.plan.ddBy))).toBeInTheDocument();
+  });
+
+  test("omits the DD deadline entirely for a No-DD bonus", () => {
+    renderCard(makeItem({ bonus: bonusById("fourfront-400") }));
+
+    expect(screen.queryByText(new RegExp(t.plan.ddBy))).not.toBeInTheDocument();
+    expect(screen.getByText(t.plan.badges.noDD)).toBeInTheDocument();
+    // The safe-close date is about the account, not the deposit, so it stays.
+    expect(screen.getByText(new RegExp(t.plan.safeClose))).toBeInTheDocument();
+  });
+
+  test("shows the assumed $500 DD badge when the amount is unknown", () => {
+    renderCard(makeItem({ bonus: bonusById("chase-400"), warnings: ["dd_unknown"] }));
+
+    expect(screen.getByText(t.plan.badges.ddAssumed(money(500)))).toBeInTheDocument();
+    // ...and still says out loud that it's an assumption.
+    expect(screen.getByText(t.plan.warnings.dd_unknown)).toBeInTheDocument();
+  });
+
+  test("renders not_enriched as an Unverified badge linking to the source, not a red line", () => {
+    const bonus = bonusById("bmo-400");
+    renderCard(makeItem({ bonus, warnings: ["not_enriched", "dd_unknown"] }));
+
+    const link = screen.getByRole("link", { name: t.plan.badges.unverified });
+    expect(link).toHaveAttribute("href", bonus.doc_url);
+    expect(screen.queryByText(t.plan.warnings.not_enriched)).not.toBeInTheDocument();
+    // The offer-specific warning is still spelled out.
+    expect(screen.getByText(t.plan.warnings.dd_unknown)).toBeInTheDocument();
+  });
+
+  test("shows a range for a tiered offer instead of the headline alone", () => {
+    const bonus = { ...bonusById("chase-400"), bonus_min: 1500, bonus_max: 7000 };
+    renderCard(makeItem({ bonus }));
+    expect(screen.getByText("$1,500–$7,000")).toBeInTheDocument();
+  });
+});
 
 describe("PlanCard kebab menu", () => {
   test("opening the menu via keyboard focuses the first menu item", async () => {

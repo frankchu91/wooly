@@ -124,6 +124,55 @@ describe("TrackerPage", () => {
     expect(item?.dates.opened).toBe("2026-09-10");
   });
 
+  test("an opened No-DD bonus shows no DD deadline and no days-left badge", () => {
+    useStore.setState({
+      tracker: [
+        trackedItem({
+          id: "fourfront-400",
+          bonusId: "fourfront-400",
+          status: "opened",
+          dates: { opened: "2026-09-01" },
+        }),
+      ],
+    });
+
+    renderTrackerPage();
+
+    expect(screen.queryByText(new RegExp(t.plan.ddBy))).not.toBeInTheDocument();
+    expect(screen.queryByText(/days left/)).not.toBeInTheDocument();
+    expect(screen.queryByText(t.tracker.overdue)).not.toBeInTheDocument();
+    // The account-level safe-close date is unrelated to direct deposit, so it stays.
+    expect(screen.getByText(new RegExp(t.plan.safeClose))).toBeInTheDocument();
+  });
+
+  test("an opened DD bonus still shows its deadline and countdown", () => {
+    useStore.setState({
+      tracker: [
+        trackedItem({
+          id: "wells-fargo-500",
+          bonusId: "wells-fargo-500",
+          status: "opened",
+          dates: { opened: "2026-09-01" },
+        }),
+      ],
+    });
+
+    renderTrackerPage();
+
+    expect(screen.getByText(new RegExp(t.plan.ddBy))).toBeInTheDocument();
+    expect(screen.getByText(/days left/)).toBeInTheDocument();
+  });
+
+  test("a planned item says which month it's planned for", () => {
+    useStore.setState({
+      tracker: [trackedItem({ id: "wells-fargo-500", openMonth: "2026-11" })],
+    });
+
+    renderTrackerPage();
+
+    expect(screen.getByText(t.tracker.plannedFor("Nov 2026"))).toBeInTheDocument();
+  });
+
   test("header stats sum bonus_max separately for earned vs in-progress statuses", () => {
     useStore.setState({
       tracker: [

@@ -1,7 +1,5 @@
-import clsx from "clsx";
-
 import { t } from "../../i18n/en";
-import { Segmented } from "../../ui";
+import { Segmented, cn } from "../../ui";
 import { CHIP_KEYS, SORT_KEYS } from "./useBonusFilters";
 import type { SortKey, UseBonusFiltersResult } from "./useBonusFilters";
 
@@ -48,7 +46,7 @@ export function Filters({ filters, hasProfile }: FiltersProps) {
                 disabled={disabled}
                 title={disabled ? t.bonuses.needProfile : undefined}
                 onClick={() => filters.toggleChip(chip)}
-                className={clsx(
+                className={cn(
                   "rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200 ease-out",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
                   active ? "bg-primary text-white" : "bg-mint/40 text-ink hover:bg-mint/60",
@@ -65,6 +63,7 @@ export function Filters({ filters, hasProfile }: FiltersProps) {
           options={sortOptions}
           value={filters.sort}
           onChange={(value) => filters.setSort(value as SortKey)}
+          aria-label={t.bonuses.sortLabel}
         />
       </div>
     </div>

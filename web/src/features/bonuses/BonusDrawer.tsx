@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useData } from "../../data/DataContext";
 import { evaluate } from "../../engine";
-import type { Bonus } from "../../engine/types";
+import type { Bonus, Reason } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { usePlan } from "../../state/usePlan";
@@ -14,6 +14,16 @@ export interface BonusDrawerProps {
   open: boolean;
   onClose: () => void;
 }
+
+// Reasons the user can do something about from the preferences step. Where a bonus is
+// available, and whether it has expired, are facts about the world — offering to "change
+// preferences" for those would send the user on a pointless errand.
+const FIXABLE_BY_PREFERENCES: Reason[] = [
+  "hard_pull",
+  "chex_sensitive",
+  "section_excluded",
+  "dd_too_large",
+];
 
 function isFeeAvoidable(bonus: Bonus): boolean {
   return (
@@ -122,6 +132,13 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
     (plan?.months.some((month) => month.items.some((item) => item.bonus.id === bonus.id)) ?? false);
 
   const evaluation = profile ? evaluate(bonus, profile, new Date()) : null;
+  const isIneligible = evaluation != null && !evaluation.eligible;
+  const canChangePrefs =
+    isIneligible && evaluation.reasons.some((reason) => FIXABLE_BY_PREFERENCES.includes(reason));
+  // Eligible, not skipped, but the scheduler couldn't find it a home (no capacity left,
+  // or another offer from the same bank already took the one slot). "Add to plan" would
+  // be a lie, so it's shown disabled with the reason instead.
+  const notPlaced = evaluation?.eligible === true && plan != null && !isSkipped && !isInPlan;
 
   const bonusId = bonus.id;
   function handleAddToPlan() {
@@ -133,9 +150,12 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
     <Drawer open={isOpen} onClose={onClose} title={bonus.title}>
       <div className="flex flex-col gap-5">
         <div className="flex flex-wrap items-center gap-2">
-          <MoneyText value={bonus.bonus_max} size="xl" />
+          <MoneyText value={bonus.bonus_max} range={[bonus.bonus_min, bonus.bonus_max]} size="xl" />
           {!bonus.enriched ? <Badge tone="neutral">{t.bonuses.verify}</Badge> : null}
         </div>
+
+        {/* The chip alone reads as a shrug; paired with this line it's an instruction. */}
+        {!bonus.enriched ? <p className="text-sm text-muted">{t.bonuses.verifyBody}</p> : null}
 
         <p className="text-sm text-muted">{bonus.summary}</p>
 
@@ -152,7 +172,7 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
           evaluation.eligible ? (
             <p className="text-sm font-semibold text-primary-dark">{t.bonuses.eligible}</p>
           ) : (
-            <ul className="flex flex-col gap-1 text-sm text-coral">
+            <ul className="flex flex-col gap-1 text-sm text-coral-dark">
               {evaluation.reasons.map((reason) => (
                 <li key={reason}>{reasonToText(reason, bonus, evaluation.antiChurnUntil)}</li>
               ))}
@@ -161,9 +181,21 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
         ) : null}
 
         <div className="flex flex-wrap items-center gap-3">
-          <Button onClick={handleAddToPlan} disabled={isInPlan}>
-            {isInPlan ? t.bonuses.inPlan : t.bonuses.addToPlan}
-          </Button>
+          {isIneligible ? (
+            // No "Add to plan" for something the user can't open — the only useful action
+            // is the one that might make them eligible, and only when there is one.
+            canChangePrefs ? (
+              <Button variant="secondary" to="/start?step=1">
+                {t.bonuses.changePrefs}
+              </Button>
+            ) : null
+          ) : notPlaced ? (
+            <Button disabled>{t.bonuses.notPlaced}</Button>
+          ) : (
+            <Button onClick={handleAddToPlan} disabled={isInPlan}>
+              {isInPlan ? t.bonuses.inPlan : t.bonuses.addToPlan}
+            </Button>
+          )}
           <a
             href={bonus.doc_url}
             target="_blank"

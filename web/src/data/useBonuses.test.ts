@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { useBonuses, resetBonusesCache } from "./useBonuses";
 import { fixture } from "./fixture";
 
@@ -35,6 +35,24 @@ test("retry clears the cache and refetches", async () => {
   result.current.retry();
 
   await waitFor(() => expect(calls.count).toBeGreaterThan(callsAfterFirstLoad));
+});
+
+test("retry clears the error immediately, so the shell swaps back to loading", async () => {
+  let shouldFail = true;
+  const fetchImpl = (async () => {
+    if (shouldFail) throw new Error("boom");
+    return { ok: true, json: async () => dataset };
+  }) as unknown as typeof fetch;
+
+  const { result } = renderHook(() => useBonuses(fetchImpl));
+  await waitFor(() => expect(result.current.error).not.toBeNull());
+
+  shouldFail = false;
+  act(() => result.current.retry());
+
+  // Not "eventually null once the refetch lands" — null right away.
+  expect(result.current.error).toBeNull();
+  await waitFor(() => expect(result.current.data).not.toBeNull());
 });
 
 test("a fresh mount with its own fetchImpl calls that fetch exactly once, even when another fetchImpl's entry is already cached", async () => {

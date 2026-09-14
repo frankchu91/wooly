@@ -51,6 +51,7 @@ export function StepPaycheck({ draft, onChange, headingLevel = 2 }: StepPaycheck
           onChange={(value) => onChange({ monthlyDD: value })}
           format={money}
           label={t.onboarding.paycheck.amount}
+          prefix="$"
         />
         <p className="text-xs text-muted">{t.onboarding.paycheck.amountHelp}</p>
       </div>

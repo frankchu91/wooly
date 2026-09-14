@@ -48,6 +48,9 @@ export function useBonuses(fetchImpl: typeof fetch = fetch): {
 
   const retry = () => {
     cache.delete(fetchImpl);
+    // Clear the error straight away so the shell swaps back to the loading skeleton on
+    // the click, rather than leaving the failure on screen until the refetch settles.
+    setError(null);
     setAttempt((n) => n + 1);
   };
 

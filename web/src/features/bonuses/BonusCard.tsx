@@ -29,7 +29,9 @@ export function BonusCard({ bonus, onOpen }: BonusCardProps) {
   const expiringSoon = isExpiringSoon(bonus, new Date());
 
   return (
-    <Card as="li" className="p-0">
+    // The button below fills the card and supplies the padding, so the card must not add
+    // its own on top.
+    <Card as="li" padded={false}>
       <button
         type="button"
         onClick={() => onOpen(bonus.id)}
@@ -41,7 +43,11 @@ export function BonusCard({ bonus, onOpen }: BonusCardProps) {
             <h3 className="line-clamp-2 font-heading text-sm font-semibold text-ink">
               {bonus.title}
             </h3>
-            <MoneyText value={bonus.bonus_max} size="md" />
+            <MoneyText
+              value={bonus.bonus_max}
+              range={[bonus.bonus_min, bonus.bonus_max]}
+              size="md"
+            />
           </div>
         </div>
 

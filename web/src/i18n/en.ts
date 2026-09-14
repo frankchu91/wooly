@@ -69,6 +69,7 @@ export const t = {
       search: "Add a bank",
       lastBonus: "Last bonus received",
       never: "Never",
+      monthHelp: "e.g. 2025-03",
       open: "Account still open",
       remove: "Remove",
     },
@@ -77,6 +78,10 @@ export const t = {
   plan: {
     title: "Your plan",
     projected: "Projected earnings",
+    projectedUpTo: "Projected earnings (up to)",
+    unverifiedNotice:
+      "Most offers show list-page data only. Open each one on Doctor of Credit and confirm the direct-deposit amount and deadline before you apply.",
+    emptyMonth: "Nothing to open — DD capacity resting",
     accounts: "Accounts to open",
     avgDD: "Avg. DD used / month",
     horizon: "Horizon",
@@ -97,6 +102,8 @@ export const t = {
       noDD: "No DD",
       noFee: "No fee",
       dd: (amount: string) => `${amount} DD`,
+      ddAssumed: (amt: string) => `~${amt} DD`,
+      unverified: "Unverified",
     },
     empty: {
       h: "Nothing fits yet",
@@ -138,6 +145,7 @@ export const t = {
       closed: "Closed",
     },
     advance: "Mark next step",
+    plannedFor: (month: string) => `Planned for ${month}`,
     dateFor: (s: string) => `When did you mark "${s}"?`,
     daysLeft: (n: number) => `${n} days left`,
     overdue: "Overdue",
@@ -165,9 +173,14 @@ export const t = {
       savings: "Savings",
       business: "Business",
     },
+    sortLabel: "Sort offers",
     sort: { bonus: "Bonus", score: "Score for me", expiring: "Expiring" },
     addToPlan: "Add to plan",
     inPlan: "In your plan",
+    changePrefs: "Change preferences",
+    notPlaced: "Not in your plan — it didn't fit this horizon",
+    verifyBody:
+      "We haven't read the full post yet — confirm the DD amount and deadline on Doctor of Credit before opening.",
     openDoc: "Open on Doctor of Credit",
     needProfile: "Set up your profile to see your score",
     glance: {
@@ -205,6 +218,13 @@ export const t = {
     about: "About",
     aboutBody:
       "Woolly is open source under the MIT licence. Offer data is scraped nightly from Doctor of Credit and may be incomplete or out of date.",
+  },
+  errors: {
+    title: "Something went wrong",
+    body: "Woolly hit an unexpected error. You can go home, or clear the data saved in this browser and start over.",
+    home: "Go home",
+    clear: "Clear local data",
+    notFound: "That page doesn't exist",
   },
   common: {
     yes: "Yes",

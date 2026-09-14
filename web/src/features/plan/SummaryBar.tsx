@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import type { Plan } from "../../engine/types";
 import { t } from "../../i18n/en";
-import { MoneyText, money } from "../../ui";
+import { Card, MoneyText, money } from "../../ui";
 
 export interface SummaryBarProps {
   plan: Plan;
@@ -14,7 +14,10 @@ const COUNT_UP_DURATION_S = 0.6;
 /** Dark hero card summarizing the plan's totals. The projected-earnings figure counts
  * up from zero over ~600ms (skipped when the viewer prefers reduced motion). */
 export function SummaryBar({ plan }: SummaryBarProps) {
-  const { projected, accounts, avgDDUsed } = plan.totals;
+  const { projected, projectedMin, accounts, avgDDUsed } = plan.totals;
+  // Tiered "up to" offers make the two totals diverge; when they do, the headline shows
+  // the honest range and says so, rather than promising the best case.
+  const showsRange = projectedMin !== projected;
   const reduceMotion = useReducedMotion();
   const motionValue = useMotionValue(0);
   // Only ever written from the `animate` subscription below, never synchronously in the
@@ -35,17 +38,17 @@ export function SummaryBar({ plan }: SummaryBarProps) {
   const displayValue = reduceMotion ? projected : liveValue;
 
   return (
-    // A plain element rather than the shared `Card` — `Card`'s own base classes bake in
-    // `bg-surface`, and Tailwind's generated stylesheet order (not class order in JSX)
-    // decides the winner between two same-specificity background utilities, so
-    // `bg-surface` would win over a `bg-ink` override passed via `className` here.
-    <div className="flex flex-col gap-4 rounded-card bg-ink p-5 text-cream shadow-card sm:flex-row sm:items-center sm:justify-between">
+    <Card tone="ink" className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <p className="text-xs font-medium uppercase tracking-wide text-cream/70">
-          {t.plan.projected}
+          {showsRange ? t.plan.projectedUpTo : t.plan.projected}
         </p>
         <div className="mt-1">
-          <MoneyText value={displayValue} size="xl" />
+          <MoneyText
+            value={displayValue}
+            range={showsRange ? [projectedMin, projected] : undefined}
+            size="xl"
+          />
         </div>
       </div>
       <div className="flex gap-6">
@@ -62,6 +65,6 @@ export function SummaryBar({ plan }: SummaryBarProps) {
           <p className="mt-1 font-heading text-xl font-bold text-cream">{money(avgDDUsed)}</p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

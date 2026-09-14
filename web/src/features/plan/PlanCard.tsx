@@ -1,9 +1,10 @@
-import { MoreHorizontal } from "lucide-react";
+import { ExternalLink, MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Link } from "react-router-dom";
 
-import type { PlanItem } from "../../engine/types";
+import { ASSUMED_DD_AMOUNT } from "../../engine";
+import type { PlanItem, Warning } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Badge, BankAvatar, Card, MoneyText, dateLabel, money } from "../../ui";
@@ -12,6 +13,11 @@ import { warningToText } from "./reasonText";
 export interface PlanCardProps {
   item: PlanItem;
 }
+
+// `not_enriched` is handled separately, as an "Unverified" badge linking to the source
+// post — it applies to most of the dataset, so as a line of red text it would drown out
+// the warnings that are specific to this offer.
+const INLINE_WARNINGS: Warning[] = ["dd_unknown", "expires_soon", "has_etf"];
 
 /** A single scheduled bonus within a `MonthColumn`. Always an `<li>` — the timeline's
  * smoke tests locate cards by walking `li` elements. */
@@ -93,6 +99,9 @@ export function PlanCard({ item }: PlanCardProps) {
     closeMenu();
   }
 
+  const needsDD = bonus.dd.required !== false;
+  const inlineWarnings = warnings.filter((warning) => INLINE_WARNINGS.includes(warning));
+
   return (
     <Card as="li" className="relative flex flex-col gap-3">
       <div className="flex items-start gap-3">
@@ -101,7 +110,7 @@ export function PlanCard({ item }: PlanCardProps) {
           <h3 className="line-clamp-2 font-heading text-sm font-semibold text-ink">
             {bonus.title}
           </h3>
-          <MoneyText value={bonus.bonus_max} size="md" />
+          <MoneyText value={bonus.bonus_max} range={[bonus.bonus_min, bonus.bonus_max]} size="md" />
         </div>
         <div ref={menuRef} className="relative shrink-0">
           <button
@@ -155,18 +164,39 @@ export function PlanCard({ item }: PlanCardProps) {
       <div className="flex flex-wrap gap-1.5">
         {bonus.pull === "soft" ? <Badge tone="mint">{t.plan.badges.softPull}</Badge> : null}
         {bonus.pull === "hard" ? <Badge tone="coral">{t.plan.badges.hardPull}</Badge> : null}
-        {bonus.dd.required === false ? (
+        {!needsDD ? (
           <Badge tone="gold">{t.plan.badges.noDD}</Badge>
         ) : bonus.dd.amount != null ? (
           <Badge tone="neutral">{t.plan.badges.dd(money(bonus.dd.amount))}</Badge>
-        ) : null}
+        ) : (
+          // The scheduler budgeted the assumed amount, so the badge says so rather than
+          // going silent; the `dd_unknown` line below spells out that it's a guess.
+          <Badge tone="neutral">{t.plan.badges.ddAssumed(money(ASSUMED_DD_AMOUNT))}</Badge>
+        )}
         {feeAvoidable ? <Badge tone="mint">{t.plan.badges.noFee}</Badge> : null}
+        {!bonus.enriched ? (
+          <Badge tone="neutral">
+            <a
+              href={bonus.doc_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 hover:underline"
+            >
+              {t.plan.badges.unverified}
+              <ExternalLink size={11} aria-hidden="true" />
+            </a>
+          </Badge>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-0.5 text-xs text-muted">
-        <p>
-          {t.plan.ddBy} {dateLabel(ddDeadline)}
-        </p>
+        {/* A no-DD bonus has no direct-deposit deadline to miss, so showing one would be
+         * a deadline the user invents for themselves. */}
+        {needsDD ? (
+          <p>
+            {t.plan.ddBy} {dateLabel(ddDeadline)}
+          </p>
+        ) : null}
         {safeCloseDate ? (
           <p>
             {t.plan.safeClose} {dateLabel(safeCloseDate)}
@@ -174,10 +204,10 @@ export function PlanCard({ item }: PlanCardProps) {
         ) : null}
       </div>
 
-      {warnings.length > 0 ? (
+      {inlineWarnings.length > 0 ? (
         <ul className="flex flex-col gap-0.5">
-          {warnings.map((warning) => (
-            <li key={warning} className="text-xs text-coral">
+          {inlineWarnings.map((warning) => (
+            <li key={warning} className="text-xs text-coral-dark">
               {warningToText(warning)}
             </li>
           ))}
