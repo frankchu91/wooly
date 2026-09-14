@@ -1,6 +1,7 @@
 import { MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import { Link } from "react-router-dom";
 
 import type { PlanItem } from "../../engine/types";
 import { t } from "../../i18n/en";
@@ -121,17 +122,17 @@ export function PlanCard({ item }: PlanCardProps) {
               className="absolute right-0 top-full z-10 mt-1 w-40 rounded-control bg-surface p-1 shadow-card"
             >
               <li role="none">
-                <a
+                <Link
                   ref={(el) => {
                     itemRefs.current[0] = el;
                   }}
                   role="menuitem"
-                  href={`/bonuses?bonus=${bonus.id}`}
+                  to={`/bonuses?bonus=${bonus.id}`}
                   onClick={closeMenu}
                   className="block rounded-control px-3 py-2 text-sm text-ink transition-colors duration-200 ease-out hover:bg-mint/60"
                 >
                   {t.plan.details}
-                </a>
+                </Link>
               </li>
               <li role="none">
                 <button

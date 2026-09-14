@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, test } from "vitest";
 
 import { fixture } from "../../data/fixture";
@@ -25,9 +26,11 @@ const item: PlanItem = {
 
 function renderCard() {
   return render(
-    <ul>
-      <PlanCard item={item} />
-    </ul>,
+    <MemoryRouter>
+      <ul>
+        <PlanCard item={item} />
+      </ul>
+    </MemoryRouter>,
   );
 }
 

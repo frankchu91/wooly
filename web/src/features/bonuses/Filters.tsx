@@ -2,15 +2,13 @@ import clsx from "clsx";
 
 import { t } from "../../i18n/en";
 import { Segmented } from "../../ui";
-import type { Chip, SortKey, UseBonusFiltersResult } from "./useBonusFilters";
+import { CHIP_KEYS, SORT_KEYS } from "./useBonusFilters";
+import type { SortKey, UseBonusFiltersResult } from "./useBonusFilters";
 
 export interface FiltersProps {
   filters: UseBonusFiltersResult;
   hasProfile: boolean;
 }
-
-const CHIP_KEYS = Object.keys(t.bonuses.filters) as Chip[];
-const SORT_KEYS = Object.keys(t.bonuses.sort) as SortKey[];
 
 /** Search box, AND-combined filter chips, and the sort control for the `/bonuses`
  * browse page. The `myState` chip and `score` sort both need a profile to mean
@@ -38,7 +36,7 @@ export function Filters({ filters, hasProfile }: FiltersProps) {
       />
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label={t.bonuses.title}>
+        <div className="flex flex-wrap gap-1.5" role="group" aria-label={t.bonuses.filtersLabel}>
           {CHIP_KEYS.map((chip) => {
             const disabled = chip === "myState" && !hasProfile;
             const active = filters.chips.has(chip);

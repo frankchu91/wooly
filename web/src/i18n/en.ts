@@ -153,6 +153,7 @@ export const t = {
     title: "All offers",
     search: "Search banks or offers",
     count: (n: number) => `${n} offers`,
+    filtersLabel: "Filter offers",
     filters: {
       nationwide: "Nationwide",
       myState: "My state",

@@ -7,18 +7,18 @@ import { useStore } from "../../state/store";
 import { BonusCard } from "./BonusCard";
 import { BonusDrawer } from "./BonusDrawer";
 import { Filters } from "./Filters";
+import { CHIP_KEYS, SORT_KEYS, useBonusFilters } from "./useBonusFilters";
 import type { Chip, SortKey } from "./useBonusFilters";
-import { useBonusFilters } from "./useBonusFilters";
 
-const CHIP_KEYS = new Set<string>(Object.keys(t.bonuses.filters));
-const SORT_KEYS = new Set<string>(Object.keys(t.bonuses.sort));
+const CHIP_KEY_SET = new Set<string>(CHIP_KEYS);
+const SORT_KEY_SET = new Set<string>(SORT_KEYS);
 
 function isChip(value: string): value is Chip {
-  return CHIP_KEYS.has(value);
+  return CHIP_KEY_SET.has(value);
 }
 
 function isSortKey(value: string): value is SortKey {
-  return SORT_KEYS.has(value);
+  return SORT_KEY_SET.has(value);
 }
 
 /** Browse every offer in the dataset, with search, filter chips, and sort — all

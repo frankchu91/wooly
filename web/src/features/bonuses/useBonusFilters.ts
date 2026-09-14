@@ -7,6 +7,11 @@ import { t } from "../../i18n/en";
 export type Chip = keyof typeof t.bonuses.filters;
 export type SortKey = keyof typeof t.bonuses.sort;
 
+/** The valid `Chip`/`SortKey` values, derived once from the copy object so `Filters`
+ * and `BonusesPage` don't each redeclare their own copy of this list. */
+export const CHIP_KEYS = Object.keys(t.bonuses.filters) as Chip[];
+export const SORT_KEYS = Object.keys(t.bonuses.sort) as SortKey[];
+
 /** Section chips are mutually exclusive: picking one clears the others. */
 const SECTION_CHIPS: Chip[] = ["checking", "savings", "business"];
 
