@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { NonIndexRouteObject, RouteObject } from "react-router-dom";
 
+import { AboutPage } from "./features/about/AboutPage";
 import { BonusesPage } from "./features/bonuses/BonusesPage";
 import { Landing } from "./features/landing/Landing";
 import { ErrorPage } from "./features/layout/ErrorPage";
@@ -33,6 +34,7 @@ export const rootRoute: NonIndexRouteObject = {
   errorElement,
   children: [
     { index: true, element: <Landing />, errorElement },
+    { path: "about", element: <AboutPage />, errorElement },
     { path: "start", element: <Onboarding />, errorElement },
     { path: "plan", element: <PlanPage />, errorElement },
     { path: "tracker", element: <TrackerPage />, errorElement },

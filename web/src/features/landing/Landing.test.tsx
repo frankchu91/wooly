@@ -45,6 +45,11 @@ describe("Landing", () => {
     );
   });
 
+  test("leads with one sentence of sub-copy, not three paragraphs", () => {
+    renderLanding();
+    expect(within(hero()).getByText(t.landing.sub)).toBeInTheDocument();
+  });
+
   test("shows the welcome-back CTA linking to /plan when a profile exists", () => {
     useStore.setState({ profile: defaultProfile("2026-09") });
     renderLanding();
@@ -60,89 +65,79 @@ describe("Landing", () => {
   test("offers a re-plan link to the wizard beside the welcome-back CTA", () => {
     useStore.setState({ profile: defaultProfile("2026-09") });
     renderLanding();
-    expect(within(hero()).getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute(
-      "href",
-      "/plan",
-    );
     expect(screen.getByRole("link", { name: t.landing.replan })).toHaveAttribute("href", "/start");
-  });
-
-  describe("introduction", () => {
-    test("explains what a bank bonus is", () => {
-      renderLanding();
-      expect(
-        screen.getByRole("heading", { level: 2, name: t.landing.what.title }),
-      ).toBeInTheDocument();
-      expect(screen.getByText(t.landing.what.paras[0])).toBeInTheDocument();
-    });
-
-    test("shows the worked example with every label", () => {
-      renderLanding();
-      const section = screen.getByRole("region", { name: t.landing.what.title });
-      expect(
-        within(section).getByRole("heading", { level: 3, name: t.landing.what.example.title }),
-      ).toBeInTheDocument();
-      for (const [label, value] of t.landing.what.example.rows) {
-        expect(within(section).getByText(label)).toBeInTheDocument();
-        expect(within(section).getByText(value)).toBeInTheDocument();
-      }
-    });
-
-    test("lists what a newcomer needs", () => {
-      renderLanding();
-      const section = screen.getByRole("region", { name: t.landing.need.title });
-      const headings = within(section)
-        .getAllByRole("heading", { level: 3 })
-        .map((heading) => heading.textContent);
-      expect(headings).toEqual(t.landing.need.items.map((item) => item.title));
-    });
-
-    test("renders every FAQ question, with the answers in the DOM while collapsed", () => {
-      renderLanding();
-      const section = screen.getByRole("region", { name: t.landing.faq.title });
-
-      const questions = within(section).getAllByRole("group");
-      expect(questions).toHaveLength(8);
-      for (const item of t.landing.faq.items) {
-        expect(within(section).getByText(item.q)).toBeInTheDocument();
-      }
-
-      // <details> keeps its content mounted when closed, so the answer is findable.
-      expect(within(section).getByText(t.landing.faq.items[0].a)).toBeInTheDocument();
-    });
-
-    test("heads the how-it-works cards and closes with a CTA to /start", () => {
-      renderLanding();
-      const section = screen.getByRole("region", { name: t.landing.howTitle });
-      expect(
-        within(section)
-          .getAllByRole("heading", { level: 3 })
-          .map((h) => h.textContent),
-      ).toEqual(t.landing.how.map((step) => step.title));
-      expect(within(section).getByRole("link", { name: t.landing.cta })).toHaveAttribute(
-        "href",
-        "/start",
-      );
-      expect(within(section).getByRole("link", { name: t.landing.browse })).toHaveAttribute(
-        "href",
-        "/bonuses",
-      );
-    });
-
-    test("closes with a CTA to the plan when a profile exists", () => {
-      useStore.setState({ profile: defaultProfile("2026-09") });
-      renderLanding();
-      const section = screen.getByRole("region", { name: t.landing.howTitle });
-      expect(within(section).getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute(
-        "href",
-        "/plan",
-      );
-    });
   });
 
   test("hides the re-plan link when there is no profile to rebuild", () => {
     renderLanding();
     expect(screen.queryByRole("link", { name: t.landing.replan })).not.toBeInTheDocument();
+  });
+
+  describe("stat strip", () => {
+    test("counts the offers in the provided dataset and dates the data", () => {
+      renderLanding();
+      const strip = hero();
+
+      expect(within(strip).getByText(t.landing.stats.offers)).toBeInTheDocument();
+      expect(within(strip).getByText(String(fixture.length))).toBeInTheDocument();
+
+      expect(within(strip).getByText(t.landing.stats.updated)).toBeInTheDocument();
+      expect(within(strip).getByText(dateLabel("2026-09-13T00:00:00Z"))).toBeInTheDocument();
+
+      expect(within(strip).getByText(t.landing.stats.biggest)).toBeInTheDocument();
+      expect(within(strip).getByText("$750")).toBeInTheDocument();
+    });
+
+    test("drops the date row when the dataset has no generated_at", () => {
+      render(
+        <MemoryRouter>
+          <DataContext.Provider value={{ ...dataset, generated_at: null }}>
+            <Landing />
+          </DataContext.Provider>
+        </MemoryRouter>,
+      );
+      expect(screen.queryByText(t.landing.stats.updated)).not.toBeInTheDocument();
+    });
+  });
+
+  test("lists the three how-it-works steps as rows", () => {
+    renderLanding();
+    const section = screen.getByRole("region", { name: t.landing.howTitle });
+    expect(
+      within(section)
+        .getAllByRole("heading", { level: 3 })
+        .map((heading) => heading.textContent),
+    ).toEqual(t.landing.how.map((step) => step.title));
+    expect(within(section).getByText("01")).toBeInTheDocument();
+  });
+
+  test("closes with the guide link and a single CTA", () => {
+    renderLanding();
+    expect(screen.getByRole("link", { name: t.landing.learnCta })).toHaveAttribute(
+      "href",
+      "/about",
+    );
+    expect(screen.getByText(t.landing.learn, { exact: false })).toBeInTheDocument();
+    // Hero and closing row: the CTA appears exactly twice on the page.
+    expect(screen.getAllByRole("link", { name: t.landing.cta })).toHaveLength(2);
+  });
+
+  test("closes with a CTA to the plan when a profile exists", () => {
+    useStore.setState({ profile: defaultProfile("2026-09") });
+    renderLanding();
+    expect(screen.getAllByRole("link", { name: t.landing.viewPlan })[1]).toHaveAttribute(
+      "href",
+      "/plan",
+    );
+  });
+
+  test("no longer carries the long-form explainer, needs list or FAQ", () => {
+    renderLanding();
+    expect(screen.queryByText(t.about.faq.title)).not.toBeInTheDocument();
+    expect(screen.queryByText(t.about.faq.items[0].q)).not.toBeInTheDocument();
+    expect(screen.queryByText(t.about.what.title)).not.toBeInTheDocument();
+    expect(screen.queryByText(t.about.need.title)).not.toBeInTheDocument();
+    expect(screen.queryByText(t.about.what.example.title)).not.toBeInTheDocument();
   });
 
   describe("latest on Doctor of Credit", () => {
@@ -165,7 +160,7 @@ describe("Landing", () => {
       ]);
     });
 
-    test("stamps each card with its updated date and both ways in", () => {
+    test("stamps each row with its updated date and both ways in", () => {
       renderLanding();
       const section = screen.getByRole("region", { name: t.landing.latest.title });
 

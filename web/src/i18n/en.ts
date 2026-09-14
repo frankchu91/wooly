@@ -18,7 +18,7 @@ export const t = {
   },
   landing: {
     h1: "Turn your paycheck into bank bonuses.",
-    sub: "Tell Woolly your state, your direct deposit, and the banks you've had. It finds the bonuses you qualify for and schedules them around your paycheck.",
+    sub: "Bank bonuses pay $200–$700 to open an account. Woolly works out which ones you qualify for and when to open them.",
     cta: "Plan my bonuses",
     browse: "Browse offers",
     welcomeBack: "Welcome back — your plan is ready.",
@@ -26,6 +26,53 @@ export const t = {
     // Sends a returning user back through the wizard, which seeds its draft from the
     // saved profile — "edit and rebuild", not "start from nothing".
     replan: "Re-plan",
+    // Small-caps eyebrows above each h2. The h2 carries the sentence; the label just
+    // says which part of the page you are in.
+    labels: {
+      how: "How it works",
+      latest: "Fresh from the source",
+    },
+    // The live figures beside the hero, read from the dataset rather than invented.
+    stats: {
+      offers: "Offers tracked",
+      updated: "Data updated",
+      biggest: "Biggest right now",
+    },
+    howTitle: "Three steps, then you just follow the plan.",
+    how: [
+      {
+        title: "Tell us",
+        body: "Your state, how much direct deposit you can send, and which banks you've used.",
+      },
+      {
+        title: "We match",
+        body: "Woolly checks every offer against your eligibility and paycheck capacity.",
+      },
+      {
+        title: "You collect",
+        body: "Follow the month-by-month plan and track each bonus until it pays.",
+      },
+    ],
+    trust: "Runs in your browser. Nothing is uploaded. Free and open source.",
+    latest: {
+      title: "Latest on Doctor of Credit",
+      sub: "Recently updated offers, straight from the source.",
+      updated: (date: string) => `Updated ${date}`,
+      details: "Details",
+      all: (n: number) => `See all ${n} offers`,
+      source: "Full list on Doctor of Credit",
+    },
+    learn: "New to bank bonuses?",
+    learnCta: "Read the two-minute guide",
+  },
+  about: {
+    title: "What is Woolly?",
+    standfirst: "A planner for US bank account sign-up bonuses.",
+    labels: {
+      what: "The basics",
+      need: "Before you start",
+      faq: "Questions",
+    },
     what: {
       title: "What is a bank bonus?",
       paras: [
@@ -103,30 +150,6 @@ export const t = {
           a: "Everything you enter stays in your browser's local storage. There is no account, no server and no analytics. Export or clear it whenever you like in Settings.",
         },
       ],
-    },
-    howTitle: "How Woolly works",
-    how: [
-      {
-        title: "Tell us",
-        body: "Your state, how much direct deposit you can send, and which banks you've used.",
-      },
-      {
-        title: "We match",
-        body: "Woolly checks every offer against your eligibility and paycheck capacity.",
-      },
-      {
-        title: "You collect",
-        body: "Follow the month-by-month plan and track each bonus until it pays.",
-      },
-    ],
-    trust: "Runs in your browser. Nothing is uploaded. Free and open source.",
-    latest: {
-      title: "Latest on Doctor of Credit",
-      sub: "Recently updated offers, straight from the source.",
-      updated: (date: string) => `Updated ${date}`,
-      details: "Details",
-      all: (n: number) => `See all ${n} offers`,
-      source: "Full list on Doctor of Credit",
     },
   },
   onboarding: {
