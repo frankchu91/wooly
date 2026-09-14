@@ -189,8 +189,9 @@ describe("Pipeline drag surface", () => {
     expect(card.className).not.toContain("opacity-40");
 
     fireEvent.mouseUp(document);
-    expect(within(card).getByRole("button", { name: t.tracker.next }).closest("[data-no-drag]")).not
-      .toBeNull();
+    expect(
+      within(card).getByRole("button", { name: t.tracker.next }).closest("[data-no-drag]"),
+    ).not.toBeNull();
   });
 });
 

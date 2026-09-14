@@ -11,7 +11,11 @@ import {
 } from "@dnd-kit/core";
 import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { useState } from "react";
-import type { MouseEvent as ReactMouseEvent, ReactNode, TouchEvent as ReactTouchEvent } from "react";
+import type {
+  MouseEvent as ReactMouseEvent,
+  ReactNode,
+  TouchEvent as ReactTouchEvent,
+} from "react";
 
 import { earliestCloseDate, hasPosted, receivedAmount } from "../../engine/conditions";
 import { STATUS_ORDER } from "../../engine/types";
@@ -167,8 +171,8 @@ function PipelineColumn({ stage, count, sum, children }: PipelineColumnProps) {
  * columns keep their comfortable width and the row scrolls sideways inside its own
  * container, which never makes the page itself scroll horizontally.
  *
- * Cards move between stages by dragging their grip handle, which works from the keyboard
- * too (focus the handle, Space, arrows, Space).
+ * Cards move between stages by being dragged anywhere on the card, and from the keyboard
+ * through the grip (focus it, Space, arrows, Space).
  */
 export function Pipeline({ items, bonusesById, today, onSelect, onUntrack }: PipelineProps) {
   const setStatus = useStore((state) => state.setStatus);
