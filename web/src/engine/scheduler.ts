@@ -1,6 +1,6 @@
 import { addDays, addMonths, format, parseISO } from "date-fns";
 import { evaluate, normalizeBankName } from "./eligibility";
-import { compareByScore } from "./scoring";
+import { ASSUMED_DD_AMOUNT, compareByScore } from "./scoring";
 import type { Bonus, Plan, PlanItem, PlanMonth, Profile, Warning } from "./types";
 
 // Per spec §4.4. A no-DD bonus never competes for a payroll-split slot (it has nothing
@@ -81,7 +81,10 @@ export function buildPlan(
     if (usedBanks.has(bankKey)) continue;
 
     const needsDD = b.dd.required !== false;
-    const amount = needsDD ? (b.dd.amount ?? 0) : 0;
+    // A required-but-unknown DD amount costs `ASSUMED_DD_AMOUNT` here exactly as it does
+    // in `score`/`ddCost`, so such a bonus consumes real capacity instead of looking
+    // free and being front-loaded. The card's `dd_unknown` warning says it's a guess.
+    const amount = needsDD ? (b.dd.amount ?? ASSUMED_DD_AMOUNT) : 0;
     // No-DD bonuses occupy a single month; DD bonuses span the months implied by
     // their deadline.
     const span = needsDD
@@ -89,16 +92,29 @@ export function buildPlan(
       : 1;
 
     let placed = false;
+    // Set when a window start month is ruled out only because the offer expires before
+    // that month begins — it tells the "didn't fit" branch below that expiration, not
+    // capacity, is what cut the search short.
+    let cutOffByExpiration = false;
     for (let m = 0; m < months.length; m++) {
       const window = months.slice(m, m + span);
       if (window.length < span) break;
+      // Opening an account in a month that starts after the offer has expired is not a
+      // plan, it's a dead end — those months aren't candidates at all.
+      if (b.expiration && monthStartDate(months[m].month) > b.expiration) {
+        cutOffByExpiration = true;
+        continue;
+      }
       if (!needsDD && months[m].noDD >= NO_DD_CAP_PER_MONTH) continue;
       // Only DD bonuses compete for payroll-split slots.
       if (needsDD && window.some((w) => w.slotsUsed >= slots)) continue;
       const free = window.reduce((s, w) => s + (profile.monthlyDD - w.ddUsed), 0);
       if (amount > free) continue;
 
-      // Allocate greedily month by month within the window.
+      // Allocate greedily month by month within the window. A payroll-split slot is
+      // consumed only in the months that actually carry some of this bonus's DD — once
+      // the requirement is met the split is free again, so the rest of the window can
+      // host the next bonus.
       let remaining = amount;
       const ddSchedule: { month: string; amount: number }[] = [];
       for (const w of window) {
@@ -107,8 +123,8 @@ export function buildPlan(
           w.ddUsed += take;
           ddSchedule.push({ month: w.month, amount: take });
           remaining -= take;
+          if (needsDD) w.slotsUsed += 1;
         }
-        if (needsDD) w.slotsUsed += 1;
       }
       if (!needsDD) months[m].noDD += 1;
 
@@ -138,12 +154,15 @@ export function buildPlan(
     // bank is deliberately left unclaimed so a later, differently-shaped bonus from the
     // same bank still gets a chance.
     if (!placed) {
-      skipped.push({ bonus: b, reasons: ["no_capacity"] });
+      skipped.push({ bonus: b, reasons: [cutOffByExpiration ? "expires_first" : "no_capacity"] });
     }
   }
 
   const items = months.flatMap((m) => m.items);
   const projected = items.reduce((s, i) => s + (i.bonus.bonus_max ?? 0), 0);
+  // The conservative half of the headline: a tiered offer contributes the amount a
+  // typical user actually clears, not its "up to" figure.
+  const projectedMin = items.reduce((s, i) => s + (i.bonus.bonus_min ?? i.bonus.bonus_max ?? 0), 0);
   const avgDDUsed = months.length ? months.reduce((s, m) => s + m.ddUsed, 0) / months.length : 0;
 
   return {
@@ -154,6 +173,6 @@ export function buildPlan(
       slotsUsed: m.slotsUsed,
     })),
     skipped,
-    totals: { projected, accounts: items.length, avgDDUsed },
+    totals: { projected, projectedMin, accounts: items.length, avgDDUsed },
   };
 }

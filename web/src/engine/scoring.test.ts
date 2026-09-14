@@ -1,4 +1,4 @@
-import { score, holdMonths, ddCost, compareByScore } from "./scoring";
+import { score, holdMonths, ddCost, compareByScore, ASSUMED_DD_AMOUNT } from "./scoring";
 import type { Bonus } from "./types";
 import { fixture } from "../data/fixture";
 
@@ -21,6 +21,10 @@ describe("holdMonths", () => {
 });
 
 describe("ddCost", () => {
+  it("assumes ASSUMED_DD_AMOUNT ($500) for a required DD with no stated amount", () => {
+    expect(ASSUMED_DD_AMOUNT).toBe(500);
+  });
+
   it("is 0 when dd.required is false", () => {
     // fourfront-400 has dd: { required: false, amount: null, deadline_days: null }
     expect(ddCost(bonus("fourfront-400"))).toBe(0);
@@ -84,6 +88,20 @@ describe("score", () => {
     expect(score(avoidable)).toBeCloseTo(125, 5);
     expect(score(unavoidable)).toBeLessThan(score(avoidable));
   });
+
+  it("scores a tiered offer on bonus_min, not its headline bonus_max", () => {
+    const base = bonus("wells-fargo-500");
+    // Same shape as wells-fargo-500 (fee avoidable, etf null, dd 1000 / 90 days) but
+    // advertised as "$1,500 – $7,000".
+    const tiered: Bonus = { ...base, id: "tiered", bonus_min: 1500, bonus_max: 7000 };
+    // net = bonus_min = 1500; ddCost = 1000; timeCost = 90/30 = 3
+    //   score = 1500 / (1 + 1000/1000) / (1 + 3/6) = 1500 / 2 / 1.5 = 500
+    expect(score(tiered)).toBeCloseTo(500, 5);
+
+    // bonus_min null falls back to bonus_max.
+    const noMin: Bonus = { ...base, id: "no-min", bonus_min: null, bonus_max: 500 };
+    expect(score(noMin)).toBeCloseTo(score(base), 10);
+  });
 });
 
 describe("compareByScore", () => {
@@ -102,6 +120,19 @@ describe("compareByScore", () => {
     expect(ids.indexOf("fourfront-400")).toBeLessThan(ids.indexOf("chase-400"));
     expect(score(bonus("fourfront-400"))).toBeCloseTo(300, 5);
     expect(score(bonus("chase-400"))).toBeCloseTo(133.333333, 5);
+  });
+
+  it("breaks a score tie on bonus_max, so the bigger headline wins", () => {
+    const base = bonus("wells-fargo-500");
+    // Identical bonus_min (so identical score) but different headlines.
+    const upTo7000: Bonus = { ...base, id: "up-to-7000", bonus_min: 500, bonus_max: 7000 };
+    const flat500: Bonus = { ...base, id: "flat-500", bonus_min: 500, bonus_max: 500 };
+    expect(score(upTo7000)).toBeCloseTo(score(flat500), 10);
+
+    expect([flat500, upTo7000].sort(compareByScore).map((b) => b.id)).toEqual([
+      "up-to-7000",
+      "flat-500",
+    ]);
   });
 
   it("sorts equal-score, equal-bonus_max bonuses by bank ascending, deterministically", () => {

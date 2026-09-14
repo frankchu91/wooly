@@ -36,6 +36,8 @@ export function reasonToText(reason: Reason, bonus: Bonus, antiChurnUntil?: stri
       return t.plan.reasons.no_bonus_amount;
     case "no_capacity":
       return t.plan.reasons.no_capacity;
+    case "expires_first":
+      return t.plan.reasons.expires_first;
     case "user_skipped":
       return t.plan.reasons.user_skipped;
     default:

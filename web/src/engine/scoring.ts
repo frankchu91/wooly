@@ -5,17 +5,26 @@ import type { Bonus } from "./types";
 // conservative 180-day (6-month) hold.
 export const holdMonths = (b: Bonus): number => Math.ceil((b.etf?.days ?? 180) / 30);
 
+// The DD amount assumed for a bonus that requires a direct deposit but doesn't say how
+// much. Lives here (rather than in the scheduler) so scoring and scheduling make the
+// same assumption: an unenriched offer never looks free, and it consumes a plausible
+// slice of the month's payroll capacity instead of nothing.
+export const ASSUMED_DD_AMOUNT = 500;
+
 // The direct-deposit dollar amount the bonus effectively requires. No DD requirement
-// costs nothing; a required DD with an unknown amount is treated as a $500 default so
-// unenriched/incomplete data doesn't score as free.
-export const ddCost = (b: Bonus): number => (b.dd.required === false ? 0 : (b.dd.amount ?? 500));
+// costs nothing; a required DD with an unknown amount is treated as `ASSUMED_DD_AMOUNT`
+// so unenriched/incomplete data doesn't score as free.
+export const ddCost = (b: Bonus): number =>
+  b.dd.required === false ? 0 : (b.dd.amount ?? ASSUMED_DD_AMOUNT);
 
 // Net expected value of a bonus, discounted by the DD burden it imposes and the time
-// it ties up an account for, per spec §4.3.
+// it ties up an account for, per spec §4.3. `bonus_min` is used in preference to
+// `bonus_max` so a tiered "up to $7,000" offer is ranked on the amount a typical user
+// will actually see, not its headline.
 export function score(b: Bonus): number {
   const fee =
     b.monthly_fee && b.monthly_fee.avoidable === false ? b.monthly_fee.amount * holdMonths(b) : 0;
-  const net = (b.bonus_max ?? 0) - fee;
+  const net = (b.bonus_min ?? b.bonus_max ?? 0) - fee;
   const timeCost = Math.max(b.etf?.days ?? 0, b.dd.deadline_days ?? 60) / 30;
   return net / (1 + ddCost(b) / 1000) / (1 + timeCost / 6);
 }

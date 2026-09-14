@@ -58,7 +58,8 @@ export type Reason =
   | "dd_too_large"
   | "no_bonus_amount"
   | "user_skipped"
-  | "no_capacity";
+  | "no_capacity"
+  | "expires_first";
 export type Warning = "not_enriched" | "dd_unknown" | "expires_soon" | "has_etf";
 export interface Evaluation {
   eligible: boolean;
@@ -83,7 +84,7 @@ export interface PlanMonth {
 export interface Plan {
   months: PlanMonth[];
   skipped: { bonus: Bonus; reasons: Reason[]; antiChurnUntil?: string }[];
-  totals: { projected: number; accounts: number; avgDDUsed: number };
+  totals: { projected: number; projectedMin: number; accounts: number; avgDDUsed: number };
 }
 export interface Dataset {
   generated_at: string | null;
