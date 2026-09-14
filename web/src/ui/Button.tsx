@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 export interface ButtonProps {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
   size?: "md" | "lg";
   as?: "button" | "link";
   to?: string;
@@ -18,6 +18,7 @@ const variantClasses: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary: "bg-primary text-white hover:bg-primary-dark",
   secondary: "bg-mint text-primary hover:bg-mint/80",
   ghost: "text-primary hover:bg-mint/60",
+  danger: "bg-coral text-white hover:bg-coral/90",
 };
 
 const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {

@@ -192,8 +192,13 @@ export const t = {
   settings: {
     title: "Settings",
     profile: "Your profile",
+    saved: "Profile saved",
+    data: "Your data",
     exportBtn: "Export JSON",
     importBtn: "Import JSON",
+    imported: "Data imported",
+    importError: "That file isn't a Woolly export",
+    danger: "Danger zone",
     clear: "Clear all data",
     clearConfirm: "This deletes your profile and tracker from this browser. Continue?",
     about: "About",

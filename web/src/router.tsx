@@ -4,8 +4,8 @@ import { Landing } from "./features/landing/Landing";
 import { Layout } from "./features/layout/Layout";
 import { Onboarding } from "./features/onboarding/Onboarding";
 import { PlanPage } from "./features/plan/PlanPage";
+import { SettingsPage } from "./features/settings/SettingsPage";
 import { TrackerPage } from "./features/tracker/TrackerPage";
-const Placeholder = ({ name }: { name: string }) => <h1 className="text-2xl">{name}</h1>;
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       { path: "plan", element: <PlanPage /> },
       { path: "tracker", element: <TrackerPage /> },
       { path: "bonuses", element: <BonusesPage /> },
-      { path: "settings", element: <Placeholder name="Settings" /> },
+      { path: "settings", element: <SettingsPage /> },
     ],
   },
 ]);
