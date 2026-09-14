@@ -2,11 +2,14 @@ import { useNavigate } from "react-router-dom";
 
 import { useData } from "../../data/DataContext";
 import { evaluate } from "../../engine";
+import { checklistFor } from "../../engine/conditions";
 import type { Bonus, Reason } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { usePlan } from "../../state/usePlan";
 import { Badge, Button, Drawer, MoneyText, dateLabel, money } from "../../ui";
+import { ConditionList } from "../conditions/ConditionList";
+import { SYNTH_LABELS } from "../conditions/synthLabels";
 import { reasonToText } from "../plan/reasonText";
 
 export interface BonusDrawerProps {
@@ -158,6 +161,25 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
         {!bonus.enriched ? <p className="text-sm text-muted">{t.bonuses.verifyBody}</p> : null}
 
         <p className="text-sm text-muted">{bonus.summary}</p>
+
+        <div className="flex flex-col gap-2">
+          <h3 className="font-heading text-sm font-semibold text-ink">
+            {t.bonuses.conditionsTitle}
+          </h3>
+          <ConditionList conditions={checklistFor(bonus, SYNTH_LABELS)} />
+          {bonus.terms.status === "ok" && bonus.offer_url ? (
+            <a
+              href={bonus.offer_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-primary hover:underline"
+            >
+              {t.bonuses.terms.bankPage}
+            </a>
+          ) : bonus.terms.status === "blocked" || bonus.terms.status === "error" ? (
+            <p className="text-sm text-muted">{t.bonuses.terms.unreadable}</p>
+          ) : null}
+        </div>
 
         <dl className="grid grid-cols-[max-content_1fr] gap-x-4 gap-y-2 text-sm">
           {glanceRows(bonus).map((row) => (

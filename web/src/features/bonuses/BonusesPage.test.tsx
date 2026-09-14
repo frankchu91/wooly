@@ -181,6 +181,33 @@ describe("BonusesPage", () => {
     expect(within(dialog).getByText(t.bonuses.verifyBody)).toBeInTheDocument();
   });
 
+  test("opening chase-400 shows its direct-deposit condition text in the Conditions section", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(screen.getByText(/Chase \$400/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.bonuses.conditionsTitle)).toBeInTheDocument();
+    expect(
+      within(dialog).getByText(
+        "Set up direct deposit and receive a qualifying direct deposit within 90 days of account opening.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  test("opening wells-fargo-500 shows a Bank badge and the bank-page link", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(screen.getByText(/Wells Fargo \$500/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.conditions.sources.bank)).toBeInTheDocument();
+    const link = within(dialog).getByRole("link", { name: t.bonuses.terms.bankPage });
+    expect(link).toHaveAttribute("href", "https://example.test/wf-offer");
+  });
+
   test("the result count reflects the filtered results", async () => {
     const user = userEvent.setup({ delay: null });
     renderPage();

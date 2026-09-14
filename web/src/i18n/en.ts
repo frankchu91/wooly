@@ -104,6 +104,7 @@ export const t = {
       dd: (amount: string) => `${amount} DD`,
       ddAssumed: (amt: string) => `~${amt} DD`,
       unverified: "Unverified",
+      conditions: (n: number) => `${n} conditions`,
     },
     empty: {
       h: "Nothing fits yet",
@@ -179,6 +180,12 @@ export const t = {
         `Direct deposit required within ${days} days — amount not listed`,
       keepOpen: (days: number) => `Keep the account open for ${days} days`,
     },
+    meta: {
+      amount: (money: string) => `Amount: ${money}`,
+      days: (n: number) => `Within ${n} days`,
+      count: (n: number) => `${n}×`,
+    },
+    none: "No conditions listed — check the offer",
   },
   bonuses: {
     title: "All offers",
@@ -205,6 +212,11 @@ export const t = {
       "We haven't read the full post yet — confirm the DD amount and deadline on Doctor of Credit before opening.",
     openDoc: "Open on Doctor of Credit",
     needProfile: "Set up your profile to see your score",
+    conditionsTitle: "Conditions",
+    terms: {
+      bankPage: "Bank offer page",
+      unreadable: "We couldn't read the bank's page — check the conditions on Doctor of Credit",
+    },
     glance: {
       bonus: "Bonus",
       availability: "Availability",

@@ -8,7 +8,7 @@ export const fixture = [
     section: "checking",
     summary: "Wells Fargo checking bonus with a direct deposit requirement.",
     doc_url: "https://example.com/wells-fargo-500",
-    offer_url: null,
+    offer_url: "https://example.test/wf-offer",
     bonus_min: 500,
     bonus_max: 500,
     availability: { nationwide: true, states: [] },

@@ -85,6 +85,22 @@ describe("PlanCard content", () => {
   });
 });
 
+describe("PlanCard conditions chip", () => {
+  test("shows a '3 conditions' chip linking to the drawer for wells-fargo-500", () => {
+    const bonus = bonusById("wells-fargo-500");
+    renderCard(makeItem({ bonus }));
+
+    const chip = screen.getByText(t.plan.badges.conditions(3));
+    expect(chip.closest("a")).toHaveAttribute("href", `/bonuses?bonus=${bonus.id}`);
+  });
+
+  test("omits the chip for a bonus with no conditions and dd.required === false", () => {
+    renderCard(makeItem({ bonus: bonusById("fourfront-400") }));
+
+    expect(screen.queryByText(/conditions$/)).not.toBeInTheDocument();
+  });
+});
+
 describe("PlanCard kebab menu", () => {
   test("opening the menu via keyboard focuses the first menu item", async () => {
     const user = userEvent.setup();

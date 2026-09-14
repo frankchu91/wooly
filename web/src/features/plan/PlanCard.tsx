@@ -4,10 +4,12 @@ import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Link } from "react-router-dom";
 
 import { ASSUMED_DD_AMOUNT } from "../../engine";
+import { checklistFor } from "../../engine/conditions";
 import type { PlanItem, Warning } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Badge, BankAvatar, Card, MoneyText, dateLabel, money } from "../../ui";
+import { SYNTH_LABELS } from "../conditions/synthLabels";
 import { warningToText } from "./reasonText";
 
 export interface PlanCardProps {
@@ -101,6 +103,7 @@ export function PlanCard({ item }: PlanCardProps) {
 
   const needsDD = bonus.dd.required !== false;
   const inlineWarnings = warnings.filter((warning) => INLINE_WARNINGS.includes(warning));
+  const conditionCount = checklistFor(bonus, SYNTH_LABELS).length;
 
   return (
     <Card as="li" className="relative flex flex-col gap-3">
@@ -186,6 +189,11 @@ export function PlanCard({ item }: PlanCardProps) {
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </Badge>
+        ) : null}
+        {conditionCount > 0 ? (
+          <Link to={`/bonuses?bonus=${bonus.id}`}>
+            <Badge tone="neutral">{t.plan.badges.conditions(conditionCount)}</Badge>
+          </Link>
         ) : null}
       </div>
 
