@@ -333,6 +333,34 @@ describe("setNotes", () => {
   });
 });
 
+describe("legacy status lookup", () => {
+  // X12: `value in LEGACY_STATUS_MAP` resolved names off `Object.prototype`, so a blob
+  // carrying "constructor" as a status or a `dates` key mapped it to whatever that
+  // inherited property held instead of dropping it.
+  test("a prototype property name is not a known status", () => {
+    useStore.getState().importJSON(
+      JSON.stringify({
+        profile: null,
+        skippedIds: [],
+        tracker: [
+          {
+            id: "a",
+            bonusId: "wells-fargo-500",
+            status: "constructor",
+            dates: { toString: "2026-09-01", opened: "2026-09-02" },
+            openMonth: "2026-09",
+            conditionsDone: [],
+          },
+        ],
+      }),
+    );
+
+    const item = useStore.getState().tracker[0];
+    expect(item.status).toBe("planned"); // unknown → the safe default
+    expect(Object.keys(item.dates)).toEqual(["opened"]);
+  });
+});
+
 describe("setApplicant", () => {
   test("records who the account is for, and drops the field when it's blanked", () => {
     useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);

@@ -11,6 +11,7 @@ import { defaultProfile, STATUS_ORDER } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { dateLabel, money } from "../../ui";
+import { LedgerTable } from "./LedgerTable";
 import { TrackerPage } from "./TrackerPage";
 
 const dataset = { generated_at: "2026-09-13T00:00:00Z", source: "", bonuses: fixture };
@@ -290,24 +291,28 @@ describe("TrackerPage — ledger table", () => {
     expect(within(column("opened")).getByText("partner")).toBeInTheDocument();
   });
 
-  test("clicking the offer name opens the drawer once, not twice", async () => {
-    const user = userEvent.setup({ delay: null });
-    seedAllStages();
-    renderTrackerPage();
+  test("clicking the offer name selects the row once, not twice", () => {
+    // X12: the row behind the button opens the same drawer, so without
+    // `stopPropagation` one press runs `onSelect` twice.
+    const onSelect = vi.fn();
+    const bonusesById = Object.fromEntries(fixture.map((b) => [b.id, b]));
+    render(
+      <LedgerTable
+        items={[trackedItem({ bonusId: "wells-fargo-500", status: "opened" })]}
+        bonusesById={bonusesById}
+        today={today}
+        onSelect={onSelect}
+      />,
+    );
 
-    // The row behind the button opens the same drawer; both firing would select twice.
-    await user.click(
+    fireEvent.click(
       screen.getByRole("button", {
         name: t.tracker.ledger.rowLabel("Wells Fargo $500 Checking Bonus"),
       }),
     );
 
-    expect(screen.getAllByRole("dialog")).toHaveLength(1);
-    expect(
-      within(screen.getByRole("dialog")).getByRole("heading", {
-        name: "Wells Fargo $500 Checking Bonus",
-      }),
-    ).toBeInTheDocument();
+    expect(onSelect).toHaveBeenCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledWith("wells-fargo-500");
   });
 
   test("tabbing to the offer name and pressing Enter opens that item's drawer", async () => {
@@ -444,6 +449,27 @@ describe("TrackerPage — pipeline", () => {
 
     expect(within(card).queryByText(/may forfeit the bonus/)).not.toBeInTheDocument();
     expect(within(card).getByRole("button", { name: t.common.save })).toBeInTheDocument();
+  });
+
+  // X12: the date-confirm form has padding and a warning line that are part of no control;
+  // a click there used to fall through to the card and open the drawer over the form.
+  test("clicking inside the date-confirm form doesn't open the drawer over it", async () => {
+    const user = userEvent.setup({ delay: null });
+    seedAllStages();
+    renderTrackerPage();
+
+    const card = within(column("opened")).getByRole("listitem");
+    await user.click(within(card).getByRole("button", { name: t.plan.moreActions }));
+    await user.click(within(card).getByRole("menuitem", { name: t.tracker.menu.moveTo }));
+    await user.click(within(card).getByRole("menuitem", { name: t.tracker.statuses.closed }));
+
+    const safeClose = earliestCloseDate(bonusById("wells-fargo-500"), "2026-09-04");
+    await user.click(within(card).getByText(t.tracker.closeEarly(dateLabel(safeClose))));
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(
+      within(card).getByLabelText(t.tracker.dateFor(t.tracker.statuses.closed)),
+    ).toBeInTheDocument();
   });
 
   test("the kebab menu closes on Escape and returns focus to its trigger", async () => {
