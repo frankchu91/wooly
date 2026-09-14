@@ -46,6 +46,30 @@ A4. A fee-waiver sentence ("the monthly service fee can be avoided with a $1,500
    minimum daily balance") is a `fee`, not a `balance`/`deposit` requirement — the
    waiver route is not something the bonus asks of you. Its `amount` is the fee
    itself when the sentence states one, never the waiver threshold.
+
+Round 2, second pass (controller walkthrough after the round-2 web split landed) —
+F1–F3, all inside day/count parsing rather than classification:
+
+F1. `_parse_days` also reads a parenthesised figure ("ninety (90) days" -> 90, the
+   word before the parens is not required) and a wider set of spelled-out numbers
+   ("within thirty days", "within forty-five days", up to "ninety") in the existing
+   `within|for N days` shape.
+F2. `normalize_sentence` strips footnote markers before anything parses a number out
+   of the sentence: a registered/trademark glyph directly followed by a 1-2 digit
+   footnote index (`Zelle® 1`), and a bare 1-2 digit footnote index sitting between
+   one of `Zelle|transactions|deposits` and the next (lowercase) word
+   (`transactions 2 from`) — both bank-page footnote conventions that would otherwise
+   read as a count or an amount.
+F3. `_COUNT_RE` now allows the "or <word>" join bank pages use for a second qualifying
+   channel ("20 qualifying debit card or Zelle transactions" -> 20), so the count
+   isn't only found by the nearest number to the keyword — the footnote index F2 just
+   removed used to win that race.
+
+One side effect of F2, seen against the real Bank of America page: a sentence whose
+*only* route into the `transactions` kind was a footnote digit sitting right in front of
+the keyword ("...or Zelle® 1 transactions.") no longer classifies at all once that digit
+is gone — it was never a real "N transactions" requirement (it's the $100 offer's own
+marketing line), so `None` is the correct call, not a lost condition.
 """
 
 from __future__ import annotations
@@ -55,17 +79,33 @@ import re
 from .models import Condition
 from .text import parse_money
 
-WORD_NUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "twelve": 12}
+WORD_NUM = {
+    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+    "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13,
+    "fourteen": 14, "fifteen": 15, "twenty": 20, "thirty": 30, "forty": 40,
+    "forty-five": 45, "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80,
+    "ninety": 90,
+}
+# Longest-first so "forty-five" wins over "forty" when both would otherwise match.
+_WORD_NUM_ALT = "|".join(sorted(WORD_NUM, key=len, reverse=True))
 
 _MIN_LEN = 40
 _MAX_LEN = 400
 
 _DAYS_RE = re.compile(
-    r"\b(?:within|for)\s+(\d+|one|two|three|four|five|six|twelve)\s+(?:calendar\s+)?(day|month)s?\b",
+    rf"\b(?:within|for)\s+(\d+|{_WORD_NUM_ALT})\s+(?:calendar\s+)?(day|month)s?\b",
     re.IGNORECASE,
 )
+# F1: a bank page sometimes spells the number out and repeats it parenthetically
+# ("within ninety (90) days"); the digit in parens is the one to trust, and the word
+# (if any) immediately before it is not required.
+_DAYS_PAREN_RE = re.compile(r"(?:\w+\s*)?\((\d+)\)\s*(?:calendar\s+)?days?\b", re.IGNORECASE)
+# F3: "or <word>" covers a bank page's second qualifying channel ("20 qualifying debit
+# card or Zelle transactions") without letting the channel's own name be mistaken for
+# the count.
 _COUNT_RE = re.compile(
-    r"(\d+)\s+(?:\w+\s+){0,2}(direct deposits|deposits|transactions)",
+    r"(\d+)\s+(?:qualifying\s+)?(?:debit card\s+|direct\s+|electronic\s+)?"
+    r"(?:or\s+\w+\s+)?(?:transactions|purchases|deposits|direct deposits)",
     re.IGNORECASE,
 )
 
@@ -85,6 +125,14 @@ _NEGATION_RE = re.compile(
 # a bank page's numbered steps into running text ("2 Deposit Make …", "** The …").
 _MONEY_SPACE_RE = re.compile(r"\$\s+(\d)")
 _LEADING_MARKER_RE = re.compile(r"^(?:\*+|\d+\s+(?=[A-Z])|[•\-–]\s*)")
+
+# F2: footnote markers a bank page attaches to a channel name ("Zelle® 1", "transactions
+# 2") would otherwise be read as the count or the amount. `_FOOTNOTE_MARK_RE` strips a
+# ®/™ glyph and the index that immediately follows it; `_FOOTNOTE_SUP_RE` strips a bare
+# 1-2 digit index sitting between one of those channel words and the next (lowercase)
+# word, keeping the word and a single space so the sentence still reads cleanly.
+_FOOTNOTE_MARK_RE = re.compile(r"[®™]\s*\d{1,2}\b")
+_FOOTNOTE_SUP_RE = re.compile(r"\b(Zelle|transactions|deposits)\s+\d{1,2}\s+(?=[a-z])", re.IGNORECASE)
 
 # A3: sentences that point at something else (a banker, a disclosure, another page) or
 # merely describe what the bank does — never a requirement the user can act on.
@@ -165,6 +213,12 @@ _BULLET_PREFIX_RE = re.compile(r"^\s*(?:[•▪●‣*-]|\d+[.)])\s+")
 
 
 def _parse_days(text: str) -> int | None:
+    # F1: trust an explicit parenthesised figure over a spelled-out number — a sentence
+    # that gives both ("ninety (90) days") means the same thing either way, and one that
+    # gives only the parenthesised form has no word for `_DAYS_RE` to match at all.
+    m = _DAYS_PAREN_RE.search(text)
+    if m:
+        return int(m.group(1))
     m = _DAYS_RE.search(text)
     if not m:
         return None
@@ -189,7 +243,10 @@ def _parse_amount(text: str, kind: str) -> int | None:
 
 
 def normalize_sentence(text: str) -> str:
-    """A1 + A2: collapse `"$ 500"` to `"$500"` and strip any leading list marker.
+    """A1 + A2 + F2: collapse `"$ 500"` to `"$500"`, strip any leading list marker, and
+    strip footnote markers a bank page attaches to a channel name ("Zelle® 1
+    transactions 2") before anything downstream tries to parse a number out of the
+    sentence.
 
     The marker strip repeats, because a bank page can stack them ("** 2 Deposit …").
     """
@@ -199,6 +256,8 @@ def normalize_sentence(text: str) -> str:
         if stripped == text:
             break
         text = stripped
+    text = _FOOTNOTE_MARK_RE.sub("", text)
+    text = _FOOTNOTE_SUP_RE.sub(r"\1 ", text)
     return text
 
 

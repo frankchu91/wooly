@@ -223,6 +223,83 @@ def test_classify_sentence_empty_returns_none():
     assert classify_sentence("", "doc") is None
 
 
+# --- Round-2, second pass (controller walkthrough after the web split landed):
+# F1 parenthesised/spelled-out days, F2 footnote stripping, F3 the "or <word>" count
+# join. ---
+
+
+@pytest.mark.parametrize(
+    "text, days",
+    [
+        # F1: the parenthesised figure is trusted even though a word precedes it.
+        ("Receive a direct deposit within ninety (90) days of account opening today.", 90),
+        # ...and even with no word in front of the parens at all.
+        ("Receive a direct deposit within the (60) day qualification window here.", 60),
+        # F1: spelled-out numbers beyond the old one..twelve list, up to ninety.
+        ("Receive a direct deposit within thirty days of account opening for this offer.", 30),
+        ("Receive a direct deposit within forty-five days of account opening for this offer.", 45),
+        ("Receive a direct deposit within sixty days of account opening for this offer.", 60),
+        ("Receive a direct deposit within ninety days of account opening for this offer.", 90),
+    ],
+)
+def test_parse_days_parenthesised_and_spelled_out(text, days):
+    c = classify_sentence(text, "doc")
+    assert c is not None and c.days == days
+
+
+def test_parse_days_prefers_the_parenthesised_figure_over_the_spelled_out_word():
+    # The two disagree on purpose here, to pin which one wins.
+    c = classify_sentence(
+        "Receive a direct deposit within thirty (45) days of account opening for this offer.",
+        "doc",
+    )
+    assert c is not None and c.days == 45
+
+
+@pytest.mark.parametrize(
+    "raw, expected",
+    [
+        # F2: a registered-mark glyph directly followed by a 1-2 digit footnote index.
+        ("Zelle® 1 transactions from your new account", "Zelle transactions from your new account"),
+        ("Bank of America™ 12 accounts are eligible", "Bank of America accounts are eligible"),
+        # F2: a bare footnote index between a channel word and the next lowercase word.
+        ("qualifying transactions 2 from your new account", "qualifying transactions from your new account"),
+        ("qualifying deposits 3 into the new account", "qualifying deposits into the new account"),
+        # both markers stacked on the same sentence.
+        ("Zelle® 1 transactions 2 from your new account", "Zelle transactions from your new account"),
+        # no footnote present: untouched.
+        ("Zelle transactions from your new account", "Zelle transactions from your new account"),
+    ],
+)
+def test_normalize_sentence_strips_footnote_markers(raw, expected):
+    assert normalize_sentence(raw) == expected
+
+
+def test_classify_sentence_footnote_index_no_longer_inflates_the_count():
+    # Real Bank of America copy: the "1" is a footnote index on "Zelle®", not a count —
+    # and with it gone, this sentence (the $100 offer's own blurb) names no transaction
+    # count or day window, so it is correctly not a requirement at all.
+    text = "Earn $100 cash offer with qualifying debit or Zelle® 1 transactions."
+    assert classify_sentence(text, "bank") is None
+
+
+def test_classify_sentence_or_word_join_count_survives_the_footnote_strip():
+    # F2 + F3 together: the real Bank of America "Make at least 20..." sentence. Before
+    # F2, the "2" footnote right after "transactions" would have been read as part of
+    # the count's neighbourhood; before F3, the "or Zelle" join between the card type
+    # and the keyword would have pushed the count past `_COUNT_RE`'s old 0-2 word cap.
+    text = (
+        "Make at least 20 qualifying debit card or Zelle® 1 transactions 2 from your "
+        "new account within 60 days of account opening."
+    )
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "transactions"
+    assert c.count == 20
+    assert c.days == 60
+    assert "Zelle transactions from" in c.text
+
+
 def test_condition_id_is_stable_and_based_on_kind_and_normalised_text():
     a = classify_sentence(WF_DD_SENTENCE, "doc")
     b = classify_sentence(WF_DD_SENTENCE + ".", "doc")  # trailing punctuation shouldn't change id
