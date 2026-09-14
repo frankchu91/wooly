@@ -11,6 +11,7 @@ export const t = {
   },
   updated: (date: string, n: number) => `Updated ${date} · ${n} offers`,
   footer: {
+    about: "What is Woolly?",
     source: "Data from Doctor of Credit",
     github: "Open source on GitHub",
     disclaimer: "Not financial advice. Read every offer's terms before opening an account.",
@@ -25,6 +26,85 @@ export const t = {
     // Sends a returning user back through the wizard, which seeds its draft from the
     // saved profile — "edit and rebuild", not "start from nothing".
     replan: "Re-plan",
+    what: {
+      title: "What is a bank bonus?",
+      paras: [
+        "US banks pay cash to open a new checking or savings account — usually $200 to $700, sometimes more. It is a marketing budget, not a loophole: the bank wants your direct deposit and hopes you stay.",
+        "You get paid for meeting a few conditions, most often receiving a set amount of direct deposit within 60 to 90 days. Do that, keep the account open for the stated window, and the bonus posts.",
+        "People who do this on purpose collect several thousand dollars a year. The work is remembering which offers you qualify for, which deadlines are running, and when each account is safe to close. That is what Woolly does.",
+      ],
+      example: {
+        title: "A typical offer",
+        rows: [
+          ["Bonus", "$300"],
+          ["Requirement", "$500 direct deposit within 90 days"],
+          ["Keep open", "180 days"],
+          ["Credit check", "Soft pull"],
+          ["Your time", "About 20 minutes"],
+        ],
+        note: "Woolly reads these conditions from Doctor of Credit and the bank's own offer page.",
+      },
+    },
+    need: {
+      title: "What you need",
+      sub: "Nothing exotic.",
+      items: [
+        {
+          title: "A paycheck you can split",
+          body: "Most offers want a direct deposit. Payroll that can be sent to more than one account is the single biggest advantage.",
+        },
+        {
+          title: "A state",
+          body: "Many offers are regional. Woolly only shows the ones you can actually open.",
+        },
+        {
+          title: "A little patience",
+          body: "Bonuses post weeks after you qualify, and accounts usually have to stay open for a few months.",
+        },
+        {
+          title: "A record of what you've opened",
+          body: "Banks limit how often you can take the same bonus. Woolly keeps that history so you stay eligible.",
+        },
+      ],
+    },
+    faq: {
+      title: "Questions people ask",
+      items: [
+        {
+          q: "Is this legal?",
+          a: "Yes. Opening an account and meeting the advertised terms is exactly what the offer asks you to do. It is not a trick, and banks budget for it. Read each offer's terms and follow them.",
+        },
+        {
+          q: "Will it hurt my credit?",
+          a: "Most checking accounts are a soft pull, which does not affect your score. Woolly labels every offer soft or hard pull, and you can hide the hard ones in your preferences.",
+        },
+        {
+          q: "What is ChexSystems?",
+          a: "A reporting agency banks use to see how many deposit accounts you have opened recently. Open too many too fast and some banks decline you. Woolly flags the banks that are sensitive to it.",
+        },
+        {
+          q: "Do I pay tax on a bonus?",
+          a: "Yes. US banks report cash bonuses as interest on a 1099-INT, so treat it as taxable income.",
+        },
+        {
+          q: "How much can I realistically make?",
+          a: "It depends on how much direct deposit you can route and how many accounts you are willing to run. A few thousand dollars a year is a normal result for someone doing this steadily.",
+        },
+        {
+          q: "Can I close the account right after the bonus?",
+          a: "Usually not. Many banks claw the bonus back or charge a fee if you close inside their window, so Woolly computes the earliest safe date for every account you track.",
+        },
+        {
+          q: "Where does the data come from?",
+          a: "Doctor of Credit's public list of bank account bonuses, refreshed nightly, plus the banks' own offer pages for the fine print. Woolly links to both so you can check before you apply.",
+        },
+        {
+          q: "Is my information private?",
+          a: "Everything you enter stays in your browser's local storage. There is no account, no server and no analytics. Export or clear it whenever you like in Settings.",
+        },
+      ],
+    },
+    howTitle: "How Woolly works",
     how: [
       {
         title: "Tell us",

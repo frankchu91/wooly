@@ -28,11 +28,21 @@ function renderLanding() {
   );
 }
 
+/** The hero, which repeats the page's CTAs at the top. */
+function hero() {
+  return screen.getByRole("region", {
+    name: screen.getByRole("heading", { level: 1 }).textContent ?? "",
+  });
+}
+
 describe("Landing", () => {
   test("renders the h1 and a primary CTA linking to /start", () => {
     renderLanding();
     expect(screen.getByRole("heading", { level: 1, name: t.landing.h1 })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: t.landing.cta })).toHaveAttribute("href", "/start");
+    expect(within(hero()).getByRole("link", { name: t.landing.cta })).toHaveAttribute(
+      "href",
+      "/start",
+    );
   });
 
   test("shows the welcome-back CTA linking to /plan when a profile exists", () => {
@@ -41,14 +51,93 @@ describe("Landing", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: t.landing.welcomeBack }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute("href", "/plan");
+    expect(within(hero()).getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute(
+      "href",
+      "/plan",
+    );
   });
 
   test("offers a re-plan link to the wizard beside the welcome-back CTA", () => {
     useStore.setState({ profile: defaultProfile("2026-09") });
     renderLanding();
-    expect(screen.getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute("href", "/plan");
+    expect(within(hero()).getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute(
+      "href",
+      "/plan",
+    );
     expect(screen.getByRole("link", { name: t.landing.replan })).toHaveAttribute("href", "/start");
+  });
+
+  describe("introduction", () => {
+    test("explains what a bank bonus is", () => {
+      renderLanding();
+      expect(
+        screen.getByRole("heading", { level: 2, name: t.landing.what.title }),
+      ).toBeInTheDocument();
+      expect(screen.getByText(t.landing.what.paras[0])).toBeInTheDocument();
+    });
+
+    test("shows the worked example with every label", () => {
+      renderLanding();
+      const section = screen.getByRole("region", { name: t.landing.what.title });
+      expect(
+        within(section).getByRole("heading", { level: 3, name: t.landing.what.example.title }),
+      ).toBeInTheDocument();
+      for (const [label, value] of t.landing.what.example.rows) {
+        expect(within(section).getByText(label)).toBeInTheDocument();
+        expect(within(section).getByText(value)).toBeInTheDocument();
+      }
+    });
+
+    test("lists what a newcomer needs", () => {
+      renderLanding();
+      const section = screen.getByRole("region", { name: t.landing.need.title });
+      const headings = within(section)
+        .getAllByRole("heading", { level: 3 })
+        .map((heading) => heading.textContent);
+      expect(headings).toEqual(t.landing.need.items.map((item) => item.title));
+    });
+
+    test("renders every FAQ question, with the answers in the DOM while collapsed", () => {
+      renderLanding();
+      const section = screen.getByRole("region", { name: t.landing.faq.title });
+
+      const questions = within(section).getAllByRole("group");
+      expect(questions).toHaveLength(8);
+      for (const item of t.landing.faq.items) {
+        expect(within(section).getByText(item.q)).toBeInTheDocument();
+      }
+
+      // <details> keeps its content mounted when closed, so the answer is findable.
+      expect(within(section).getByText(t.landing.faq.items[0].a)).toBeInTheDocument();
+    });
+
+    test("heads the how-it-works cards and closes with a CTA to /start", () => {
+      renderLanding();
+      const section = screen.getByRole("region", { name: t.landing.howTitle });
+      expect(
+        within(section)
+          .getAllByRole("heading", { level: 3 })
+          .map((h) => h.textContent),
+      ).toEqual(t.landing.how.map((step) => step.title));
+      expect(within(section).getByRole("link", { name: t.landing.cta })).toHaveAttribute(
+        "href",
+        "/start",
+      );
+      expect(within(section).getByRole("link", { name: t.landing.browse })).toHaveAttribute(
+        "href",
+        "/bonuses",
+      );
+    });
+
+    test("closes with a CTA to the plan when a profile exists", () => {
+      useStore.setState({ profile: defaultProfile("2026-09") });
+      renderLanding();
+      const section = screen.getByRole("region", { name: t.landing.howTitle });
+      expect(within(section).getByRole("link", { name: t.landing.viewPlan })).toHaveAttribute(
+        "href",
+        "/plan",
+      );
+    });
   });
 
   test("hides the re-plan link when there is no profile to rebuild", () => {

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { t } from "../../i18n/en";
 import { DOC_URL, GITHUB_URL } from "../../links";
 
@@ -8,6 +10,11 @@ export function Footer() {
         🐑
       </span>
       <p className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+        {/* The landing page is the introduction — a returning user's home is their plan,
+         * so this is the only way back to it. */}
+        <Link to="/" className="hover:underline">
+          {t.footer.about}
+        </Link>
         <a href={DOC_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
           {t.footer.source}
         </a>

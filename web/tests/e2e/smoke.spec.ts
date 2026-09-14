@@ -2,7 +2,8 @@ import { test, expect } from "@playwright/test";
 
 test("landing → wizard → plan", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Plan my bonuses" }).click();
+  // Two CTAs share this label now (hero and the closing row); the hero one is the entry.
+  await page.getByRole("link", { name: "Plan my bonuses" }).first().click();
   await page.getByPlaceholder("Search your state").fill("Massachusetts");
   await page.getByRole("option", { name: "Massachusetts" }).click();
   await page.getByRole("button", { name: "Next" }).click();
@@ -16,13 +17,7 @@ test("landing → wizard → plan", async ({ page }) => {
   await expect(page).toHaveURL(/\/tracker/, { timeout: 10000 });
 
   // The full five-stage pipeline is on screen.
-  for (const stage of [
-    "Planned",
-    "Opened",
-    "Requirements done",
-    "Bonus received",
-    "Closed",
-  ]) {
+  for (const stage of ["Planned", "Opened", "Requirements done", "Bonus received", "Closed"]) {
     await expect(page.getByRole("heading", { level: 3, name: stage })).toBeVisible();
   }
 

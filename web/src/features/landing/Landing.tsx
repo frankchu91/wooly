@@ -1,5 +1,13 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ExternalLink, ShieldCheck } from "lucide-react";
+import {
+  Banknote,
+  CalendarClock,
+  ChevronDown,
+  ExternalLink,
+  MapPin,
+  ShieldCheck,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { useData } from "../../data/DataContext";
@@ -35,6 +43,9 @@ const previewRows = [
   { bank: "Ally Bank", amount: 300 },
 ];
 
+// One icon per "what you need" item, positionally matched to `t.landing.need.items`.
+const needIcons: LucideIcon[] = [Banknote, MapPin, CalendarClock, ShieldCheck];
+
 export function Landing() {
   const profile = useStore((state) => state.profile);
   const data = useData();
@@ -49,15 +60,21 @@ export function Landing() {
   const hidden = reduceMotion ? {} : { opacity: 0, y: 12 };
 
   return (
-    <div className="flex flex-col gap-16">
-      <section className="grid gap-10 md:grid-cols-2 md:items-center md:gap-8">
+    <div className="flex flex-col gap-10 md:gap-14">
+      <section
+        aria-labelledby="hero-heading"
+        className="grid gap-10 md:grid-cols-2 md:items-center md:gap-8"
+      >
         <motion.div
           initial={hidden}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
           className="flex flex-col gap-6"
         >
-          <h1 className="font-heading text-4xl font-extrabold tracking-tight text-ink md:text-6xl">
+          <h1
+            id="hero-heading"
+            className="font-heading text-4xl font-extrabold tracking-tight text-ink md:text-6xl"
+          >
             {heading}
           </h1>
           <p className="max-w-xl text-lg text-muted">{t.landing.sub}</p>
@@ -99,16 +116,102 @@ export function Landing() {
         </motion.div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        {t.landing.how.map((step, index) => (
-          <Card key={step.title} className="flex flex-col gap-3">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-mint font-heading font-bold text-primary-dark">
-              {index + 1}
-            </span>
-            <h3 className="font-heading text-lg font-semibold text-ink">{step.title}</h3>
-            <p className="text-sm text-muted">{step.body}</p>
-          </Card>
-        ))}
+      <section aria-labelledby="what-heading" className="grid gap-6 md:grid-cols-2 md:gap-10">
+        <div className="flex max-w-prose flex-col gap-4">
+          <h2 id="what-heading" className="font-heading text-xl font-bold text-ink md:text-2xl">
+            {t.landing.what.title}
+          </h2>
+          {t.landing.what.paras.map((para) => (
+            <p key={para} className="text-muted">
+              {para}
+            </p>
+          ))}
+        </div>
+
+        <Card tone="mint" className="flex h-fit flex-col gap-4">
+          <h3 className="font-heading text-lg font-semibold text-ink">
+            {t.landing.what.example.title}
+          </h3>
+          <dl className="flex flex-col gap-2 text-sm">
+            {t.landing.what.example.rows.map(([label, value]) => (
+              <div key={label} className="flex flex-wrap items-baseline justify-between gap-x-4">
+                <dt className="text-muted">{label}</dt>
+                <dd className="font-semibold text-ink">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="text-xs text-muted">{t.landing.what.example.note}</p>
+        </Card>
+      </section>
+
+      <section aria-labelledby="need-heading" className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <h2 id="need-heading" className="font-heading text-xl font-bold text-ink md:text-2xl">
+            {t.landing.need.title}
+          </h2>
+          <p className="text-sm text-muted">{t.landing.need.sub}</p>
+        </div>
+
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {t.landing.need.items.map((item, index) => {
+            const Icon = needIcons[index] ?? Banknote;
+            return (
+              <Card key={item.title} as="li" className="flex flex-col gap-3">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-mint">
+                  <Icon className="h-4 w-4 text-primary-dark" aria-hidden="true" />
+                </span>
+                <h3 className="font-heading text-base font-semibold text-ink">{item.title}</h3>
+                <p className="text-sm text-muted">{item.body}</p>
+              </Card>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section aria-labelledby="faq-heading" className="flex flex-col gap-4">
+        <h2 id="faq-heading" className="font-heading text-xl font-bold text-ink md:text-2xl">
+          {t.landing.faq.title}
+        </h2>
+
+        <Card padded={false} className="divide-y divide-mint">
+          {t.landing.faq.items.map((item) => (
+            <details key={item.q} className="group [&[open]>summary>svg]:rotate-180">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-card p-5 font-heading font-semibold text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                {item.q}
+                <ChevronDown
+                  className="h-4 w-4 shrink-0 text-muted transition-transform"
+                  aria-hidden="true"
+                />
+              </summary>
+              <p className="max-w-prose px-5 pb-5 text-sm text-muted">{item.a}</p>
+            </details>
+          ))}
+        </Card>
+      </section>
+
+      <section aria-labelledby="how-heading" className="flex flex-col gap-4">
+        <h2 id="how-heading" className="font-heading text-xl font-bold text-ink md:text-2xl">
+          {t.landing.howTitle}
+        </h2>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {t.landing.how.map((step, index) => (
+            <Card key={step.title} className="flex flex-col gap-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-mint font-heading font-bold text-primary-dark">
+                {index + 1}
+              </span>
+              <h3 className="font-heading text-lg font-semibold text-ink">{step.title}</h3>
+              <p className="text-sm text-muted">{step.body}</p>
+            </Card>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Button to={primaryCta.to}>{primaryCta.label}</Button>
+          <Button to="/bonuses" variant="ghost">
+            {t.landing.browse}
+          </Button>
+        </div>
       </section>
 
       {/* Hidden outright when nothing in the dataset carries a `post_modified` — a
