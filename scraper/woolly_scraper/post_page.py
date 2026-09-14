@@ -12,6 +12,14 @@ from .text import extract_states, parse_date, parse_money
 
 WORD_NUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "twelve": 12}
 _NONE_VALUE = re.compile(r"none[.,]?\s*")
+# X3: DoC's "Additional requirements" field says "See below" (or a variant) when the real
+# requirements are in the post body rather than in the glance block. That is a pointer, not
+# a requirement — carried through as a condition it becomes a checklist item reading
+# "See below", which asks the user to do nothing at all.
+_REQ_NONE_VALUE = re.compile(
+    r"none[.,]?|see below\.?|yes,?\s*see\s+(?:options\s+)?below\.?|n/a",
+    re.IGNORECASE,
+)
 
 
 def _clean(s: str) -> str:
@@ -126,7 +134,7 @@ def _structured_conditions(p: PostData) -> list[Condition]:
             )
         )
     req = p.additional_requirements
-    if req and not _NONE_VALUE.fullmatch(req.strip().lower()):
+    if req and not _REQ_NONE_VALUE.fullmatch(req.strip()):
         out.append(Condition(kind="other", text=req, source="doc"))
     return out
 

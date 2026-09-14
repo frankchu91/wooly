@@ -439,6 +439,70 @@ def test_classify_sentence_real_sentences_regain_their_deposit_amount(text, kind
     assert c.amount == amount
 
 
+# --- Round 5 (final review): X7 the reward figure stated before the deposit, X10 the
+# `2)` list marker, X12 the word-bounded fee keywords and the abbreviation guard. ---
+
+
+@pytest.mark.parametrize(
+    "text, amount",
+    [
+        # X7: the reward comes first and names no reward word near itself, so only the
+        # keyword in front of the second figure can tell the two apart.
+        ("You can earn $750 when you deposit at least $15,000 in new money", 15000),
+        ("Earn $300 when you deposit $20,000", 20000),
+        ("Get $200 after you receive $5,000 in qualifying direct deposits", 5000),
+        # Unchanged: a figure the reward word follows is still the reward, and the
+        # sentence names no other figure.
+        ("You will receive the $500 bonus once requirements are met", None),
+        # Unchanged: no deposit keyword in front of either figure.
+        ("Get a $500 new checking customer bonus", None),
+    ],
+)
+def test_parse_amount_prefers_the_figure_a_deposit_keyword_introduces(text, amount):
+    assert _parse_amount(text, "deposit") == amount
+
+
+def test_classify_sentence_reward_before_the_deposit_takes_the_deposit_figure():
+    c = classify_sentence(
+        "You can earn $750 when you deposit at least $15,000 in new money within 90 days.",
+        "bank",
+    )
+    assert c is not None
+    assert c.kind == "deposit" and c.amount == 15000 and c.days == 90
+
+
+@pytest.mark.parametrize(
+    "raw, expected",
+    [
+        ("2) maintain a $1,500 minimum balance", "maintain a $1,500 minimum balance"),
+        ("2. maintain a $1,500 minimum balance", "maintain a $1,500 minimum balance"),
+        ("1) Receive a direct deposit", "Receive a direct deposit"),
+    ],
+)
+def test_normalize_sentence_strips_numbered_list_markers(raw, expected):
+    assert normalize_sentence(raw) == expected
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        # "disclosure" and "feels" carry the old unbounded fee keywords inside them.
+        "The bank feels strongly that this account suits students and young adults best.",
+        "Read the full disclosure document before you decide whether this account suits you.",
+    ],
+)
+def test_classify_sentence_fee_keywords_are_word_bounded(text):
+    assert classify_sentence(text, "bank") is None
+
+
+def test_split_sentences_does_not_break_at_an_abbreviation():
+    text = (
+        "A qualifying direct deposit (i.e. payroll or a government benefit) must post "
+        "within ninety days of opening."
+    )
+    assert split_sentences(text) == [text]
+
+
 def test_condition_id_is_stable_and_based_on_kind_and_normalised_text():
     a = classify_sentence(WF_DD_SENTENCE, "doc")
     b = classify_sentence(WF_DD_SENTENCE + ".", "doc")  # trailing punctuation shouldn't change id

@@ -10,7 +10,7 @@ from pathlib import Path
 from .conditions import dedupe_conditions
 from .fetch import DEFAULT_DELAY, BlockedError, Fetcher
 from .list_page import parse_list_page
-from .merge import apply_post, merge_list, needs_enrich
+from .merge import apply_post, derive_hold_days, merge_list, needs_enrich
 from .models import Bonus
 from .post_page import parse_post
 from .terms import DEFAULT_DELAY as TERMS_DEFAULT_DELAY
@@ -112,19 +112,34 @@ def cmd_enrich(args) -> int:
 def _terms_candidate(b: Bonus, today: date) -> bool:
     """True if `b` should be (re)fetched for bank terms this run.
 
-    `terms_status == "none"` (no `offer_url` at enrichment time) is deliberately not a
-    candidate here even if `offer_url` has since appeared — spec's candidate predicate
-    only names `None`/`ok`/`blocked`/`error`.
+    X11: `terms_status == "none"` means "there was no `offer_url` when this was enriched".
+    The `and b.offer_url` above already proves one has since appeared — a later `list` run
+    picked it up — so such an entry is a candidate like any other, rather than being
+    frozen out of `terms` for good.
     """
     if not (b.enriched and b.offer_url):
         return False
     if b.terms_status is None:
         return True
-    if b.terms_status not in ("ok", "blocked", "error"):
+    if b.terms_status not in ("ok", "blocked", "error", "none"):
         return False
     if b.terms_fetched_at is None:
         return True
     return (today - b.terms_fetched_at).days > TERMS_RECHECK_DAYS
+
+
+def terms_needs_refetch(b: Bonus, today: date) -> bool:
+    """X8: is `b`'s cached bank page too old to be re-read?
+
+    `_terms_candidate` lets an `ok` entry back in after 30 days, but the fetcher answered
+    that re-check out of the cache — the same bytes, re-parsed, for ever. This is the
+    predicate that makes the 30-day refresh actually reach the bank.
+    """
+    return (
+        b.terms_status == "ok"
+        and b.terms_fetched_at is not None
+        and (today - b.terms_fetched_at).days > TERMS_RECHECK_DAYS
+    )
 
 
 def cmd_terms(args) -> int:
@@ -146,8 +161,12 @@ def cmd_terms(args) -> int:
     done = 0
     by_id = {b.id: b for b in bonuses}
     for b in todo:
+        # X8: `--cached-only` is the one mode that must never reach the network, so it
+        # keeps the cache whatever the entry's age; otherwise `--no-cache` (all entries)
+        # and the 30-day re-check (this entry) each force a real fetch.
+        use_cache = args.cached_only or not (args.no_cache or terms_needs_refetch(b, t))
         try:
-            status, html = fetcher.get(b.offer_url)
+            status, html = fetcher.get(b.offer_url, use_cache=use_cache)
             bank_conditions = parse_terms_page(html) if status == "ok" else []
             conditions = (
                 dedupe_conditions([c for c in b.conditions if c.source == "doc"] + bank_conditions)
@@ -163,6 +182,9 @@ def cmd_terms(args) -> int:
             terms_url=b.offer_url,
             terms_fetched_at=t,
             conditions=conditions,
+            # X9: a bank page can state the keep-open window the DoC post never did, so
+            # the safe-close date is recomputed from the merged conditions here too.
+            hold_days=derive_hold_days(conditions, b.etf_days),
         )
         done += 1
         print(f"terms {b.id}: {status} ({len(bank_conditions)} conditions)")
@@ -202,6 +224,11 @@ def main(argv: list[str] | None = None) -> int:
         "--cached-only",
         action="store_true",
         help="only process offer_urls already cached under scraper/.cache/terms; makes zero network requests",
+    )
+    tp.add_argument(
+        "--no-cache",
+        action="store_true",
+        help="bypass the cached copy of every bank page and re-fetch it, like `enrich --no-cache`",
     )
     args = ap.parse_args(argv)
     if args.cmd == "list":

@@ -64,8 +64,9 @@ def test_parse_terms_page_bank_of_america_fixture_drops_nav_and_ui_chrome_noise(
 
 
 def test_parse_terms_page_bank_of_america_fixture_pinned_set():
-    """Pinned after round 2 (A1–A6): every surviving row names a figure or issues an
-    instruction, and the caps-run banner headline is gone."""
+    """Re-pinned after X6 (block boundaries): every surviving row names a figure or issues
+    an instruction, the caps-run banner headline is gone, and each requirement sentence
+    now starts where the page's own block does rather than at the end of a heading."""
     html = (FIX / "terms-bank-of-america.html").read_text(encoding="utf-8", errors="ignore")
     conditions = parse_terms_page(html)
 
@@ -73,7 +74,40 @@ def test_parse_terms_page_bank_of_america_fixture_pinned_set():
     assert not any(c.text.startswith("BANK OF AMERICA") for c in conditions)
     assert any(c.kind == "direct_deposit" and c.days == 90 for c in conditions)
     assert any(c.text.startswith("Only new checking customers") for c in conditions)
+    assert any(c.kind == "transactions" and c.count == 20 and c.days == 60 for c in conditions)
+    # The 90-day deposit sentence wraps a <strong> ("Set up and receive **Qualifying
+    # Direct Deposits** into your new account …"); block-only boundaries keep it whole.
+    dd = next(c for c in conditions if c.kind == "direct_deposit" and c.days == 90)
+    assert dd.text.startswith("Set up and receive Qualifying Direct Deposits into your new account")
     assert all(is_actionable(c) for c in conditions)
+
+
+def test_parse_terms_page_does_not_glue_a_heading_onto_the_next_sentence():
+    """X6: the heading is its own block, so the requirement sentence starts at "Make"."""
+    html = (
+        "<html><body><h2>Bonus offer</h2><p>Make at least 20 qualifying debit card "
+        "transactions from your new account within 60 days of account opening.</p>"
+        "</body></html>"
+    )
+    conditions = parse_terms_page(html)
+    assert len(conditions) == 1
+    assert conditions[0].text.startswith("Make at least 20 qualifying debit card")
+    assert conditions[0].count == 20 and conditions[0].days == 60
+
+
+def test_parse_terms_page_keeps_a_sentence_wrapped_around_inline_markup_whole():
+    """The flip side of X6: inline tags are not block boundaries, or a bank page's bolded
+    phrase would cut its own sentence into fragments too short to classify."""
+    html = (
+        "<html><body><p>Set up and receive <strong>Qualifying Direct Deposits</strong> "
+        'into your new account within 90 days of account opening ("Deposit Period").</p>'
+        "</body></html>"
+    )
+    conditions = parse_terms_page(html)
+    assert len(conditions) == 1
+    assert conditions[0].kind == "direct_deposit"
+    assert conditions[0].days == 90
+    assert "Qualifying Direct Deposits into your new account" in conditions[0].text
 
 
 # --- _is_bank_noise (bank-only reject filter, applied before classification) ---

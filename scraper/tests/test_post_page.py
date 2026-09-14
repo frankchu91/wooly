@@ -155,6 +155,37 @@ def test_etf_none_values(value, expected_amount):
     assert p.etf_amount == expected_amount
 
 
+@pytest.mark.parametrize(
+    "value",
+    [
+        "None",
+        "None.",
+        "See below",
+        "see below.",
+        "Yes, see below",
+        "Yes see options below",
+        "N/A",
+    ],
+)
+def test_additional_requirements_pointer_values_are_not_conditions(value):
+    """X3: "See below" points at the post body; carried through it becomes a checklist row
+    that asks the user to do nothing."""
+    html = glance_html(("Maximum bonus amount", "$100"), ("Additional requirements", value))
+    p = parse_post(html, TODAY)
+    assert p.additional_requirements == value  # the raw glance value is still recorded
+    assert not any(c.kind == "other" for c in p.conditions)
+
+
+def test_additional_requirements_real_value_is_still_a_condition():
+    html = glance_html(
+        ("Maximum bonus amount", "$100"),
+        ("Additional requirements", "Deposit $10,000 in new to Chase funds"),
+    )
+    p = parse_post(html, TODAY)
+    other = next(c for c in p.conditions if c.kind == "other")
+    assert other.text == "Deposit $10,000 in new to Chase funds"
+
+
 def test_glance_value_spacing_tidied():
     html = (
         "<html><body><div class='entry-content'><ul>"

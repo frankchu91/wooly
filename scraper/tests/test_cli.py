@@ -205,12 +205,15 @@ class FakeTermsFetcher:
         self.responses = responses
         self.cached_urls = set(cached_urls or [])
         self.calls = []
+        # X8: (url, use_cache) per call, so a test can pin *how* the page was asked for.
+        self.cache_flags = []
 
     def has_cached(self, url):
         return url in self.cached_urls
 
-    def get(self, url):
+    def get(self, url, use_cache=True):
         self.calls.append(url)
+        self.cache_flags.append((url, use_cache))
         resp = self.responses[url]
         if isinstance(resp, Exception):
             raise resp
@@ -389,6 +392,117 @@ def test_terms_cached_only_bypasses_the_30_day_freshness_gate(tmp_path, monkeypa
     assert by_id["a"]["terms"]["fetched_at"] == "2026-09-14"  # re-processed despite being fresh
     assert by_id["b"]["terms"]["status"] == "ok"  # re-processed despite the blocked cooldown
     assert set(fake.calls) == {"https://bank-a.test/offer/", "https://bank-b.test/offer/"}
+
+
+def test_terms_refetches_a_stale_ok_page_and_reads_the_cache_otherwise(tmp_path, monkeypatch):
+    """X8: the 30-day re-check has to reach the bank. An `ok` entry older than that is
+    asked for with `use_cache=False`; a never-fetched one is happy with the cache."""
+    data = tmp_path / "bonuses.json"
+    bonuses = [
+        _terms_bonus(
+            "stale",
+            offer_url="https://bank-stale.test/offer/",
+            terms_status="ok",
+            terms_fetched_at=date(2026, 7, 1),  # >30 days ago
+        ),
+        _terms_bonus("fresh", offer_url="https://bank-fresh.test/offer/"),  # never fetched
+    ]
+    cli.save(data, bonuses)
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    page = ("ok", "<html><p>no requirement sentences here</p></html>")
+    fake = FakeTermsFetcher(
+        {"https://bank-stale.test/offer/": page, "https://bank-fresh.test/offer/": page}
+    )
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data)]) == 0
+
+    assert dict(fake.cache_flags) == {
+        "https://bank-stale.test/offer/": False,
+        "https://bank-fresh.test/offer/": True,
+    }
+
+
+def test_terms_no_cache_bypasses_the_cache_for_every_page(tmp_path, monkeypatch):
+    data = tmp_path / "bonuses.json"
+    cli.save(data, [_terms_bonus("a", offer_url="https://bank-a.test/offer/")])
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    fake = FakeTermsFetcher({"https://bank-a.test/offer/": ("ok", "<html><p>hi</p></html>")})
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data), "--no-cache"]) == 0
+
+    assert fake.cache_flags == [("https://bank-a.test/offer/", False)]
+
+
+def test_terms_cached_only_never_bypasses_the_cache(tmp_path, monkeypatch):
+    """`--cached-only` promises zero network requests, so even a stale `ok` entry is
+    served from disk under it."""
+    data = tmp_path / "bonuses.json"
+    cli.save(
+        data,
+        [
+            _terms_bonus(
+                "a",
+                offer_url="https://bank-a.test/offer/",
+                terms_status="ok",
+                terms_fetched_at=date(2026, 7, 1),
+            )
+        ],
+    )
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    fake = FakeTermsFetcher(
+        {"https://bank-a.test/offer/": ("ok", "<html><p>hi</p></html>")},
+        cached_urls={"https://bank-a.test/offer/"},
+    )
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data), "--cached-only"]) == 0
+
+    assert fake.cache_flags == [("https://bank-a.test/offer/", True)]
+
+
+def test_terms_status_none_with_a_new_offer_url_is_a_candidate(tmp_path, monkeypatch):
+    """X11: "none" only ever meant "there was no offer_url when this was enriched". One
+    has since appeared, so the page is fetched rather than frozen out for good."""
+    data = tmp_path / "bonuses.json"
+    cli.save(
+        data,
+        [_terms_bonus("a", offer_url="https://bank-a.test/offer/", terms_status="none")],
+    )
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    fake = FakeTermsFetcher({"https://bank-a.test/offer/": ("ok", "<html><p>hi</p></html>")})
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data)]) == 0
+
+    doc = json.loads(data.read_text())
+    assert doc["bonuses"][0]["terms"]["status"] == "ok"
+    assert fake.calls == ["https://bank-a.test/offer/"]
+
+
+def test_terms_recomputes_hold_days_from_a_bank_keep_open_condition(tmp_path, monkeypatch):
+    """X9: the safe-close date has to follow the bank page's own keep-open window, not
+    stay on whatever the DoC post implied."""
+    data = tmp_path / "bonuses.json"
+    bonus = _terms_bonus("a", offer_url="https://bank-a.test/offer/")
+    bonus.etf_days = 60
+    bonus.hold_days = 60
+    cli.save(data, [bonus])
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    html = (
+        "<html><p>Keep the account open for 180 days from account opening to receive "
+        "the bonus payment.</p></html>"
+    )
+    fake = FakeTermsFetcher({"https://bank-a.test/offer/": ("ok", html)})
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data)]) == 0
+
+    doc = json.loads(data.read_text())
+    saved = doc["bonuses"][0]
+    assert any(c["kind"] == "keep_open" and c["days"] == 180 for c in saved["conditions"])
+    assert saved["hold_days"] == 180
 
 
 def test_list_refuses_to_save_when_too_few_entries(tmp_path, monkeypatch):

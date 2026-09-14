@@ -15,8 +15,14 @@ def _pd(v: str | None) -> date | None:
     return date.fromisoformat(v) if v else None
 
 
+# A DoC post and a bank's own page often differ only in their quote glyphs while saying
+# the same thing, so curly quotes are folded to their ASCII forms before the id is taken —
+# otherwise the same requirement gets two ids and shows up twice on the checklist.
+_CURLY = str.maketrans({"’": "'", "‘": "'", "“": '"', "”": '"'})
+
+
 def _normalize_condition_text(text: str) -> str:
-    norm = re.sub(r"\s+", " ", text.strip()).lower()
+    norm = re.sub(r"\s+", " ", text.strip()).lower().translate(_CURLY)
     return norm.rstrip(".,;:!? ")
 
 

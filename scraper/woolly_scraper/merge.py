@@ -4,7 +4,7 @@ import dataclasses
 from datetime import date, timedelta
 
 from .conditions import dedupe_conditions
-from .models import Bonus, ListEntry, PostData
+from .models import Bonus, Condition, ListEntry, PostData
 from .text import normalize_bank
 
 STALE_DAYS = 14
@@ -118,6 +118,20 @@ def _fill(current, new):
     return current if current is not None else new
 
 
+def derive_hold_days(conditions: list[Condition], etf_days: int | None) -> int | None:
+    """How long the account has to stay open: the first `keep_open` condition that names a
+    day window, else the early-termination-fee window.
+
+    X9: shared by `apply_post` and `cmd_terms` so a bank page's own keep-open sentence
+    updates `hold_days` too. Before this, `hold_days` was only ever computed from the DoC
+    post, so a `keep_open` condition that arrived with the bank terms showed up on the
+    checklist while the "earliest safe close" date carried on using the ETF window — the
+    two answering the same question differently on the same screen.
+    """
+    days = next((c.days for c in conditions if c.kind == "keep_open" and c.days is not None), None)
+    return days if days is not None else etf_days
+
+
 def apply_post(bonus: Bonus, post: PostData, today: date) -> Bonus:
     nationwide = bonus.nationwide
     states = bonus.states
@@ -126,9 +140,7 @@ def apply_post(bonus: Bonus, post: PostData, today: date) -> Bonus:
         nationwide = bool(post.nationwide) if post.nationwide is not None else False
     bank_conditions = [c for c in bonus.conditions if c.source == "bank"]
     conditions = dedupe_conditions(post.conditions + bank_conditions)
-    hold_days = next((c.days for c in conditions if c.kind == "keep_open" and c.days is not None), None)
-    if hold_days is None:
-        hold_days = post.etf_days
+    hold_days = derive_hold_days(conditions, post.etf_days)
     terms_status = bonus.terms_status
     if bonus.offer_url is None and terms_status is None:
         terms_status = "none"

@@ -28,6 +28,13 @@ DEFAULT_DELAY = 5.0
 TIMEOUT = 20
 CAP = 12
 _STRIP_TAGS = ("script", "style", "noscript", "nav", "footer", "header", "title")
+# X6: the tags that end a line of prose on a bank page. Inline tags (`strong`, `sup`, `a`,
+# `span`, `em`) are deliberately absent — see `_block_text`.
+_BLOCK_TAGS = (
+    "address", "article", "aside", "blockquote", "br", "div", "dd", "dl", "dt",
+    "h1", "h2", "h3", "h4", "h5", "h6", "hr", "li", "main", "ol", "p", "section",
+    "table", "td", "th", "tr", "ul",
+)
 
 # Sentences that survive `extract_conditions`'s generic 40-400 char window but are
 # clearly page furniture, not requirement text, on a *bank* page specifically (this
@@ -125,16 +132,22 @@ class TermsFetcher:
     def has_cached(self, url: str) -> bool:
         return self._path(url).exists()
 
-    def get(self, url: str) -> tuple[str, str]:
+    def get(self, url: str, use_cache: bool = True) -> tuple[str, str]:
         """Fetch `url`, returning `(status, html)` with `status` in `ok|blocked|error`.
 
         A cache hit short-circuits everything below — no network call, no sleep, no
         per-host bookkeeping — and returns `("ok", cached_html)`. Some `offer_url`s are
         tracking redirects; `requests` follows them by default, and the response is
         cached under the *original* url so a repeat run still hits the cache.
+
+        `use_cache=False` (X8) skips the cache *read* and re-fetches, exactly as
+        `Fetcher.get` does for `enrich --no-cache`: the write still happens, so the stale
+        copy is replaced rather than left behind. Without it a bank page cached once could
+        never be refreshed, and the 30-day re-check in `cmd_terms` only ever re-read the
+        same bytes.
         """
         p = self._path(url)
-        if p.exists():
+        if use_cache and p.exists():
             return "ok", p.read_text(encoding="utf-8")
         host = urlparse(url).netloc
         wait_hosts = [host]
@@ -172,6 +185,31 @@ class TermsFetcher:
         return "ok", resp.text
 
 
+def _block_text(soup: BeautifulSoup) -> str:
+    """X6: the page's visible text with one line per *block* boundary.
+
+    Joining the whole page with spaces glued a heading to the sentence that followed it
+    ("… cash offer Make at least 20 qualifying debit card … transactions"), which
+    `split_sentences` then handed to the classifier as one run-on sentence — the heading's
+    own words changing what the requirement appeared to say, and its capitals tripping the
+    caps-run noise filter. Block boundaries become newlines, which `split_sentences`
+    already splits on.
+
+    Only *block* elements, not every element: a bank page wraps half its requirement
+    sentences around inline `<strong>`/`<sup>` (`Set up and receive <strong>Qualifying
+    Direct Deposits</strong> into your new account within 90 days`), so breaking at every
+    element boundary would shred the real sentences into sub-40-character fragments that
+    never reach the classifier at all. Runs of spaces are collapsed per line, keeping the
+    newlines.
+    """
+    for tag in soup.find_all(_BLOCK_TAGS):
+        tag.insert_before("\n")
+        tag.insert_after("\n")
+    raw = soup.get_text(" ")
+    lines = (re.sub(r"[^\S\n]+", " ", line).strip() for line in raw.split("\n"))
+    return "\n".join(line for line in lines if line)
+
+
 def parse_terms_page(html: str) -> list[Condition]:
     """Extract bank-sourced conditions from a fetched offer page's visible text.
 
@@ -185,7 +223,7 @@ def parse_terms_page(html: str) -> list[Condition]:
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup(_STRIP_TAGS):
         tag.decompose()
-    text = " ".join(soup.get_text(" ").split())
+    text = _block_text(soup)
     out: list[Condition] = []
     seen: set[str] = set()
     for sentence in split_sentences(text):

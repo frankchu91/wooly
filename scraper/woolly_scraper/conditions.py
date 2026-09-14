@@ -97,6 +97,22 @@ wrongly nulled. Narrowed to three rules, applied in order:
 3. Otherwise, skip the figure only if one of `bonus`, `reward`, or the two-word phrases
    `cash bonus`/`cash offer` appears in the next 6 words — bare `cash` and bare `offer`
    are no longer triggers on their own.
+
+Round 5 (final review):
+
+X7. The reward figure is often stated *before* the deposit it asks for ("You can earn $750
+   when you deposit at least $15,000"), and nothing above catches that: the reward figure
+   has no reward word within six words of it, so it won simply by coming first.
+   `_parse_amount` now runs a first pass that looks for a figure introduced by a deposit
+   keyword (`deposit(s)`/`of`/`receive`/`make`/`maintain`/`at least`/`minimum`) within the
+   three words before it, and takes that figure unless a reward word sits right behind it
+   ("receive the $500 bonus" is still the reward). The existing single-pass logic runs
+   unchanged as the second pass, so every figure it already resolved resolves the same way.
+X10. `_LEADING_MARKER_RE` also strips a `2)`/`2.` list marker, the other shape bank pages
+   flatten numbered steps into.
+X12. The `fee` kind's keywords are word-bounded (`\\bfees?\\b`, `\\bclosure\\b`,
+   `\\bclosing\\b`) so "feels"/"disclosure" no longer classify a sentence as a fee, and
+   `split_sentences` no longer breaks a sentence at "i.e." or "e.g.".
 """
 
 from __future__ import annotations
@@ -151,7 +167,8 @@ _NEGATION_RE = re.compile(
 # before anything reads the sentence. A2: leading list markers survive the flattening of
 # a bank page's numbered steps into running text ("2 Deposit Make …", "** The …").
 _MONEY_SPACE_RE = re.compile(r"\$\s+(\d)")
-_LEADING_MARKER_RE = re.compile(r"^(?:\*+|\d+\s+(?=[A-Z])|[•\-–]\s*)")
+# X10: `2)` / `2.` is the other shape those numbered steps arrive in.
+_LEADING_MARKER_RE = re.compile(r"^(?:\*+|\d+[.)]\s*|\d+\s+(?=[A-Z])|[•\-–]\s*)")
 
 # F2: footnote markers a bank page attaches to a channel name ("Zelle® 1", "transactions
 # 2") would otherwise be read as the count or the amount. `_FOOTNOTE_MARK_RE` strips a
@@ -216,7 +233,8 @@ _KIND_CHECKS: list[tuple[str, re.Pattern[str] | None]] = [
         "keep_open",
         re.compile(r"(?:keep|kept|remain\w*).{0,40}\bopen\b|must be (?:kept )?open|maintained for", re.IGNORECASE),
     ),
-    ("fee", re.compile(r"fee|closure|closing", re.IGNORECASE)),
+    # X12: word-bounded, so "feels", "disclosure" and the like no longer read as a fee.
+    ("fee", re.compile(r"\bfees?\b|\bclosure\b|\bclosing\b", re.IGNORECASE)),
     (
         "new_customer",
         re.compile(
@@ -248,8 +266,15 @@ _PRECEDING_BRIDGE_WORDS = {"totaling", "totalling"}
 # Round 4: a figure immediately followed by this is deposit phrasing, never how a
 # reward is introduced — "$1,000 or more in...", "$5,000 or more in...".
 _DEPOSIT_PHRASE_RE = re.compile(r"\s*(?:in|of|or more|minimum|total)\b", re.IGNORECASE)
+# X7: the same deposit vocabulary, read a little wider — any of these within the three
+# words before a figure introduces it ("deposit at least $15,000", "requirement of
+# $20,000"). "at least" is matched by its second word, which is the one next to the figure.
+_NEAR_DEPOSIT_WORDS = {
+    "deposit", "deposits", "of", "receive", "make", "maintain", "least", "minimum",
+}
+_NEAR_DEPOSIT_LOOKBACK = 3
 
-_SENTENCE_END_RE = re.compile(r"(?<=[.;!])\s+")
+_SENTENCE_END_RE = re.compile(r"(?<=[.;!])(?<!i\.e\.)(?<!e\.g\.)\s+")
 _LINE_SPLIT_RE = re.compile(r"[\r\n]+")
 _BULLET_PREFIX_RE = re.compile(r"^\s*(?:[•▪●‣*-]|\d+[.)])\s+")
 
@@ -307,9 +332,27 @@ def _followed_by_deposit_phrase(text: str, end: int) -> bool:
     return bool(_DEPOSIT_PHRASE_RE.match(text, end))
 
 
+def _near_deposit_word(text: str, start: int) -> bool:
+    """X7: is one of the deposit keywords among the three words before the figure at
+    `start`? Wider than `_preceded_by_deposit_word` on purpose — "deposit at least
+    $15,000" and "requirement of $20,000" both introduce a deposit figure without the
+    keyword sitting immediately next to it."""
+    words = [w.lower() for w in _WORD_RE.findall(text[:start])[-_NEAR_DEPOSIT_LOOKBACK:]]
+    return any(w in _NEAR_DEPOSIT_WORDS for w in words)
+
+
 def _parse_amount(text: str, kind: str) -> int | None:
     if kind not in ("direct_deposit", "deposit"):
         return parse_money(text)
+    # X7, first pass: a figure a deposit keyword introduces beats one that merely comes
+    # earlier in the sentence ("earn $750 when you deposit at least $15,000" -> 15000).
+    # The reward test still applies, so "You will receive the $500 bonus …" is skipped
+    # here and falls through to the pass below, which resolves it to None as before.
+    for m in _AMOUNT_RE.finditer(text):
+        if _near_deposit_word(text, m.start()) and (
+            _followed_by_deposit_phrase(text, m.end()) or not _reward_word_nearby(text, m.end())
+        ):
+            return int(m.group(1).replace(",", ""))
     for m in _AMOUNT_RE.finditer(text):
         if _preceded_by_deposit_word(text, m.start()):
             return int(m.group(1).replace(",", ""))

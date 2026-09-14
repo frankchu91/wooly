@@ -90,3 +90,15 @@ def test_bonus_from_dict_requires_last_seen():
             "id": "x", "bank": "X", "title": "X $100", "section": "checking",
             "doc_url": "https://www.doctorofcredit.com/x/",
         })
+
+
+def test_condition_id_ignores_curly_quote_glyphs():
+    """X12: a DoC post and the bank's own page often differ only in their apostrophes;
+    two ids for one requirement would put it on the checklist twice."""
+    straight = Condition(kind="keep_open", text="Keep the bank's account open for 90 days")
+    curly = Condition(kind="keep_open", text="Keep the bank’s account open for 90 days")
+    assert straight.id == curly.id
+
+    quoted = Condition(kind="deposit", text='Deposit $500 in "new money" within 60 days')
+    smart = Condition(kind="deposit", text="Deposit $500 in “new money” within 60 days")
+    assert quoted.id == smart.id
