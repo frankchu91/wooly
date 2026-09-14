@@ -37,7 +37,7 @@
 
 ---
 
-### Task S1: Sentence classifier + DoC conditions
+### Task 1: Sentence classifier + DoC conditions
 
 **Files:** create `scraper/woolly_scraper/conditions.py`, `scraper/tests/test_conditions.py`; modify `models.py`, `post_page.py`, `merge.py`, `tests/test_models.py`, `tests/test_post_page.py`, `tests/test_merge.py`.
 
@@ -50,7 +50,7 @@
 - [ ] Tests first: 12 classifier cases (Wells Fargo DD sentence → direct_deposit 1000/90; "Account must be kept open for three months" → keep_open days 90; "$12 monthly maintenance fee" → fee amount 12; "Offer is for new consumer checking customers only" → new_customer; "Make at least 2 qualifying direct deposits totaling $500" → count 2 amount 500; a marketing sentence → None); `parse_post` on the Wells Fargo fixture yields ≥ 2 doc conditions incl. direct_deposit 1000/90; `apply_post` preserves a prior bank condition; round-trip in `test_models`.
 - [ ] Implement; `scraper/.venv/bin/pytest scraper -q`; ruff clean; commit `feat(scraper): offer conditions from DoC posts`.
 
-### Task S2: Bank terms fetcher + `terms` command + live run
+### Task 2: Bank terms fetcher + `terms` command + live run
 
 **Files:** create `scraper/woolly_scraper/terms.py`, `scraper/tests/test_terms.py`, fixture `scraper/tests/fixtures/terms-bank-of-america.html` (copy from the scratchpad probe file `b654a846.html`); modify `cli.py`, `tests/test_cli.py`, `.github/workflows/scrape.yml`, `README.md`.
 
@@ -63,7 +63,7 @@
 - [ ] Tests: fixture yields ≥ 3 conditions incl. direct_deposit days 90; fetcher statuses via fake session; per-host delay via fake clock; CLI with fake fetcher marks `ok`, `blocked`, and `none` (no offer_url) correctly and skips recently-blocked.
 - [ ] Live run (allowed, polite): `scraper/.venv/bin/woolly-scrape terms --limit 30 --delay 5` — ~24 requests to different bank hosts. Report the status distribution. Commit code + `data/bonuses.json`: `feat(scraper): read bank offer pages for conditions`.
 
-### Task W1: Engine conditions + store v2
+### Task 3: Engine conditions + store v2
 
 **Files:** create `web/src/engine/conditions.ts`, `conditions.test.ts`; modify `web/src/engine/types.ts` (add `Condition`, `Bonus.conditions`, `hold_days`, `terms`), `index.ts`, `web/src/data/fixture.ts` (add conditions to 3 entries; `terms` on all), `web/src/state/store.ts`, `store.test.ts`, `web/src/i18n/en.ts` (stage labels: `requirements_met: "Requirements done"`; `t.conditions.*`).
 
@@ -72,21 +72,21 @@
 - [ ] Tests: synthesis rules (no conditions + dd 1000/90 → one direct_deposit; etf days → keep_open; existing conditions untouched, deduped); `earliestCloseDate` precedence (hold_days > etf.days > 180); `ledgerTotals` with `bonusReceived` override; migration of a v1 blob with `dd_sent`; each new action; `advance` still walks the new order.
 - [ ] Update any existing tests referencing `dd_sent`. Commit `feat(web): conditions engine and store v2`.
 
-### Task W2: ConditionList + drawer/plan integration
+### Task 4: ConditionList + drawer/plan integration
 
 **Files:** create `web/src/features/conditions/ConditionList.tsx` + test; modify `BonusDrawer.tsx`, `PlanCard.tsx`, `en.ts`, their tests.
 
 - `ConditionList({ conditions, done?: Set<string>, onToggle?, compact? })`: `<ul>`; each row: checkbox (when `onToggle`) or bullet, text, `Badge` source (`DoC`/`Bank`), kind icon optional. Read-only in `BonusDrawer` (section "Conditions" above the glance table, with the terms-status note and a "Bank offer page" link); `PlanCard` chip `t.plan.badges.conditions(n)` → "3 conditions" that opens the drawer (same navigation as Details).
 - [ ] Tests: renders sources; toggle calls back; drawer shows synthesised DD condition for a fixture without conditions. Commit `feat(web): condition lists in offer drawer and plan cards`.
 
-### Task W3: Tracker v2 page
+### Task 5: Tracker v2 page
 
 **Files:** replace `web/src/features/tracker/TrackerPage.tsx`, `TrackedCard.tsx` with `TrackerPage.tsx`, `LedgerTotals.tsx`, `LedgerTable.tsx`, `Pipeline.tsx`, `PipelineCard.tsx`, `ItemDrawer.tsx`; tests `TrackerPage.test.tsx`, `ItemDrawer.test.tsx`; `en.ts`; e2e addition in `web/tests/e2e/smoke.spec.ts`.
 
 - Layout and behaviour per spec §4.3 exactly. Item drawer selection via `?item=<id>`. Close-early warning: when moving to `closed` (menu or Next) and `today < earliestCloseDate`, show a confirm panel inside the date form ("Closing before {date} may forfeit the bonus or trigger a fee. Close anyway?") before applying.
 - [ ] Tests per spec §5 (tracker bullets). E2E: after "Track this plan", `/tracker` shows the five column headings and the ledger "Earned" label. Commit `feat(web): tracker v2 — ledger, table, pipeline, item drawer`.
 
-### Task W4: Controller UX walkthrough + fix wave
+### Task 6: Controller UX walkthrough + fix wave
 
 Controller-run (see spec §6): Playwright walkthrough at 1280/400 with a seeded profile and tracked items in every stage; findings list → one fix dispatch → re-walk. Repeat until no Important findings.
 
@@ -94,5 +94,5 @@ Controller-run (see spec §6): Playwright walkthrough at 1280/400 with a seeded 
 
 ## Self-review
 
-- Spec §2 stages → W1 (keys, migration) + W3 (UI). §3 schema/extraction → S1, S2. §4.1 engine → W1. §4.2 store → W1. §4.3 tracker → W3. §4.4 drawer/plan → W2. §5 tests → each task. §6 loop → W4.
+- Spec §2 stages → Task 3 (keys, migration) + Task 5 (UI). §3 schema/extraction → Tasks 1, 2. §4.1 engine → Task 3. §4.2 store → Task 3. §4.3 tracker → Task 5. §4.4 drawer/plan → Task 4. §5 tests → each task. §6 loop → Task 6.
 - Type consistency: `Condition{id,kind,text,amount,days,count,source}` identical in Python `to_dict` and TS `Condition`; `terms{status,url,fetched_at}`; `TrackStatus` keys shared by store, ledger, pipeline, e2e.
