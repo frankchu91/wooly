@@ -7,7 +7,11 @@ import { t } from "../../i18n/en";
 import { Badge, cn, money } from "../../ui";
 
 export interface ConditionListProps {
+  /** The checklist: the requirements the user works through. */
   conditions: Condition[];
+  /** Facts about the offer that aren't tasks (fees, "new customers only", free text).
+   * Rendered read-only under a collapsed "Also note" disclosure, never as checkboxes. */
+  notes?: Condition[];
   /** Ids of conditions the user has ticked off. Only read when `onToggle` is given —
    * a read-only list (e.g. `BonusDrawer`) has nothing to check against. */
   done?: ReadonlySet<string>;
@@ -30,33 +34,6 @@ const KIND_ICONS: Record<ConditionKind, ComponentType<{ size?: number; className
   other: Info,
 };
 
-/**
- * Drops later conditions that just paraphrase an earlier one: doc and bank sources
- * often describe the same requirement in their own words, and showing both reads as
- * two separate tasks. Two conditions collapse when their `kind`, `amount`, and `days`
- * all match and `amount`/`days` are both non-null — a bare "keep the account open"
- * with no figures attached isn't assumed to be a duplicate of anything. The first
- * occurrence (doc-sourced, by `checklistFor`'s ordering) is kept.
- */
-export function collapseSimilar(conditions: Condition[]): Condition[] {
-  const seen: Array<{ kind: ConditionKind; amount: number; days: number }> = [];
-  const result: Condition[] = [];
-
-  for (const condition of conditions) {
-    const { kind, amount, days } = condition;
-    const isDuplicate =
-      amount != null &&
-      days != null &&
-      seen.some((s) => s.kind === kind && s.amount === amount && s.days === days);
-
-    if (isDuplicate) continue;
-    if (amount != null && days != null) seen.push({ kind, amount, days });
-    result.push(condition);
-  }
-
-  return result;
-}
-
 function metaLine(condition: Condition): string | null {
   const parts: string[] = [];
   if (condition.amount != null) parts.push(t.conditions.meta.amount(money(condition.amount)));
@@ -65,58 +42,95 @@ function metaLine(condition: Condition): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
-/** The checklist of a bonus's conditions — real (doc/bank-sourced) and synthesised —
- * shared by `BonusDrawer` (read-only) and the tracker (interactive, via `onToggle`).
- * Similar doc/bank pairs are collapsed via `collapseSimilar` before rendering. */
-export function ConditionList({ conditions, done, onToggle, compact = false }: ConditionListProps) {
+/**
+ * A bonus's requirements — real (doc/bank-sourced) and synthesised — shared by
+ * `BonusDrawer` (read-only) and the tracker (interactive, via `onToggle`). The caller
+ * splits checklist from notes (`splitConditions`); this renders what it is given.
+ *
+ * `notes` land under a collapsed "Also note" disclosure rather than in the list itself:
+ * a monthly fee or a "new customers only" rule is worth reading once, but counting it as
+ * a task makes the checklist impossible to finish.
+ */
+export function ConditionList({
+  conditions,
+  notes,
+  done,
+  onToggle,
+  compact = false,
+}: ConditionListProps) {
   const baseId = useId();
-  const collapsed = collapseSimilar(conditions);
-
-  if (collapsed.length === 0) {
-    return <p className="text-sm text-muted">{t.conditions.none}</p>;
-  }
 
   return (
-    <ul className="flex flex-col gap-2">
-      {collapsed.map((condition) => {
-        const Icon = KIND_ICONS[condition.kind];
-        const inputId = `${baseId}-${condition.id}`;
-        const meta = metaLine(condition);
+    <div className="flex flex-col gap-3">
+      {conditions.length === 0 ? (
+        <p className="text-sm text-muted">{t.conditions.none}</p>
+      ) : (
+        <ul className="flex flex-col gap-2">
+          {conditions.map((condition) => {
+            const Icon = KIND_ICONS[condition.kind];
+            const inputId = `${baseId}-${condition.id}`;
+            const meta = metaLine(condition);
 
-        return (
-          <li key={condition.id} className="flex items-start gap-2">
-            {onToggle ? (
-              <input
-                id={inputId}
-                type="checkbox"
-                checked={done?.has(condition.id) ?? false}
-                onChange={() => onToggle(condition.id)}
-                className="mt-0.5 h-4 w-4 shrink-0 rounded border-muted text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-              />
-            ) : (
-              <Icon size={16} className="mt-0.5 shrink-0 text-muted" aria-hidden="true" />
-            )}
-            <div className="min-w-0 flex-1">
-              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            return (
+              <li key={condition.id} className="flex items-start gap-2">
                 {onToggle ? (
-                  <label
-                    htmlFor={inputId}
-                    className={cn("break-words text-sm text-ink", compact && "line-clamp-2")}
-                  >
-                    {condition.text}
-                  </label>
+                  <input
+                    id={inputId}
+                    type="checkbox"
+                    checked={done?.has(condition.id) ?? false}
+                    onChange={() => onToggle(condition.id)}
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-muted text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  />
                 ) : (
-                  <span className={cn("break-words text-sm text-ink", compact && "line-clamp-2")}>
-                    {condition.text}
-                  </span>
+                  <Icon size={16} className="mt-0.5 shrink-0 text-muted" aria-hidden="true" />
                 )}
-                <Badge tone="neutral">{t.conditions.sources[condition.source]}</Badge>
-              </div>
-              {!compact && meta ? <p className="text-xs text-muted">{meta}</p> : null}
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                    {onToggle ? (
+                      <label
+                        htmlFor={inputId}
+                        className={cn("break-words text-sm text-ink", compact && "line-clamp-2")}
+                      >
+                        {condition.text}
+                      </label>
+                    ) : (
+                      <span
+                        className={cn("break-words text-sm text-ink", compact && "line-clamp-2")}
+                      >
+                        {condition.text}
+                      </span>
+                    )}
+                    <Badge tone="neutral">{t.conditions.sources[condition.source]}</Badge>
+                  </div>
+                  {!compact && meta ? <p className="text-xs text-muted">{meta}</p> : null}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      {notes && notes.length > 0 ? (
+        <details className="rounded-control border border-mint bg-cream/60 px-3 py-2">
+          <summary className="cursor-pointer text-sm font-medium text-ink marker:text-muted">
+            {t.conditions.alsoNote(notes.length)}
+          </summary>
+          <ul className="mt-2 flex flex-col gap-2">
+            {notes.map((note) => {
+              const Icon = KIND_ICONS[note.kind];
+              return (
+                <li key={note.id} className="flex items-start gap-2">
+                  <Icon size={16} className="mt-0.5 shrink-0 text-muted" aria-hidden="true" />
+                  <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2 gap-y-1">
+                    <span className="break-words text-sm text-ink">{note.text}</span>
+                    <Badge tone="neutral">{t.conditions.sources[note.source]}</Badge>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </details>
+      ) : null}
+    </div>
   );
 }

@@ -28,12 +28,24 @@ function item(overrides: Partial<TrackedItem> = {}): TrackedItem {
 }
 
 describe("requirementsProgress", () => {
-  test("counts ticked conditions against the visible checklist", () => {
+  test("counts ticked conditions against the checklist, not the notes", () => {
+    // wells-fargo-500 records three conditions, but "new consumer checking customers
+    // only" is a note about the offer — the denominator is the two real tasks.
     const progress = requirementsProgress(
       item({ conditionsDone: ["wf-dd", "wf-keep-open"] }),
       bonusById("wells-fargo-500"),
     );
-    expect(progress).toEqual({ done: 2, total: 3 });
+    expect(progress).toEqual({ done: 2, total: 2 });
+  });
+
+  test("ids ticked off a checklist that no longer holds them are ignored", () => {
+    // "wf-new-customer" is a note now, and "gone" was reworded away by a later scrape;
+    // neither may inflate the numerator past the denominator.
+    const progress = requirementsProgress(
+      item({ conditionsDone: ["wf-dd", "wf-new-customer", "gone"] }),
+      bonusById("wells-fargo-500"),
+    );
+    expect(progress).toEqual({ done: 1, total: 2 });
   });
 
   test("counts synthesised conditions too", () => {

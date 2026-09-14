@@ -86,11 +86,13 @@ describe("PlanCard content", () => {
 });
 
 describe("PlanCard conditions chip", () => {
-  test("shows a '3 conditions' chip linking to the drawer for wells-fargo-500", () => {
+  test("shows a '2 conditions' chip linking to the drawer for wells-fargo-500", () => {
+    // Three recorded conditions, but "new consumer checking customers only" is a note
+    // about the offer, not a box to tick — the chip counts the checklist alone.
     const bonus = bonusById("wells-fargo-500");
     renderCard(makeItem({ bonus }));
 
-    const chip = screen.getByText(t.plan.badges.conditions(3));
+    const chip = screen.getByText(t.plan.badges.conditions(2));
     expect(chip.closest("a")).toHaveAttribute("href", `/bonuses?bonus=${bonus.id}`);
   });
 
@@ -100,10 +102,9 @@ describe("PlanCard conditions chip", () => {
     expect(screen.queryByText(/conditions$/)).not.toBeInTheDocument();
   });
 
-  test("collapses a bank duplicate of a doc condition so the chip counts rendered rows, not raw entries", () => {
-    // Three raw conditions (a doc/bank pair sharing kind+amount+days, plus one
-    // distinct condition) collapse to two — the chip must report the collapsed
-    // count, matching what ConditionList actually renders in the drawer.
+  test("counts neither a bank paraphrase nor a note, so the chip matches the rendered checklist", () => {
+    // Three raw conditions: a doc/bank pair describing the same direct deposit, which
+    // collapses to one, plus a new-customer rule, which is a note rather than a task.
     const bonus: Bonus = {
       ...bonusById("wells-fargo-500"),
       dd: { required: false, amount: null, deadline_days: null },
@@ -141,7 +142,12 @@ describe("PlanCard conditions chip", () => {
 
     renderCard(makeItem({ bonus }));
 
-    expect(screen.getByText(t.plan.badges.conditions(2))).toBeInTheDocument();
+    expect(screen.getByText(t.plan.badges.conditions(1))).toBeInTheDocument();
+  });
+
+  test("the chip is singular for one condition", () => {
+    expect(t.plan.badges.conditions(1)).toBe("1 condition");
+    expect(t.plan.badges.conditions(3)).toBe("3 conditions");
   });
 });
 

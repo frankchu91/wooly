@@ -8,7 +8,7 @@ import { useStore } from "../../state/store";
 import { usePlan } from "../../state/usePlan";
 import { Badge, Button, Drawer, MoneyText, dateLabel, money } from "../../ui";
 import { ConditionList } from "../conditions/ConditionList";
-import { visibleConditions } from "../conditions/visibleConditions";
+import { splitConditions } from "../conditions/visibleConditions";
 import { reasonToText } from "../plan/reasonText";
 
 export interface BonusDrawerProps {
@@ -142,6 +142,8 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
   // be a lie, so it's shown disabled with the reason instead.
   const notPlaced = evaluation?.eligible === true && plan != null && !isSkipped && !isInPlan;
 
+  const conditions = splitConditions(bonus);
+
   const bonusId = bonus.id;
   function handleAddToPlan() {
     if (isSkipped) restore(bonusId);
@@ -165,7 +167,7 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
           <h3 className="font-heading text-sm font-semibold text-ink">
             {t.bonuses.conditionsTitle}
           </h3>
-          <ConditionList conditions={visibleConditions(bonus)} />
+          <ConditionList conditions={conditions.checklist} notes={conditions.notes} />
           {bonus.terms.status === "ok" && bonus.offer_url ? (
             <a
               href={bonus.offer_url}

@@ -6,7 +6,7 @@ import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Button, Drawer, Field, MoneyText, dateLabel, monthLabel } from "../../ui";
 import { ConditionList } from "../conditions/ConditionList";
-import { visibleConditions } from "../conditions/visibleConditions";
+import { splitConditions } from "../conditions/visibleConditions";
 import { safeCloseFor } from "./trackerModel";
 
 export interface ItemDrawerProps {
@@ -104,10 +104,12 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
   }
 
   const title = bonus?.title ?? item.bonusId;
-  const conditions = bonus ? visibleConditions(bonus) : [];
+  // A tracked item whose bonus has left the dataset keeps its dates, notes and Remove —
+  // there is simply nothing to tick off.
+  const { checklist, notes } = bonus ? splitConditions(bonus) : { checklist: [], notes: [] };
   const done = new Set(item.conditionsDone);
   const allConditionsDone =
-    conditions.length > 0 && conditions.every((condition) => done.has(condition.id));
+    checklist.length > 0 && checklist.every((condition) => done.has(condition.id));
   const currentIndex = STATUS_ORDER.indexOf(item.status);
   const reachedStages = STATUS_ORDER.slice(0, currentIndex + 1);
   const safeClose = safeCloseFor(item, bonus);
@@ -159,7 +161,8 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
         <section className="flex flex-col gap-2">
           <h3 className={SECTION_HEADING_CLASS}>{t.tracker.conditionsTitle}</h3>
           <ConditionList
-            conditions={conditions}
+            conditions={checklist}
+            notes={notes}
             done={done}
             onToggle={(conditionId) => toggleCondition(item.id, conditionId)}
           />

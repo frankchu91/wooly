@@ -99,6 +99,18 @@ describe("ItemDrawer — conditions", () => {
     expect(storedItem()?.dates.requirements_met).toBe("2026-09-14");
   });
 
+  test("a non-actionable condition is a note, not a checkbox", () => {
+    renderDrawer(trackedItem());
+
+    // "Offer is for new consumer checking customers only." is a fact about the offer.
+    expect(screen.getAllByRole("checkbox")).toHaveLength(2);
+    expect(screen.getByText(t.conditions.alsoNote(1))).toBeInTheDocument();
+    expect(
+      screen.queryByRole("checkbox", { name: /new consumer checking customers/ }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText(/new consumer checking customers/)).toBeInTheDocument();
+  });
+
   test("the button is not offered for an item that has already moved on", () => {
     renderDrawer(
       trackedItem({

@@ -8,7 +8,7 @@ import type { PlanItem, Warning } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Badge, BankAvatar, Card, MoneyText, dateLabel, money } from "../../ui";
-import { visibleConditions } from "../conditions/visibleConditions";
+import { splitConditions } from "../conditions/visibleConditions";
 import { warningToText } from "./reasonText";
 
 export interface PlanCardProps {
@@ -102,7 +102,8 @@ export function PlanCard({ item }: PlanCardProps) {
 
   const needsDD = bonus.dd.required !== false;
   const inlineWarnings = warnings.filter((warning) => INLINE_WARNINGS.includes(warning));
-  const conditionCount = visibleConditions(bonus).length;
+  // Only the tickable requirements are counted — a fee note isn't a condition to meet.
+  const conditionCount = splitConditions(bonus).checklist.length;
 
   return (
     <Card as="li" className="relative flex flex-col gap-3">

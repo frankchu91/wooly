@@ -104,7 +104,7 @@ export const t = {
       dd: (amount: string) => `${amount} DD`,
       ddAssumed: (amt: string) => `~${amt} DD`,
       unverified: "Unverified",
-      conditions: (n: number) => `${n} conditions`,
+      conditions: (n: number) => (n === 1 ? "1 condition" : `${n} conditions`),
     },
     empty: {
       h: "Nothing fits yet",
@@ -163,10 +163,11 @@ export const t = {
       planned: "Planned",
       accounts: (n: number) => (n === 1 ? "1 account" : `${n} accounts`),
       showClosed: "Show closed",
-      requirements: (done: number, total: number) => `${done}/${total} ✓`,
+      requirements: (done: number, total: number) => `${done}/${total}`,
       daysUntilClose: (n: number) => `${n} days`,
       noRows: "Every tracked account is closed — turn on “Show closed” to see them.",
       rowLabel: (title: string) => `Open ${title}`,
+      missingOffer: "Offer no longer listed",
     },
     pipeline: {
       title: "Pipeline",
@@ -251,6 +252,8 @@ export const t = {
       count: (n: number) => `${n}×`,
     },
     none: "No conditions listed — check the offer",
+    // The heading of the drawer's "things to know, not things to do" disclosure.
+    alsoNote: (n: number) => `Also note (${n})`,
   },
   bonuses: {
     title: "All offers",

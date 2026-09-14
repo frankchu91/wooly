@@ -4,7 +4,7 @@ import { describe, expect, test, vi } from "vitest";
 
 import type { Condition } from "../../engine/types";
 import { t } from "../../i18n/en";
-import { collapseSimilar, ConditionList } from "./ConditionList";
+import { ConditionList } from "./ConditionList";
 
 const docDD: Condition = {
   id: "doc-dd",
@@ -16,10 +16,13 @@ const docDD: Condition = {
   source: "doc",
 };
 
-const bankDD: Condition = {
-  ...docDD,
-  id: "bank-dd",
-  text: "Set up direct deposit of $500 within 60 days",
+const fee: Condition = {
+  id: "fee",
+  kind: "fee",
+  text: "The monthly service fee is $15",
+  amount: 15,
+  days: null,
+  count: null,
   source: "bank",
 };
 
@@ -86,18 +89,29 @@ describe("ConditionList", () => {
   });
 });
 
-describe("collapseSimilar", () => {
-  test("drops a bank duplicate of a doc condition sharing kind, amount, and days", () => {
-    expect(collapseSimilar([docDD, bankDD])).toEqual([docDD]);
+describe("ConditionList — notes", () => {
+  test("renders notes read-only under a collapsed disclosure with their count", () => {
+    render(<ConditionList conditions={[docDD]} notes={[fee]} onToggle={vi.fn()} />);
+
+    const summary = screen.getByText(t.conditions.alsoNote(1));
+    expect(summary).toBeInTheDocument();
+    expect(summary.closest("details")).not.toHaveAttribute("open");
+
+    // The note is text with a source badge, never a task with a checkbox.
+    expect(screen.getByText(fee.text)).toBeInTheDocument();
+    expect(screen.getAllByRole("checkbox")).toHaveLength(1);
   });
 
-  test("keeps conditions whose amount or days differ", () => {
-    const otherDays: Condition = { ...bankDD, id: "bank-dd-2", days: 90 };
-    expect(collapseSimilar([docDD, otherDays])).toEqual([docDD, otherDays]);
+  test("no disclosure when there are no notes", () => {
+    render(<ConditionList conditions={[docDD]} notes={[]} />);
+
+    expect(screen.queryByText(/^Also note/)).not.toBeInTheDocument();
   });
 
-  test("keeps conditions with null amount/days even when kind matches — nothing to compare", () => {
-    const bareKeepOpen: Condition = { ...keepOpen, id: "keep-2", days: null };
-    expect(collapseSimilar([keepOpen, bareKeepOpen])).toEqual([keepOpen, bareKeepOpen]);
+  test("an empty checklist still shows its notes alongside the empty message", () => {
+    render(<ConditionList conditions={[]} notes={[fee]} />);
+
+    expect(screen.getByText(t.conditions.none)).toBeInTheDocument();
+    expect(screen.getByText(fee.text)).toBeInTheDocument();
   });
 });

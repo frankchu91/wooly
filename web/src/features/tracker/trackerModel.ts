@@ -6,25 +6,27 @@ import { STATUS_ORDER } from "../../engine/types";
 import type { Bonus, TrackedItem } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { dateLabel, monthLabel } from "../../ui";
-import { visibleConditions } from "../conditions/visibleConditions";
+import { splitConditions } from "../conditions/visibleConditions";
 
 /** A DD deadline this close needs to shout — it's the one date on the tracker the user
  * can still miss by doing nothing. */
 export const DD_WARNING_DAYS = 14;
 
-/** How many of a bonus's visible conditions the user has ticked off, out of how many
- * there are. Counts against `visibleConditions` (not the raw `bonus.conditions`) so the
- * denominator always matches the checklist the drawer actually renders. */
+/** How many of a bonus's requirements the user has ticked off, out of how many there are.
+ * Counts against `splitConditions`'s checklist — not the raw `bonus.conditions`, and not
+ * the notes — so the denominator always matches the boxes the drawer actually renders.
+ * Ids in `conditionsDone` that are no longer on the checklist (a condition the scraper
+ * has since dropped or reworded) are ignored rather than counted. */
 export function requirementsProgress(
   item: TrackedItem,
   bonus: Bonus | undefined,
 ): { done: number; total: number } {
   if (!bonus) return { done: 0, total: 0 };
-  const conditions = visibleConditions(bonus);
+  const { checklist } = splitConditions(bonus);
   const done = new Set(item.conditionsDone);
   return {
-    done: conditions.filter((condition) => done.has(condition.id)).length,
-    total: conditions.length,
+    done: checklist.filter((condition) => done.has(condition.id)).length,
+    total: checklist.length,
   };
 }
 
