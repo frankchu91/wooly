@@ -1,22 +1,46 @@
 import { createBrowserRouter } from "react-router-dom";
+import type { NonIndexRouteObject, RouteObject } from "react-router-dom";
+
 import { BonusesPage } from "./features/bonuses/BonusesPage";
 import { Landing } from "./features/landing/Landing";
+import { ErrorPage } from "./features/layout/ErrorPage";
 import { Layout } from "./features/layout/Layout";
 import { Onboarding } from "./features/onboarding/Onboarding";
 import { PlanPage } from "./features/plan/PlanPage";
 import { SettingsPage } from "./features/settings/SettingsPage";
 import { TrackerPage } from "./features/tracker/TrackerPage";
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      { index: true, element: <Landing /> },
-      { path: "start", element: <Onboarding /> },
-      { path: "plan", element: <PlanPage /> },
-      { path: "tracker", element: <TrackerPage /> },
-      { path: "bonuses", element: <BonusesPage /> },
-      { path: "settings", element: <SettingsPage /> },
-    ],
-  },
-]);
+import { t } from "./i18n/en";
+import { Button, EmptyState } from "./ui";
+
+function NotFound() {
+  return <EmptyState title={t.errors.notFound} action={<Button to="/">{t.errors.home}</Button>} />;
+}
+
+/**
+ * The shared error boundary, attached to every route rather than just the root.
+ *
+ * React Router renders a route's `errorElement` in place of *that* route's element, so
+ * attaching one per child keeps the persistent shell (header, nav, footer) around the
+ * error — the user can navigate away from a broken page instead of being stranded. The
+ * root keeps one too, as the last resort if the shell itself throws.
+ */
+export const errorElement = <ErrorPage />;
+
+export const rootRoute: NonIndexRouteObject = {
+  path: "/",
+  element: <Layout />,
+  errorElement,
+  children: [
+    { index: true, element: <Landing />, errorElement },
+    { path: "start", element: <Onboarding />, errorElement },
+    { path: "plan", element: <PlanPage />, errorElement },
+    { path: "tracker", element: <TrackerPage />, errorElement },
+    { path: "bonuses", element: <BonusesPage />, errorElement },
+    { path: "settings", element: <SettingsPage />, errorElement },
+    { path: "*", element: <NotFound />, errorElement },
+  ],
+};
+
+export const routes: RouteObject[] = [rootRoute];
+
+export const router = createBrowserRouter(routes);

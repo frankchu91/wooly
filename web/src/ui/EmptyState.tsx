@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 export interface EmptyStateProps {
   emoji?: string;
   title: string;
-  body: string;
+  /** Optional — some empty states (a 404, say) say everything in the title. */
+  body?: string;
   action?: ReactNode;
 }
 
@@ -14,7 +15,7 @@ export function EmptyState({ emoji = "🐑", title, body, action }: EmptyStatePr
         {emoji}
       </span>
       <h3 className="font-heading text-lg font-semibold text-ink">{title}</h3>
-      <p className="max-w-sm text-sm text-muted">{body}</p>
+      {body ? <p className="max-w-sm text-sm text-muted">{body}</p> : null}
       {action ? <div className="mt-3">{action}</div> : null}
     </div>
   );

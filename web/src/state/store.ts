@@ -160,6 +160,9 @@ const normalizePersisted = (persisted: unknown): PersistedSlice => {
   };
 };
 
+/** The single localStorage key everything the user owns is written to. */
+export const STORAGE_KEY = "woolly.v1";
+
 export const useStore = create<State>()(
   persist(
     (set, get) => ({
@@ -232,7 +235,7 @@ export const useStore = create<State>()(
       },
     }),
     {
-      name: "woolly.v1",
+      name: STORAGE_KEY,
       version: 1,
       partialize: (state) => ({
         profile: state.profile,
