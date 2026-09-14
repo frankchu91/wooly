@@ -140,6 +140,8 @@ export const t = {
     dateFor: (s: string) => `When did you mark "${s}"?`,
     daysLeft: (n: number) => `${n} days left`,
     overdue: "Overdue",
+    untrack: "Remove",
+    progress: "Progress",
     empty: {
       h: "No bonuses tracked yet",
       body: 'Build a plan and press "Track this plan" to start.',
