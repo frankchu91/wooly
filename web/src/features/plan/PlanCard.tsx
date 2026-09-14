@@ -1,5 +1,6 @@
 import { MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 import type { PlanItem } from "../../engine/types";
 import { t } from "../../i18n/en";
@@ -18,6 +19,14 @@ export function PlanCard({ item }: PlanCardProps) {
   const skip = useStore((state) => state.skip);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const itemRefs = useRef<Array<HTMLElement | null>>([]);
+
+  // Moves focus into the popover as soon as it opens, regardless of whether it was
+  // opened by mouse or keyboard — standard menu-button behaviour.
+  useEffect(() => {
+    if (menuOpen) itemRefs.current[0]?.focus();
+  }, [menuOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -27,17 +36,51 @@ export function PlanCard({ item }: PlanCardProps) {
         setMenuOpen(false);
       }
     }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setMenuOpen(false);
-    }
 
     document.addEventListener("mousedown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("mousedown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
+
+  function closeMenu() {
+    setMenuOpen(false);
+    triggerRef.current?.focus();
+  }
+
+  function focusItem(index: number) {
+    const count = itemRefs.current.length;
+    const wrapped = ((index % count) + count) % count;
+    itemRefs.current[wrapped]?.focus();
+  }
+
+  function handleMenuKeyDown(event: ReactKeyboardEvent<HTMLUListElement>) {
+    const currentIndex = itemRefs.current.findIndex((el) => el === document.activeElement);
+    switch (event.key) {
+      case "Escape":
+        event.preventDefault();
+        closeMenu();
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        focusItem(currentIndex + 1);
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        focusItem(currentIndex - 1);
+        break;
+      case "Home":
+        event.preventDefault();
+        focusItem(0);
+        break;
+      case "End":
+        event.preventDefault();
+        focusItem(itemRefs.current.length - 1);
+        break;
+      default:
+        break;
+    }
+  }
 
   const feeAvoidable =
     bonus.monthly_fee === null ||
@@ -46,7 +89,7 @@ export function PlanCard({ item }: PlanCardProps) {
 
   function handleSkip() {
     skip(bonus.id);
-    setMenuOpen(false);
+    closeMenu();
   }
 
   return (
@@ -61,8 +104,9 @@ export function PlanCard({ item }: PlanCardProps) {
         </div>
         <div ref={menuRef} className="relative shrink-0">
           <button
+            ref={triggerRef}
             type="button"
-            aria-label={t.plan.details}
+            aria-label={t.plan.moreActions}
             aria-haspopup="menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
@@ -73,15 +117,19 @@ export function PlanCard({ item }: PlanCardProps) {
           {menuOpen ? (
             <ul
               role="menu"
+              onKeyDown={handleMenuKeyDown}
               className="absolute right-0 top-full z-10 mt-1 w-40 rounded-control bg-surface p-1 shadow-card"
             >
               <li role="none">
                 <a
+                  ref={(el) => {
+                    itemRefs.current[0] = el;
+                  }}
                   role="menuitem"
                   href={bonus.doc_url}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   className="block rounded-control px-3 py-2 text-sm text-ink transition-colors duration-200 ease-out hover:bg-mint/60"
                 >
                   {t.plan.details}
@@ -89,6 +137,9 @@ export function PlanCard({ item }: PlanCardProps) {
               </li>
               <li role="none">
                 <button
+                  ref={(el) => {
+                    itemRefs.current[1] = el;
+                  }}
                   type="button"
                   role="menuitem"
                   onClick={handleSkip}

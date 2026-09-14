@@ -83,12 +83,17 @@ describe("PlanPage", () => {
       .closest("li");
     expect(card).not.toBeNull();
 
-    await user.click(within(card as HTMLLIElement).getByRole("button", { name: t.plan.details }));
+    await user.click(
+      within(card as HTMLLIElement).getByRole("button", { name: t.plan.moreActions }),
+    );
     await user.click(within(card as HTMLLIElement).getByRole("menuitem", { name: t.plan.skip }));
 
     expect(
       within(timeline as HTMLOListElement).queryByText(/Wells Fargo \$500/),
     ).not.toBeInTheDocument();
+
+    // Skipped rows only mount once the accordion is open.
+    await user.click(screen.getByText(/^Skipped \(/));
 
     const restoreButton = screen.getByRole("button", { name: t.plan.restore });
     const skippedRow = restoreButton.closest("li");

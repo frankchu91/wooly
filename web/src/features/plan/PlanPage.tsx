@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useData } from "../../data/DataContext";
@@ -22,9 +22,14 @@ export function PlanPage() {
   const updateProfile = useStore((state) => state.updateProfile);
   const trackPlan = useStore((state) => state.trackPlan);
   const plan = usePlan(data.bonuses);
+  // Guards against StrictMode's dev-mode double-invoke of effects (mount → cleanup →
+  // mount) firing the toast twice for a single redirect.
+  const redirectedRef = useRef(false);
 
   useEffect(() => {
     if (profile) return;
+    if (redirectedRef.current) return;
+    redirectedRef.current = true;
     toast(t.common.needProfile);
     navigate("/start");
   }, [profile, navigate]);

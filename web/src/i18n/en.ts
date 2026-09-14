@@ -86,6 +86,7 @@ export const t = {
     ddUsed: (used: string, cap: string) => `${used} of ${cap} DD`,
     skip: "Skip this one",
     details: "Details",
+    moreActions: "More actions",
     track: "Track this plan",
     tracked: "Added to tracker",
     skipped: (n: number) => `Skipped (${n})`,
