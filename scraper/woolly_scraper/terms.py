@@ -50,6 +50,31 @@ _DOLLAR_RE = re.compile(r"\$")
 _MAX_DOLLAR_FIGURES = 3
 _MAX_UPPER_RATIO = 0.3
 
+# A6: a banner headline shouted in caps ("BANK OF AMERICA ADVANTAGE BANKING New checking
+# customers …") runs on into ordinary sentence case, so the whole-sentence uppercase
+# ratio above never catches it. Look at the opening words instead.
+_LEADING_WINDOW = 40
+_MIN_CAPS_RUN = 3
+_WORD_RE = re.compile(r"[A-Za-z][A-Za-z'’]*")
+_ALL_CAPS_WORD_RE = re.compile(r"[A-Z]{3,}$")
+
+# A5: a bank sentence with no figure attached is only a requirement if it reads like an
+# instruction; anything else on those pages is prose about the product. Shared, verbatim,
+# with the web's `splitConditions` so the two agree on what "actionable" means.
+_REQUIREMENT_VERB_RE = re.compile(
+    r"^(?:Set up|Receive|Make|Maintain|Complete|Keep|Deposit|Open|Only new|Must|You must)\b"
+)
+
+
+def _has_leading_caps_run(sentence: str) -> bool:
+    """True when the sentence opens with a run of >= 3 all-caps words of >= 3 letters."""
+    run = 0
+    for word in _WORD_RE.findall(sentence[:_LEADING_WINDOW]):
+        run = run + 1 if _ALL_CAPS_WORD_RE.match(word) else 0
+        if run >= _MIN_CAPS_RUN:
+            return True
+    return False
+
 
 def _is_bank_noise(sentence: str) -> bool:
     if "|" in sentence:
@@ -59,8 +84,17 @@ def _is_bank_noise(sentence: str) -> bool:
         return True
     if len(_DOLLAR_RE.findall(sentence)) > _MAX_DOLLAR_FIGURES:
         return True
+    if _has_leading_caps_run(sentence):
+        return True
     letters = [ch for ch in sentence if ch.isalpha()]
     return bool(letters) and sum(1 for ch in letters if ch.isupper()) / len(letters) > _MAX_UPPER_RATIO
+
+
+def is_actionable(condition: Condition) -> bool:
+    """A5: keep a bank condition only if it carries a figure or reads as an instruction."""
+    if condition.amount is not None or condition.days is not None or condition.count is not None:
+        return True
+    return bool(_REQUIREMENT_VERB_RE.match(condition.text))
 
 
 class TermsFetcher:
@@ -143,9 +177,10 @@ def parse_terms_page(html: str) -> list[Condition]:
 
     This duplicates `conditions.extract_conditions`'s split/classify/dedupe/cap loop
     rather than calling it, so `_is_bank_noise` can reject page-furniture sentences
-    (nav breadcrumbs, UI chrome, pricing-table fragments) before classification —
-    bank-only; the `doc` extraction path in `post_page.py` still calls
-    `extract_conditions` directly and is unaffected.
+    (nav breadcrumbs, UI chrome, pricing-table fragments, caps-run banner headlines)
+    before classification, and `is_actionable` can drop everything that classified but
+    names no figure and issues no instruction — both bank-only; the `doc` extraction path
+    in `post_page.py` still calls `extract_conditions` directly and is unaffected.
     """
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup(_STRIP_TAGS):
@@ -157,7 +192,7 @@ def parse_terms_page(html: str) -> list[Condition]:
         if _is_bank_noise(sentence):
             continue
         c = classify_sentence(sentence, "bank")
-        if c is None or c.id in seen:
+        if c is None or not is_actionable(c) or c.id in seen:
             continue
         seen.add(c.id)
         out.append(c)

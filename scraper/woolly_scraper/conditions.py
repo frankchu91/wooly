@@ -30,6 +30,22 @@ Wells Fargo fixture (round 1 of review):
    `balance` requires an explicit maintain/minimum/average/daily qualifier or
    "balance of $" — a bare "balance" or "purchase" elsewhere in a sentence (e.g.
    marketing/boilerplate) no longer classifies it.
+
+Round 2 (controller UX walkthrough) added, in the order they run:
+
+A1/A2. Every sentence is normalised first: `"$ 500"` → `"$500"` (so the
+   reward-figure skip and the amount parse both see one token), and leading list
+   markers (`*`, `**`, `2 `, `•`, `-`, `–`) are stripped, since the bank pages
+   flatten numbered steps into the sentence stream ("2 Deposit Make $1,000 …").
+A7. A "you lose the bonus if you close early" sentence becomes a `keep_open`
+   condition with its day count instead of being thrown away — it is a real
+   requirement phrased as a threat, so it is checked *before* the negation gate.
+A3. Pointer/informational sentences ("Learn how to…", "Talk with a banker…",
+   "…are separate from…") name no requirement and yield None.
+A4. A fee-waiver sentence ("the monthly service fee can be avoided with a $1,500
+   minimum daily balance") is a `fee`, not a `balance`/`deposit` requirement — the
+   waiver route is not something the bonus asks of you. Its `amount` is the fee
+   itself when the sentence states one, never the waiver threshold.
 """
 
 from __future__ import annotations
@@ -61,6 +77,47 @@ _NEGATION_RE = re.compile(
     r"|\bexcluded\b"
     r"|reproduced,?\s*purchased,?\s*sold,?\s*transferred"
     r"|zero balance without prior notice",
+    re.IGNORECASE,
+)
+
+# A1: bank pages often render a money figure as two tokens ("$ 500"); collapse the gap
+# before anything reads the sentence. A2: leading list markers survive the flattening of
+# a bank page's numbered steps into running text ("2 Deposit Make …", "** The …").
+_MONEY_SPACE_RE = re.compile(r"\$\s+(\d)")
+_LEADING_MARKER_RE = re.compile(r"^(?:\*+|\d+\s+(?=[A-Z])|[•\-–]\s*)")
+
+# A3: sentences that point at something else (a banker, a disclosure, another page) or
+# merely describe what the bank does — never a requirement the user can act on.
+_POINTER_START_RE = re.compile(
+    r"^(?:Learn how|Talk with|See the|Visit|Call|Ask|Contact|For (?:more|complete))\b",
+    re.IGNORECASE,
+)
+_POINTER_CONTAINS_RE = re.compile(
+    r"for complete (?:checking )?account details"
+    r"|Fee and Information Schedule"
+    r"|Deposit Account Agreement"
+    r"|will be automatically"
+    r"|on the last business day"
+    r"|are separate from",
+    re.IGNORECASE,
+)
+
+# A4: a fee-waiver sentence is about avoiding the monthly fee, not about a bonus
+# requirement — it is a `fee` note whatever balance/deposit words it happens to contain.
+_FEE_WAIVER_RE = re.compile(r"\b(?:avoid\w*|waiv\w*)\b", re.IGNORECASE)
+_FEE_WORD_RE = re.compile(r"\bfees?\b", re.IGNORECASE)
+_FEE_AMOUNT_RE = re.compile(
+    r"\$\s?([\d,]+)\s+(?:monthly\s+)?(?:service|maintenance)\s+fee", re.IGNORECASE
+)
+
+# A7: "the bonus will not be paid if the account is closed within 90 days" is a
+# keep-open requirement, not boilerplate — matched before the negation gate below.
+_CLOSE_WINDOW_RE = re.compile(
+    r"(?:closed?|closure)\b[^.]{0,40}\b(?:within|before|in the first)\s+(\d+)\s+days",
+    re.IGNORECASE,
+)
+_FORFEIT_RE = re.compile(
+    r"not be paid|will not receive|\bforfeit\w*\b|\blose\b",
     re.IGNORECASE,
 )
 
@@ -131,7 +188,47 @@ def _parse_amount(text: str, kind: str) -> int | None:
     return None
 
 
+def normalize_sentence(text: str) -> str:
+    """A1 + A2: collapse `"$ 500"` to `"$500"` and strip any leading list marker.
+
+    The marker strip repeats, because a bank page can stack them ("** 2 Deposit …").
+    """
+    text = _MONEY_SPACE_RE.sub(r"$\1", text).strip()
+    for _ in range(3):
+        stripped = _LEADING_MARKER_RE.sub("", text).lstrip()
+        if stripped == text:
+            break
+        text = stripped
+    return text
+
+
+def _is_pointer(text: str) -> bool:
+    """A3: the sentence points elsewhere or narrates the bank's own bookkeeping."""
+    return bool(_POINTER_START_RE.search(text) or _POINTER_CONTAINS_RE.search(text))
+
+
+def _is_fee_waiver(text: str) -> bool:
+    """A4: the sentence is about avoiding/waiving a fee."""
+    return bool(_FEE_WAIVER_RE.search(text) and _FEE_WORD_RE.search(text))
+
+
+def _fee_amount(text: str) -> int | None:
+    """The stated monthly/service/maintenance fee, never the waiver threshold."""
+    m = _FEE_AMOUNT_RE.search(text)
+    return int(m.group(1).replace(",", "")) if m else None
+
+
+def _negated_keep_open_days(text: str) -> int | None:
+    """A7: days from a "bonus is forfeited if closed within N days" sentence."""
+    m = _CLOSE_WINDOW_RE.search(text)
+    if not m or not _FORFEIT_RE.search(text):
+        return None
+    return int(m.group(1))
+
+
 def _kind_for(text: str) -> str | None:
+    if _is_fee_waiver(text):
+        return "fee"
     for kind, pattern in _KIND_CHECKS:
         if kind == "deposit":
             if _DEPOSIT_WORD_RE.search(text) and "$" in text:
@@ -146,15 +243,26 @@ def classify_sentence(text: str, source: str) -> Condition | None:
     """Classify one sentence into a `Condition`, or `None` if it names no requirement."""
     if not text:
         return None
+    text = normalize_sentence(text)
+    if not text:
+        return None
+    days = _negated_keep_open_days(text)
+    if days is not None:
+        # A7, ahead of the negation gate: "…will not be paid if closed within 90 days"
+        # is a keep-open requirement wearing a negation's clothes.
+        return Condition(kind="keep_open", text=text, days=days, source=source)
+    if _is_pointer(text):
+        return None
     if _NEGATION_RE.search(text):
         return None
     kind = _kind_for(text)
     if kind is None:
         return None
+    amount = _fee_amount(text) if _is_fee_waiver(text) else _parse_amount(text, kind)
     return Condition(
         kind=kind,
         text=text,
-        amount=_parse_amount(text, kind),
+        amount=amount,
         days=_parse_days(text),
         count=_parse_count(text),
         source=source,

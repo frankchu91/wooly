@@ -1,6 +1,11 @@
 import pytest
 
-from woolly_scraper.conditions import classify_sentence, extract_conditions, split_sentences
+from woolly_scraper.conditions import (
+    classify_sentence,
+    extract_conditions,
+    normalize_sentence,
+    split_sentences,
+)
 from woolly_scraper.models import Condition
 
 WF_DD_SENTENCE = (
@@ -19,7 +24,10 @@ WF_DD_SENTENCE = (
         ("Make at least 2 qualifying direct deposits totaling $500", "direct_deposit", 500, None, 2),
         ("Complete 5 debit card transactions within 60 days of account opening", "transactions", None, 60, 5),
         ("Deposit $300 in new funds within 30 days of account opening", "deposit", 300, 30, None),
-        ("Maintain a minimum balance of $1,500 to avoid the monthly fee", "balance", 1500, None, None),
+        # A fee waiver, not a bonus requirement (round 2, rule A4) — the $1,500 is the
+        # waiver threshold, so it is deliberately not carried as the condition's amount.
+        ("Maintain a minimum balance of $1,500 to avoid the monthly fee", "fee", None, None, None),
+        ("Maintain a minimum daily balance of $1,500 in the account", "balance", 1500, None, None),
         ("There is a $25 fee if you close the account within 180 days of opening", "fee", 25, 180, None),
         ("This bonus is not available to customers who previously held an account here", "new_customer", None, None, None),
         (
@@ -104,6 +112,111 @@ def test_classify_sentence_transactions_and_balance_require_a_requirement_verb()
     ) is None
     c = classify_sentence("You must make at least 3 qualifying transactions with your debit card each month.", "doc")
     assert c is not None and c.kind == "transactions" and c.count == 3
+
+
+# --- Round-2 review fixes (controller UX walkthrough): A1 money spacing, A2 leading
+# markers, A3 pointer sentences, A4 fee waivers, A7 negated keep-open. ---
+
+
+def test_normalize_sentence_collapses_split_money_figures():
+    # A1: "$ 500" is one figure, and the reward-figure skip only sees it as one if the
+    # gap is closed before classification.
+    assert normalize_sentence("Get a $ 500 bonus for opening") == "Get a $500 bonus for opening"
+
+
+@pytest.mark.parametrize(
+    "raw, expected",
+    [
+        ("* How to qualify for this offer", "How to qualify for this offer"),
+        ("** The monthly service fee is $15", "The monthly service fee is $15"),
+        ("2 Deposit Make $1,000 in deposits", "Deposit Make $1,000 in deposits"),
+        ("• Keep the account open for 90 days", "Keep the account open for 90 days"),
+        ("- Receive a direct deposit", "Receive a direct deposit"),
+        ("– Receive a direct deposit", "Receive a direct deposit"),
+        # not a marker: a figure that opens a real sentence keeps its place
+        ("90 days from account opening", "90 days from account opening"),
+    ],
+)
+def test_normalize_sentence_strips_leading_markers(raw, expected):
+    assert normalize_sentence(raw) == expected
+
+
+def test_classify_sentence_normalises_before_classifying():
+    c = classify_sentence(
+        "2 Deposit Make $ 1,000 or more in qualifying direct deposits within 90 days.", "bank"
+    )
+    assert c is not None
+    assert c.text.startswith("Deposit Make $1,000")
+    assert c.kind == "direct_deposit" and c.amount == 1000 and c.days == 90
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Learn how to avoid the $15 monthly service fee on this checking account today.",
+        'Talk with a banker or see the "Consumer Account Fee and Information Schedule" for details.',
+        "See the Deposit Account Agreement for the full terms that apply to this account.",
+        "Visit a branch to open your new checking account and claim the bonus offer today.",
+        "Call us at the number on the back of your card to set up your direct deposit.",
+        "Ask a banker about the qualifying direct deposit requirement for this bonus offer.",
+        "Contact your employer's payroll department to route your direct deposit here.",
+        "For more information about the bonus requirements, read the full offer terms.",
+        "Please read the terms at wellsfargo.com for complete checking account details today.",
+        "The actions required for this bonus are separate from the actions to avoid the fee.",
+        "On the last business day of each fee period balances in eligible accounts are totaled.",
+        "Balances in eligible accounts will be automatically totaled at the end of the period.",
+    ],
+)
+def test_classify_sentence_pointer_and_informational_returns_none(text):
+    assert classify_sentence(text, "bank") is None
+
+
+def test_classify_sentence_fee_waiver_with_balance_words_is_a_fee():
+    text = (
+        "The monthly service fee can be avoided with one of the following each fee period: "
+        "$1,500 minimum daily balance."
+    )
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "fee"  # not "balance" — the $1,500 is a waiver route, not a task
+    assert c.amount is None
+
+
+def test_classify_sentence_fee_waiver_carries_the_fee_amount_when_stated():
+    text = "The $15 monthly service fee is waived if you keep qualifying deposit balances."
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "fee" and c.amount == 15
+
+
+def test_classify_sentence_plain_fee_sentence_keeps_its_amount():
+    # No avoid/waive wording, so A4 never fires and the ordinary fee rule applies.
+    c = classify_sentence("There is a $25 fee if you close the account in month one.", "bank")
+    assert c is not None and c.kind == "fee" and c.amount == 25
+
+
+@pytest.mark.parametrize(
+    "text, days",
+    [
+        ("The bonus will not be paid if the account is closed within 90 days of opening.", 90),
+        ("You forfeit the bonus if the account is closed before 180 days have passed.", 180),
+        ("You will not receive the bonus if closure happens in the first 60 days here.", 60),
+        ("You lose the bonus entirely if the account is closed within 120 days of opening.", 120),
+    ],
+)
+def test_classify_sentence_negated_keep_open_becomes_a_keep_open_condition(text, days):
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "keep_open"
+    assert c.days == days
+
+
+def test_classify_sentence_close_window_without_forfeit_wording_is_not_keep_open():
+    # A fee for closing early is a fee, not a keep-open requirement.
+    c = classify_sentence(
+        "There is a $25 fee if you close the account within 180 days of opening.", "doc"
+    )
+    assert c is not None and c.kind == "fee" and c.amount == 25
 
 
 def test_classify_sentence_empty_returns_none():

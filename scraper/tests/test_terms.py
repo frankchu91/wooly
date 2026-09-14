@@ -3,7 +3,14 @@ from pathlib import Path
 import pytest
 import requests
 
-from woolly_scraper.terms import TermsFetcher, _is_bank_noise, parse_terms_page
+from woolly_scraper.models import Condition
+from woolly_scraper.terms import (
+    TermsFetcher,
+    _has_leading_caps_run,
+    _is_bank_noise,
+    is_actionable,
+    parse_terms_page,
+)
 
 FIX = Path(__file__).parent / "fixtures"
 
@@ -54,6 +61,19 @@ def test_parse_terms_page_bank_of_america_fixture_drops_nav_and_ui_chrome_noise(
     assert "within 90 days" in dd.text
     nc = next(c for c in conditions if c.kind == "new_customer")
     assert "Only new checking customers" in nc.text
+
+
+def test_parse_terms_page_bank_of_america_fixture_pinned_set():
+    """Pinned after round 2 (A1–A6): every surviving row names a figure or issues an
+    instruction, and the caps-run banner headline is gone."""
+    html = (FIX / "terms-bank-of-america.html").read_text(encoding="utf-8", errors="ignore")
+    conditions = parse_terms_page(html)
+
+    assert len(conditions) <= 6
+    assert not any(c.text.startswith("BANK OF AMERICA") for c in conditions)
+    assert any(c.kind == "direct_deposit" and c.days == 90 for c in conditions)
+    assert any(c.text.startswith("Only new checking customers") for c in conditions)
+    assert all(is_actionable(c) for c in conditions)
 
 
 # --- _is_bank_noise (bank-only reject filter, applied before classification) ---
@@ -128,6 +148,91 @@ def test_is_bank_noise_normal_requirement_sentence_is_not_noise():
         "Set up and receive Qualifying Direct Deposits into your new account within 90 days "
         "of account opening."
     )
+
+
+# --- A6: leading all-caps run (a banner headline running on into sentence case) ---
+
+
+def test_is_bank_noise_leading_all_caps_banner_headline():
+    assert _is_bank_noise(
+        "BANK OF AMERICA ADVANTAGE BANKING New checking customers choose your cash offer "
+        "and open a new eligible checking account today."
+    )
+
+
+def test_has_leading_caps_run_needs_three_long_words_inside_the_first_40_chars():
+    assert _has_leading_caps_run("FDIC NCUA MEMBER new checking customers open an account")
+    # two is not a run
+    assert not _has_leading_caps_run("FDIC NCUA member new checking customers open an account")
+    # short all-caps words don't count towards the run
+    assert not _has_leading_caps_run("US OF AT new checking customers open an account today")
+    # a caps run that starts past the window is left to the ratio check
+    assert not _has_leading_caps_run(
+        "Open a new eligible checking account today with BANK OF AMERICA ADVANTAGE BANKING"
+    )
+
+
+def test_is_bank_noise_ordinary_capitalised_brand_name_is_not_noise():
+    assert not _is_bank_noise(
+        "Set up and receive Qualifying Direct Deposits into your new Bank of America account "
+        "within 90 days of account opening."
+    )
+
+
+# --- A5: bank-source actionability gate ---
+
+
+def cond(text, **kw) -> Condition:
+    return Condition(kind=kw.pop("kind", "deposit"), text=text, source="bank", **kw)
+
+
+@pytest.mark.parametrize("field", ["amount", "days", "count"])
+def test_is_actionable_any_figure_keeps_the_condition(field):
+    assert is_actionable(cond("Your bonus amount will be based on your deposits.", **{field: 90}))
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Set up a qualifying direct deposit from your employer or pension provider.",
+        "Receive qualifying direct deposits into the new account before the deadline.",
+        "Make qualifying debit card purchases from your new checking account each month.",
+        "Maintain a qualifying minimum daily balance in your new checking account.",
+        "Complete the qualifying activities described in the offer terms and conditions.",
+        "Keep your new checking account open and in good standing until the bonus posts.",
+        "Deposit new money from outside the bank into your new checking account.",
+        "Open a new eligible personal checking account using the offer code shown.",
+        "Only new checking customers can take advantage of this particular offer.",
+        "Must be a new checking customer to qualify for this cash bonus offer.",
+        "You must enroll in the offer before opening your new checking account.",
+    ],
+)
+def test_is_actionable_requirement_verbs_keep_a_figureless_condition(text):
+    assert is_actionable(cond(text))
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Your bonus amount will be based on the total amount of your Qualifying Direct Deposits.",
+        'A "Qualifying Direct Deposit" is a direct deposit of regular monthly income.',
+        "How to qualify for this offer To be eligible: this offer is for new customers.",
+        "The new eligible personal checking account must be open and in good standing.",
+    ],
+)
+def test_is_actionable_drops_figureless_prose(text):
+    assert not is_actionable(cond(text))
+
+
+def test_parse_terms_page_drops_figureless_prose_but_keeps_instructions():
+    html = (
+        "<html><body><p>"
+        "Your bonus amount will be based on the total amount of your Qualifying Direct Deposits. "
+        "Set up and receive Qualifying Direct Deposits into your new checking account soon. "
+        "</p></body></html>"
+    )
+    conditions = parse_terms_page(html)
+    assert [c.text.split()[0] for c in conditions] == ["Set"]
 
 
 # --- TermsFetcher.get: statuses ---
