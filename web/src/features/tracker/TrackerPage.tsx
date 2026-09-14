@@ -1,49 +1,63 @@
+import { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import { useData } from "../../data/DataContext";
+import { ledgerTotals } from "../../engine/conditions";
 import type { Bonus } from "../../engine/types";
 import { t } from "../../i18n/en";
-import { STATUS_ORDER, useStore } from "../../state/store";
-import type { TrackedItem, TrackStatus } from "../../state/store";
-import { Badge, Button, Card, EmptyState, MoneyText } from "../../ui";
-import { TrackedCard } from "./TrackedCard";
+import { useStore } from "../../state/store";
+import { Button, Card, EmptyState } from "../../ui";
+import { ItemDrawer } from "./ItemDrawer";
+import { LedgerTable } from "./LedgerTable";
+import { LedgerTotals } from "./LedgerTotals";
+import { Pipeline } from "./Pipeline";
 
-const STATUSES_COUNTING_AS_EARNED: TrackStatus[] = ["received", "closed"];
-
-/** Sums `bonus_max` (the headline) and `bonus_min` (what a typical user clears) over a
- * set of tracked items, so the caller can show a range where the two diverge. */
-function sumBonuses(
-  items: TrackedItem[],
-  bonuses: Bonus[],
-): { min: number; max: number; differs: boolean } {
-  let min = 0;
-  let max = 0;
-  for (const item of items) {
-    const bonus = bonuses.find((b) => b.id === item.bonusId);
-    max += bonus?.bonus_max ?? 0;
-    min += bonus?.bonus_min ?? bonus?.bonus_max ?? 0;
-  }
-  return { min, max, differs: min !== max };
-}
-
+/**
+ * The tracker (spec §4.3): ledger totals, the spreadsheet-style ledger table, the
+ * five-stage pipeline, and the item drawer — top to bottom, one screen.
+ *
+ * The drawer's selection lives in the URL (`?item=<id>`, mirroring `/bonuses?bonus=`)
+ * so a single tracked account is linkable and the browser's back button closes the
+ * drawer rather than leaving the page.
+ */
 export function TrackerPage() {
   const data = useData();
   const tracker = useStore((state) => state.tracker);
   const profile = useStore((state) => state.profile);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // A received bonus paid what it paid, so "Earned" shows the max outright; anything
-  // still in progress could land anywhere in its range, so that one shows the range.
-  const earned = sumBonuses(
-    tracker.filter((item) => STATUSES_COUNTING_AS_EARNED.includes(item.status)),
-    data.bonuses,
-  );
-  const inProgress = sumBonuses(
-    tracker.filter((item) => !STATUSES_COUNTING_AS_EARNED.includes(item.status)),
-    data.bonuses,
-  );
+  const bonusesById = useMemo(() => {
+    const byId: Record<string, Bonus> = {};
+    for (const bonus of data.bonuses) byId[bonus.id] = bonus;
+    return byId;
+  }, [data.bonuses]);
 
-  const groups = STATUS_ORDER.map((status) => ({
-    status,
-    items: tracker.filter((item) => item.status === status),
-  })).filter((group) => group.items.length > 0);
+  const totals = ledgerTotals(tracker, bonusesById);
+  // One `Date` per render, shared by every child, so every countdown on the page is
+  // measured from the same instant.
+  const today = new Date();
+
+  const selectedId = searchParams.get("item");
+  const selectedItem = selectedId ? (tracker.find((item) => item.id === selectedId) ?? null) : null;
+
+  function openDrawer(id: string) {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("item", id);
+      return next;
+    });
+  }
+
+  function closeDrawer() {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("item");
+        return next;
+      },
+      { replace: true },
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 pb-4">
@@ -57,61 +71,28 @@ export function TrackerPage() {
         />
       ) : (
         <>
-          <Card tone="ink" className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-cream/70">
-                {t.tracker.earned}
-              </p>
-              <div className="mt-1">
-                <MoneyText value={earned.max} size="xl" />
-              </div>
-            </div>
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-cream/70">
-                {t.tracker.inProgress}
-              </p>
-              <div className="mt-1">
-                <MoneyText
-                  value={inProgress.max}
-                  range={inProgress.differs ? [inProgress.min, inProgress.max] : undefined}
-                  size="xl"
-                />
-              </div>
-            </div>
-          </Card>
-
-          <div className="grid gap-6 lg:grid-cols-2">
-            {groups.map((group) => (
-              <section
-                key={group.status}
-                // A lone group would otherwise sit in the left half with nothing beside
-                // it; two or more share the row.
-                className={groups.length === 1 ? "lg:col-span-2" : undefined}
-              >
-                <div className="mb-3 flex items-center gap-2">
-                  <h2 className="font-heading text-lg font-semibold text-ink">
-                    {t.tracker.statuses[group.status]}
-                  </h2>
-                  <Badge>{group.items.length}</Badge>
-                </div>
-                <ul className="flex flex-col gap-3">
-                  {group.items.map((item) => (
-                    <TrackedCard
-                      key={item.id}
-                      item={item}
-                      bonus={data.bonuses.find((b) => b.id === item.bonusId)}
-                    />
-                  ))}
-                </ul>
-              </section>
-            ))}
-          </div>
+          <LedgerTotals totals={totals} />
+          <LedgerTable
+            items={tracker}
+            bonusesById={bonusesById}
+            today={today}
+            onSelect={openDrawer}
+          />
+          <Pipeline items={tracker} bonusesById={bonusesById} today={today} onSelect={openDrawer} />
         </>
       )}
 
       <Card tone="mint">
         <p className="text-sm text-primary-dark">{t.tracker.pro}</p>
       </Card>
+
+      <ItemDrawer
+        item={selectedItem}
+        bonus={selectedItem ? bonusesById[selectedItem.bonusId] : undefined}
+        open={selectedItem != null}
+        onClose={closeDrawer}
+        today={today}
+      />
     </div>
   );
 }

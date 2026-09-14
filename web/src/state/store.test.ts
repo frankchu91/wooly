@@ -270,6 +270,31 @@ describe("setStatus", () => {
   });
 });
 
+describe("setDate", () => {
+  test("corrects the date recorded against a stage without moving the item there", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+    useStore.getState().setStatus("wells-fargo-500", "opened", "2026-09-01");
+    useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-01");
+
+    useStore.getState().setDate("wells-fargo-500", "opened", "2026-09-05");
+
+    const item = useStore.getState().tracker[0];
+    expect(item.dates.opened).toBe("2026-09-05");
+    // The stage pointer and every other recorded date are untouched.
+    expect(item.status).toBe("received");
+    expect(item.dates.received).toBe("2026-11-01");
+  });
+
+  test("ignores an unknown id", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+    const before = useStore.getState().tracker;
+
+    useStore.getState().setDate("nope", "opened", "2026-09-05");
+
+    expect(useStore.getState().tracker[0]).toEqual(before[0]);
+  });
+});
+
 describe("toggleCondition", () => {
   test("ticks a condition id onto conditionsDone, then unticks it", () => {
     useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);

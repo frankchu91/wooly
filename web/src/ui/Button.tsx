@@ -5,7 +5,7 @@ import { cn } from "./cn";
 
 export interface ButtonProps {
   variant?: "primary" | "secondary" | "ghost" | "danger";
-  size?: "md" | "lg";
+  size?: "sm" | "md" | "lg";
   as?: "button" | "link";
   to?: string;
   icon?: ReactNode;
@@ -26,6 +26,9 @@ export const buttonVariantClasses: Record<NonNullable<ButtonProps["variant"]>, s
 };
 
 export const buttonSizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
+  // `sm` is for actions that sit inside a compact card (the tracker's pipeline cards),
+  // where a full-size button would dominate the card it belongs to.
+  sm: "px-3 py-1.5 text-sm",
   md: "px-5 py-3 text-sm",
   lg: "px-6 py-3.5 text-base",
 };

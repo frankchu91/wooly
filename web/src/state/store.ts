@@ -56,6 +56,11 @@ interface State extends PersistedSlice {
    * unlike `advance`, this can move to any stage, not just the next one (e.g. the
    * tracker's "Move to…" menu, or the drawer's per-stage date inputs). */
   setStatus(id: string, status: TrackStatus, dateISO: string): void;
+  /** Corrects the date recorded against one stage without moving the item there — the
+   * drawer's per-stage date inputs use this for every stage the item has already passed
+   * (the input for its *current* stage goes through `setStatus` instead, which is the
+   * action that owns the stage pointer). */
+  setDate(id: string, status: TrackStatus, dateISO: string): void;
   /** Ticks or unticks one condition (by id) on a tracked item's checklist. */
   toggleCondition(id: string, conditionId: string): void;
   /** Sets (or, passing `undefined`, clears) the amount the user says actually posted. */
@@ -290,6 +295,13 @@ export const useStore = create<State>()(
             }
             return next;
           }),
+        })),
+
+      setDate: (id, status, dateISO) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) =>
+            item.id === id ? { ...item, dates: { ...item.dates, [status]: dateISO } } : item,
+          ),
         })),
 
       toggleCondition: (id, conditionId) =>
