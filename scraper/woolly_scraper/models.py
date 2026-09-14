@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import UTC, date, datetime
+from datetime import date
 from typing import Any
 
 
@@ -134,7 +134,7 @@ class Bonus:
             title=d["title"],
             section=d["section"],
             doc_url=d["doc_url"],
-            last_seen=_pd(d.get("last_seen")) or datetime.now(tz=UTC).date(),
+            last_seen=_pd(d["last_seen"]),
             summary=d.get("summary", ""),
             offer_url=d.get("offer_url"),
             bonus_min=d.get("bonus_min"),

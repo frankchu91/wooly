@@ -49,3 +49,12 @@ def test_bonus_from_dict_tolerates_missing_keys():
         "doc_url": "https://www.doctorofcredit.com/x/", "last_seen": "2026-09-13",
     })
     assert b.dd_required is None and b.expiration is None and b.enriched is False
+
+
+def test_bonus_from_dict_requires_last_seen():
+    import pytest
+    with pytest.raises(KeyError):
+        Bonus.from_dict({
+            "id": "x", "bank": "X", "title": "X $100", "section": "checking",
+            "doc_url": "https://www.doctorofcredit.com/x/",
+        })
