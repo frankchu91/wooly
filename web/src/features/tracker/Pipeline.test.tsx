@@ -1,5 +1,5 @@
 import type { DragEndEvent } from "@dnd-kit/core";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import { fixture } from "../../data/fixture";
@@ -155,6 +155,42 @@ describe("Pipeline drag surface", () => {
     expect(within(columns[1] as HTMLElement).getByRole("heading", { level: 3 })).toHaveTextContent(
       t.tracker.statuses.opened,
     );
+  });
+
+  /** The card used to drag only from its grip, which is a drag most people never find:
+   * they grab the card, nothing moves, and the feature may as well not exist. Pressing
+   * anywhere on the card that isn't one of its controls has to pick it up. */
+  test("pressing the card body and moving picks the card up", () => {
+    const { container } = renderPipeline();
+    const card = within(container.querySelectorAll("ol > li")[1] as HTMLElement).getByRole(
+      "listitem",
+    );
+
+    fireEvent.mouseDown(card, { button: 0, clientX: 0, clientY: 0 });
+    fireEvent.mouseMove(document, { clientX: 0, clientY: 24 });
+
+    expect(card.className).toContain("opacity-40");
+
+    fireEvent.mouseUp(document);
+  });
+
+  /** …and the controls on the card are still controls: a press that lands on one of them
+   * must reach it instead of starting a drag. */
+  test("the menu, the Next button and the date form never start a drag", () => {
+    const { container } = renderPipeline();
+    const card = within(container.querySelectorAll("ol > li")[1] as HTMLElement).getByRole(
+      "listitem",
+    );
+    const menuTrigger = within(card).getByRole("button", { name: t.plan.moreActions });
+
+    fireEvent.mouseDown(menuTrigger, { button: 0, clientX: 0, clientY: 0 });
+    fireEvent.mouseMove(document, { clientX: 0, clientY: 24 });
+
+    expect(card.className).not.toContain("opacity-40");
+
+    fireEvent.mouseUp(document);
+    expect(within(card).getByRole("button", { name: t.tracker.next }).closest("[data-no-drag]")).not
+      .toBeNull();
   });
 });
 

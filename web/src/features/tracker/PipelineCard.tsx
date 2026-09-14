@@ -8,7 +8,7 @@ import { STATUS_ORDER } from "../../engine/types";
 import type { Bonus, TrackedItem, TrackStatus } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
-import { Badge, BankAvatar, Button, Card, MoneyText, cn, dateLabel } from "../../ui";
+import { Badge, BankAvatar, Button, MoneyText, cn, dateLabel } from "../../ui";
 import { requirementsProgress, stageContextLine, toISO } from "./trackerModel";
 
 export interface PipelineCardProps {
@@ -196,12 +196,15 @@ export function PipelineCard({
   }
 
   return (
-    <Card
-      as="li"
+    // A plain `<li>` rather than `Card`: dnd-kit's listeners are a bag of DOM handlers,
+    // and threading them through a presentational component would put dnd-kit's types in
+    // the UI kit. Same classes `Card` would have produced.
+    <li
       ref={setNodeRef}
       onClick={handleCardClick}
+      {...listeners}
       className={cn(
-        "relative flex cursor-pointer flex-col gap-2.5 p-4",
+        "relative flex cursor-grab flex-col gap-2.5 rounded-card bg-surface p-4 shadow-card active:cursor-grabbing",
         // The card stays put as a ghost while it is dragged — the `DragOverlay` copy is
         // the one that follows the pointer, so the original must *not* take dnd-kit's
         // transform as well or the card leaves its column and the collision maths with
@@ -213,20 +216,20 @@ export function PipelineCard({
        * the title they left it about seventy pixels in a five-column pipeline, which is
        * not enough for any bank's name. */}
       <div className="-mx-1 -mb-1 -mt-1.5 flex items-center justify-between">
-        {/* The only part of the card that drags. The rest keeps its click-to-open and
-         * its menu — a card you can't press without moving it is worse than no drag. */}
+        {/* The whole card drags; this says so, and is where a keyboard drag starts —
+         * dnd-kit only accepts its start key on the activator node, so Space on the
+         * title still opens the drawer instead of picking the card up. */}
         <button
           type="button"
           ref={setActivatorNodeRef}
           aria-label={t.tracker.pipeline.dragHandle}
-          {...listeners}
           {...attributes}
           className="shrink-0 cursor-grab touch-none rounded-control p-1 text-muted transition-colors duration-200 ease-out hover:bg-mint/60 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing"
         >
           <GripVertical size={16} aria-hidden="true" />
         </button>
 
-        <div ref={menuRef} className="relative shrink-0">
+        <div ref={menuRef} data-no-drag className="relative shrink-0">
           <button
             ref={triggerRef}
             type="button"
@@ -364,7 +367,7 @@ export function PipelineCard({
       ) : null}
 
       {pending ? (
-        <div data-panel className="flex flex-col gap-2 rounded-control bg-cream p-2.5">
+        <div data-panel data-no-drag className="flex flex-col gap-2 rounded-control bg-cream p-2.5">
           {closingEarly && safeCloseISO ? (
             <p className="text-xs text-coral-dark">
               {t.tracker.closeEarly(dateLabel(safeCloseISO))}
@@ -387,12 +390,12 @@ export function PipelineCard({
           </div>
         </div>
       ) : item.status !== "closed" && nextStatus ? (
-        <div>
+        <div data-no-drag>
           <Button size="sm" onClick={() => startMove({ stage: nextStatus, mode: "advance" })}>
             {t.tracker.next}
           </Button>
         </div>
       ) : null}
-    </Card>
+    </li>
   );
 }

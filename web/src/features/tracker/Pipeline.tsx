@@ -3,14 +3,15 @@ import {
   closestCorners,
   DragOverlay,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   useDroppable,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { useState } from "react";
-import type { ReactNode } from "react";
+import type { MouseEvent as ReactMouseEvent, ReactNode, TouchEvent as ReactTouchEvent } from "react";
 
 import { earliestCloseDate, hasPosted, receivedAmount } from "../../engine/conditions";
 import { STATUS_ORDER } from "../../engine/types";
@@ -38,6 +39,36 @@ const columnHeadingId = (stage: TrackStatus) => `pipeline-column-${stage}`;
 // that never paid adds nothing to its column's sum, though it still sits in the column and
 // counts towards its tally — it is a real account, just not a real payout (X1).
 const isEarnedStage = (status: TrackStatus) => status === "received" || status === "closed";
+
+/**
+ * A whole card is the drag target — a grip you have to hit first is a drag you don't
+ * know you have. The exceptions are the controls that live on the card: its menu, its
+ * Next button and the date form they open. A press that lands on one of those is that
+ * control's press, so they carry `data-no-drag` and this check hands the gesture back.
+ */
+function startsDrag(target: EventTarget | null): boolean {
+  return !(target instanceof Element) || !target.closest("[data-no-drag]");
+}
+
+class CardMouseSensor extends MouseSensor {
+  static activators = [
+    {
+      eventName: "onMouseDown" as const,
+      handler: ({ nativeEvent }: ReactMouseEvent) =>
+        // Button 2 is the context menu; dnd-kit's own mouse sensor skips it too.
+        nativeEvent.button !== 2 && startsDrag(nativeEvent.target),
+    },
+  ];
+}
+
+class CardTouchSensor extends TouchSensor {
+  static activators = [
+    {
+      eventName: "onTouchStart" as const,
+      handler: ({ nativeEvent }: ReactTouchEvent) => startsDrag(nativeEvent.target),
+    },
+  ];
+}
 
 const asStage = (value: unknown): TrackStatus | null =>
   STATUS_ORDER.find((stage) => stage === value) ?? null;
@@ -152,8 +183,11 @@ export function Pipeline({ items, bonusesById, today, onSelect, onUntrack }: Pip
 
   const sensors = useSensors(
     // 6px of travel before a drag starts, so a press that was meant as a click on the
-    // card behind the handle still reads as one.
-    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    // card still reads as one.
+    useSensor(CardMouseSensor, { activationConstraint: { distance: 6 } }),
+    // Touch waits a quarter-second instead: a finger that starts moving before then is
+    // scrolling the column, not dragging a card, and dnd-kit hands the gesture back.
+    useSensor(CardTouchSensor, { activationConstraint: { delay: 250, tolerance: 6 } }),
     useSensor(KeyboardSensor),
   );
 
