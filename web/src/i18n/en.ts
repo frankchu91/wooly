@@ -90,6 +90,13 @@ export const t = {
     tracked: "Added to tracker",
     skipped: (n: number) => `Skipped (${n})`,
     restore: "Restore",
+    badges: {
+      softPull: "Soft pull",
+      hardPull: "Hard pull",
+      noDD: "No DD",
+      noFee: "No fee",
+      dd: (amount: string) => `${amount} DD`,
+    },
     empty: {
       h: "Nothing fits yet",
       body: "Try raising your direct deposit, allowing hard pulls, or including savings bonuses.",
