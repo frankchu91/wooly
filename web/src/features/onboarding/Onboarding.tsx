@@ -54,7 +54,13 @@ export function Onboarding() {
   const [finishing, setFinishing] = useState(false);
   const reduceMotion = useReducedMotion();
 
-  const step = clampStep(searchParams.get("step"));
+  const rawStep = clampStep(searchParams.get("step"));
+  // A profile with no state is meaningless past step 0 — someone opening
+  // `/start?step=1` (or `?step=2`) directly, before ever choosing a state,
+  // must land back on step 0 rather than being able to reach Next/Finish/Skip
+  // with an empty `state`.
+  const hasState = draft.state !== "";
+  const step = hasState ? rawStep : 0;
 
   // Track the previous step to derive the slide direction. Mirrors the
   // "adjust state during render" pattern used by the Select/Slider
@@ -71,6 +77,15 @@ export function Onboarding() {
     return () => window.clearTimeout(id);
   }, [finishing, navigate]);
 
+  // Keep the URL's `?step=` in sync with the forced-to-0 display above, so a
+  // direct link to a later step doesn't linger in the address bar once it's
+  // been rejected.
+  useEffect(() => {
+    if (!hasState && rawStep > 0) {
+      setSearchParams({ step: "0" }, { replace: true });
+    }
+  }, [hasState, rawStep, setSearchParams]);
+
   if (finishing) {
     return <LoadingOverlay />;
   }
@@ -84,6 +99,9 @@ export function Onboarding() {
   }
 
   function handleFinish() {
+    // Defence in depth alongside the step-0 redirect above: never persist a
+    // profile with no state, regardless of how Finish/Skip got triggered.
+    if (!hasState) return;
     setProfile(draft);
     setFinishing(true);
   }
@@ -96,7 +114,7 @@ export function Onboarding() {
     }
   }
 
-  const stepValid = step === 0 ? draft.state !== "" : true;
+  const stepValid = hasState;
 
   const slideInitial = reduceMotion ? {} : { opacity: 0, x: direction * 24 };
   const slideExit = reduceMotion ? {} : { opacity: 0, x: direction * -24 };
@@ -123,7 +141,12 @@ export function Onboarding() {
           ) : step === 1 ? (
             <StepPaycheck draft={draft} onChange={patchDraft} />
           ) : (
-            <StepHistory draft={draft} onChange={patchDraft} onSkip={handleFinish} />
+            <StepHistory
+              draft={draft}
+              onChange={patchDraft}
+              onSkip={handleFinish}
+              skipDisabled={!hasState}
+            />
           )}
         </motion.div>
       </AnimatePresence>

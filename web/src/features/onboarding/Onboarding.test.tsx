@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import { DataContext } from "../../data/DataContext";
 import { fixture } from "../../data/fixture";
+import { defaultProfile } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Onboarding } from "./Onboarding";
@@ -21,9 +22,9 @@ function LocationDisplay() {
   return <div data-testid="location">{location.pathname}</div>;
 }
 
-function renderOnboarding() {
+function renderOnboarding(path = "/start") {
   return render(
-    <MemoryRouter initialEntries={["/start"]}>
+    <MemoryRouter initialEntries={[path]}>
       <DataContext.Provider value={dataset}>
         <Routes>
           <Route path="/start" element={<Onboarding />} />
@@ -99,5 +100,41 @@ describe("Onboarding", () => {
     expect(screen.getByTestId("location")).toHaveTextContent("/plan");
 
     vi.useRealTimers();
+  });
+
+  test("opening /start?step=2 with an empty store clamps to step 0 and blocks Finish", () => {
+    renderOnboarding("/start?step=2");
+
+    expect(
+      screen.getByRole("heading", { level: 2, name: t.onboarding.state.h }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: t.onboarding.finish })).not.toBeInTheDocument();
+    expect(useStore.getState().profile).toBeNull();
+  });
+
+  test("/start?step=99 with an empty store still clamps to step 0, not step 2", () => {
+    renderOnboarding("/start?step=99");
+
+    expect(
+      screen.getByRole("heading", { level: 2, name: t.onboarding.state.h }),
+    ).toBeInTheDocument();
+  });
+
+  test("/start?step=99 with a chosen state clamps to the last step (2)", () => {
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MA" } });
+    renderOnboarding("/start?step=99");
+
+    expect(
+      screen.getByRole("heading", { level: 2, name: t.onboarding.history.h }),
+    ).toBeInTheDocument();
+  });
+
+  test("/start?step=-1 clamps to step 0", () => {
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MA" } });
+    renderOnboarding("/start?step=-1");
+
+    expect(
+      screen.getByRole("heading", { level: 2, name: t.onboarding.state.h }),
+    ).toBeInTheDocument();
   });
 });

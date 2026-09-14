@@ -14,9 +14,7 @@ export function StepState({ draft, onChange }: StepStateProps) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 id="onboarding-state-heading" className="font-heading text-2xl font-semibold text-ink">
-          {t.onboarding.state.h}
-        </h2>
+        <h2 className="font-heading text-2xl font-semibold text-ink">{t.onboarding.state.h}</h2>
         <p className="text-sm text-muted">{t.onboarding.state.help}</p>
       </div>
       {/* The h2 above already states the question visibly, so the label here is

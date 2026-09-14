@@ -9,9 +9,10 @@ export interface StepHistoryProps {
   draft: Profile;
   onChange: (patch: Partial<Profile>) => void;
   onSkip: () => void;
+  skipDisabled?: boolean;
 }
 
-export function StepHistory({ draft, onChange, onSkip }: StepHistoryProps) {
+export function StepHistory({ draft, onChange, onSkip, skipDisabled }: StepHistoryProps) {
   const data = useData();
   // Bumping this key forces the searchable Select to remount (and so clear its
   // internal query text) after every selection — the component has no
@@ -74,6 +75,7 @@ export function StepHistory({ draft, onChange, onSkip }: StepHistoryProps) {
                   aria-label={`${t.onboarding.history.lastBonus} — ${entry.bank}`}
                   className="rounded-control border border-muted/25 bg-surface px-3 py-1.5 text-sm text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 />
+                {entry.lastBonusAt === undefined ? <span>{t.onboarding.history.never}</span> : null}
               </label>
               <Toggle
                 checked={entry.accountOpen}
@@ -90,7 +92,7 @@ export function StepHistory({ draft, onChange, onSkip }: StepHistoryProps) {
       ) : null}
 
       <div>
-        <Button variant="ghost" onClick={onSkip}>
+        <Button variant="ghost" onClick={onSkip} disabled={skipDisabled}>
           {t.onboarding.skip}
         </Button>
       </div>
