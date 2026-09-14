@@ -52,3 +52,15 @@ chip away at 5 posts per run.
 - `--cached-only` — re-parse everything already in `scraper/.cache` (e.g. after a parser
   fix) without making any network requests.
 - `--no-cache` — bypass the cache and always re-fetch, like `list --no-cache`.
+
+`woolly-scrape terms --limit 20` reads each enriched offer's own bank page (`offer_url`) for
+conditions — DoC's post is a summary, but the bank's page is the actual offer terms, and often
+has requirements DoC doesn't restate. It's polite per host rather than globally: a browser-like
+User-Agent, a 20s timeout, and at least 5 seconds between requests to the same bank, with pages
+cached under `scraper/.cache/terms/` (one file per URL). Each offer gets a `terms.status` —
+`ok` (fetched, conditions extracted, even if zero matched), `blocked` (403/429), `error`
+(timeout, connection failure, or other non-2xx), or `none` (no `offer_url` to fetch) — and
+`blocked`/`error` results are never retried for 30 days; `ok` results are refreshed after 30
+days. Bank-sourced conditions (`source: "bank"`) are merged with the DoC-sourced ones already
+on the offer; a fetch that isn't `ok` leaves existing conditions untouched. `--cached-only`
+re-parses cached pages without any network requests.

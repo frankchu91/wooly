@@ -3,6 +3,7 @@ from datetime import date
 from pathlib import Path
 
 from woolly_scraper import cli
+from woolly_scraper.models import Bonus
 
 FIX = Path(__file__).parent / "fixtures"
 
@@ -154,6 +155,126 @@ def test_enrich_cached_only_skips_uncached_entries(tmp_path, monkeypatch):
     assert by_id[good_id]["enriched"] is True
     assert by_id[uncached_id]["enriched"] is False
     assert cached.calls == [wf_url]
+
+
+class FakeTermsFetcher:
+    """Serves canned (status, html) responses for offer_urls, for the `terms` command."""
+
+    def __init__(self, responses, cached_urls=None):
+        self.responses = responses
+        self.cached_urls = set(cached_urls or [])
+        self.calls = []
+
+    def has_cached(self, url):
+        return url in self.cached_urls
+
+    def get(self, url):
+        self.calls.append(url)
+        return self.responses[url]
+
+
+def _terms_bonus(id_, offer_url=None, terms_status=None, terms_fetched_at=None, conditions=None):
+    return Bonus(
+        id=id_,
+        bank="Bank",
+        title=f"{id_} $100",
+        section="checking",
+        doc_url=f"https://www.doctorofcredit.com/{id_}/",
+        last_seen=date(2026, 9, 13),
+        enriched=True,
+        enriched_at=date(2026, 9, 1),
+        offer_url=offer_url,
+        terms_status=terms_status,
+        terms_fetched_at=terms_fetched_at,
+        conditions=conditions or [],
+    )
+
+
+def test_terms_marks_ok_blocked_and_skips_no_offer_url_and_recent_blocked(tmp_path, monkeypatch, capsys):
+    from woolly_scraper.models import Condition
+
+    data = tmp_path / "bonuses.json"
+    doc_cond = Condition(kind="direct_deposit", text="Direct deposit of $500", amount=500, source="doc")
+    bofa_html = (FIX / "terms-bank-of-america.html").read_text(encoding="utf-8", errors="ignore")
+    bonuses = [
+        _terms_bonus("a", offer_url="https://bank-a.test/offer/", conditions=[doc_cond]),
+        _terms_bonus("b", offer_url="https://bank-b.test/offer/"),
+        _terms_bonus("c", offer_url=None, terms_status="none"),
+        _terms_bonus(
+            "d",
+            offer_url="https://bank-d.test/offer/",
+            terms_status="blocked",
+            terms_fetched_at=date(2026, 9, 10),  # 4 days ago: within the 30-day cooldown
+        ),
+        _terms_bonus(
+            "e",
+            offer_url="https://bank-e.test/offer/",
+            terms_status="ok",
+            terms_fetched_at=date(2026, 7, 1),  # >30 days ago: due for a refresh
+        ),
+    ]
+    cli.save(data, bonuses)
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    responses = {
+        "https://bank-a.test/offer/": ("ok", bofa_html),
+        "https://bank-b.test/offer/": ("blocked", ""),
+        "https://bank-e.test/offer/": ("error", ""),
+    }
+    fake = FakeTermsFetcher(responses)
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data)]) == 0
+
+    doc = json.loads(data.read_text())
+    by_id = {b["id"]: b for b in doc["bonuses"]}
+
+    assert by_id["a"]["terms"] == {
+        "status": "ok",
+        "url": "https://bank-a.test/offer/",
+        "fetched_at": "2026-09-14",
+    }
+    sources = {c["source"] for c in by_id["a"]["conditions"]}
+    assert sources == {"doc", "bank"}  # doc conditions preserved, bank conditions added
+    assert any(c["kind"] == "direct_deposit" and c["days"] == 90 for c in by_id["a"]["conditions"])
+
+    assert by_id["b"]["terms"]["status"] == "blocked"
+    assert by_id["b"]["conditions"] == []  # unchanged: not ok, so conditions are left alone
+
+    assert by_id["c"]["terms"]["status"] == "none"  # no offer_url: never a candidate
+    assert by_id["d"]["terms"]["status"] == "blocked"  # recently blocked: not retried
+    assert by_id["d"]["terms"]["fetched_at"] == "2026-09-10"  # untouched
+
+    assert by_id["e"]["terms"]["status"] == "error"  # stale ok refreshed, this time errored
+
+    assert set(fake.calls) == {
+        "https://bank-a.test/offer/",
+        "https://bank-b.test/offer/",
+        "https://bank-e.test/offer/",
+    }
+    out = capsys.readouterr().out
+    assert "terms b: blocked (0 conditions)" in out
+    assert any(line.startswith("terms a: ok (") and line.endswith(" conditions)") for line in out.splitlines())
+
+
+def test_terms_cached_only_skips_uncached(tmp_path, monkeypatch):
+    data = tmp_path / "bonuses.json"
+    bonuses = [
+        _terms_bonus("a", offer_url="https://bank-a.test/offer/"),
+        _terms_bonus("b", offer_url="https://bank-b.test/offer/"),
+    ]
+    cli.save(data, bonuses)
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 14))
+    responses = {"https://bank-a.test/offer/": ("ok", "<html><p>no requirement sentences here</p></html>")}
+    fake = FakeTermsFetcher(responses, cached_urls={"https://bank-a.test/offer/"})
+    monkeypatch.setattr(cli, "make_terms_fetcher", lambda cache, delay: fake)
+
+    assert cli.main(["terms", "--data", str(data), "--cached-only"]) == 0
+
+    doc = json.loads(data.read_text())
+    by_id = {b["id"]: b for b in doc["bonuses"]}
+    assert by_id["a"]["terms"]["status"] == "ok"
+    assert by_id["b"]["terms"]["status"] is None  # not cached: skipped, no network call made
+    assert fake.calls == ["https://bank-a.test/offer/"]
 
 
 def test_list_refuses_to_save_when_too_few_entries(tmp_path, monkeypatch):
