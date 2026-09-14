@@ -21,6 +21,9 @@ export const t = {
     browse: "Browse offers",
     welcomeBack: "Welcome back — your plan is ready.",
     viewPlan: "View my plan",
+    // Sends a returning user back through the wizard, which seeds its draft from the
+    // saved profile — "edit and rebuild", not "start from nothing".
+    replan: "Re-plan",
     how: [
       {
         title: "Tell us",
@@ -36,6 +39,14 @@ export const t = {
       },
     ],
     trust: "Runs in your browser. Nothing is uploaded. Free and open source.",
+    latest: {
+      title: "Latest on Doctor of Credit",
+      sub: "Recently updated offers, straight from the source.",
+      updated: (date: string) => `Updated ${date}`,
+      details: "Details",
+      all: (n: number) => `See all ${n} offers`,
+      source: "Full list on Doctor of Credit",
+    },
   },
   onboarding: {
     title: "Let's build your plan",
@@ -85,6 +96,7 @@ export const t = {
     accounts: "Accounts to open",
     avgDD: "Avg. DD used / month",
     horizon: "Horizon",
+    replan: "Re-plan",
     months: (n: number) => `${n} months`,
     ddBy: "Direct deposit by",
     safeClose: "Safe to close",
@@ -163,6 +175,9 @@ export const t = {
       planned: "Planned",
       accounts: (n: number) => (n === 1 ? "1 account" : `${n} accounts`),
       showClosed: "Show closed",
+      rows: (n: number) => (n === 1 ? "1 row" : `${n} rows`),
+      collapse: "Collapse ledger",
+      expand: "Expand ledger",
       requirements: (done: number, total: number) => `${done}/${total}`,
       daysUntilClose: (n: number) => `${n} days`,
       noRows: "Every tracked account is closed — turn on “Show closed” to see them.",
@@ -176,6 +191,8 @@ export const t = {
     pipeline: {
       title: "Pipeline",
       requirements: (done: number, total: number) => `${done}/${total} done`,
+      dragHandle: "Drag to another stage",
+      moved: (stage: string) => `Moved to ${stage}`,
       empty: {
         planned: "Track a plan to fill this column",
         opened: "Nothing opened yet",

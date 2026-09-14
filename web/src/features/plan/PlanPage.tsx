@@ -74,6 +74,11 @@ export function PlanPage() {
             onChange={(value) => updateProfile({ horizonMonths: Number(value) })}
             aria-label={t.plan.horizon}
           />
+          {/* The horizon control tweaks the plan in place; this is the way back to the
+           * answers the plan was built from. */}
+          <Button to="/start" variant="secondary" size="sm">
+            {t.plan.replan}
+          </Button>
         </div>
       </div>
 

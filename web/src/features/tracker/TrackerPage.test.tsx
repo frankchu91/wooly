@@ -11,7 +11,7 @@ import { defaultProfile, STATUS_ORDER } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { dateLabel, money } from "../../ui";
-import { LedgerTable } from "./LedgerTable";
+import { LEDGER_OPEN_KEY, LedgerTable } from "./LedgerTable";
 import { TrackerPage } from "./TrackerPage";
 
 const dataset = { generated_at: "2026-09-13T00:00:00Z", source: "", bonuses: fixture };
@@ -589,5 +589,54 @@ describe("TrackerPage — empty state", () => {
       "/start",
     );
     expect(screen.getByText(t.tracker.pro)).toBeInTheDocument();
+  });
+});
+
+describe("TrackerPage — collapsible ledger", () => {
+  test("the header counts the rows on screen", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    expect(screen.getByText(t.tracker.ledger.rows(5))).toBeInTheDocument();
+  });
+
+  test("the chevron hides the table, and the choice survives a remount", async () => {
+    const user = userEvent.setup({ delay: null });
+    seedAllStages();
+    const first = renderTrackerPage();
+
+    const chevron = screen.getByRole("button", { name: t.tracker.ledger.collapse });
+    expect(chevron).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("table")).toBeInTheDocument();
+
+    await user.click(chevron);
+
+    expect(screen.getByRole("button", { name: t.tracker.ledger.expand })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+    // The panel leaves the accessibility tree on the click, not when its collapse
+    // animation happens to finish.
+    expect(screen.queryByRole("table")).not.toBeInTheDocument();
+    expect(localStorage.getItem(LEDGER_OPEN_KEY)).toBe("false");
+
+    first.unmount();
+    renderTrackerPage();
+
+    expect(screen.getByRole("button", { name: t.tracker.ledger.expand })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+    expect(screen.queryByRole("table")).not.toBeInTheDocument();
+  });
+
+  test("the chevron controls the panel it hides", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    const chevron = screen.getByRole("button", { name: t.tracker.ledger.collapse });
+    const panelId = chevron.getAttribute("aria-controls");
+    expect(panelId).toBeTruthy();
+    expect(document.getElementById(panelId as string)).toContainElement(screen.getByRole("table"));
   });
 });

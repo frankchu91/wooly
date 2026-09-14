@@ -24,7 +24,7 @@ export const fixture = [
     additional_requirements: null,
     enriched: true,
     enriched_at: "2026-09-13",
-    post_modified: null,
+    post_modified: "2026-09-10",
     last_seen: "2026-09-13",
     conditions: [
       {
@@ -81,7 +81,7 @@ export const fixture = [
     additional_requirements: null,
     enriched: true,
     enriched_at: "2026-09-13",
-    post_modified: null,
+    post_modified: "2026-09-12",
     last_seen: "2026-09-13",
     conditions: [
       {
@@ -120,7 +120,7 @@ export const fixture = [
     additional_requirements: null,
     enriched: true,
     enriched_at: "2026-09-13",
-    post_modified: null,
+    post_modified: "2026-09-11",
     last_seen: "2026-09-13",
     conditions: [],
     hold_days: null,

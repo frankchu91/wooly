@@ -69,6 +69,15 @@ describe("PlanPage", () => {
     expect(screen.getByText(money(expected.totals.projected))).toBeInTheDocument();
   });
 
+  test("offers a re-plan link back to the wizard in the header", () => {
+    useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MA" } });
+
+    renderPlanPage();
+    flushCountUp();
+
+    expect(screen.getByRole("link", { name: t.plan.replan })).toHaveAttribute("href", "/start");
+  });
+
   test("skipping a card moves it to Skipped with a Restore button that brings it back", async () => {
     const user = userEvent.setup({ delay: null });
     useStore.setState({ profile: { ...defaultProfile("2026-09"), state: "MA" } });

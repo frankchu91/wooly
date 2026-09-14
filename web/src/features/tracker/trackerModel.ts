@@ -12,6 +12,12 @@ import { splitConditions } from "../conditions/visibleConditions";
  * can still miss by doing nothing. */
 export const DD_WARNING_DAYS = 14;
 
+/** A `Date` as the `YYYY-MM-DD` the store records, read in local time — `toISOString`
+ * would shift the day for anyone west of UTC. */
+export function toISO(date: Date): string {
+  return format(date, "yyyy-MM-dd");
+}
+
 /** How many of a bonus's requirements the user has ticked off, out of how many there are.
  * Counts against `splitConditions`'s checklist — not the raw `bonus.conditions`, and not
  * the notes — so the denominator always matches the boxes the drawer actually renders.

@@ -1,4 +1,5 @@
-import { MoreHorizontal } from "lucide-react";
+import { useDraggable } from "@dnd-kit/core";
+import { GripVertical, MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent } from "react";
 
@@ -8,7 +9,7 @@ import type { Bonus, TrackedItem, TrackStatus } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Badge, BankAvatar, Button, Card, MoneyText, cn, dateLabel } from "../../ui";
-import { requirementsProgress, stageContextLine } from "./trackerModel";
+import { requirementsProgress, stageContextLine, toISO } from "./trackerModel";
 
 export interface PipelineCardProps {
   item: TrackedItem;
@@ -20,13 +21,15 @@ export interface PipelineCardProps {
   onSelect: (id: string) => void;
   /** Called after the menu's Remove, so the page can drop a `?item=` pointing here. */
   onUntrack?: (id: string) => void;
+  /** A move the *pipeline* wants this card to confirm rather than apply silently — a
+   * drag onto Closed while the hold window is still running. `token` changes on every
+   * such request, so dropping the same card on the same column twice reopens the panel
+   * instead of doing nothing the second time. */
+  requestMove?: { stage: TrackStatus; dateISO: string; token: number } | null;
 }
 
 const MENU_ITEM_CLASS =
   "block w-full rounded-control px-3 py-2 text-left text-sm text-ink transition-colors duration-200 ease-out hover:bg-mint/60";
-
-const toISO = (date: Date) =>
-  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
 /** Which stage change the inline date form is confirming: `advance` walks to the next
  * stage (the "Next" button), `set` jumps straight to a chosen one ("Move to…"). */
@@ -41,7 +44,14 @@ interface PendingMove {
  * (with an inline date confirm) and a kebab menu. Always an `<li>`; its column renders a
  * `<ul>` of these.
  */
-export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: PipelineCardProps) {
+export function PipelineCard({
+  item,
+  bonus,
+  today,
+  onSelect,
+  onUntrack,
+  requestMove,
+}: PipelineCardProps) {
   const advance = useStore((state) => state.advance);
   const setStatus = useStore((state) => state.setStatus);
   const untrack = useStore((state) => state.untrack);
@@ -50,9 +60,16 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
   const [moveOpen, setMoveOpen] = useState(false);
   const [pending, setPending] = useState<PendingMove | null>(null);
   const [date, setDate] = useState(() => toISO(today));
+  // The last `requestMove.token` this card acted on — see the render-phase adjustment
+  // below.
+  const [seenRequestToken, setSeenRequestToken] = useState<number | null>(null);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, isDragging } = useDraggable({
+    id: item.id,
+  });
 
   // The menu's items change as the "Move to…" submenu opens and closes, so the keyboard
   // model reads them from the DOM rather than from a fixed ref array (as `PlanCard`
@@ -82,6 +99,21 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
       document.removeEventListener("mousedown", handlePointerDown);
     };
   }, [menuOpen]);
+
+  // A drop the pipeline won't apply on its own (closing before the hold window is up)
+  // arrives here as a request, and opens the very same confirm panel as "Move to…".
+  //
+  // Adjusted during render rather than in an effect (React's documented "derive state
+  // from props" escape hatch): an effect would paint the card once without the panel and
+  // only then open it. `token` changes on every fresh request, so the same card dropped
+  // on the same column twice reopens the panel instead of doing nothing the second time.
+  if (requestMove && requestMove.token !== seenRequestToken) {
+    setSeenRequestToken(requestMove.token);
+    setDate(requestMove.dateISO);
+    setPending({ stage: requestMove.stage, mode: "set" });
+    setMenuOpen(false);
+    setMoveOpen(false);
+  }
 
   function closeMenu() {
     setMenuOpen(false);
@@ -166,33 +198,32 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
   return (
     <Card
       as="li"
+      ref={setNodeRef}
       onClick={handleCardClick}
-      className="relative flex cursor-pointer flex-col gap-2.5 p-4"
+      className={cn(
+        "relative flex cursor-pointer flex-col gap-2.5 p-4",
+        // The card stays put as a ghost while it is dragged — the `DragOverlay` copy is
+        // the one that follows the pointer, so the original must *not* take dnd-kit's
+        // transform as well or the card leaves its column and the collision maths with
+        // it.
+        isDragging && "opacity-40",
+      )}
     >
-      <div className="flex items-start gap-2">
+      {/* The two icon controls get a row of their own above the offer. Side by side with
+       * the title they left it about seventy pixels in a five-column pipeline, which is
+       * not enough for any bank's name. */}
+      <div className="-mx-1 -mb-1 -mt-1.5 flex items-center justify-between">
+        {/* The only part of the card that drags. The rest keeps its click-to-open and
+         * its menu — a card you can't press without moving it is worse than no drag. */}
         <button
           type="button"
-          onClick={() => onSelect(item.id)}
-          className="flex min-w-0 flex-1 items-start gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          ref={setActivatorNodeRef}
+          aria-label={t.tracker.pipeline.dragHandle}
+          {...listeners}
+          {...attributes}
+          className="shrink-0 cursor-grab touch-none rounded-control p-1 text-muted transition-colors duration-200 ease-out hover:bg-mint/60 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing"
         >
-          <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
-          <span className="min-w-0 flex-1">
-            {/* `line-clamp` brings its own `display`, so no `block` beside it — the two fight
-             * and `block` wins, which is how the clamp quietly stopped clamping. */}
-            <span className="line-clamp-2 font-heading text-sm font-semibold text-ink">
-              {bonus?.title ?? item.bonusId}
-            </span>
-            {bonus ? (
-              <span className="flex flex-wrap items-center gap-1.5">
-                <MoneyText value={bonus.bonus_max} size="md" />
-                {item.applicant ? <Badge tone="neutral">{item.applicant}</Badge> : null}
-              </span>
-            ) : (
-              // The id is already the title; saying it twice explains nothing, and the
-              // user still deserves to know why there is no money on this card.
-              <span className="block text-xs text-muted">{t.tracker.ledger.missingOffer}</span>
-            )}
-          </span>
+          <GripVertical size={16} aria-hidden="true" />
         </button>
 
         <div ref={menuRef} className="relative shrink-0">
@@ -294,6 +325,31 @@ export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: Pipeli
           ) : null}
         </div>
       </div>
+
+      <button
+        type="button"
+        onClick={() => onSelect(item.id)}
+        className="flex min-w-0 items-start gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
+        <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
+        <span className="min-w-0 flex-1">
+          {/* `line-clamp` brings its own `display`, so no `block` beside it — the two fight
+           * and `block` wins, which is how the clamp quietly stopped clamping. */}
+          <span className="line-clamp-2 font-heading text-sm font-semibold text-ink">
+            {bonus?.title ?? item.bonusId}
+          </span>
+          {bonus ? (
+            <span className="flex flex-wrap items-center gap-1.5">
+              <MoneyText value={bonus.bonus_max} size="md" />
+              {item.applicant ? <Badge tone="neutral">{item.applicant}</Badge> : null}
+            </span>
+          ) : (
+            // The id is already the title; saying it twice explains nothing, and the
+            // user still deserves to know why there is no money on this card.
+            <span className="block text-xs text-muted">{t.tracker.ledger.missingOffer}</span>
+          )}
+        </span>
+      </button>
 
       <p className={cn("text-xs", context.tone === "warn" ? "text-coral-dark" : "text-muted")}>
         {context.text}
