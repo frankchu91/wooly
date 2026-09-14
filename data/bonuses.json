@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T11:35:40+00:00",
+  "generated_at": "2026-09-14T11:56:36+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -56,15 +56,6 @@
           "text": "Account must be kept open for 180 days",
           "amount": null,
           "days": 180,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "doc"
         },
@@ -142,15 +133,6 @@
       "post_modified": "2026-07-25",
       "last_seen": "2026-09-14",
       "conditions": [
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
         {
           "id": "f1fd1482",
           "kind": "deposit",
@@ -283,7 +265,7 @@
           "source": "doc"
         },
         {
-          "id": "90143b18",
+          "id": "300e355b",
           "kind": "deposit",
           "text": "Deposit a total of $5,000 or more in “new money” into your account within twenty (20) days of account opening (the new money must also post to your account and appear in your Available Balance within twenty (20) days of account opening).",
           "amount": 5000,
@@ -319,10 +301,10 @@
           "source": "doc"
         },
         {
-          "id": "597f5f64",
-          "kind": "fee",
-          "text": "Benefits of Amex ® Business Checking No monthly maintenance fees ¤ 24/7 support - specialists are a click or call away Earn % APY ‡ on balances up to $500k This is business banking that rewards you.",
-          "amount": 500,
+          "id": "a5073263",
+          "kind": "balance",
+          "text": "Calculator is for illustration only, rounded to the nearest dollar, and assumes that you earn % APY (capped at $500,000) and maintain your account balance selected above for an entire year.",
+          "amount": 500000,
           "days": null,
           "count": null,
           "source": "bank"
@@ -381,19 +363,10 @@
           "source": "doc"
         },
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "93f158bf",
           "kind": "direct_deposit",
           "text": "Tier 1 – Earn $150 for each statement cycle Receive one (1) or more qualifying direct deposits in your Account totaling at least $1,000 during the statement cycle.",
-          "amount": 150,
+          "amount": 1000,
           "days": null,
           "count": null,
           "source": "doc"
@@ -464,15 +437,6 @@
           "source": "doc"
         },
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "727d47e4",
           "kind": "deposit",
           "text": "After initial requirements above are met, the amount of incentive earned will depend on meeting the additional requirements outlined below: Small Business Checking bonus up to $400: You must be approved for your new Basic Business Checking or Business Interest Checking account and fund it within 30 days of account opening.",
@@ -500,7 +464,7 @@
           "source": "doc"
         },
         {
-          "id": "9e2e7356",
+          "id": "41afdbd4",
           "kind": "balance",
           "text": "Maintain an average daily balance of $3,000 over your account’s first few months.",
           "amount": 3000,
@@ -936,7 +900,7 @@
           "source": "doc"
         },
         {
-          "id": "2c5baf8e",
+          "id": "287c522c",
           "kind": "direct_deposit",
           "text": "Set up and receive Qualifying Direct Deposits into that eligible personal checking account within ninety (90) days of account opening (“Deposit Period”).",
           "amount": null,
@@ -945,7 +909,7 @@
           "source": "doc"
         },
         {
-          "id": "fee9c96e",
+          "id": "f9c70928",
           "kind": "direct_deposit",
           "text": "A “Qualifying Direct Deposit” is a direct deposit of regular monthly income – such as your salary, pension or Social Security benefits, which are made by your employer or other payer – using account and routing numbers that you provide to them.",
           "amount": null,
@@ -961,6 +925,15 @@
           "days": null,
           "count": null,
           "source": "doc"
+        },
+        {
+          "id": "30788922",
+          "kind": "direct_deposit",
+          "text": "Open a new eligible checking account and get a $100 cash offer with qualifying debit or Zelle transactions OR an up to $500 cash offer with Qualifying Direct Deposits.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
         },
         {
           "id": "5a64ea9f",
@@ -1088,10 +1061,10 @@
           "source": "doc"
         },
         {
-          "id": "886eb5a7",
-          "kind": "deposit",
-          "text": "Earn a cash bonus of up to $750 When you open a new eligible Business Advantage Banking account and make and maintain New Money Deposits.",
-          "amount": 750,
+          "id": "07d359ab",
+          "kind": "balance",
+          "text": "Maintain a daily balance during the Maintenance Period in that new Business Advantage Banking account.",
+          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -1101,6 +1074,15 @@
           "kind": "balance",
           "text": "During the Maintenance Period, if your daily balance drops below $5,000, you will no longer be eligible for a cash bonus.",
           "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "5ac1aff2",
+          "kind": "fee",
+          "text": "$0 monthly fee for incoming wires, 8 stop payments and more",
+          "amount": 0,
           "days": null,
           "count": null,
           "source": "bank"
@@ -1158,15 +1140,6 @@
           "text": "Account must be kept open for 150 days",
           "amount": null,
           "days": 150,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "c44e9482",
-          "kind": "other",
-          "text": "Yes, see options below",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "doc"
         },
@@ -1243,19 +1216,28 @@
           "source": "bank"
         },
         {
-          "id": "f97e12ec",
-          "kind": "fee",
-          "text": "BVSUP-00043 Our most active customers save nearly $700/year in fees.",
-          "amount": 700,
+          "id": "ed8f342a",
+          "kind": "balance",
+          "text": "maintain a minimum daily balance of $5,000 while also completing at least one of the following",
+          "amount": 5000,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "8bc0909b",
-          "kind": "deposit",
-          "text": "BVSUP-00084 $3 million in FDIC coverage Know your business checking deposits are safe up to $3 million.",
-          "amount": 3,
+          "id": "550567ed",
+          "kind": "transactions",
+          "text": "Spend at least $2,000 on eligible transactions with your",
+          "amount": 2000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "f97e12ec",
+          "kind": "fee",
+          "text": "BVSUP-00043 Our most active customers save nearly $700/year in fees.",
+          "amount": 700,
           "days": null,
           "count": null,
           "source": "bank"
@@ -1660,6 +1642,42 @@
           "days": 90,
           "count": null,
           "source": "doc"
+        },
+        {
+          "id": "8d9eec36",
+          "kind": "fee",
+          "text": "100 free transactions per month ($0.45 fee for each additional transaction)",
+          "amount": 0,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "903b771d",
+          "kind": "balance",
+          "text": "$15 (waived with a minimum $2,000 average daily balance)",
+          "amount": 15,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e8f5221f",
+          "kind": "fee",
+          "text": "Maintain a minimum $2,000 average daily balance to avoid a $15 monthly fee 1",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7fe6cc65",
+          "kind": "fee",
+          "text": "Earnings credits reduce or offset the $25 monthly fee 1",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "bank"
         },
         {
           "id": "30e3e2b3",
@@ -2147,7 +2165,7 @@
           "source": "doc"
         },
         {
-          "id": "2296ca1d",
+          "id": "7a509924",
           "kind": "deposit",
           "text": "You will earn a bonus once you’ve maintained the Deposit Amount of $20,000 or more for 90 days following the Initial Funding Period.",
           "amount": 20000,
@@ -2183,9 +2201,9 @@
           "source": "doc"
         },
         {
-          "id": "1330a72e",
+          "id": "b325f2c0",
           "kind": "deposit",
-          "text": "Deposit Deposit $20,000+ of external funds during the 15-day Initial Funding Period after opening your account.",
+          "text": "Deposit $20,000+ of external funds during the 15-day Initial Funding Period after opening your account.",
           "amount": 20000,
           "days": null,
           "count": null,
@@ -2248,18 +2266,18 @@
           "source": "doc"
         },
         {
-          "id": "0b004f85",
+          "id": "a624fab0",
           "kind": "balance",
-          "text": "2) maintain a minimum end-of-day balance between $5,000-$29,999.99 for at least 60 days within 90 days of account opening;",
+          "text": "maintain a minimum end-of-day balance between $5,000-$29,999.99 for at least 60 days within 90 days of account opening;",
           "amount": 5000,
           "days": 90,
           "count": null,
           "source": "doc"
         },
         {
-          "id": "19996452",
+          "id": "61d858e4",
           "kind": "transactions",
-          "text": "3) make 10 qualifying electronic transactions within 90 days of account opening.",
+          "text": "make 10 qualifying electronic transactions within 90 days of account opening.",
           "amount": null,
           "days": 90,
           "count": 10,
@@ -2275,45 +2293,27 @@
           "source": "doc"
         },
         {
-          "id": "ceeebc3e",
+          "id": "7abfb672",
           "kind": "balance",
-          "text": "2) maintain at least $30,000 as minimum end-of-day balance for at least 60 days within 90 days of account opening;",
+          "text": "maintain at least $30,000 as minimum end-of-day balance for at least 60 days within 90 days of account opening;",
           "amount": 30000,
           "days": 90,
           "count": null,
           "source": "doc"
         },
         {
-          "id": "863e8ea1",
+          "id": "1b86d92f",
           "kind": "deposit",
-          "text": "Deposit money Deposit at least $5,000 from non-Capital One accounts within 30 days of account opening.",
+          "text": "Deposit at least $5,000 from non-Capital One accounts within 30 days of account opening.",
           "amount": 5000,
           "days": 30,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "7070bc35",
+          "id": "337e6a32",
           "kind": "balance",
-          "text": "Maintain minimum required balance Maintain the minimum required end of day balance for at least 60 days during the first 90 days of account opening.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "ea6d35db",
-          "kind": "transactions",
-          "text": "Complete transactions requirement Make 10 qualifying electronic transactions within 90 days of account opening.",
-          "amount": null,
-          "days": 90,
-          "count": 10,
-          "source": "bank"
-        },
-        {
-          "id": "3b983c7d",
-          "kind": "fee",
-          "text": "Open now Basic Checking For everyday checking needs Spend less time worrying about fees and more time building your business.",
+          "text": "Maintain the minimum required end of day balance for at least 60 days during the first 90 days of account opening.",
           "amount": null,
           "days": null,
           "count": null,
@@ -2385,18 +2385,36 @@
           "source": "bank"
         },
         {
-          "id": "890b5906",
+          "id": "6d401e07",
+          "kind": "deposit",
+          "text": "with a minimum deposit of $10,000 in new money",
+          "amount": 10000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "e8d65a0b",
+          "kind": "deposit",
+          "text": "with a minimum deposit of $2,000 in new money",
+          "amount": 2000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "1627df18",
           "kind": "balance",
-          "text": "Deposit Deposit the minimum amount in new money shown above within 30 days of offer enrollment and maintain that balance for 60 days from offer enrollment.",
+          "text": "Deposit the minimum amount in new money shown above within 30 days of offer enrollment and maintain that balance for 60 days from offer enrollment.",
           "amount": null,
           "days": 30,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "26bb77f3",
+          "id": "f175f3d2",
           "kind": "transactions",
-          "text": "Complete Complete 5 qualifying transactions * within 90 days of offer enrollment.",
+          "text": "Complete 5 qualifying transactions * within 90 days of offer enrollment.",
           "amount": null,
           "days": 90,
           "count": 5,
@@ -2524,15 +2542,6 @@
           "source": "doc"
         },
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "884e7dc3",
           "kind": "direct_deposit",
           "text": "An Enhanced Direct Deposit also includes all deposits via Zelle® and other P2P payments when made via ACH using providers such as Venmo or PayPal.",
@@ -2594,15 +2603,6 @@
           "text": "Direct deposit of $3000",
           "amount": 3000,
           "days": 90,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "doc"
         },
@@ -2818,15 +2818,6 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "79fa2810",
           "kind": "balance",
           "text": "During the Evaluation Phase, the account must maintain the required average daily balance.",
@@ -2852,6 +2843,24 @@
           "days": null,
           "count": null,
           "source": "doc"
+        },
+        {
+          "id": "0dae87c0",
+          "kind": "deposit",
+          "text": "You must maintain $15,000 average monthly collected balance OR $30,000 monthly collected balances across personal or business deposit accounts 7",
+          "amount": 15000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7509eb63",
+          "kind": "fee",
+          "text": "New accounts will receive a monthly service fee grace period for 3 months to allow time to set up your account, transfer funds and link your account to combine balances.",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "bank"
         }
       ],
       "hold_days": null,
@@ -3012,7 +3021,7 @@
           "source": "doc"
         },
         {
-          "id": "8370bca1",
+          "id": "73289f86",
           "kind": "balance",
           "text": "We will credit $500 bonus (the “Checking Bonus”) to a new M&T Tailored Business Checking account opened between 1/1/2023 and 3/31/2023 if the Average Ledger Balance in the account is at least $5,000 in the third full calendar month after the account was opened.",
           "amount": 500,
@@ -3039,45 +3048,90 @@
           "source": "doc"
         },
         {
-          "id": "ffe308cb",
+          "id": "46e5def9",
           "kind": "new_customer",
-          "text": "Skip to Main Content Why choose one bonus? Earn up to $2,250 with M&T Business Checking and Merchant Services.{ {d1387*}},{ {d2016*}} LIMITED TIME OFFER New business checking customers can earn up to a $1,500 cash bonus { {d1387*}} when opening an M&T Business Checking account with required activities.",
-          "amount": 2250,
+          "text": "New business checking customers can earn up to a $1,500 cash bonus { {d1387*}} when opening an M&T Business Checking account with required activities.",
+          "amount": 1500,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "1b894bc5",
+          "id": "cd97ce12",
           "kind": "balance",
-          "text": "(Promo code automatically applies when you open your account online.) Maintain the average ledger balance requirement Maintain an average ledger balance of at least $5,000 in the third full month after you open your account.{ {d1387*}} Get your cash bonus Enjoy your cash bonus!",
+          "text": "Maintain the average ledger balance requirement",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "9566e078",
+          "kind": "balance",
+          "text": "Maintain an average ledger balance of at least $5,000 in the third full month after you open your account.{ {d1387*}}",
           "amount": 5000,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "20fa7ce1",
+          "id": "17ec39de",
           "kind": "transactions",
-          "text": "{ {d2081*}},{ {d2080*}} 25 transactions every month at no charge—ideal for light activity{ {d2077*}}.",
+          "text": "25 transactions every month at no charge—ideal for light activity{ {d2077*}}.",
           "amount": null,
           "days": null,
           "count": 25,
           "source": "bank"
         },
         {
-          "id": "5f4dc060",
-          "kind": "fee",
-          "text": "$15 monthly account maintenance fee, waived with qualifying activity.{ {d2081*}}, { {d2093*}} 250 transactions every month at no charge —great for moderate volume{ {d2077*}}.",
+          "id": "6477f4f3",
+          "kind": "deposit",
+          "text": "Deposit up to $2,500 monthly, in currency deposited or supplied monthly without extra charges.{ {d489*}}",
+          "amount": 2500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "8a11608e",
+          "kind": "balance",
+          "text": "Carry a $1,000 average ledger balance per month OR",
+          "amount": 1000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "de912823",
+          "kind": "transactions",
+          "text": "250 transactions every month at no charge —great for moderate volume{ {d2077*}}.",
           "amount": null,
           "days": null,
           "count": 250,
           "source": "bank"
         },
         {
-          "id": "b821424c",
-          "kind": "fee",
-          "text": "$25 monthly account maintenance fee, waived with qualifying activity.{ {d2081*}}, { {d2078*}} 500 transactions every month at no charge.{ {d2077*}} Unlimited debit card transactions.",
+          "id": "bb75b9c5",
+          "kind": "balance",
+          "text": "Carry a $7,500 average ledger balance per month OR",
+          "amount": 7500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7aa46048",
+          "kind": "transactions",
+          "text": "Make 30 or more purchases with an M&T Visa® Debit Card",
+          "amount": null,
+          "days": null,
+          "count": 30,
+          "source": "bank"
+        },
+        {
+          "id": "669059d3",
+          "kind": "transactions",
+          "text": "500 transactions every month at no charge.{ {d2077*}}",
           "amount": null,
           "days": null,
           "count": 500,
@@ -3088,6 +3142,15 @@
           "kind": "deposit",
           "text": "Deposit up to $20,000 monthly, in currency deposited or supplied monthly at no extra cost{ {d489*}}.",
           "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3f37a453",
+          "kind": "balance",
+          "text": "Maintain an Average Ledger Balance of at least $10,000 that month OR",
+          "amount": 10000,
           "days": null,
           "count": null,
           "source": "bank"
@@ -3412,15 +3475,6 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "c08edc1f",
           "kind": "deposit",
           "text": "(ii) Deposit a total of $2,000 or more in new money into your account within 30 days of opening the account.",
@@ -3464,15 +3518,6 @@
           "days": null,
           "count": null,
           "source": "doc"
-        },
-        {
-          "id": "25773c2e",
-          "kind": "deposit",
-          "text": "Deposit New Money Deposit at least $5,000 of new money within 60 days of account opening.",
-          "amount": 5000,
-          "days": 60,
-          "count": null,
-          "source": "bank"
         },
         {
           "id": "fbc297c0",
@@ -3570,16 +3615,7 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "99ddc7e5",
+          "id": "2c8ff4f9",
           "kind": "deposit",
           "text": "Deposit Funds : Deposit a minimum of $20,000 or more in net-new funds* over the first 30 days following account opening (“Deposit Period”).",
           "amount": 20000,
@@ -3606,7 +3642,7 @@
           "source": "doc"
         },
         {
-          "id": "21d42bb4",
+          "id": "c5186aaf",
           "kind": "balance",
           "text": "The average daily balance calculation will begin from Day 31 after account opening and will end 45 days following (“Maintenance Period”).",
           "amount": null,
@@ -3624,15 +3660,6 @@
           "source": "doc"
         },
         {
-          "id": "1c2fc9f2",
-          "kind": "deposit",
-          "text": "Savings Offer Morgan Stanley Private Bank Now get 4.00% APY for 6 months, 1 plus a $400 cash bonus 2 Open and fund a new Premium Savings Account by 9/30.",
-          "amount": null,
-          "days": 180,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "902ca5cb",
           "kind": "deposit",
           "text": "Plus, you'll earn a cash bonus when you deposit at least $20,000 of qualifying new money within the first 30 days of account opening.",
@@ -3646,6 +3673,15 @@
           "kind": "balance",
           "text": "Maintain your balance for 45 additional days after the 30-day funding period ends to earn your cash bonus.",
           "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "d53886b7",
+          "kind": "deposit",
+          "text": "Bank Deposits FDIC-insured up to $500,000 if certain conditions are met 6",
+          "amount": 500000,
           "days": null,
           "count": null,
           "source": "bank"
@@ -3767,6 +3803,15 @@
           "source": "bank"
         },
         {
+          "id": "87741930",
+          "kind": "fee",
+          "text": "Keep more of your money with no maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
           "id": "339ef8c4",
           "kind": "fee",
           "text": "If the reimbursement is not processed, we may reimburse the surcharge fee if you contact us within 90 calendar days of the transaction with the ATM receipt.",
@@ -3776,7 +3821,7 @@
           "source": "bank"
         },
         {
-          "id": "8defa775",
+          "id": "dca79c9a",
           "kind": "fee",
           "text": "Ameriprise ® Bank Checking Account (“Checking Account”) customers may receive $20 in ATM surcharge fees reimbursements per statement cycle.",
           "amount": 20,
@@ -3785,7 +3830,7 @@
           "source": "bank"
         },
         {
-          "id": "d28c1a13",
+          "id": "c2565ff1",
           "kind": "fee",
           "text": "If you are recognized as Achiever Circle Elite (“ACE”) or Achiever Circle (\"AC”) in the Ameriprise Achiever Circle program (each “Status”) on the day the applicable transaction posts to your Checking Account, you may qualify for the following ATM surcharge fee reimbursements per statement cycle: 1) ACE - unlimited reimbursement, 2) AC - up to $25 in ATM surcharge fees reimbursed.",
           "amount": 25,
@@ -3883,6 +3928,24 @@
           "source": "bank"
         },
         {
+          "id": "87741930",
+          "kind": "fee",
+          "text": "Keep more of your money with no maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3d303aab",
+          "kind": "direct_deposit",
+          "text": "To receive the checking bonus offer: 1) Open a Checking Account from July 1, 2026, to December 29, 2026, and 2) Set up qualifying direct deposit(s) into your Checking Account of at least $1,500 within 90 calendar days of account opening.",
+          "amount": 1500,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
           "id": "46166c9d",
           "kind": "deposit",
           "text": "To receive the savings bonus offer: 1) Open a Savings Account from July 1, 2026, to December 29, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days.",
@@ -3901,7 +3964,7 @@
           "source": "bank"
         },
         {
-          "id": "8defa775",
+          "id": "dca79c9a",
           "kind": "fee",
           "text": "Ameriprise ® Bank Checking Account (“Checking Account”) customers may receive $20 in ATM surcharge fees reimbursements per statement cycle.",
           "amount": 20,
@@ -3910,7 +3973,7 @@
           "source": "bank"
         },
         {
-          "id": "d28c1a13",
+          "id": "c2565ff1",
           "kind": "fee",
           "text": "If you are recognized as Achiever Circle Elite (“ACE”) or Achiever Circle (\"AC”) in the Ameriprise Achiever Circle program (each “Status”) on the day the applicable transaction posts to your Checking Account, you may qualify for the following ATM surcharge fee reimbursements per statement cycle: 1) ACE - unlimited reimbursement, 2) AC - up to $25 in ATM surcharge fees reimbursed.",
           "amount": 25,
@@ -4605,17 +4668,7 @@
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-17",
       "last_seen": "2026-09-14",
-      "conditions": [
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        }
-      ],
+      "conditions": [],
       "hold_days": null,
       "terms": {
         "status": "none",
@@ -4681,7 +4734,7 @@
           "source": "doc"
         },
         {
-          "id": "fb87092b",
+          "id": "daf2f397",
           "kind": "direct_deposit",
           "text": "To receive the initial $350.00 bonus (the “First Direct Deposit Bonus”), you must open a Free Checking, Smart Checking, or Student Checking account with FourLeaf between February 2, 2026 and December 31, 2026, which is subject to approval, and have a Qualifying Direct Deposit (as defined below) post to the checking account within ninety (90) calendar days of account opening date.",
           "amount": null,
@@ -4699,7 +4752,7 @@
           "source": "doc"
         },
         {
-          "id": "a592e57a",
+          "id": "6a7b1e00",
           "kind": "direct_deposit",
           "text": "To receive an additional $100.00 bonus (the “Second Direct Deposit Bonus”), you must continue to have a Qualifying Direct Deposit post to the checking account for twelve (12) consecutive months following the month of the initial Qualifying Direct Deposit.",
           "amount": null,
@@ -4717,7 +4770,7 @@
           "source": "doc"
         },
         {
-          "id": "c2db80e0",
+          "id": "3b3c5872",
           "kind": "direct_deposit",
           "text": "To receive an additional $100.00 bonus (the “Third Direct Deposit Bonus”), you must continue to have a Qualifying Direct Deposit post to the checking account for twenty-four (24) consecutive months following the month of the initial Qualifying Direct Deposit.",
           "amount": null,
@@ -4762,9 +4815,18 @@
           "source": "doc"
         },
         {
-          "id": "7c2edb2b",
+          "id": "1e65ed70",
+          "kind": "direct_deposit",
+          "text": "Receive direct deposit of your eligible paycheck up to two days earlier with early direct deposit [7]",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "aa823234",
           "kind": "new_customer",
-          "text": "Up to $550.00 Checking Bonus Offer [1] Offer details: To be eligible for the FourLeaf Checking Up to $550 Bonus Offer and receive up to a maximum of $550.00 in bonuses, you must not have an existing FourLeaf checking account in which you are the primary account holder on the checking account and have not previously received a new checking account opening related bonus from FourLeaf.",
+          "text": "[1] Offer details: To be eligible for the FourLeaf Checking Up to $550 Bonus Offer and receive up to a maximum of $550.00 in bonuses, you must not have an existing FourLeaf checking account in which you are the primary account holder on the checking account and have not previously received a new checking account opening related bonus from FourLeaf.",
           "amount": 550,
           "days": null,
           "count": null,
@@ -4903,15 +4965,6 @@
           "source": "doc"
         },
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "c06f53ae",
           "kind": "deposit",
           "text": "To open an account at a branch location, a $50 minimum deposit is required.",
@@ -4921,9 +4974,9 @@
           "source": "doc"
         },
         {
-          "id": "45f21bf4",
+          "id": "705ae8b8",
           "kind": "keep_open",
-          "text": "Your account must be open with no changes to the product type (i.e.",
+          "text": "Your account must be open with no changes to the product type (i.e. Small Business Checking, Business Gold Checking, Community Checking, Commercial Checking, etc.) at the time of payment.",
           "amount": null,
           "days": null,
           "count": null,
@@ -5024,15 +5077,6 @@
           "text": "Account must be kept open for 150 days",
           "amount": null,
           "days": 150,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "doc"
         }
@@ -5144,15 +5188,6 @@
           "source": "doc"
         },
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "11112a98",
           "kind": "deposit",
           "text": "To qualify for the bonus, make your $7,500 in New Money deposit(s) directly to the new Account in the form of a personal or official check from another financial institution, an incoming wire, ACH credit, Online Banking external transfer, or external funding of a new Account opened through boh.com within 30 days of account opening.",
@@ -5162,7 +5197,7 @@
           "source": "doc"
         },
         {
-          "id": "35370b6c",
+          "id": "aaa773ce",
           "kind": "balance",
           "text": "You will be required to maintain a Daily Account Balance of at least $7,500 every day from Day 31 through Day 150 after Account opening (“Maintenance Period”) to qualify for the bonus.",
           "amount": 7500,
@@ -5180,28 +5215,28 @@
           "source": "doc"
         },
         {
-          "id": "a9cadabf",
+          "id": "f2bab912",
           "kind": "deposit",
-          "text": "Get started Savings Promotion Save your way with our tiered savings offer Earn $75 when you deposit $5,000 and meet promotion requirements.",
-          "amount": 75,
+          "text": "when you deposit $5,000 and meet promotion requirements.",
+          "amount": 5000,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "62240708",
+          "id": "0277e426",
           "kind": "deposit",
-          "text": "Earn $150 when you deposit $10,000 and meet promotion requirements.",
-          "amount": 150,
+          "text": "when you deposit $10,000 and meet promotion requirements.",
+          "amount": 10000,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "d7ceeca7",
+          "id": "29105cc3",
           "kind": "deposit",
-          "text": "Earn $300 when you deposit $20,000 and meet promotion requirements.",
-          "amount": 300,
+          "text": "when you deposit $20,000 and meet promotion requirements.",
+          "amount": 20000,
           "days": null,
           "count": null,
           "source": "bank"
@@ -5216,73 +5251,73 @@
           "source": "bank"
         },
         {
-          "id": "2f5d5f78",
+          "id": "141e42be",
           "kind": "deposit",
-          "text": "Fund your account Make your required deposits of $5,000, $10,000, or $20,000 within 30 days of account opening.",
+          "text": "Make your required deposits of $5,000, $10,000, or $20,000 within 30 days of account opening.",
           "amount": 5000,
           "days": 30,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "d2848980",
+          "id": "aeeac1bf",
           "kind": "balance",
-          "text": "Maintain your balance After the first 30 days, maintain your daily balance of $5,000, $10,000, or $20,000 for the next 60 days.",
+          "text": "After the first 30 days, maintain your daily balance of $5,000, $10,000, or $20,000 for the next 60 days.",
           "amount": 5000,
           "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "548d043e",
-          "kind": "deposit",
-          "text": "View rates $100 minimum opening deposit No minimum balance requirement Requires a Bankohana account 2 Open now More Less Take advantage of higher rates and premium benefits with our Bankohana Saving Special.",
-          "amount": 100,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "e2eb949f",
-          "kind": "balance",
-          "text": "Can my savings account balance fluctuate during the promotion? Yes, your account balance may fluctuate, however you will need to maintain a Daily Account Balance of $5,000, $10,000, or $20,000 every day from Day 31 through Day 90 after Account opening to qualify for the bonus.",
-          "amount": 5000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "642c71b4",
-          "kind": "balance",
-          "text": "If your Daily Account Balance falls below the required minimum amount for even one (1) day during the Maintenance Period, you will not receive the bonus.",
-          "amount": null,
-          "days": 1,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "ac24da3e",
-          "kind": "balance",
-          "text": "If your Daily Account Balance falls below the required amount for even one (1) day during the Maintenance Period (even if due to a fee imposed on your account), you will not receive the bonus.",
-          "amount": null,
-          "days": 1,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "3008306b",
+          "id": "916a8557",
           "kind": "fee",
-          "text": "Accounts closed within 180 days of account opening will be assessed an early closing fee of $40.",
-          "amount": 40,
-          "days": 180,
+          "text": "Waived $5 monthly service fee when maintaining a daily balance of $300",
+          "amount": 5,
+          "days": null,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "4235c62d",
+          "id": "ca3c4187",
           "kind": "deposit",
-          "text": "Please note however that the $100 minimum balance to open your account may qualify toward your total deposit requirement.",
-          "amount": 100,
+          "text": "Earns interest and rewards active savers with bonus interest when you deposit $25 or more each month and make no withdrawals that month.",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2c682578",
+          "kind": "fee",
+          "text": "Waived $5 monthly service fee when maintaining a daily balance of $500 or deposit $25 or more and make no withdrawals that month",
+          "amount": 5,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "4a38f173",
+          "kind": "deposit",
+          "text": "Earns preferred interest and rewards active savers with bonus interest when you deposit $25 or more each month and make no withdrawals that month.",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "9a0cb04d",
+          "kind": "balance",
+          "text": "or waived when maintaining a minimum daily balance of $300",
+          "amount": 300,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "068234f3",
+          "kind": "deposit",
+          "text": "or waived when you meet the daily ledger balance of $500 or when you make a deposit totaling $25 and no withdrawals for that month",
+          "amount": 500,
           "days": null,
           "count": null,
           "source": "bank"
@@ -5453,15 +5488,6 @@
       "post_modified": "2026-08-25",
       "last_seen": "2026-09-14",
       "conditions": [
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
         {
           "id": "af708591",
           "kind": "deposit",
@@ -5804,15 +5830,6 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "c8760b5d",
           "kind": "deposit",
           "text": "Get a $250 cash bonus offer when you open a new FNBO Free Business Checking Account and: Have qualifying deposit(s)of $1,000.",
@@ -6121,7 +6138,7 @@
           "source": "doc"
         },
         {
-          "id": "e667a269",
+          "id": "7080d0ba",
           "kind": "direct_deposit",
           "text": "Qualifying direct deposits are deposits of regular income from an employer or similar third party – such as your salary, paycheck, pension payment, Social Security payment, or other government benefits payment electronically deposited into the account – using your account number and BMO’s routing number that you provide to them.",
           "amount": null,
@@ -6483,15 +6500,6 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "87524eea",
           "kind": "fee",
           "text": "Service fees may be assessed, and we may collect the bonus if the account is closed within the first 180 days after account opening.",
@@ -6616,15 +6624,6 @@
           "kind": "fee",
           "text": "$25 early account termination fee",
           "amount": 25,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below.",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "doc"
@@ -6849,15 +6848,6 @@
       "post_modified": "2026-09-10",
       "last_seen": "2026-09-14",
       "conditions": [
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
         {
           "id": "d78dc622",
           "kind": "balance",
@@ -7686,15 +7676,6 @@
           "days": null,
           "count": null,
           "source": "doc"
-        },
-        {
-          "id": "17e29e9e",
-          "kind": "fee",
-          "text": "See Account Agreement and Disclosure for business checking account information and interest details.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
         }
       ],
       "hold_days": null,
@@ -7891,7 +7872,7 @@
           "id": "ca9d9f29",
           "kind": "deposit",
           "text": "You can earn $750 when you deposit at least $15,000 within the first 7 calendar days of account opening OR earn $300 when you deposit at least $5,000 within the first 7 calendar days of account opening.",
-          "amount": 750,
+          "amount": 15000,
           "days": null,
           "count": null,
           "source": "doc"
@@ -8225,15 +8206,6 @@
           "kind": "fee",
           "text": "$20 early account termination fee",
           "amount": 20,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
           "days": null,
           "count": null,
           "source": "doc"
@@ -8757,15 +8729,6 @@
           "text": "Account must be kept open for 180 days",
           "amount": null,
           "days": 180,
-          "count": null,
-          "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
           "count": null,
           "source": "doc"
         },
@@ -9550,15 +9513,6 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "a4a41dc8",
           "kind": "balance",
           "text": "Offer opportunity is $250 per account when requirements are met within 90 days of account opening: (1) Maintain a year-to-date average ledger balance of at least $750;",
@@ -9898,15 +9852,6 @@
       "post_modified": "2026-03-09",
       "last_seen": "2026-09-14",
       "conditions": [
-        {
-          "id": "82ff99bb",
-          "kind": "other",
-          "text": "Yes, see below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
         {
           "id": "fefb5530",
           "kind": "balance",
@@ -10316,15 +10261,6 @@
           "days": 45,
           "count": null,
           "source": "doc"
-        },
-        {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
         }
       ],
       "hold_days": null,
@@ -10467,15 +10403,6 @@
           "source": "doc"
         },
         {
-          "id": "aabf3a56",
-          "kind": "other",
-          "text": "See below",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "doc"
-        },
-        {
           "id": "3bf3ef8e",
           "kind": "new_customer",
           "text": "New Percapita customers who are one of the first 3,200 new customers to open a Percapita Cash Account between April 16, 2025, and April 15, 2026, shall earn a twenty-five-dollar ($25) incentive payment for each calendar month in which they spend three hundred dollars ($300) or more using their Percapita Visa® Debit Card during their first year after account opening.",
@@ -10503,7 +10430,7 @@
           "source": "doc"
         },
         {
-          "id": "da669877",
+          "id": "7746ef97",
           "kind": "new_customer",
           "text": "If the above eligibility criteria are met, the $25 incentive payment will be credited to the new customer’s Cash Account within ten (10) days of the applicable incentive month-end unless the customer has a Goals Account, then all incentives will be credited to the Goals Account.",
           "amount": 25,
@@ -10576,22 +10503,74 @@
       "dd": {
         "required": true,
         "amount": 2000,
-        "deadline_days": null
+        "deadline_days": 60
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Can fund with a credit card but codes as a cash advance",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 15,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 24,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-09-03",
       "last_seen": "2026-09-14",
-      "conditions": [],
+      "conditions": [
+        {
+          "id": "d2880bec",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $2000",
+          "amount": 2000,
+          "days": 60,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "39234ecf",
+          "kind": "direct_deposit",
+          "text": "To qualify for the reward, the new Virtual Wallet product must be opened online via the application links on this page between 9/21/2021 to 10/31/2021, and a qualifying Direct Deposit(s) must be received within the first 60 days.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "5481f730",
+          "kind": "keep_open",
+          "text": "Your Virtual Wallet product must remain open in order for you to receive the reward, which will be credited to the eligible account within 60–90 days after all conditions have been met and will be identified as “Cash Trans Promo Reward” on your monthly statement.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "2258b810",
+          "kind": "direct_deposit",
+          "text": "A qualifying Direct Deposit for this offer, is defined as a recurring Direct Deposit of a paycheck, pension, Social Security or other regular monthly income electronically deposited by an employer or an outside agency into the Spend account of a Virtual Wallet with Performance Select or Virtual Wallet with Performance Spend.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "3f78df07",
+          "kind": "direct_deposit",
+          "text": "The total amount of all qualifying Direct Deposits credited to your Spend account must be at least $5,000 for Virtual Wallet Performance Select or $2,000 for Virtual Wallet Performance Spend.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
       "hold_days": null,
       "terms": {
         "status": null,
@@ -10616,23 +10595,93 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Unknown if credit card funding is possible",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 12,
+        "avoidable": false
+      },
+      "etf": {
+        "amount": 25,
+        "days": 180
+      },
+      "household_limit": "None listed",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-01",
       "last_seen": "2026-09-14",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "be3fbd9c",
+          "kind": "fee",
+          "text": "$25 early account termination fee",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "f09a2dbd",
+          "kind": "balance",
+          "text": "To qualify for the reward, the new checking account must be opened between July 1, 2020 and September 30, 2020, and the following conditions must be met: (a) average cycle balance of $5,000 must be maintained in your new checking account for each of the first three statement cycles;",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "2c06b7a7",
+          "kind": "transactions",
+          "text": "and (b) at least 20 total qualifying PNC Visa® Business Debit Card transactions must be made within the first three statement cycles.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "6fa7f300",
+          "kind": "keep_open",
+          "text": "Your new checking account must be open in order for you to receive the reward, which will be credited to the eligible account within 90 days after all conditions have been met and will be identified as “Credits NEW BUS BONUS” on your monthly statement.",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "f1ba2d7f",
+          "kind": "balance",
+          "text": "Average cycle balance is defined as the average total within your business checking account at the end of your statement cycle.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "3dc9d3c7",
+          "kind": "balance",
+          "text": "To qualify for the reward, the new checking account must be opened between July 1, 2020 and September 30, 2020, and the following condition must be met: average cycle balance of $30,000 must be maintained in your new checking account for each of the first three statement cycles.",
+          "amount": 30000,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
         "status": null,
         "url": null,
@@ -12478,7 +12527,7 @@
           "source": "doc"
         },
         {
-          "id": "f134fbe9",
+          "id": "029d5f4d",
           "kind": "deposit",
           "text": "To receive the $500 bonus: you must use your bonus offer code when opening a new Wells Fargo consumer checking account, which is subject to approval, by October 6, 2026 and receive $1,000 or more in qualifying electronic deposits within 90 calendar days of account opening (the “qualification period”).",
           "amount": 1000,
@@ -12487,9 +12536,9 @@
           "source": "doc"
         },
         {
-          "id": "ff376bc0",
+          "id": "50703847",
           "kind": "direct_deposit",
-          "text": "Get a $500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
+          "text": "As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
           "amount": 1000,
           "days": 90,
           "count": null,
@@ -12505,20 +12554,11 @@
           "source": "bank"
         },
         {
-          "id": "2b8eb412",
+          "id": "223747c4",
           "kind": "direct_deposit",
-          "text": "Deposit Make $1,000 or more in qualifying direct deposits within the first 90 days of opening.",
+          "text": "Make $1,000 or more in qualifying direct deposits within the first 90 days of opening.",
           "amount": 1000,
           "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "029d5f4d",
-          "kind": "deposit",
-          "text": "To receive the $500 bonus: you must use your bonus offer code when opening a new Wells Fargo consumer checking account, which is subject to approval, by October 6, 2026 and receive $1,000 or more in qualifying electronic deposits within 90 calendar days of account opening (the \"qualification period\").",
-          "amount": 1000,
-          "days": 90,
           "count": null,
           "source": "bank"
         },
@@ -12544,24 +12584,6 @@
           "id": "248dd4f5",
           "kind": "deposit",
           "text": "$500 or more in total qualifying electronic deposits.",
-          "amount": 500,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "04cf80e0",
-          "kind": "deposit",
-          "text": "OR $5,000 or more in qualifying deposit balances, investment balances, or both.",
-          "amount": 5000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "40661d12",
-          "kind": "deposit",
-          "text": "OR $500 or more in total qualifying electronic deposits.",
           "amount": 500,
           "days": null,
           "count": null,
