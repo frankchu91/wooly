@@ -14,6 +14,8 @@ export interface SelectProps {
   searchable?: boolean;
   placeholder?: string;
   className?: string;
+  id?: string;
+  autoFocus?: boolean;
 }
 
 export function Select({
@@ -23,6 +25,8 @@ export function Select({
   searchable,
   placeholder,
   className,
+  id,
+  autoFocus,
 }: SelectProps) {
   if (searchable) {
     return (
@@ -32,12 +36,16 @@ export function Select({
         onChange={onChange}
         placeholder={placeholder}
         className={className}
+        id={id}
+        autoFocus={autoFocus}
       />
     );
   }
 
   return (
     <select
+      id={id}
+      autoFocus={autoFocus}
       value={value}
       onChange={(event) => onChange(event.target.value)}
       className={clsx(
@@ -68,6 +76,8 @@ function SearchableSelect({
   onChange,
   placeholder,
   className,
+  id,
+  autoFocus,
 }: SearchableSelectProps) {
   const selected = options.find((option) => option.value === value);
   const [query, setQuery] = useState(selected?.label ?? "");
@@ -133,6 +143,7 @@ function SearchableSelect({
   return (
     <div className="relative" ref={containerRef}>
       <input
+        id={id}
         role="combobox"
         aria-expanded={open}
         aria-controls={listboxId}
@@ -140,6 +151,7 @@ function SearchableSelect({
         aria-autocomplete="list"
         aria-activedescendant={activeOptionId}
         autoComplete="off"
+        autoFocus={autoFocus}
         value={query}
         placeholder={placeholder}
         onChange={(event) => {
