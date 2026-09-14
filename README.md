@@ -13,6 +13,27 @@ capacity, and the banks you've had; it finds the bonuses you qualify for and sch
 - `web/` — Vite + React app
 - `data/bonuses.json` — the dataset the app reads
 
+## Web app
+
+```bash
+cd web && pnpm install && pnpm dev      # http://localhost:5173
+pnpm test                               # unit tests (Vitest)
+pnpm e2e                                # Playwright smoke test (starts its own dev server)
+```
+
+- **Plan** (`/plan`) — the month-by-month schedule of bonuses to open, with projected earnings, direct-deposit deadlines, and safe-to-close dates.
+- **Tracker** (`/tracker`) — the bonuses you've committed to, grouped by status, so you don't miss a direct-deposit or closing deadline.
+- **Bonuses** (`/bonuses`) — every offer in the dataset, searchable and filterable, independent of your plan.
+- **Settings** (`/settings`) — edit your profile (state, direct deposit, history) and export, import, or clear your locally-stored data.
+
+### How the plan is built
+
+Woolly builds your plan entirely in your browser, in three steps: it checks each offer's **eligibility** against your state, bank history, and preferences (excluding expired offers, ones you don't qualify for, or ones you've asked to avoid); it **scores** the remaining offers by expected value against how much direct deposit they need; and it **greedily schedules** them into a month-by-month plan, filling each month's direct-deposit capacity with the highest-scoring bonuses that still fit before moving to the next month. Nothing about your profile or plan ever leaves your machine.
+
+### Contributing data fixes
+
+The bonus data itself comes from the scraper — see the [Scraper](#scraper) section below for how to refresh it or fix a parsing issue.
+
 ## Scraper
 
 ```bash
