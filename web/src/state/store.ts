@@ -1,8 +1,15 @@
 import { format } from "date-fns";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { defaultProfile } from "../engine/types";
-import type { HistoryEntry, PlanItem, Profile } from "../engine/types";
+import { defaultProfile, STATUS_ORDER } from "../engine/types";
+import type { HistoryEntry, PlanItem, Profile, TrackedItem, TrackStatus } from "../engine/types";
+
+// `TrackStatus`/`TrackedItem`/`STATUS_ORDER` are domain types owned by `engine/types.ts`
+// (so the pure engine — `engine/conditions.ts` in particular — can use them without
+// importing anything from the state layer); re-exported here so existing
+// `import { … } from "../state/store"` call sites keep working unchanged.
+export type { TrackedItem, TrackStatus };
+export { STATUS_ORDER };
 
 /** The current calendar month as `YYYY-MM`.
  *
@@ -14,34 +21,6 @@ import type { HistoryEntry, PlanItem, Profile } from "../engine/types";
 export function currentMonth(): string {
   return format(new Date(), "yyyy-MM");
 }
-
-export type TrackStatus = "planned" | "opened" | "requirements_met" | "received" | "closed";
-
-export interface TrackedItem {
-  id: string;
-  bonusId: string;
-  status: TrackStatus;
-  dates: Partial<Record<TrackStatus, string>>;
-  openMonth: string;
-  /** Ids of the bonus's `Condition`s (see `engine/conditions.ts`) the user has ticked
-   * off. Always an array, even when empty. */
-  conditionsDone: string[];
-  /** The amount the user says actually posted, when it differs from — or simply
-   * confirms — the bonus's headline `bonus_max`. Undefined until they enter one. */
-  bonusReceived?: number;
-  notes?: string;
-}
-
-// The order `advance` walks through; `closed` has no successor, so advancing there is a
-// no-op. Exported so the tracker UI orders its groups the same way instead of keeping a
-// second copy of the list.
-export const STATUS_ORDER: TrackStatus[] = [
-  "planned",
-  "opened",
-  "requirements_met",
-  "received",
-  "closed",
-];
 
 // v1 called this stage "dd_sent"; v2 renamed it "requirements_met" (it now covers every
 // condition, not just direct deposit). Both a persisted item's `status` and its `dates`
@@ -192,12 +171,18 @@ const normalizeTracker = (imported: unknown[]): TrackedItem[] =>
       const conditionsDone: string[] = Array.isArray(item.conditionsDone)
         ? item.conditionsDone.filter((c): c is string => typeof c === "string")
         : [];
-      const bonusReceived: number | undefined =
-        typeof item.bonusReceived === "number" && Number.isFinite(item.bonusReceived)
-          ? item.bonusReceived
-          : undefined;
-      const notes: string | undefined = typeof item.notes === "string" ? item.notes : undefined;
-      return { id, bonusId, status, dates, openMonth, conditionsDone, bonusReceived, notes };
+      // Built conditionally, not `?? undefined`, so an item that never had a
+      // `bonusReceived`/`notes` comes out with the key absent entirely — matching what
+      // `setBonusReceived(id, undefined)` produces, so `"bonusReceived" in item` means
+      // the same thing regardless of which path built the item.
+      const result: TrackedItem = { id, bonusId, status, dates, openMonth, conditionsDone };
+      if (typeof item.bonusReceived === "number" && Number.isFinite(item.bonusReceived)) {
+        result.bonusReceived = item.bonusReceived;
+      }
+      if (typeof item.notes === "string") {
+        result.notes = item.notes;
+      }
+      return result;
     });
 
 /**
@@ -275,11 +260,36 @@ export const useStore = create<State>()(
 
       setStatus: (id, status, dateISO) =>
         set((state) => ({
-          tracker: state.tracker.map((item) =>
-            item.id === id
-              ? { ...item, status, dates: { ...item.dates, [status]: dateISO } }
-              : item,
-          ),
+          tracker: state.tracker.map((item) => {
+            if (item.id !== id) return item;
+            const targetIndex = STATUS_ORDER.indexOf(status);
+            const currentIndex = STATUS_ORDER.indexOf(item.status);
+
+            // Moving forward just records the target date — every earlier date stays,
+            // nothing is implied false by skipping ahead.
+            if (targetIndex >= currentIndex) {
+              return { ...item, status, dates: { ...item.dates, [status]: dateISO } };
+            }
+
+            // Moving to an earlier stage means every later stage no longer applies:
+            // drop its date (dates for the target stage and everything before it are
+            // kept), and drop `bonusReceived` too when the target is before `received`
+            // — the bonus hasn't been received again just because the pointer moved
+            // back past that stage.
+            const dates: Partial<Record<TrackStatus, string>> = {};
+            for (const [key, value] of Object.entries(item.dates)) {
+              if (STATUS_ORDER.indexOf(key as TrackStatus) <= targetIndex) {
+                dates[key as TrackStatus] = value;
+              }
+            }
+            dates[status] = dateISO;
+
+            const next: TrackedItem = { ...item, status, dates };
+            if (targetIndex < STATUS_ORDER.indexOf("received")) {
+              delete next.bonusReceived;
+            }
+            return next;
+          }),
         })),
 
       toggleCondition: (id, conditionId) =>

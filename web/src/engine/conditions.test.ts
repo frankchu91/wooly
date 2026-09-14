@@ -1,7 +1,6 @@
 import { fixture } from "../data/fixture";
-import type { TrackedItem } from "../state/store";
 import { checklistFor, earliestCloseDate, ledgerTotals, receivedAmount } from "./conditions";
-import type { Bonus, Condition } from "./types";
+import type { Bonus, Condition, TrackedItem } from "./types";
 
 const bonusById = (id: string): Bonus => {
   const found = fixture.find((b) => b.id === id);

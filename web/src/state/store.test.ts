@@ -224,17 +224,49 @@ describe("setStatus", () => {
     expect(item.dates.received).toBe("2026-11-01");
   });
 
-  test("can move backward, e.g. correcting a mistaken advance", () => {
+  test("moving forward records only the target date, leaving earlier dates intact", () => {
     useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+    useStore.getState().setStatus("wells-fargo-500", "opened", "2026-09-01");
+
     useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-01");
 
+    const item = useStore.getState().tracker[0];
+    expect(item.status).toBe("received");
+    expect(item.dates.opened).toBe("2026-09-01");
+    expect(item.dates.received).toBe("2026-11-01");
+  });
+
+  test("moving to an earlier stage clears dates and bonusReceived for every later stage", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
     useStore.getState().setStatus("wells-fargo-500", "opened", "2026-09-01");
+    useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-01");
+    useStore.getState().setBonusReceived("wells-fargo-500", 500);
+
+    useStore.getState().setStatus("wells-fargo-500", "opened", "2026-09-05");
 
     const item = useStore.getState().tracker[0];
     expect(item.status).toBe("opened");
-    expect(item.dates.opened).toBe("2026-09-01");
-    // The earlier date isn't erased — only the status pointer moves.
-    expect(item.dates.received).toBe("2026-11-01");
+    // The target date overwrites, dates for every later stage are gone, and so is the
+    // recorded bonus amount — moving the pointer back doesn't mean it posted again.
+    expect(item.dates.opened).toBe("2026-09-05");
+    expect(item.dates.received).toBeUndefined();
+    expect(item.bonusReceived).toBeUndefined();
+    expect("bonusReceived" in item).toBe(false);
+  });
+
+  test("moving backward to received itself keeps bonusReceived (it isn't 'before received')", () => {
+    useStore.getState().trackPlan([makePlanItem("wells-fargo-500")]);
+    useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-01");
+    useStore.getState().setBonusReceived("wells-fargo-500", 500);
+    useStore.getState().setStatus("wells-fargo-500", "closed", "2027-05-01");
+
+    useStore.getState().setStatus("wells-fargo-500", "received", "2026-11-05");
+
+    const item = useStore.getState().tracker[0];
+    expect(item.status).toBe("received");
+    expect(item.dates.received).toBe("2026-11-05");
+    expect(item.dates.closed).toBeUndefined();
+    expect(item.bonusReceived).toBe(500);
   });
 });
 

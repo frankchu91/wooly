@@ -114,6 +114,31 @@ export interface Dataset {
   source: string;
   bonuses: Bonus[];
 }
+export type TrackStatus = "planned" | "opened" | "requirements_met" | "received" | "closed";
+export interface TrackedItem {
+  id: string;
+  bonusId: string;
+  status: TrackStatus;
+  dates: Partial<Record<TrackStatus, string>>;
+  openMonth: string;
+  /** Ids of the bonus's `Condition`s (see `engine/conditions.ts`) the user has ticked
+   * off. Always an array, even when empty. */
+  conditionsDone: string[];
+  /** The amount the user says actually posted, when it differs from — or simply
+   * confirms — the bonus's headline `bonus_max`. Absent until they enter one. */
+  bonusReceived?: number;
+  notes?: string;
+}
+// The order `advance` walks through; `closed` has no successor, so advancing there is a
+// no-op. Also the canonical stage ordering `setStatus` uses to tell a forward move from
+// a backward one, and that the tracker UI orders its groups/columns by.
+export const STATUS_ORDER: TrackStatus[] = [
+  "planned",
+  "opened",
+  "requirements_met",
+  "received",
+  "closed",
+];
 export const defaultProfile = (startMonth: string): Profile => ({
   state: "",
   monthlyDD: 5000,

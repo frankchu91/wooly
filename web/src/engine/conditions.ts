@@ -1,12 +1,7 @@
 import { addDays, format, parseISO } from "date-fns";
 
 import { DEFAULT_DD_DEADLINE_DAYS } from "./scheduler";
-import type { Bonus, Condition } from "./types";
-// Type-only: erased by `verbatimModuleSyntax` at compile time, so this introduces no
-// runtime dependency on the state layer (or its persistence/localStorage side effects)
-// — the engine stays pure. `TrackedItem`/`TrackStatus` are the store's tracking domain
-// types; `ledgerTotals`/`receivedAmount` just need their shape.
-import type { TrackedItem, TrackStatus } from "../state/store";
+import type { Bonus, Condition, TrackedItem, TrackStatus } from "./types";
 
 const SYNTH_DD_ID = "synth-dd";
 const SYNTH_KEEP_OPEN_ID = "synth-keep";
