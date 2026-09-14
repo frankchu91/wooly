@@ -1,16 +1,29 @@
-import { addMonths, differenceInCalendarDays, format, isBefore, parseISO } from "date-fns";
+import {
+  addMonths,
+  differenceInCalendarDays,
+  format,
+  isBefore,
+  parseISO,
+  startOfDay,
+} from "date-fns";
 import type { Bonus, Evaluation, Profile, Reason, Warning } from "./types";
 
 export const DEFAULT_ANTI_CHURN_MONTHS = 24;
 export const normalizeBankName = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 export function evaluate(bonus: Bonus, profile: Profile, today: Date): Evaluation {
+  // Normalise `today` to local midnight once so every comparison below treats it as a
+  // calendar day, matching how parseISO interprets date-only strings (e.g. expiration,
+  // history months) as local midnight. Without this, a `today` built from a UTC instant
+  // (e.g. `new Date("2026-09-13")`) can be a partial day off from `parseISO`-parsed dates
+  // for callers west of UTC, skewing `expired`/`expires_soon`/`anti_churn` by one day.
+  const day = startOfDay(today);
   const reasons: Reason[] = [];
   const warnings: Warning[] = [];
   let antiChurnUntil: string | undefined;
 
   if (bonus.bonus_max == null) reasons.push("no_bonus_amount");
-  if (bonus.expiration && isBefore(parseISO(bonus.expiration), today)) reasons.push("expired");
+  if (bonus.expiration && isBefore(parseISO(bonus.expiration), day)) reasons.push("expired");
   const { nationwide, states } = bonus.availability;
   if (!nationwide && states.length === 0) reasons.push("unknown_availability");
   else if (!nationwide && !states.includes(profile.state)) reasons.push("not_in_state");
@@ -21,7 +34,7 @@ export function evaluate(bonus: Bonus, profile: Profile, today: Date): Evaluatio
   if (hist?.lastBonusAt) {
     const window = bonus.anti_churn_months ?? DEFAULT_ANTI_CHURN_MONTHS;
     const until = addMonths(parseISO(`${hist.lastBonusAt}-01`), window);
-    if (isBefore(today, until)) {
+    if (isBefore(day, until)) {
       reasons.push("anti_churn");
       antiChurnUntil = format(until, "yyyy-MM");
     }
@@ -50,7 +63,7 @@ export function evaluate(bonus: Bonus, profile: Profile, today: Date): Evaluatio
   if (bonus.dd.required !== false && bonus.dd.amount == null) warnings.push("dd_unknown");
   if (
     bonus.expiration &&
-    differenceInCalendarDays(parseISO(bonus.expiration), today) <= 30 &&
+    differenceInCalendarDays(parseISO(bonus.expiration), day) <= 30 &&
     !reasons.includes("expired")
   )
     warnings.push("expires_soon");

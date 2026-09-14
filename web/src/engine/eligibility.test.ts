@@ -3,7 +3,10 @@ import { defaultProfile } from "./types";
 import type { Bonus, Profile } from "./types";
 import { fixture } from "../data/fixture";
 
-const today = new Date("2026-09-13");
+// Built from local components (not `new Date("2026-09-13")`, which is UTC midnight) so
+// this matches how date-fns `parseISO` interprets date-only strings (local midnight) for
+// every timezone, including ones west of UTC.
+const today = new Date(2026, 8, 13);
 
 const bonus = (id: string): Bonus => {
   const found = fixture.find((b) => b.id === id);
@@ -39,6 +42,12 @@ describe("evaluate — reasons", () => {
     const result = evaluate(bonus("expired-100"), maProfile(), today);
     expect(result.reasons).toContain("expired");
     expect(result.eligible).toBe(false);
+  });
+
+  it("expired: expiration equal to today's date is NOT expired (expires at end of day)", () => {
+    const b: Bonus = { ...bonus("wells-fargo-500"), expiration: "2026-09-13" };
+    const result = evaluate(b, maProfile(), today);
+    expect(result.reasons).not.toContain("expired");
   });
 
   it("not_in_state: MI user is not in eastern-750's state list", () => {
@@ -157,6 +166,18 @@ describe("evaluate — warnings", () => {
     const b: Bonus = { ...bonus("us-bank-450"), expiration: "2026-09-20" };
     const result = evaluate(b, maProfile(), today);
     expect(result.warnings).toContain("expires_soon");
+  });
+
+  it("expires_soon: present at exactly the 30-day boundary", () => {
+    const b: Bonus = { ...bonus("us-bank-450"), expiration: "2026-10-13" };
+    const result = evaluate(b, maProfile(), today);
+    expect(result.warnings).toContain("expires_soon");
+  });
+
+  it("expires_soon: absent one day past the 30-day boundary (31 days out)", () => {
+    const b: Bonus = { ...bonus("us-bank-450"), expiration: "2026-10-14" };
+    const result = evaluate(b, maProfile(), today);
+    expect(result.warnings).not.toContain("expires_soon");
   });
 
   it("expires_soon is suppressed when the bonus is already expired", () => {
