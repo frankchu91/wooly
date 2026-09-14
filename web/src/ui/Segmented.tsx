@@ -5,6 +5,8 @@ import { useRef } from "react";
 export interface SegmentedOption {
   value: string;
   label: string;
+  disabled?: boolean;
+  title?: string;
 }
 
 export interface SegmentedProps {
@@ -21,7 +23,7 @@ export function Segmented({ options, value, onChange, className }: SegmentedProp
   function focusAndSelect(index: number) {
     const option = options[index];
     if (!option) return;
-    onChange(option.value);
+    if (!option.disabled) onChange(option.value);
     buttonRefs.current[index]?.focus();
   }
 
@@ -69,13 +71,18 @@ export function Segmented({ options, value, onChange, className }: SegmentedProp
             type="button"
             role="radio"
             aria-checked={active}
+            aria-disabled={option.disabled || undefined}
+            title={option.title}
             tabIndex={isTabStop ? 0 : -1}
-            onClick={() => onChange(option.value)}
+            onClick={() => {
+              if (!option.disabled) onChange(option.value);
+            }}
             onKeyDown={(event) => handleKeyDown(event, index)}
             className={clsx(
               "rounded-control px-3 py-1.5 text-sm font-medium transition-colors duration-200 ease-out",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
               active ? "bg-surface text-primary shadow-card" : "text-muted hover:text-ink",
+              option.disabled && "cursor-not-allowed opacity-50",
             )}
           >
             {option.label}

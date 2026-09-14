@@ -126,9 +126,7 @@ export function PlanCard({ item }: PlanCardProps) {
                     itemRefs.current[0] = el;
                   }}
                   role="menuitem"
-                  href={bonus.doc_url}
-                  target="_blank"
-                  rel="noreferrer"
+                  href={`/bonuses?bonus=${bonus.id}`}
                   onClick={closeMenu}
                   className="block rounded-control px-3 py-2 text-sm text-ink transition-colors duration-200 ease-out hover:bg-mint/60"
                 >

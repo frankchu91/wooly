@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { BonusesPage } from "./features/bonuses/BonusesPage";
 import { Landing } from "./features/landing/Landing";
 import { Layout } from "./features/layout/Layout";
 import { Onboarding } from "./features/onboarding/Onboarding";
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
       { path: "start", element: <Onboarding /> },
       { path: "plan", element: <PlanPage /> },
       { path: "tracker", element: <TrackerPage /> },
-      { path: "bonuses", element: <Placeholder name="Bonuses" /> },
+      { path: "bonuses", element: <BonusesPage /> },
       { path: "settings", element: <Placeholder name="Settings" /> },
     ],
   },

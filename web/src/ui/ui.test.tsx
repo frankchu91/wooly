@@ -269,6 +269,25 @@ describe("Segmented", () => {
     expect(onChange).toHaveBeenCalledWith("year");
     expect(screen.getByRole("radio", { name: "Year" })).toHaveFocus();
   });
+
+  test("a disabled option does not call onChange when clicked", async () => {
+    const onChange = vi.fn();
+    render(
+      <Segmented
+        options={[
+          { value: "month", label: "Month" },
+          { value: "year", label: "Year", disabled: true, title: "Needs setup" },
+        ]}
+        value="month"
+        onChange={onChange}
+      />,
+    );
+    const disabledOption = screen.getByRole("radio", { name: "Year" });
+    expect(disabledOption).toHaveAttribute("title", "Needs setup");
+
+    await userEvent.click(disabledOption);
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });
 
 describe("Stepper", () => {

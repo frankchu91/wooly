@@ -152,6 +152,7 @@ export const t = {
   bonuses: {
     title: "All offers",
     search: "Search banks or offers",
+    count: (n: number) => `${n} offers`,
     filters: {
       nationwide: "Nationwide",
       myState: "My state",
@@ -183,6 +184,7 @@ export const t = {
     unknown: "—",
     verify: "verify on DoC",
     nationwide: "Nationwide",
+    eligible: "You're eligible",
     days: (n: number) => `${n} days`,
     months: (n: number) => `${n} months`,
   },
