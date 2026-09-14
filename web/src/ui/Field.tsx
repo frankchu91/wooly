@@ -26,7 +26,7 @@ export function Field({ label, help, error, htmlFor, children }: FieldProps) {
       </label>
       {control}
       {error ? (
-        <p id={errorId} role="alert" className="text-xs text-coral">
+        <p id={errorId} role="alert" className="text-xs text-coral-dark">
           {error}
         </p>
       ) : help ? (

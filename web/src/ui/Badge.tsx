@@ -1,5 +1,6 @@
-import clsx from "clsx";
 import type { ReactNode } from "react";
+
+import { cn } from "./cn";
 
 export interface BadgeProps {
   tone?: "neutral" | "mint" | "coral" | "gold";
@@ -11,14 +12,14 @@ export interface BadgeProps {
 const toneClasses: Record<NonNullable<BadgeProps["tone"]>, string> = {
   neutral: "bg-cream text-muted",
   mint: "bg-mint text-primary-dark",
-  coral: "bg-coral/15 text-coral",
+  coral: "bg-coral/15 text-coral-dark",
   gold: "bg-gold/25 text-ink",
 };
 
 export function Badge({ tone = "neutral", icon, children, className }: BadgeProps) {
   return (
     <span
-      className={clsx(
+      className={cn(
         "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium",
         toneClasses[tone],
         className,

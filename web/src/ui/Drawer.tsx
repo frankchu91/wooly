@@ -59,9 +59,16 @@ export function Drawer({ open, onClose, title, children }: DrawerProps) {
       }
     }
 
+    // Stop the page behind the drawer scrolling under it — on a phone the drawer covers
+    // most of the viewport and a stray drag would otherwise scroll the list, not the
+    // panel.
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
       previousFocusRef.current?.focus();
     };
   }, [open]);
@@ -90,8 +97,12 @@ export function Drawer({ open, onClose, title, children }: DrawerProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
+            // `flex flex-col` + a `min-h-0 flex-1` body is what makes the body (and only
+            // the body) the scroll container at both breakpoints — without `min-h-0` the
+            // flex item refuses to shrink below its content and the panel grows past the
+            // viewport, stranding the actions at the bottom.
             className={
-              "fixed inset-x-0 bottom-0 z-50 max-h-[85vh] w-full rounded-t-card bg-surface p-5 shadow-card " +
+              "fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] w-full flex-col rounded-t-card bg-surface p-5 shadow-card " +
               "md:inset-x-auto md:right-0 md:top-0 md:bottom-auto md:h-full md:max-h-none md:w-full md:max-w-md md:rounded-t-none md:rounded-l-card"
             }
             initial={panelInitial}
@@ -99,7 +110,7 @@ export function Drawer({ open, onClose, title, children }: DrawerProps) {
             exit={panelExit}
             transition={transition}
           >
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex shrink-0 items-center justify-between gap-4">
               <h2 id={titleId} className="font-heading text-lg font-semibold text-ink">
                 {title}
               </h2>
@@ -113,7 +124,7 @@ export function Drawer({ open, onClose, title, children }: DrawerProps) {
                 <X size={20} aria-hidden="true" />
               </button>
             </div>
-            <div className="mt-4 overflow-y-auto">{children}</div>
+            <div className="mt-4 min-h-0 flex-1 overflow-y-auto">{children}</div>
           </motion.div>
         </>
       ) : null}

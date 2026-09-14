@@ -2,6 +2,7 @@ export * from "./BankAvatar";
 export * from "./Badge";
 export * from "./Button";
 export * from "./Card";
+export * from "./cn";
 export * from "./Drawer";
 export * from "./EmptyState";
 export * from "./Field";

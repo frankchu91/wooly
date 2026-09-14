@@ -19,6 +19,7 @@ import {
   Stepper,
   Toaster,
   Toggle,
+  cn,
   dateLabel,
   monthLabel,
   money,
@@ -80,6 +81,29 @@ describe("Card", () => {
     const el = screen.getByText("Content");
     expect(el.tagName).toBe("SECTION");
   });
+
+  test("padded={false} drops the default padding", () => {
+    render(<Card padded={false}>Content</Card>);
+    expect(screen.getByText("Content")).not.toHaveClass("p-5");
+  });
+
+  test("tone swaps the surface colour, and a className override wins over it", () => {
+    const { rerender } = render(<Card tone="ink">Content</Card>);
+    expect(screen.getByText("Content")).toHaveClass("bg-ink");
+
+    rerender(<Card className="bg-mint">Content</Card>);
+    const el = screen.getByText("Content");
+    // twMerge resolves the conflict in favour of the caller instead of leaving both
+    // background utilities on the element.
+    expect(el).toHaveClass("bg-mint");
+    expect(el).not.toHaveClass("bg-surface");
+  });
+});
+
+describe("cn", () => {
+  test("the later of two conflicting utilities wins", () => {
+    expect(cn("p-5 bg-surface", "bg-ink")).toBe("p-5 bg-ink");
+  });
 });
 
 describe("Badge", () => {
@@ -98,6 +122,19 @@ describe("MoneyText", () => {
   test("renders em dash for null", () => {
     render(<MoneyText value={null} />);
     expect(screen.getByText("—")).toBeInTheDocument();
+  });
+
+  test("renders a range when min and max differ", () => {
+    render(<MoneyText value={7000} range={[1500, 7000]} />);
+    expect(screen.getByText("$1,500–$7,000")).toBeInTheDocument();
+  });
+
+  test("renders the single value when min equals max or min is missing", () => {
+    const { rerender } = render(<MoneyText value={500} range={[500, 500]} />);
+    expect(screen.getByText("$500")).toBeInTheDocument();
+
+    rerender(<MoneyText value={500} range={[null, 500]} />);
+    expect(screen.getByText("$500")).toBeInTheDocument();
   });
 });
 
@@ -239,6 +276,13 @@ describe("Toggle", () => {
     await userEvent.click(switchEl);
     expect(switchEl).toHaveAttribute("aria-checked", "true");
   });
+
+  test("clicking the visible label toggles it too", async () => {
+    render(<ControlledToggle />);
+    const switchEl = screen.getByRole("switch", { name: "Autopilot" });
+    await userEvent.click(screen.getByText("Autopilot"));
+    expect(switchEl).toHaveAttribute("aria-checked", "true");
+  });
 });
 
 describe("Segmented", () => {
@@ -253,6 +297,11 @@ describe("Segmented", () => {
     expect(screen.getByRole("radiogroup")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("radio", { name: "Year" }));
     expect(onChange).toHaveBeenCalledWith("year");
+  });
+
+  test("names the radiogroup from aria-label", () => {
+    render(<Segmented options={monthYear} value="month" onChange={vi.fn()} aria-label="Horizon" />);
+    expect(screen.getByRole("radiogroup", { name: "Horizon" })).toBeInTheDocument();
   });
 
   test("only the selected option is a tab stop", () => {
@@ -341,6 +390,34 @@ describe("Drawer", () => {
       </Drawer>,
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  test("locks page scroll while open and restores it on close", () => {
+    const { rerender } = render(
+      <Drawer open onClose={vi.fn()} title="Details">
+        <p>Body</p>
+      </Drawer>,
+    );
+    expect(document.body.style.overflow).toBe("hidden");
+
+    rerender(
+      <Drawer open={false} onClose={vi.fn()} title="Details">
+        <p>Body</p>
+      </Drawer>,
+    );
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  test("the body is its own scroll container so the actions stay reachable", () => {
+    render(
+      <Drawer open onClose={vi.fn()} title="Details">
+        <p>Body</p>
+      </Drawer>,
+    );
+    const panel = screen.getByRole("dialog");
+    expect(panel).toHaveClass("flex", "flex-col");
+    const body = screen.getByText("Body").parentElement as HTMLElement;
+    expect(body).toHaveClass("min-h-0", "flex-1", "overflow-y-auto");
   });
 
   function DrawerHarness() {

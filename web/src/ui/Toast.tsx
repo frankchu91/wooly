@@ -46,7 +46,8 @@ export function Toaster() {
     <div
       role="status"
       aria-live="polite"
-      className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex flex-col items-center gap-2 px-4"
+      // Clears the mobile tab bar (and the plan page's sticky action) on small screens.
+      className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex flex-col items-center gap-2 px-4 md:bottom-6"
     >
       {items.map((item) => (
         <div

@@ -1,6 +1,7 @@
-import clsx from "clsx";
 import type { KeyboardEvent } from "react";
 import { useRef } from "react";
+
+import { cn } from "./cn";
 
 export interface SegmentedOption {
   value: string;
@@ -14,9 +15,20 @@ export interface SegmentedProps {
   value: string;
   onChange: (value: string) => void;
   className?: string;
+  /** Names the group for screen readers. Pass one or the other — an unlabelled
+   * radiogroup announces only "radio group" with no hint of what it switches. */
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }
 
-export function Segmented({ options, value, onChange, className }: SegmentedProps) {
+export function Segmented({
+  options,
+  value,
+  onChange,
+  className,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+}: SegmentedProps) {
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const selectedIndex = options.findIndex((option) => option.value === value);
 
@@ -55,7 +67,9 @@ export function Segmented({ options, value, onChange, className }: SegmentedProp
   return (
     <div
       role="radiogroup"
-      className={clsx("inline-flex gap-1 rounded-control bg-mint/40 p-1", className)}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      className={cn("inline-flex gap-1 rounded-control bg-mint/40 p-1", className)}
     >
       {options.map((option, index) => {
         const active = option.value === value;
@@ -78,7 +92,7 @@ export function Segmented({ options, value, onChange, className }: SegmentedProp
               if (!option.disabled) onChange(option.value);
             }}
             onKeyDown={(event) => handleKeyDown(event, index)}
-            className={clsx(
+            className={cn(
               "rounded-control px-3 py-1.5 text-sm font-medium transition-colors duration-200 ease-out",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
               active ? "bg-surface text-primary shadow-card" : "text-muted hover:text-ink",

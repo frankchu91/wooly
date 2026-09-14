@@ -1,6 +1,7 @@
-import clsx from "clsx";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+
+import { cn } from "./cn";
 
 export interface ButtonProps {
   variant?: "primary" | "secondary" | "ghost" | "danger";
@@ -19,9 +20,9 @@ export interface ButtonProps {
 // instead of duplicating them.
 export const buttonVariantClasses: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary: "bg-primary text-white hover:bg-primary-dark",
-  secondary: "bg-mint text-primary hover:bg-mint/80",
+  secondary: "bg-mint text-primary-dark hover:bg-mint/80",
   ghost: "text-primary hover:bg-mint/60",
-  danger: "bg-coral text-white hover:bg-coral/90",
+  danger: "bg-coral-dark text-white hover:bg-coral-dark/90",
 };
 
 export const buttonSizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
@@ -48,7 +49,7 @@ export function Button({
   children,
   className,
 }: ButtonProps) {
-  const classes = clsx(
+  const classes = cn(
     buttonBaseClasses,
     "disabled:cursor-not-allowed disabled:opacity-50",
     variantClasses[variant],

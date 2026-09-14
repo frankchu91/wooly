@@ -6,7 +6,9 @@ export default {
       colors: {
         cream: "#FBF8F3", surface: "#FFFFFF", ink: "#1F2A24", muted: "#6B7A72",
         primary: { DEFAULT: "#1E7F5C", dark: "#176549" }, mint: "#DDF3E8",
-        coral: "#F28C6B", gold: "#F5C451",
+        // `coral` is decorative only (fills, tints) — it fails contrast as text on
+        // cream/surface. Anything readable uses `coral-dark`.
+        coral: { DEFAULT: "#F28C6B", dark: "#B9482A" }, gold: "#F5C451",
       },
       fontFamily: { heading: ["Manrope", "Inter", "system-ui", "sans-serif"], body: ["Inter", "system-ui", "sans-serif"] },
       borderRadius: { card: "16px", control: "12px" },
