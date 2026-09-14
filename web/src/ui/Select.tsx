@@ -127,13 +127,18 @@ function SearchableSelect({
     }
   }
 
+  const activeOptionId =
+    open && filtered.length > 0 ? `${listboxId}-opt-${activeIndex}` : undefined;
+
   return (
     <div className="relative" ref={containerRef}>
       <input
         role="combobox"
         aria-expanded={open}
         aria-controls={listboxId}
+        aria-haspopup="listbox"
         aria-autocomplete="list"
+        aria-activedescendant={activeOptionId}
         autoComplete="off"
         value={query}
         placeholder={placeholder}
@@ -162,6 +167,7 @@ function SearchableSelect({
             filtered.map((option, index) => (
               <li
                 key={option.value}
+                id={`${listboxId}-opt-${index}`}
                 role="option"
                 aria-selected={option.value === value}
                 onMouseDown={(event) => {

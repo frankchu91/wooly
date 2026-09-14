@@ -111,6 +111,24 @@ describe("Field", () => {
     expect(screen.getByLabelText("State")).toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent("Required");
   });
+
+  test("wires aria-describedby from help text to the child control", () => {
+    render(
+      <Field label="State" htmlFor="state" help="Pick your home state">
+        <input id="state" />
+      </Field>,
+    );
+    expect(screen.getByLabelText("State")).toHaveAttribute("aria-describedby", "state-help");
+  });
+
+  test("wires aria-describedby from an error to the child control", () => {
+    render(
+      <Field label="State" htmlFor="state" error="Required">
+        <input id="state" />
+      </Field>,
+    );
+    expect(screen.getByLabelText("State")).toHaveAttribute("aria-describedby", "state-error");
+  });
 });
 
 describe("Select", () => {
@@ -147,6 +165,21 @@ describe("Select", () => {
     expect(onChange).toHaveBeenCalledWith("ally");
   });
 
+  test("aria-activedescendant tracks the highlighted option on ArrowDown", async () => {
+    render(<Select options={options} value="" onChange={vi.fn()} searchable />);
+    const combobox = screen.getByRole("combobox");
+    expect(combobox).toHaveAttribute("aria-haspopup", "listbox");
+
+    await userEvent.click(combobox);
+    await userEvent.keyboard("{ArrowDown}");
+
+    // The first ArrowDown moves the highlight from index 0 to index 1.
+    const listbox = screen.getByRole("listbox");
+    const highlighted = within(listbox).getAllByRole("option")[1];
+    expect(highlighted).toHaveAttribute("id");
+    expect(combobox).toHaveAttribute("aria-activedescendant", highlighted.id);
+  });
+
   test("searchable select closes on Escape", async () => {
     render(<Select options={options} value="" onChange={vi.fn()} searchable />);
     const combobox = screen.getByRole("combobox");
@@ -170,6 +203,27 @@ describe("Slider", () => {
     fireEvent.change(range, { target: { value: "7" } });
     expect(onChange).toHaveBeenCalledWith(7);
   });
+
+  test("typing past max in the numeric input commits the clamped max on blur", () => {
+    const onChange = vi.fn();
+    render(<Slider min={0} max={20000} step={100} value={5000} onChange={onChange} />);
+    const spin = screen.getByRole("spinbutton");
+    fireEvent.change(spin, { target: { value: "99999" } });
+    fireEvent.blur(spin);
+    expect(onChange).toHaveBeenCalledWith(20000);
+  });
+
+  test("typing a non-numeric value never calls onChange with NaN", () => {
+    const onChange = vi.fn();
+    render(<Slider min={0} max={20000} step={100} value={5000} onChange={onChange} />);
+    const spin = screen.getByRole("spinbutton");
+    fireEvent.change(spin, { target: { value: "abc" } });
+    fireEvent.blur(spin);
+    for (const call of onChange.mock.calls) {
+      expect(Number.isNaN(call[0])).toBe(false);
+    }
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });
 
 describe("Toggle", () => {
@@ -188,16 +242,32 @@ describe("Toggle", () => {
 });
 
 describe("Segmented", () => {
+  const monthYear = [
+    { value: "month", label: "Month" },
+    { value: "year", label: "Year" },
+  ];
+
   test("renders a radiogroup and selects an option", async () => {
     const onChange = vi.fn();
-    const options = [
-      { value: "month", label: "Month" },
-      { value: "year", label: "Year" },
-    ];
-    render(<Segmented options={options} value="month" onChange={onChange} />);
+    render(<Segmented options={monthYear} value="month" onChange={onChange} />);
     expect(screen.getByRole("radiogroup")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("radio", { name: "Year" }));
     expect(onChange).toHaveBeenCalledWith("year");
+  });
+
+  test("only the selected option is a tab stop", () => {
+    render(<Segmented options={monthYear} value="month" onChange={vi.fn()} />);
+    expect(screen.getByRole("radio", { name: "Month" })).toHaveAttribute("tabIndex", "0");
+    expect(screen.getByRole("radio", { name: "Year" })).toHaveAttribute("tabIndex", "-1");
+  });
+
+  test("ArrowRight moves selection and focus to the next option", async () => {
+    const onChange = vi.fn();
+    render(<Segmented options={monthYear} value="month" onChange={onChange} />);
+    screen.getByRole("radio", { name: "Month" }).focus();
+    await userEvent.keyboard("{ArrowRight}");
+    expect(onChange).toHaveBeenCalledWith("year");
+    expect(screen.getByRole("radio", { name: "Year" })).toHaveFocus();
   });
 });
 
@@ -252,6 +322,46 @@ describe("Drawer", () => {
       </Drawer>,
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  function DrawerHarness() {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <button onClick={() => setOpen(true)}>Open drawer</button>
+        <Drawer open={open} onClose={() => setOpen(false)} title="Details">
+          <p>Body</p>
+        </Drawer>
+      </>
+    );
+  }
+
+  test("restores focus to the triggering element after Escape closes it", async () => {
+    render(<DrawerHarness />);
+    const trigger = screen.getByRole("button", { name: "Open drawer" });
+    await userEvent.click(trigger);
+    expect(screen.getByRole("button", { name: /close/i })).toHaveFocus();
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(trigger).toHaveFocus();
+  });
+
+  test("Tab from the last focusable element wraps to the first", () => {
+    const onClose = vi.fn();
+    render(
+      <Drawer open onClose={onClose} title="Details">
+        <button>Inside action</button>
+      </Drawer>,
+    );
+    const closeButton = screen.getByRole("button", { name: /close/i });
+    const insideAction = screen.getByRole("button", { name: "Inside action" });
+
+    insideAction.focus();
+    fireEvent.keyDown(document, { key: "Tab" });
+    expect(closeButton).toHaveFocus();
+
+    fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+    expect(insideAction).toHaveFocus();
   });
 });
 
