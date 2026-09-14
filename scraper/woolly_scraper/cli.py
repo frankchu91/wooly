@@ -74,14 +74,19 @@ def cmd_enrich(args) -> int:
     bonuses = load(path)
     fetcher = make_fetcher(Path(args.cache), args.delay)
     t = today()
-    todo = [b for b in bonuses if needs_enrich(b, t)]
+    if args.cached_only:
+        # "Re-parse everything already cached" (e.g. after a parser fix), like
+        # `terms --cached-only`: this bypasses the 30-day freshness gate entirely,
+        # not just the "is it cached" check, since the whole point is reprocessing
+        # pages we already have regardless of when they were last enriched.
+        todo = [b for b in bonuses if fetcher.has_cached(b.doc_url)]
+    else:
+        todo = [b for b in bonuses if needs_enrich(b, t)]
     if args.only_nationwide:
         todo = [b for b in todo if b.nationwide]
     if args.ids:
         wanted = set(args.ids.split(","))
         todo = [b for b in todo if b.id in wanted]
-    if args.cached_only:
-        todo = [b for b in todo if fetcher.has_cached(b.doc_url)]
     # never-enriched entries first, then the ones enriched longest ago
     todo.sort(key=lambda b: (b.enriched_at is not None, b.enriched_at or date.min))
     todo = todo[: args.limit] if args.limit else todo
@@ -183,7 +188,10 @@ def main(argv: list[str] | None = None) -> int:
     en.add_argument(
         "--cached-only",
         action="store_true",
-        help="only process entries whose post HTML is already cached; makes zero network requests",
+        help=(
+            "re-parse every entry whose post HTML is already cached, bypassing the 30-day "
+            "freshness gate (e.g. after a parser fix); makes zero network requests"
+        ),
     )
     tp = sub.add_parser("terms")
     tp.add_argument("--data", default=str(DEFAULT_DATA))

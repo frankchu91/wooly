@@ -157,6 +157,47 @@ def test_enrich_cached_only_skips_uncached_entries(tmp_path, monkeypatch):
     assert cached.calls == [wf_url]
 
 
+def test_enrich_cached_only_bypasses_the_30_day_freshness_gate(tmp_path, monkeypatch):
+    """`--cached-only` is the "re-parse after a parser fix" mode: it must reprocess
+    every cached post regardless of `enriched_at`, not just the ones that would
+    otherwise be due for re-enrichment, mirroring `terms --cached-only`."""
+    data = tmp_path / "bonuses.json"
+    wf_html = (FIX / "post-wells-fargo-500.html").read_text(encoding="utf-8", errors="ignore")
+    wf_url = "https://www.doctorofcredit.com/wells-fargo-500-checking-bonus/"
+    pages = {wf_url: wf_html}
+    monkeypatch.setattr(cli, "today", lambda: date(2026, 9, 13))
+
+    bonus = Bonus(
+        id="wells-fargo-500-checking-bonus",
+        bank="Wells Fargo",
+        title="Wells Fargo $500",
+        section="checking",
+        doc_url=wf_url,
+        last_seen=date(2026, 9, 13),
+        enriched=True,
+        enriched_at=date(2026, 9, 13),  # enriched today: not normally a candidate
+        nationwide=True,
+    )
+    cli.save(data, [bonus])
+
+    # without --cached-only: the freshness gate keeps it, so no network/cache call happens
+    fake = CachedOnlyFetcher(pages, cached_urls={wf_url})
+    monkeypatch.setattr(cli, "make_fetcher", lambda cache, delay: fake)
+    assert cli.main(["enrich", "--data", str(data)]) == 0
+    doc = json.loads(data.read_text())
+    assert fake.calls == []
+    assert doc["bonuses"][0]["expiration"] is None  # untouched: post was never actually parsed
+
+    # with --cached-only: the freshness gate is bypassed, so the cached post is reprocessed
+    fake2 = CachedOnlyFetcher(pages, cached_urls={wf_url})
+    monkeypatch.setattr(cli, "make_fetcher", lambda cache, delay: fake2)
+    assert cli.main(["enrich", "--data", str(data), "--cached-only"]) == 0
+    doc = json.loads(data.read_text())
+    assert doc["bonuses"][0]["enriched"] is True
+    assert doc["bonuses"][0]["expiration"] == "2026-10-06"
+    assert fake2.calls == [wf_url]
+
+
 class FakeTermsFetcher:
     """Serves canned (status, html) responses for offer_urls, for the `terms` command."""
 

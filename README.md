@@ -49,8 +49,9 @@ chip away at 5 posts per run.
 
 `enrich` also takes:
 
-- `--cached-only` — re-parse everything already in `scraper/.cache` (e.g. after a parser
-  fix) without making any network requests.
+- `--cached-only` — re-parse every entry whose post is already in `scraper/.cache` (e.g.
+  after a parser fix), bypassing the normal 30-day re-enrich gate, without making any
+  network requests.
 - `--no-cache` — bypass the cache and always re-fetch, like `list --no-cache`.
 
 `woolly-scrape terms --limit 20` reads each enriched offer's own bank page (`offer_url`) for
