@@ -1,7 +1,6 @@
 import { Lock } from "lucide-react";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 import { receivedAmount } from "../../engine/conditions";
 import type { Bonus, TrackedItem } from "../../engine/types";
@@ -34,20 +33,15 @@ const EMPTY = t.bonuses.unknown;
  * ordered by stage then open date. The table is the only thing on the page allowed to
  * scroll sideways, and it does so inside its own container — the page body never does.
  *
- * Each row is a button in the accessibility tree (click or Enter/Space) that opens the
- * item drawer, which is where every edit actually happens; the table itself is read-only.
+ * The offer name in each row is a real button that opens the item drawer, which is where
+ * every edit actually happens; the row itself is clickable too, for the mouse. The table
+ * stays a table in the accessibility tree — a grid of rows pretending to be buttons is a
+ * worse way to read a spreadsheet than the spreadsheet.
  */
 export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTableProps) {
   const [showClosed, setShowClosed] = useState(true);
 
   const rows = sortForLedger(items).filter((item) => showClosed || item.status !== "closed");
-
-  function handleRowKeyDown(event: ReactKeyboardEvent<HTMLTableRowElement>, id: string) {
-    if (event.key !== "Enter" && event.key !== " ") return;
-    // Space would otherwise scroll the page out from under the row the user just picked.
-    event.preventDefault();
-    onSelect(id);
-  }
 
   return (
     <section aria-labelledby="ledger-table-heading">
@@ -67,7 +61,10 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
           <table className="w-full min-w-[900px] border-collapse">
             <thead>
               <tr className="border-y border-mint bg-cream">
-                <th scope="col" className={HEADER_CLASS}>
+                {/* The offer name stays put while the rest of the table scrolls
+                 * sideways on a narrow screen — a row of dates with no name attached
+                 * says nothing. */}
+                <th scope="col" className={cn(HEADER_CLASS, "sticky left-0 z-10 bg-cream")}>
                   {t.tracker.fields.offer}
                 </th>
                 <th scope="col" className={HEADER_CLASS}>
@@ -117,23 +114,33 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                 return (
                   <tr
                     key={item.id}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={t.tracker.ledger.rowLabel(title)}
                     onClick={() => onSelect(item.id)}
-                    onKeyDown={(event) => handleRowKeyDown(event, item.id)}
-                    className="cursor-pointer border-b border-mint/60 transition-colors duration-200 ease-out last:border-b-0 hover:bg-mint/40 focus-visible:outline focus-visible:-outline-offset-2 focus-visible:outline-2 focus-visible:outline-primary"
+                    className="group cursor-pointer border-b border-mint/60 transition-colors duration-200 ease-out last:border-b-0 hover:bg-mint/40"
                   >
-                    <td className={cn(CELL_CLASS, "min-w-[230px] whitespace-normal")}>
-                      <div className="flex items-center gap-2.5">
+                    <td
+                      className={cn(
+                        CELL_CLASS,
+                        "sticky left-0 z-10 min-w-[230px] whitespace-normal bg-surface transition-colors duration-200 ease-out group-hover:bg-mint/40",
+                      )}
+                    >
+                      <button
+                        type="button"
+                        aria-label={t.tracker.ledger.rowLabel(title)}
+                        onClick={() => onSelect(item.id)}
+                        className="flex items-center gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      >
                         <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
-                        <div className="min-w-0">
-                          <p className="truncate font-semibold text-ink">
+                        <span className="min-w-0">
+                          <span className="block truncate font-semibold text-ink">
                             {bonus?.bank ?? item.bonusId}
-                          </p>
-                          <p className="line-clamp-1 text-xs text-muted">{title}</p>
-                        </div>
-                      </div>
+                          </span>
+                          {/* For a missing offer the id is already the name above, so the
+                           * second line says what happened instead of repeating it. */}
+                          <span className="line-clamp-1 text-xs text-muted">
+                            {bonus ? title : t.tracker.ledger.missingOffer}
+                          </span>
+                        </span>
+                      </button>
                     </td>
 
                     <td className={cn(CELL_CLASS, "tabular-nums")}>

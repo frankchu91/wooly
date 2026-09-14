@@ -231,6 +231,25 @@ describe("ItemDrawer — notes", () => {
   });
 });
 
+describe("ItemDrawer — a bonus that has left the dataset", () => {
+  test("shows the id, the dates, the notes and Remove, and nothing it cannot know", () => {
+    renderDrawer(
+      trackedItem({ id: "gone", bonusId: "gone", notes: "Rang the branch" }),
+      "not-in-the-dataset",
+    );
+
+    expect(screen.getByRole("heading", { name: "gone" })).toBeInTheDocument();
+    expect(screen.getByText(t.conditions.none)).toBeInTheDocument();
+    expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+    expect(screen.getByLabelText(t.tracker.statuses.opened)).toHaveValue("2026-09-04");
+    expect(screen.getByLabelText(t.tracker.notes)).toHaveValue("Rang the branch");
+    expect(screen.getByRole("button", { name: t.tracker.untrack })).toBeInTheDocument();
+    // No offer to link to, and no window to count down to.
+    expect(screen.queryByRole("link", { name: t.bonuses.openDoc })).not.toBeInTheDocument();
+    expect(screen.getByText(t.tracker.safeClose.needsOpened)).toBeInTheDocument();
+  });
+});
+
 describe("ItemDrawer — links and removal", () => {
   test("links to Doctor of Credit, and to the bank page when its terms were readable", () => {
     renderDrawer(trackedItem());

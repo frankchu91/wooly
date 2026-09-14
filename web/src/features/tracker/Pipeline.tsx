@@ -10,7 +10,12 @@ export interface PipelineProps {
   bonusesById: Record<string, Bonus>;
   today: Date;
   onSelect: (id: string) => void;
+  /** Called after a card's menu removes an item, so the page can drop a `?item=` that
+   * now points at nothing. */
+  onUntrack?: (id: string) => void;
 }
+
+const columnHeadingId = (stage: TrackStatus) => `pipeline-column-${stage}`;
 
 // A received or closed bonus paid what it paid, so its column sums the real amount; the
 // earlier stages have nothing to show but the headline they're chasing.
@@ -18,18 +23,21 @@ const isEarned = (status: TrackStatus) => status === "received" || status === "c
 
 /**
  * The kanban view of the tracker (spec §4.3.3): the five stages side by side, so the
- * whole pipeline is visible at once. The row scrolls sideways inside its own container
- * — that is the kanban behaviour the spec asks for, and it never makes the page itself
- * scroll horizontally.
+ * whole pipeline is visible at once.
+ *
+ * From `xl` up it is a five-column grid, so a desktop reader sees every stage without
+ * scrolling — the point of a pipeline is the shape of the whole thing. Below that the
+ * columns keep their comfortable width and the row scrolls sideways inside its own
+ * container, which never makes the page itself scroll horizontally.
  */
-export function Pipeline({ items, bonusesById, today, onSelect }: PipelineProps) {
+export function Pipeline({ items, bonusesById, today, onSelect, onUntrack }: PipelineProps) {
   return (
     <section aria-labelledby="pipeline-heading">
       <h2 id="pipeline-heading" className="mb-3 font-heading text-lg font-semibold text-ink">
         {t.tracker.pipeline.title}
       </h2>
 
-      <ol className="flex gap-4 overflow-x-auto snap-x pb-2">
+      <ol className="flex gap-4 overflow-x-auto snap-x pb-2 xl:grid xl:grid-cols-5 xl:overflow-visible">
         {STATUS_ORDER.map((stage) => {
           const columnItems = items.filter((item) => item.status === stage);
           const sum = columnItems.reduce((total, item) => {
@@ -40,9 +48,16 @@ export function Pipeline({ items, bonusesById, today, onSelect }: PipelineProps)
           }, 0);
 
           return (
-            <li key={stage} className="snap-start min-w-[260px] flex-1 md:min-w-[280px]">
+            <li
+              key={stage}
+              aria-labelledby={columnHeadingId(stage)}
+              className="snap-start min-w-[260px] flex-1 md:min-w-[280px] xl:min-w-0"
+            >
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <h3 className="font-heading text-sm font-semibold text-ink">
+                <h3
+                  id={columnHeadingId(stage)}
+                  className="font-heading text-sm font-semibold text-ink"
+                >
                   {t.tracker.statuses[stage]}
                 </h3>
                 <Badge tone="neutral">{columnItems.length}</Badge>
@@ -65,6 +80,7 @@ export function Pipeline({ items, bonusesById, today, onSelect }: PipelineProps)
                       bonus={bonusesById[item.bonusId]}
                       today={today}
                       onSelect={onSelect}
+                      onUntrack={onUntrack}
                     />
                   ))}
                 </ul>

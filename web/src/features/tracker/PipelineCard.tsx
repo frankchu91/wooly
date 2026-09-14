@@ -1,6 +1,6 @@
 import { MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent } from "react";
 
 import { earliestCloseDate } from "../../engine/conditions";
 import { STATUS_ORDER } from "../../engine/types";
@@ -18,6 +18,8 @@ export interface PipelineCardProps {
   bonus: Bonus | undefined;
   today: Date;
   onSelect: (id: string) => void;
+  /** Called after the menu's Remove, so the page can drop a `?item=` pointing here. */
+  onUntrack?: (id: string) => void;
 }
 
 const MENU_ITEM_CLASS =
@@ -39,7 +41,7 @@ interface PendingMove {
  * (with an inline date confirm) and a kebab menu. Always an `<li>`; its column renders a
  * `<ul>` of these.
  */
-export function PipelineCard({ item, bonus, today, onSelect }: PipelineCardProps) {
+export function PipelineCard({ item, bonus, today, onSelect, onUntrack }: PipelineCardProps) {
   const advance = useStore((state) => state.advance);
   const setStatus = useStore((state) => state.setStatus);
   const untrack = useStore((state) => state.untrack);
@@ -148,8 +150,20 @@ export function PipelineCard({ item, bonus, today, onSelect }: PipelineCardProps
   const closingEarly =
     pending?.stage === "closed" && safeCloseISO !== null && toISO(today) < safeCloseISO;
 
+  // The card reads as one object, so the whole of it opens the drawer — except the
+  // controls that already do something of their own (the menu, Next, and the date form
+  // inside it). The title stays a real button, so this is never the only way in.
+  function handleCardClick(event: ReactMouseEvent<HTMLElement>) {
+    if ((event.target as HTMLElement).closest("button, a, input, [role=menu]")) return;
+    onSelect(item.id);
+  }
+
   return (
-    <Card as="li" className="relative flex flex-col gap-2.5 p-4">
+    <Card
+      as="li"
+      onClick={handleCardClick}
+      className="relative flex cursor-pointer flex-col gap-2.5 p-4"
+    >
       <div className="flex items-start gap-2">
         <button
           type="button"
@@ -158,10 +172,18 @@ export function PipelineCard({ item, bonus, today, onSelect }: PipelineCardProps
         >
           <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
           <span className="min-w-0 flex-1">
-            <span className="line-clamp-1 block font-heading text-sm font-semibold text-ink">
+            {/* `line-clamp` brings its own `display`, so no `block` beside it — the two fight
+             * and `block` wins, which is how the clamp quietly stopped clamping. */}
+            <span className="line-clamp-2 font-heading text-sm font-semibold text-ink">
               {bonus?.title ?? item.bonusId}
             </span>
-            {bonus ? <MoneyText value={bonus.bonus_max} size="md" /> : null}
+            {bonus ? (
+              <MoneyText value={bonus.bonus_max} size="md" />
+            ) : (
+              // The id is already the title; saying it twice explains nothing, and the
+              // user still deserves to know why there is no money on this card.
+              <span className="block text-xs text-muted">{t.tracker.ledger.missingOffer}</span>
+            )}
           </span>
         </button>
 
@@ -253,6 +275,7 @@ export function PipelineCard({ item, bonus, today, onSelect }: PipelineCardProps
                     setMenuOpen(false);
                     setMoveOpen(false);
                     untrack(item.id);
+                    onUntrack?.(item.id);
                   }}
                   className={cn(MENU_ITEM_CLASS, "text-coral-dark")}
                 >

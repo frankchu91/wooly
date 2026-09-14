@@ -1,13 +1,13 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 import { DataContext } from "../../data/DataContext";
 import { fixture } from "../../data/fixture";
 import { earliestCloseDate } from "../../engine/conditions";
 import type { Bonus, TrackedItem } from "../../engine/types";
-import { defaultProfile } from "../../engine/types";
+import { defaultProfile, STATUS_ORDER } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { dateLabel, money } from "../../ui";
@@ -21,12 +21,25 @@ const today = new Date(2026, 8, 14);
 
 const bonusById = (id: string): Bonus => fixture.find((b) => b.id === id) as Bonus;
 
+/** Exposes the router's query string, so a test can assert that `?item=` was dropped. */
+function SearchProbe() {
+  return <span data-testid="search">{useLocation().search}</span>;
+}
+
 function renderTrackerPage(entry = "/tracker") {
   return render(
     <MemoryRouter initialEntries={[entry]}>
       <DataContext.Provider value={dataset}>
         <Routes>
-          <Route path="/tracker" element={<TrackerPage />} />
+          <Route
+            path="/tracker"
+            element={
+              <>
+                <TrackerPage />
+                <SearchProbe />
+              </>
+            }
+          />
           <Route path="/plan" element={<div>plan placeholder</div>} />
           <Route path="/start" element={<div>start placeholder</div>} />
         </Routes>
@@ -82,10 +95,16 @@ function column(stage: keyof typeof t.tracker.statuses): HTMLElement {
   return heading.closest("li") as HTMLElement;
 }
 
-/** The ledger table's rows, in rendered order. They are exposed as buttons (each opens
- * the item drawer), so they're found by their row label rather than by the row role. */
+/** The offer-name button in each ledger row, in rendered order — the keyboard route into
+ * the item drawer, and the thing that carries the row's label. */
 function ledgerRows(): HTMLElement[] {
   return screen.getAllByRole("button", { name: /^Open / });
+}
+
+/** The `<tr>` around one ledger row's offer-name button. */
+function ledgerRow(title: string): HTMLElement {
+  const button = screen.getByRole("button", { name: t.tracker.ledger.rowLabel(title) });
+  return button.closest("tr") as HTMLElement;
 }
 
 beforeEach(() => {
@@ -154,16 +173,28 @@ describe("TrackerPage — ledger table", () => {
     expect(labels).not.toContain(t.tracker.ledger.rowLabel("Eastern Bank $750 Checking Bonus"));
   });
 
-  test("an item whose bonus has left the dataset still gets a row, with no money", () => {
+  test("an item whose bonus has left the dataset names the id once and says why", () => {
     useStore.setState({ tracker: [trackedItem({ bonusId: "gone-forever", status: "opened" })] });
     renderTrackerPage();
 
-    const row = screen.getByRole("button", { name: t.tracker.ledger.rowLabel("gone-forever") });
+    const row = ledgerRow("gone-forever");
+    expect(within(row).getAllByText("gone-forever")).toHaveLength(1);
+    expect(within(row).getByText(t.tracker.ledger.missingOffer)).toBeInTheDocument();
     expect(within(row).getAllByText(t.bonuses.unknown).length).toBeGreaterThan(0);
     expect(within(row).queryByText(/^\$/)).not.toBeInTheDocument();
   });
 
-  test("pressing Enter on a row opens that item's drawer", async () => {
+  test("the rows stay rows — only the offer name is a button", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    const row = ledgerRow("Wells Fargo $500 Checking Bonus");
+    expect(row).not.toHaveAttribute("role");
+    expect(row).not.toHaveAttribute("tabindex");
+    expect(within(row).getAllByRole("button")).toHaveLength(1);
+  });
+
+  test("tabbing to the offer name and pressing Enter opens that item's drawer", async () => {
     seedAllStages();
     renderTrackerPage();
 
@@ -182,6 +213,17 @@ describe("TrackerPage — ledger table", () => {
 });
 
 describe("TrackerPage — pipeline", () => {
+  test("every column is labelled by its own heading", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    for (const stage of STATUS_ORDER) {
+      const heading = screen.getByRole("heading", { level: 3, name: t.tracker.statuses[stage] });
+      expect(column(stage)).toHaveAttribute("aria-labelledby", heading.id);
+      expect(heading.id).not.toBe("");
+    }
+  });
+
   test("renders all five columns with their counts, even the empty ones", () => {
     useStore.setState({
       tracker: [
@@ -306,6 +348,21 @@ describe("TrackerPage — pipeline", () => {
     expect(trigger).toHaveFocus();
   });
 
+  test("clicking a card's body — not just its title — opens the drawer", async () => {
+    const user = userEvent.setup({ delay: null });
+    seedAllStages();
+    renderTrackerPage();
+
+    const card = within(column("requirements_met")).getByRole("listitem");
+    await user.click(within(card).getByText(t.tracker.waitingForBonus));
+
+    expect(
+      within(screen.getByRole("dialog")).getByRole("heading", {
+        name: "Chase $400 Checking Bonus",
+      }),
+    ).toBeInTheDocument();
+  });
+
   test("“Remove” untracks the item", async () => {
     const user = userEvent.setup({ delay: null });
     seedAllStages();
@@ -343,6 +400,21 @@ describe("TrackerPage — drawer selection", () => {
         name: "Wells Fargo $500 Checking Bonus",
       }),
     ).toBeInTheDocument();
+  });
+
+  test("removing the open item from a pipeline card closes the drawer and clears ?item=", async () => {
+    const user = userEvent.setup({ delay: null });
+    seedAllStages();
+    renderTrackerPage("/tracker?item=eastern-750");
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    const card = within(column("closed")).getByRole("listitem");
+    await user.click(within(card).getByRole("button", { name: t.plan.moreActions }));
+    await user.click(within(card).getByRole("menuitem", { name: t.tracker.untrack }));
+
+    expect(useStore.getState().tracker.map((i) => i.id)).not.toContain("eastern-750");
+    expect(screen.getByTestId("search").textContent).toBe("");
   });
 
   test("an unknown ?item= leaves the drawer closed", () => {

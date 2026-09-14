@@ -48,6 +48,12 @@ export function TrackerPage() {
     });
   }
 
+  /** A `?item=` pointing at an item that has just been removed would survive in the URL
+   * (and in the back button's history) with nothing behind it. */
+  function handleUntrack(id: string) {
+    if (id === selectedId) closeDrawer();
+  }
+
   function closeDrawer() {
     setSearchParams(
       (prev) => {
@@ -78,7 +84,13 @@ export function TrackerPage() {
             today={today}
             onSelect={openDrawer}
           />
-          <Pipeline items={tracker} bonusesById={bonusesById} today={today} onSelect={openDrawer} />
+          <Pipeline
+            items={tracker}
+            bonusesById={bonusesById}
+            today={today}
+            onSelect={openDrawer}
+            onUntrack={handleUntrack}
+          />
         </>
       )}
 
