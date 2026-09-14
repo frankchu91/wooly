@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 import { DataContext } from "../../data/DataContext";
 import { fixture } from "../../data/fixture";
@@ -18,6 +18,10 @@ const maProfile = { ...defaultProfile("2026-09"), state: "MA" };
 beforeEach(() => {
   useStore.setState(initialState, true);
   useStore.setState({ profile: maProfile });
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
 });
 
 function LocationDisplay() {
@@ -104,5 +108,19 @@ describe("SettingsPage", () => {
 
     expect(await screen.findByText(t.settings.imported)).toBeInTheDocument();
     expect(useStore.getState().profile?.state).toBe("MA");
+  });
+
+  test("does not render the onboarding skip button", () => {
+    renderSettings();
+
+    expect(screen.queryByRole("button", { name: t.onboarding.skip })).not.toBeInTheDocument();
+  });
+
+  test("the state combobox's listbox is not open on mount", () => {
+    renderSettings();
+
+    const combobox = screen.getByRole("combobox", { name: t.onboarding.state.h });
+    expect(combobox).toHaveAttribute("aria-expanded", "false");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 });

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -5,23 +6,34 @@ import { useNavigate } from "react-router-dom";
 import { defaultProfile } from "../../engine/types";
 import type { Profile } from "../../engine/types";
 import { t } from "../../i18n/en";
+import { DOC_URL, GITHUB_URL } from "../../links";
 import { currentMonth, useStore } from "../../state/store";
-import { Button, Card, toast } from "../../ui";
+import {
+  Button,
+  buttonBaseClasses,
+  buttonSizeClasses,
+  buttonVariantClasses,
+  Card,
+  toast,
+} from "../../ui";
 import { StepHistory } from "../onboarding/StepHistory";
 import { StepPaycheck } from "../onboarding/StepPaycheck";
 import { StepState } from "../onboarding/StepState";
 
-const DOC_URL = "https://www.doctorofcredit.com/best-bank-account-bonuses/";
-const GITHUB_URL = "https://github.com/haobing/lu_sheep_hair";
 const EXPORT_FILENAME = "woolly-export.json";
 const IMPORT_INPUT_ID = "settings-import-input";
 
 // Visually mirrors the shared `Button`'s secondary variant so the hidden file input's
 // native `<label>` trigger looks like a real button — `Button` itself can't render as a
 // `<label>`, and a real `<label htmlFor>` (rather than a button + ref click) keeps the
-// file input reachable and activatable by keyboard with zero extra JS.
-const IMPORT_LABEL_CLASSES =
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-control bg-mint px-5 py-3 text-sm font-semibold text-primary transition-colors duration-200 ease-out hover:bg-mint/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+// file input reachable and activatable by keyboard with zero extra JS. Derived from
+// `Button`'s own exported class maps rather than duplicating the literal classes.
+const IMPORT_LABEL_CLASSES = clsx(
+  "cursor-pointer",
+  buttonBaseClasses,
+  buttonVariantClasses.secondary,
+  buttonSizeClasses.md,
+);
 
 function noop() {
   // StepHistory requires an onSkip handler, but "skip" has no meaning once a profile
@@ -90,9 +102,15 @@ export function SettingsPage() {
         <h2 className="font-heading text-xl font-semibold text-ink">{t.settings.profile}</h2>
 
         <div className="flex flex-col gap-8 divide-y divide-muted/15 [&>*+*]:pt-8">
-          <StepState draft={draft} onChange={patchDraft} />
-          <StepPaycheck draft={draft} onChange={patchDraft} />
-          <StepHistory draft={draft} onChange={patchDraft} onSkip={noop} skipDisabled />
+          <StepState draft={draft} onChange={patchDraft} autoFocus={false} headingLevel={3} />
+          <StepPaycheck draft={draft} onChange={patchDraft} headingLevel={3} />
+          <StepHistory
+            draft={draft}
+            onChange={patchDraft}
+            onSkip={noop}
+            hideSkip
+            headingLevel={3}
+          />
         </div>
 
         <div>

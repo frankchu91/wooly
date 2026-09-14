@@ -1,7 +1,5 @@
 import { t } from "../../i18n/en";
-
-const DOC_URL = "https://www.doctorofcredit.com/best-bank-account-bonuses/";
-const GITHUB_URL = "https://github.com/haobing/lu_sheep_hair";
+import { DOC_URL, GITHUB_URL } from "../../links";
 
 export function Footer() {
   return (

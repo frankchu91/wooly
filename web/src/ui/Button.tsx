@@ -14,17 +14,28 @@ export interface ButtonProps {
   className?: string;
 }
 
-const variantClasses: Record<NonNullable<ButtonProps["variant"]>, string> = {
+// Exported so other components that render a button-styled element that isn't a real
+// `<button>` (e.g. a `<label>` triggering a hidden file input) can match these classes
+// instead of duplicating them.
+export const buttonVariantClasses: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary: "bg-primary text-white hover:bg-primary-dark",
   secondary: "bg-mint text-primary hover:bg-mint/80",
   ghost: "text-primary hover:bg-mint/60",
   danger: "bg-coral text-white hover:bg-coral/90",
 };
 
-const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
+export const buttonSizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
   md: "px-5 py-3 text-sm",
   lg: "px-6 py-3.5 text-base",
 };
+
+// The structural classes shared by every variant/size, also exported for the same
+// reason as the maps above.
+export const buttonBaseClasses =
+  "inline-flex items-center justify-center gap-2 rounded-control font-semibold transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+
+const variantClasses = buttonVariantClasses;
+const sizeClasses = buttonSizeClasses;
 
 export function Button({
   variant = "primary",
@@ -38,9 +49,7 @@ export function Button({
   className,
 }: ButtonProps) {
   const classes = clsx(
-    "inline-flex items-center justify-center gap-2 rounded-control font-semibold",
-    "transition-colors duration-200 ease-out",
-    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+    buttonBaseClasses,
     "disabled:cursor-not-allowed disabled:opacity-50",
     variantClasses[variant],
     sizeClasses[size],

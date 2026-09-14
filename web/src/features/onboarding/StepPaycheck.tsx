@@ -6,6 +6,10 @@ import { Segmented, Slider, Toggle, money } from "../../ui";
 export interface StepPaycheckProps {
   draft: Profile;
   onChange: (patch: Partial<Profile>) => void;
+  /** Heading level for the step title. Defaults to `2`, matching the onboarding
+   * wizard; pass `3` when this step is nested under a page's own `h2` (e.g. Settings'
+   * "Your profile" section). */
+  headingLevel?: 2 | 3;
 }
 
 const SPLIT_OPTIONS = [
@@ -19,7 +23,8 @@ const SPLIT_OPTIONS = [
 const ACH_HELP_URL =
   "https://www.doctorofcredit.com/knowledge-base/list-methods-banks-count-direct-deposits/";
 
-export function StepPaycheck({ draft, onChange }: StepPaycheckProps) {
+export function StepPaycheck({ draft, onChange, headingLevel = 2 }: StepPaycheckProps) {
+  const Heading = headingLevel === 3 ? "h3" : "h2";
   const splitsValue = draft.maxSplits === UNLIMITED_SPLITS ? "5" : String(draft.maxSplits);
 
   function handleSplitsChange(value: string) {
@@ -32,7 +37,9 @@ export function StepPaycheck({ draft, onChange }: StepPaycheckProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <h2 className="font-heading text-2xl font-semibold text-ink">{t.onboarding.paycheck.h}</h2>
+      <Heading className="font-heading text-2xl font-semibold text-ink">
+        {t.onboarding.paycheck.h}
+      </Heading>
 
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium text-ink">{t.onboarding.paycheck.amount}</span>

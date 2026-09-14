@@ -10,9 +10,25 @@ export interface StepHistoryProps {
   onChange: (patch: Partial<Profile>) => void;
   onSkip: () => void;
   skipDisabled?: boolean;
+  /** When true, the skip button isn't rendered at all — for contexts (e.g. Settings)
+   * where "skip" has no meaning once a profile already exists. Defaults to `false`,
+   * matching the onboarding wizard's original behaviour. */
+  hideSkip?: boolean;
+  /** Heading level for the step title. Defaults to `2`, matching the onboarding
+   * wizard; pass `3` when this step is nested under a page's own `h2` (e.g. Settings'
+   * "Your profile" section). */
+  headingLevel?: 2 | 3;
 }
 
-export function StepHistory({ draft, onChange, onSkip, skipDisabled }: StepHistoryProps) {
+export function StepHistory({
+  draft,
+  onChange,
+  onSkip,
+  skipDisabled,
+  hideSkip = false,
+  headingLevel = 2,
+}: StepHistoryProps) {
+  const Heading = headingLevel === 3 ? "h3" : "h2";
   const data = useData();
   // Bumping this key forces the searchable Select to remount (and so clear its
   // internal query text) after every selection — the component has no
@@ -43,7 +59,9 @@ export function StepHistory({ draft, onChange, onSkip, skipDisabled }: StepHisto
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-heading text-2xl font-semibold text-ink">{t.onboarding.history.h}</h2>
+        <Heading className="font-heading text-2xl font-semibold text-ink">
+          {t.onboarding.history.h}
+        </Heading>
         <p className="text-sm text-muted">{t.onboarding.history.help}</p>
       </div>
 
@@ -91,11 +109,13 @@ export function StepHistory({ draft, onChange, onSkip, skipDisabled }: StepHisto
         </ul>
       ) : null}
 
-      <div>
-        <Button variant="ghost" onClick={onSkip} disabled={skipDisabled}>
-          {t.onboarding.skip}
-        </Button>
-      </div>
+      {hideSkip ? null : (
+        <div>
+          <Button variant="ghost" onClick={onSkip} disabled={skipDisabled}>
+            {t.onboarding.skip}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
