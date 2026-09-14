@@ -1,6 +1,13 @@
 export const t = {
   brand: "Woolly",
-  nav: { plan: "Plan", tracker: "Tracker", bonuses: "Bonuses", settings: "Settings" },
+  nav: {
+    plan: "Plan",
+    tracker: "Tracker",
+    bonuses: "Bonuses",
+    settings: "Settings",
+    primary: "Primary",
+    mobile: "Mobile",
+  },
   updated: (date: string, n: number) => `Updated ${date} · ${n} offers`,
   footer: {
     source: "Data from Doctor of Credit",

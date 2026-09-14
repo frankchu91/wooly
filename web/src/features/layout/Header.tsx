@@ -7,7 +7,7 @@ import { t } from "../../i18n/en";
 import { Badge, dateLabel } from "../../ui";
 
 export interface HeaderProps {
-  dataset: Dataset;
+  dataset: Dataset | null;
 }
 
 interface NavItem {
@@ -43,7 +43,7 @@ export function Header({ dataset }: HeaderProps) {
             {t.brand}
           </NavLink>
 
-          <nav className="hidden items-center gap-6 text-sm md:flex" aria-label={t.brand}>
+          <nav className="hidden items-center gap-6 text-sm md:flex" aria-label={t.nav.primary}>
             {navItems.map(({ to, label }) => (
               <NavLink key={to} to={to} className={navLinkClass}>
                 {label}
@@ -52,7 +52,7 @@ export function Header({ dataset }: HeaderProps) {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
-            {dataset.generated_at ? (
+            {dataset?.generated_at ? (
               <Badge tone="mint">
                 {t.updated(dateLabel(dataset.generated_at), dataset.bonuses.length)}
               </Badge>
@@ -70,7 +70,7 @@ export function Header({ dataset }: HeaderProps) {
 
       <nav
         className="fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-between border-t border-ink/5 bg-surface md:hidden"
-        aria-label={t.brand}
+        aria-label={t.nav.mobile}
       >
         {tabItems.map(({ to, label, icon: Icon }) => (
           <NavLink

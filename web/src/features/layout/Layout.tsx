@@ -9,13 +9,7 @@ import { Header } from "./Header";
 
 function LoadingSkeleton() {
   return (
-    <div
-      className="mx-auto max-w-6xl px-4 py-8"
-      role="status"
-      aria-live="polite"
-      aria-label={t.common.loading}
-    >
-      <span className="sr-only">{t.common.loading}</span>
+    <div role="status" aria-live="polite" aria-label={t.common.loading}>
       <div className="animate-pulse space-y-4" aria-hidden="true">
         <div className="h-8 w-2/3 rounded-control bg-mint/60" />
         <div className="h-4 w-full rounded-control bg-mint/40" />
@@ -28,7 +22,7 @@ function LoadingSkeleton() {
 
 function ErrorState({ onRetry }: { onRetry: () => void }) {
   return (
-    <div className="mx-auto flex max-w-6xl px-4 py-16">
+    <div className="flex py-8">
       <Card className="mx-auto flex max-w-sm flex-col items-center gap-4 text-center">
         <p className="text-ink">{t.common.error}</p>
         <Button onClick={onRetry}>{t.common.retry}</Button>
@@ -40,28 +34,14 @@ function ErrorState({ onRetry }: { onRetry: () => void }) {
 export function Layout() {
   const { data, error, retry } = useBonuses();
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-cream text-ink">
-        <ErrorState onRetry={retry} />
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="min-h-screen bg-cream text-ink">
-        <LoadingSkeleton />
-      </div>
-    );
-  }
-
+  // One persistent shell (Header/Footer/Toaster) regardless of load state, so a
+  // fetch error or a slow load never leaves the user without navigation.
   return (
     <DataContext.Provider value={data}>
       <div className="min-h-screen bg-cream text-ink">
         <Header dataset={data} />
         <main className="mx-auto max-w-6xl px-4 pb-24 pt-8 md:pb-12">
-          <Outlet />
+          {error ? <ErrorState onRetry={retry} /> : data ? <Outlet /> : <LoadingSkeleton />}
         </main>
         <Footer />
         <Toaster />
