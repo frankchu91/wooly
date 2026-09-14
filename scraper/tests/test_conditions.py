@@ -1,6 +1,7 @@
 import pytest
 
 from woolly_scraper.conditions import (
+    _parse_amount,
     classify_sentence,
     extract_conditions,
     normalize_sentence,
@@ -344,6 +345,98 @@ def test_classify_sentence_real_wells_fargo_bank_sentence_takes_the_requirement_
     assert c.kind == "direct_deposit"
     assert c.amount == 1000
     assert c.days == 90
+
+
+# --- Round 4 (tiny): H1's 6-word lookahead was too eager — a bare "cash"/"offer"
+# anywhere nearby, or deposit phrasing right after the figure, wrongly nulled real
+# deposit amounts on other bonuses. `_parse_amount` is tested directly (white-box) here
+# because the six phrases below are fragments, not full requirement sentences — several
+# would misclassify to a different `kind` through `classify_sentence` and never reach
+# this amount-selection code at all. ---
+
+
+@pytest.mark.parametrize(
+    "text, amount",
+    [
+        # The reward is named a few words after the figure — still skipped.
+        ("Get a $500 new checking customer bonus", None),
+        ("enjoy a $500 bonus when you open", None),
+        # Deposit phrasing right after the figure always wins, reward word or not.
+        ("make $1,000 or more in qualifying direct deposits", 1000),
+        # Bare "cash"/"offer" nearby is no longer a trigger on its own.
+        ("$30,000 in cash deposits", 30000),
+        ("$20,000 for this offer", 20000),
+        # The word right before the figure (here, bridged over "totaling") names it as
+        # the deposit figure regardless of what follows, even "...the bonus".
+        ("deposit $2,500 to get the bonus", 2500),
+    ],
+)
+def test_parse_amount_narrowed_reward_skip(text, amount):
+    assert _parse_amount(text, "deposit") == amount
+
+
+def test_classify_sentence_real_wells_fargo_bank_sentence_still_takes_the_requirement_figure():
+    # Round 4 regression: the real WF sentence H1 was written for must still resolve to
+    # the $1,000 requirement, not either $500 reward mention, under the narrowed rule.
+    text = (
+        "Get a $500 new checking customer bonus * As a new Wells Fargo checking "
+        "customer, enjoy a $500 bonus when you open a new Everyday Checking account "
+        "** and make $1,000 or more in qualifying direct deposits within 90 days of "
+        "account opening."
+    )
+    c = classify_sentence(text, "bank")
+    assert c is not None
+    assert c.kind == "direct_deposit"
+    assert c.amount == 1000
+    assert c.days == 90
+
+
+@pytest.mark.parametrize(
+    "text, kind, amount",
+    [
+        # capital-one-500-1000-business-checking-bonus (condition 4ea04350): the $1,000
+        # is the reward ("bonus" 4 words later); the $30,000 is the real deposit figure,
+        # and "cash" in "(cash deposits..." no longer wrongly skips it.
+        (
+            (
+                "To earn $1,000 bonus—1) Within 30 days of account opening, deposit at "
+                "least $30,000 from an external source (cash deposits and funds sourced "
+                "from an account with another financial institution that was not "
+                "affiliated with Capital One prior to January 1, 2025, qualify;"
+            ),
+            "deposit",
+            30000,
+        ),
+        # etrade-400-savings-bonus-requires-20k-deposit-4-intro-rate (2628b142): "of
+        # $20,000" is the preceding-word rule; "offer" trailing the sentence no longer
+        # matters since bare "offer" isn't a trigger and the preceding word wins first.
+        (
+            (
+                "At the end of the Deposit Period, all net new funds will be totaled to "
+                "determine whether you have satisfied the deposit requirement of $20,000 "
+                "for this offer."
+            ),
+            "deposit",
+            20000,
+        ),
+        # me-vt-nh-bar-harbor-bank-trust-300-checking-bonus (39c32d72): "deposits
+        # totaling $2,500" is the bridged preceding-word rule; "to get the bonus" no
+        # longer skips it.
+        (
+            (
+                "Once the qualifying account is opened, make deposits totaling $2,500 by "
+                "10/31/21 to get the bonus."
+            ),
+            "deposit",
+            2500,
+        ),
+    ],
+)
+def test_classify_sentence_real_sentences_regain_their_deposit_amount(text, kind, amount):
+    c = classify_sentence(text, "doc")
+    assert c is not None
+    assert c.kind == kind
+    assert c.amount == amount
 
 
 def test_condition_id_is_stable_and_based_on_kind_and_normalised_text():

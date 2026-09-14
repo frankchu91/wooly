@@ -80,6 +80,23 @@ H1. The reward-figure skip in `_parse_amount` (see amendment 2 above) only ever 
    naming that same figure, just not adjacent to it. The skip now looks at the next 6
    words after each `$` figure (not only the very next token) for one of those words,
    and still takes the first `$` figure that has none nearby.
+
+Round 4 (tiny) — H1 was too eager: a bare "cash" or "offer" word anywhere in the next 6
+words is common in ordinary deposit prose ("$30,000 from an external source (cash
+deposits...", "...the deposit requirement of $20,000 for this offer") and doesn't name
+that figure as the reward at all, so real deposit amounts on three other bonuses were
+wrongly nulled. Narrowed to three rules, applied in order:
+
+1. A `$` figure whose immediately preceding word is `deposit(s)?|of|receive|make|
+   maintain` — optionally bridged over a `totaling`/`totalling` between the keyword and
+   the figure ("make deposits totaling $2,500") — is always the deposit figure, kept
+   regardless of what follows.
+2. Otherwise, a `$` figure immediately followed by `in|of|or more|minimum|total` is also
+   the deposit figure ("$1,000 or more in...", "$5,000 or more in...") — this is deposit
+   phrasing, never how a reward is introduced.
+3. Otherwise, skip the figure only if one of `bonus`, `reward`, or the two-word phrases
+   `cash bonus`/`cash offer` appears in the next 6 words — bare `cash` and bare `offer`
+   are no longer triggers on their own.
 """
 
 from __future__ import annotations
@@ -215,11 +232,22 @@ _DEPOSIT_WORD_RE = re.compile(r"\b(deposits?|funds?)\b", re.IGNORECASE)
 
 # amount for direct_deposit/deposit: first "$" figure that doesn't name the reward.
 _AMOUNT_RE = re.compile(r"\$\s?([\d,]+)")
+_WORD_RE = re.compile(r"[A-Za-z']+")
 # H1: the reward word can trail a few words after the figure ("Get a $500 new checking
 # customer bonus"), not just sit immediately next to it.
-_WORD_RE = re.compile(r"[A-Za-z']+")
-_REWARD_WORDS = {"bonus", "cash", "reward", "offer"}
 _REWARD_WORD_LOOKAHEAD = 6
+# Round 4: bare "cash"/"offer" are too common in ordinary deposit prose to trust alone —
+# only a bare bonus/reward, or the two-word phrases "cash bonus"/"cash offer", count.
+_REWARD_BARE_WORDS = {"bonus", "reward"}
+_REWARD_PHRASE_PAIRS = {("cash", "bonus"), ("cash", "offer")}
+# Round 4: a figure immediately preceded by one of these (optionally bridged over a
+# "totaling"/"totalling") is always the deposit figure, never the reward — "receive
+# $1,000", "make deposits totaling $2,500", "deposit requirement of $20,000".
+_PRECEDING_DEPOSIT_WORDS = {"deposit", "deposits", "of", "receive", "make", "maintain"}
+_PRECEDING_BRIDGE_WORDS = {"totaling", "totalling"}
+# Round 4: a figure immediately followed by this is deposit phrasing, never how a
+# reward is introduced — "$1,000 or more in...", "$5,000 or more in...".
+_DEPOSIT_PHRASE_RE = re.compile(r"\s*(?:in|of|or more|minimum|total)\b", re.IGNORECASE)
 
 _SENTENCE_END_RE = re.compile(r"(?<=[.;!])\s+")
 _LINE_SPLIT_RE = re.compile(r"[\r\n]+")
@@ -247,16 +275,45 @@ def _parse_count(text: str) -> int | None:
 
 
 def _reward_word_nearby(text: str, start: int) -> bool:
-    """H1: is one of bonus/cash/reward/offer among the next 6 words from `start`?"""
-    words = _WORD_RE.findall(text[start:])[:_REWARD_WORD_LOOKAHEAD]
-    return any(w.lower() in _REWARD_WORDS for w in words)
+    """H1/Round 4: does a bare bonus/reward, or the phrase cash bonus/cash offer,
+    appear among the next 6 words from `start`?"""
+    words = [w.lower() for w in _WORD_RE.findall(text[start:])[:_REWARD_WORD_LOOKAHEAD]]
+    if any(w in _REWARD_BARE_WORDS for w in words):
+        return True
+    return any((words[i], words[i + 1]) in _REWARD_PHRASE_PAIRS for i in range(len(words) - 1))
+
+
+def _preceded_by_deposit_word(text: str, start: int) -> bool:
+    """Round 4: is the figure at `start` immediately preceded by deposit(s)/of/receive/
+    make/maintain — optionally bridged over a "totaling"/"totalling" ("make deposits
+    totaling $2,500")? Checking only the word or two right before the figure (not a
+    wider window) is deliberate: "receive the $500 bonus" (an article in between) must
+    not match even though "receive" appears earlier in the same sentence."""
+    words = [w.lower() for w in _WORD_RE.findall(text[:start])[-2:]]
+    if not words:
+        return False
+    if words[-1] in _PRECEDING_DEPOSIT_WORDS:
+        return True
+    return (
+        len(words) > 1
+        and words[-1] in _PRECEDING_BRIDGE_WORDS
+        and words[-2] in _PRECEDING_DEPOSIT_WORDS
+    )
+
+
+def _followed_by_deposit_phrase(text: str, end: int) -> bool:
+    """Round 4: is the figure at `end` immediately followed by deposit phrasing
+    (in/of/or more/minimum/total) — never how a reward is introduced?"""
+    return bool(_DEPOSIT_PHRASE_RE.match(text, end))
 
 
 def _parse_amount(text: str, kind: str) -> int | None:
     if kind not in ("direct_deposit", "deposit"):
         return parse_money(text)
     for m in _AMOUNT_RE.finditer(text):
-        if _reward_word_nearby(text, m.end()):
+        if _preceded_by_deposit_word(text, m.start()):
+            return int(m.group(1).replace(",", ""))
+        if not _followed_by_deposit_phrase(text, m.end()) and _reward_word_nearby(text, m.end()):
             continue  # "$500 ... bonus" names the reward, not the requirement
         return int(m.group(1).replace(",", ""))
     return None

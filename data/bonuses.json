@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T11:24:35+00:00",
+  "generated_at": "2026-09-14T11:35:40+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -504,6 +504,15 @@
           "kind": "balance",
           "text": "Maintain an average daily balance of $3,000 over your account’s first few months.",
           "amount": 3000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "a540434e",
+          "kind": "deposit",
+          "text": "Expand FDIC coverage up to $265 MM with Axos Bank Insured Cash Sweep through IntraFi® Network Deposits SM .",
+          "amount": 265,
           "days": null,
           "count": null,
           "source": "bank"
@@ -2260,7 +2269,7 @@
           "id": "4ea04350",
           "kind": "deposit",
           "text": "To earn $1,000 bonus—1) Within 30 days of account opening, deposit at least $30,000 from an external source (cash deposits and funds sourced from an account with another financial institution that was not affiliated with Capital One prior to January 1, 2025, qualify;",
-          "amount": null,
+          "amount": 30000,
           "days": 30,
           "count": null,
           "source": "doc"
@@ -3582,7 +3591,7 @@
           "id": "2628b142",
           "kind": "deposit",
           "text": "At the end of the Deposit Period, all net new funds will be totaled to determine whether you have satisfied the deposit requirement of $20,000 for this offer.",
-          "amount": null,
+          "amount": 20000,
           "days": null,
           "count": null,
           "source": "doc"
@@ -7673,7 +7682,7 @@
           "id": "39c32d72",
           "kind": "deposit",
           "text": "Once the qualifying account is opened, make deposits totaling $2,500 by 10/31/21 to get the bonus.",
-          "amount": null,
+          "amount": 2500,
           "days": null,
           "count": null,
           "source": "doc"
@@ -10429,20 +10438,81 @@
         "deadline_days": null
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 360
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-06-03",
       "last_seen": "2026-09-14",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "48f22df7",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 360 days",
+          "amount": null,
+          "days": 360,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "aabf3a56",
+          "kind": "other",
+          "text": "See below",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "3bf3ef8e",
+          "kind": "new_customer",
+          "text": "New Percapita customers who are one of the first 3,200 new customers to open a Percapita Cash Account between April 16, 2025, and April 15, 2026, shall earn a twenty-five-dollar ($25) incentive payment for each calendar month in which they spend three hundred dollars ($300) or more using their Percapita Visa® Debit Card during their first year after account opening.",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "58f46de9",
+          "kind": "new_customer",
+          "text": "To be considered a new Percapita customer and thereby qualify for the incentive payment, you must not have previously opened a Cash Account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "0d8ea1a5",
+          "kind": "transactions",
+          "text": "To qualify for a monthly incentive payment the new Cash Account must have a balance greater than zero and remain open and active throughout the applicable incentive month (which means that the account has been open and has had at least one monetary (non-fee) transaction during the applicable incentive month.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "da669877",
+          "kind": "new_customer",
+          "text": "If the above eligibility criteria are met, the $25 incentive payment will be credited to the new customer’s Cash Account within ten (10) days of the applicable incentive month-end unless the customer has a Goals Account, then all incentives will be credited to the Goals Account.",
+          "amount": 25,
+          "days": 10,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 360,
       "terms": {
         "status": null,
         "url": null,
