@@ -149,15 +149,19 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                           event.stopPropagation();
                           onSelect(item.id);
                         }}
-                        className="flex items-center gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        className="flex w-full items-center gap-2.5 rounded-control text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       >
                         <BankAvatar name={bonus?.bank ?? item.bonusId} size={28} />
                         <span className="min-w-0">
-                          <span className="flex items-center gap-1.5">
+                          <span className="flex min-w-0 items-center gap-1.5">
                             <span className="truncate font-semibold text-ink">
                               {bonus?.bank ?? item.bonusId}
                             </span>
-                            {item.applicant ? <Badge tone="neutral">{item.applicant}</Badge> : null}
+                            {item.applicant ? (
+                              <span className="shrink-0">
+                                <Badge tone="neutral">{item.applicant}</Badge>
+                              </span>
+                            ) : null}
                           </span>
                           {/* For a missing offer the id is already the name above, so the
                            * second line says what happened instead of repeating it. */}
@@ -222,8 +226,12 @@ export function LedgerTable({ items, bonusesById, today, onSelect }: LedgerTable
                         </div>
                       ) : item.status === "closed" ? (
                         // Closed without the bonus ever arriving: an em dash here would
-                        // read as "not yet", which this row will never be.
-                        <span className="text-muted">{t.tracker.ledger.closedNoBonus}</span>
+                        // read as "not yet", which this row will never be. Allowed to
+                        // wrap — held on one line it widens the whole column by half
+                        // again and pushes the Stage badge off the end of the card.
+                        <span className="block max-w-[8rem] whitespace-normal text-muted">
+                          {t.tracker.ledger.closedNoBonus}
+                        </span>
                       ) : (
                         <span className="text-muted">{EMPTY}</span>
                       )}
