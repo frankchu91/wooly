@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T09:22:07+00:00",
+  "generated_at": "2026-09-14T09:34:13+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -195,15 +195,6 @@
           "id": "597f5f64",
           "kind": "fee",
           "text": "Benefits of Amex ® Business Checking No monthly maintenance fees ¤ 24/7 support - specialists are a click or call away Earn % APY ‡ on balances up to $500k This is business banking that rewards you.",
-          "amount": 500,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "6360dd56",
-          "kind": "balance",
-          "text": "How much can you earn over a year with an APY of % on balances up to $500k? $3,900 $100k $300k $500k Account Balance Calculator is for illustration only, rounded to the nearest dollar, and assumes that you earn % APY (capped at $500,000) and maintain your account balance selected above for an entire year.",
           "amount": 500,
           "days": null,
           "count": null,
@@ -844,39 +835,12 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "f361bca0",
+          "id": "c7c2a767",
           "kind": "direct_deposit",
-          "text": "Up to $500 Tiered Checking offer | Bank of America BANK OF AMERICA ADVANTAGE BANKING New checking customers choose your cash offer Open a new eligible checking account and get a $100 cash offer with qualifying debit or Zelle® 1 transactions 2 OR an up to $500 cash offer with Qualifying Direct Deposits.",
-          "amount": 500,
-          "days": null,
-          "count": 1,
-          "source": "bank"
-        },
-        {
-          "id": "21752cc5",
-          "kind": "direct_deposit",
-          "text": "Select an offer to learn more: Select an offer to learn more: Up to $500 offer $100 offer Change to accessible version Advantage Plus Banking Advantage Relationship Banking Advantage Plus Banking Earn up to $500 cash offer with Qualifying Direct Deposits.",
+          "text": "BANK OF AMERICA ADVANTAGE BANKING New checking customers choose your cash offer Open a new eligible checking account and get a $100 cash offer with qualifying debit or Zelle® 1 transactions 2 OR an up to $500 cash offer with Qualifying Direct Deposits.",
           "amount": null,
           "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "2e7cd7a0",
-          "kind": "direct_deposit",
-          "text": "3 Open account Multiple ways to waive your monthly maintenance fee, including direct deposit Minimum account opening $100 $12 or $0 monthly maintenance fee Learn more Offers Balance Connect® for overdraft protection 4 No interest earned Advantage Relationship Banking Earn up to $500 cash offer with Qualifying Direct Deposits.",
-          "amount": 100,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "77e13ee0",
-          "kind": "fee",
-          "text": "3 Open account No fees on select banking services 5 Minimum account opening $100 $25 or $0 monthly maintenance fee Learn more Offers Balance Connect® for overdraft protection 4 Earns interest ( See rates ) Here's how to qualify 3 : Open a new eligible Bank of America Advantage Plus Banking® or Bank of America Advantage Relationship Banking® account through this offer page by September 30, 2026.",
-          "amount": 100,
-          "days": null,
-          "count": null,
+          "count": 1,
           "source": "bank"
         },
         {
@@ -907,30 +871,12 @@
           "source": "bank"
         },
         {
-          "id": "9ee0d4ba",
-          "kind": "direct_deposit",
-          "text": "Cash Bonus Total Direct Deposits $100 $2,000 $300 $5,000 $500 $10,000+ After the Deposit Period ends and all requirements are met, we'll attempt to deposit the bonus into your new account within 60 days.",
-          "amount": 100,
-          "days": 60,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "336c92b2",
           "kind": "transactions",
           "text": "SafeBalance Banking® Earn $100 cash offer with qualifying debit or Zelle® 1 transactions.",
           "amount": 100,
           "days": null,
           "count": 1,
-          "source": "bank"
-        },
-        {
-          "id": "2de4a9f7",
-          "kind": "fee",
-          "text": "2 Open account A great start for students and young adults — no monthly fee if under age 25 6 $4.95 or $0 monthly maintenance fee Learn more Helps prevent overspending 7 — no Overdraft Item Fees No paper check writing No interest earned Here’s how to qualify 2 : Open a new eligible Bank of America Advantage SafeBalance Banking® account through this offer page by September 30, 2026.",
-          "amount": 4,
-          "days": null,
-          "count": null,
           "source": "bank"
         },
         {
@@ -987,19 +933,10 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "f7b873b5",
+          "id": "886eb5a7",
           "kind": "deposit",
-          "text": "Business Checking | Bank of America Earn a cash bonus of up to $750 When you open a new eligible Business Advantage Banking account and make and maintain New Money Deposits.",
+          "text": "Earn a cash bonus of up to $750 When you open a new eligible Business Advantage Banking account and make and maintain New Money Deposits.",
           "amount": 750,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "26809ffb",
-          "kind": "deposit",
-          "text": "Cash Bonus New Money Deposits $400 $5,000 $750 $15,000 Maintain a daily balance during the Maintenance Period in that new Business Advantage Banking account.",
-          "amount": 400,
           "days": null,
           "count": null,
           "source": "bank"
@@ -2001,15 +1938,6 @@
           "source": "bank"
         },
         {
-          "id": "e25ae3ea",
-          "kind": "deposit",
-          "text": "Deposit Bonus $20,000+ $300 $50,000+ $750 $100,000+ $1,500 Open with promo code To learn more, see full offer details and requirements .",
-          "amount": 20000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "d7144dbf",
           "kind": "fee",
           "text": "No fees or minimums So more of your money stays yours.",
@@ -2203,15 +2131,6 @@
           "source": "bank"
         },
         {
-          "id": "fcb78302",
-          "kind": "deposit",
-          "text": "OR Open account in branch Participants compensated Select your offer and start now Earn $ 500 with a minimum deposit of $10,000 in new money OR Earn $ 400 with a minimum deposit of $2,000 in new money Open Open a new Chase Business Complete Checking account online or present this offer at your local Chase branch.",
-          "amount": 500,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "890b5906",
           "kind": "balance",
           "text": "Deposit Deposit the minimum amount in new money shown above within 30 days of offer enrollment and maintain that balance for 60 days from offer enrollment.",
@@ -2260,15 +2179,6 @@
           "id": "c1f8906c",
           "kind": "fee",
           "text": "validation must indicate valid status (e.g., active, in good standing, not expired, in compliance) and be available without a fee.",
-          "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "96f63314",
-          "kind": "fee",
-          "text": "Media Center Careers Site Map Privacy & Security Terms of Use Accessibility AdChoices Give feedback Member FDIC Equal Housing Opportunity ©2026 JPMorgan Chase & Co.",
           "amount": null,
           "days": null,
           "count": null,
@@ -2736,9 +2646,9 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "68b67758",
+          "id": "ffe308cb",
           "kind": "new_customer",
-          "text": "M&T Business Banking | M&T Bank Skip to Main Content Why choose one bonus? Earn up to $2,250 with M&T Business Checking and Merchant Services.{ {d1387*}},{ {d2016*}} LIMITED TIME OFFER New business checking customers can earn up to a $1,500 cash bonus { {d1387*}} when opening an M&T Business Checking account with required activities.",
+          "text": "Skip to Main Content Why choose one bonus? Earn up to $2,250 with M&T Business Checking and Merchant Services.{ {d1387*}},{ {d2016*}} LIMITED TIME OFFER New business checking customers can earn up to a $1,500 cash bonus { {d1387*}} when opening an M&T Business Checking account with required activities.",
           "amount": 2250,
           "days": null,
           "count": null,
@@ -3249,9 +3159,9 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "04dc4d66",
+          "id": "1c2fc9f2",
           "kind": "deposit",
-          "text": "Savings Account Promo: Earn $400 Cash Bonus | E*TRADE Savings Offer Morgan Stanley Private Bank Now get 4.00% APY for 6 months, 1 plus a $400 cash bonus 2 Open and fund a new Premium Savings Account by 9/30.",
+          "text": "Savings Offer Morgan Stanley Private Bank Now get 4.00% APY for 6 months, 1 plus a $400 cash bonus 2 Open and fund a new Premium Savings Account by 9/30.",
           "amount": null,
           "days": 180,
           "count": null,
@@ -3271,15 +3181,6 @@
           "kind": "balance",
           "text": "Maintain your balance for 45 additional days after the 30-day funding period ends to earn your cash bonus.",
           "amount": null,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "ac331425",
-          "kind": "deposit",
-          "text": "Open an account Learn more arrow_forward Easily move money with instant transfers to and from E*TRADE brokerage accounts No minimum deposit or monthly account fees Bank Deposits FDIC-insured up to $500,000 if certain conditions are met 6 Certificates of Deposit Looking for other savings solutions? Lock in a fixed rate up to 4.10% APY when you open and fund a new Bank CD account.",
-          "amount": 500000,
           "days": null,
           "count": null,
           "source": "bank"
@@ -3374,15 +3275,6 @@
           "source": "bank"
         },
         {
-          "id": "37635af9",
-          "kind": "deposit",
-          "text": "Deposit: Earn: _______________________________________ $25,000 - $49,999.99 $350 _______________________________________ $50,000 - $99,999.99 $650 _______________________________________ $100,000 or more $1,000 2.",
-          "amount": 25000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "44ccb13f",
           "kind": "balance",
           "text": "Maintain your qualifying balance amount for 90 days.",
@@ -3449,6 +3341,15 @@
           "id": "c6180111",
           "kind": "fee",
           "text": "4 The Ameriprise Bank Checking Account has no account fees that include maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "0de51f4f",
+          "kind": "fee",
+          "text": "Other service fees may apply and can be found in the Ameriprise Bank, FSB Deposit Accounts Consumer Pricing Disclosure on ameriprise.com.",
           "amount": null,
           "days": null,
           "count": null,
@@ -3526,15 +3427,6 @@
           "source": "bank"
         },
         {
-          "id": "37635af9",
-          "kind": "deposit",
-          "text": "Deposit: Earn: _______________________________________ $25,000 - $49,999.99 $350 _______________________________________ $50,000 - $99,999.99 $650 _______________________________________ $100,000 or more $1,000 2.",
-          "amount": 25000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "44ccb13f",
           "kind": "balance",
           "text": "Maintain your qualifying balance amount for 90 days.",
@@ -3601,6 +3493,15 @@
           "id": "c6180111",
           "kind": "fee",
           "text": "4 The Ameriprise Bank Checking Account has no account fees that include maintenance and overdraft fees.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "0de51f4f",
+          "kind": "fee",
+          "text": "Other service fees may apply and can be found in the Ameriprise Bank, FSB Deposit Accounts Consumer Pricing Disclosure on ameriprise.com.",
           "amount": null,
           "days": null,
           "count": null,
@@ -4794,24 +4695,6 @@
           "source": "bank"
         },
         {
-          "id": "79a5e05e",
-          "kind": "deposit",
-          "text": "View rates $100 minimum opening deposit Waived $5 monthly service fee when maintaining a daily balance of $300 Open now More Less Bonus Rate Savings Earns interest and rewards active savers with bonus interest when you deposit $25 or more each month and make no withdrawals that month.",
-          "amount": 100,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "7f837e2a",
-          "kind": "deposit",
-          "text": "View rates $100 minimum opening deposit Waived $5 monthly service fee when maintaining a daily balance of $500 or deposit $25 or more and make no withdrawals that month Open now More Less Bankohana Bonus Rate Savings 2 Earns preferred interest and rewards active savers with bonus interest when you deposit $25 or more each month and make no withdrawals that month.",
-          "amount": 100,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "548d043e",
           "kind": "deposit",
           "text": "View rates $100 minimum opening deposit No minimum balance requirement Requires a Bankohana account 2 Open now More Less Take advantage of higher rates and premium benefits with our Bankohana Saving Special.",
@@ -4842,6 +4725,24 @@
           "id": "b1be0973",
           "kind": "fee",
           "text": "If my account balance drops, will I still be eligible for the offer? If your account balance is reduced by any fees during the Maintenance Period, you will need to add money on that day to keep your balance at or above the required minimum of the tier you wish to remain in.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "3f2b16b1",
+          "kind": "fee",
+          "text": "Please also refer to the Bank of Hawaii Consumer Checking and Savings Account Fee Schedule for a listing of fees that may impact your account.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "dcd3149f",
+          "kind": "balance",
+          "text": "You will be required to maintain the required Daily Account Balance every day from Day 31 through Day 90 after Account opening (\"Maintenance Period\") to qualify for the bonus.",
           "amount": null,
           "days": null,
           "count": null,
@@ -11033,9 +10934,9 @@
       "last_seen": "2026-09-14",
       "conditions": [
         {
-          "id": "172fce8e",
+          "id": "e1518c80",
           "kind": "direct_deposit",
-          "text": "Get $500 with a new Everyday Checking account | Wells Fargo Get a $ 500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
+          "text": "Get a $ 500 new checking customer bonus * As a new Wells Fargo checking customer, enjoy a $500 bonus when you open a new Everyday Checking account ** and make $1,000 or more in qualifying direct deposits within 90 days of account opening.",
           "amount": 500,
           "days": 90,
           "count": null,
