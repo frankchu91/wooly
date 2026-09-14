@@ -100,6 +100,7 @@ export const t = {
       section_excluded: "Excluded by your preferences",
       dd_too_large: "Direct deposit requirement is more than you can send in time",
       no_bonus_amount: "Bonus amount not listed",
+      no_capacity: "Didn't fit around higher-value bonuses within your horizon",
       user_skipped: "You skipped this",
     },
     warnings: {

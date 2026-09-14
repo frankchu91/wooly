@@ -57,7 +57,8 @@ export type Reason =
   | "section_excluded"
   | "dd_too_large"
   | "no_bonus_amount"
-  | "user_skipped";
+  | "user_skipped"
+  | "no_capacity";
 export type Warning = "not_enriched" | "dd_unknown" | "expires_soon" | "has_etf";
 export interface Evaluation {
   eligible: boolean;

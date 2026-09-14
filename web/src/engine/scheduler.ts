@@ -88,6 +88,7 @@ export function buildPlan(
       ? Math.max(1, Math.ceil((b.dd.deadline_days ?? DEFAULT_DD_DEADLINE_DAYS) / 30))
       : 1;
 
+    let placed = false;
     for (let m = 0; m < months.length; m++) {
       const window = months.slice(m, m + span);
       if (window.length < span) break;
@@ -128,7 +129,16 @@ export function buildPlan(
       };
       months[m].items.push(item);
       usedBanks.add(bankKey);
+      placed = true;
       break;
+    }
+
+    // An eligible candidate whose window search exhausts the horizon without ever
+    // fitting is recorded as skipped instead of silently vanishing from the plan. Its
+    // bank is deliberately left unclaimed so a later, differently-shaped bonus from the
+    // same bank still gets a chance.
+    if (!placed) {
+      skipped.push({ bonus: b, reasons: ["no_capacity"] });
     }
   }
 

@@ -86,6 +86,48 @@ describe("buildPlan — capacity overflow", () => {
     // $2000 DD requirement lands in the two months after it opens.
     expect(usBank!.ddSchedule.every((d) => d.month !== "2026-09")).toBe(true);
     expect(usBank!.ddSchedule.reduce((s, d) => s + d.amount, 0)).toBe(2000);
+    // Ruling 2, pinned explicitly: openMonth is the first month of the window (where
+    // us-bank-450 starts competing for capacity) even though its first non-zero DD
+    // allocation lands in the following month.
+    expect(usBank!.openMonth).toBe("2026-09");
+    expect(usBank!.ddSchedule[0]?.month).toBe("2026-10");
+  });
+});
+
+describe("buildPlan — no_capacity", () => {
+  it("records a candidate that never fits within the horizon as skipped, not silently dropped", () => {
+    // Both bonuses need the full $1000/mo DD capacity for their entire 60-day (2-month)
+    // window. With horizonMonths 2, the only span-2 window is months[0..1], so once the
+    // higher-scoring bonus claims that window's one payroll-split slot (maxSplits 1),
+    // the lower-scoring bonus's search exhausts the horizon without ever fitting.
+    const bonusA = makeBonus({
+      id: "capacity-a",
+      bank: "Bank A",
+      bonus_max: 900,
+      dd: { required: true, amount: 1000, deadline_days: 60 },
+    });
+    const bonusB = makeBonus({
+      id: "capacity-b",
+      bank: "Bank B",
+      bonus_max: 100,
+      dd: { required: true, amount: 1000, deadline_days: 60 },
+    });
+    const profile: Profile = {
+      ...defaultProfile(startMonth),
+      monthlyDD: 1000,
+      maxSplits: 1,
+      horizonMonths: 2,
+    };
+    const plan = buildPlan([bonusA, bonusB], profile, { today });
+
+    const items = plan.months.flatMap((m) => m.items);
+    expect(items.some((i) => i.bonus.id === "capacity-a")).toBe(true);
+
+    const skippedB = plan.skipped.find((s) => s.bonus.id === "capacity-b");
+    expect(skippedB?.reasons).toEqual(["no_capacity"]);
+    expect(items.some((i) => i.bonus.id === "capacity-b")).toBe(false);
+
+    expect(plan.totals.accounts).toBe(1);
   });
 });
 
