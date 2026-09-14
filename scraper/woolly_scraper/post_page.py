@@ -6,7 +6,8 @@ from datetime import date
 
 from bs4 import BeautifulSoup
 
-from .models import PostData
+from .conditions import extract_conditions
+from .models import Condition, PostData
 from .text import extract_states, parse_date, parse_money
 
 WORD_NUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "twelve": 12}
@@ -58,6 +59,76 @@ def _fine_print(soup: BeautifulSoup) -> str:
     for d in content.find_all("del"):
         d.decompose()
     return _clean(content.get_text(" "))
+
+
+def _section_text(soup: BeautifulSoup, heading: str) -> str:
+    """Text of the section starting at a heading matching `heading`, up to the next h1/h2/h3.
+
+    Falls back to the whole body (`_fine_print`) when no heading matches, so a post
+    whose layout lacks the expected section still gets scanned rather than skipped.
+    """
+    content = soup.select_one("div.entry-content")
+    if not content:
+        return ""
+    target = None
+    for tag in content.find_all(["h1", "h2", "h3"]):
+        if _clean(tag.get_text()).lower() == heading.lower():
+            target = tag
+            break
+    if target is None:
+        return _fine_print(soup)
+    parts: list[str] = []
+    for sib in target.find_next_siblings():
+        if sib.name in ("h1", "h2", "h3"):
+            break
+        parts.append(sib.get_text(" "))
+    return _clean(" ".join(parts))
+
+
+def _structured_conditions(p: PostData) -> list[Condition]:
+    """Glance-derived structured conditions: dd, ETF line, additional requirements."""
+    out: list[Condition] = []
+    if p.dd_required:
+        if p.dd_amount is not None:
+            out.append(
+                Condition(
+                    kind="direct_deposit",
+                    text=f"Direct deposit of ${p.dd_amount}",
+                    amount=p.dd_amount,
+                    days=p.dd_deadline_days,
+                    source="doc",
+                )
+            )
+        else:
+            out.append(
+                Condition(
+                    kind="direct_deposit",
+                    text="Direct deposit required — amount not listed",
+                    source="doc",
+                )
+            )
+    if p.etf_days:
+        out.append(
+            Condition(
+                kind="keep_open",
+                text=f"Account must be kept open for {p.etf_days} days",
+                days=p.etf_days,
+                source="doc",
+            )
+        )
+    if p.etf_amount:
+        out.append(
+            Condition(
+                kind="fee",
+                text=f"${p.etf_amount} early account termination fee",
+                amount=p.etf_amount,
+                source="doc",
+            )
+        )
+    req = p.additional_requirements
+    if req and not _NONE_VALUE.fullmatch(req.strip().lower()):
+        out.append(Condition(kind="other", text=req, source="doc"))
+    return out
 
 
 def _modified(soup: BeautifulSoup) -> date | None:
@@ -162,5 +233,8 @@ def parse_post(html: str, today: date) -> PostData:
     m = re.search(r"(?:past|within|last|previous)\s+(\d+)\s+months", body, re.IGNORECASE)
     if m:
         p.anti_churn_months = int(m.group(1))
+
+    fine_print = _section_text(soup, "The Fine Print")
+    p.conditions = _structured_conditions(p) + extract_conditions(fine_print, "doc")
 
     return p

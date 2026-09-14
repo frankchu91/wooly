@@ -37,6 +37,37 @@ def test_wells_fargo_glance():
     assert p.post_modified == date(2026, 8, 23)
 
 
+def test_wells_fargo_conditions():
+    p = parse_post(load("post-wells-fargo-500.html"), TODAY)
+    assert len(p.conditions) >= 2
+    assert all(c.source == "doc" for c in p.conditions)
+    dd = next(c for c in p.conditions if c.kind == "direct_deposit" and c.amount == 1000)
+    assert dd.days == 90
+    assert any(c.kind == "new_customer" for c in p.conditions)
+    ids = [c.id for c in p.conditions]
+    assert len(ids) == len(set(ids))  # extraction already dedupes by id
+
+
+def test_stanford_fcu_conditions_include_keep_open_from_etf():
+    p = parse_post(load("post-stanford-fcu.html"), TODAY)
+    assert any(c.kind == "keep_open" and c.days == 90 for c in p.conditions)
+    dd = next(c for c in p.conditions if c.kind == "direct_deposit")
+    assert dd.amount == 500
+
+
+def test_missing_fine_print_heading_falls_back_to_whole_body():
+    html = (
+        "<html><body><div class='entry-content'><ul>"
+        "<li><strong>Maximum bonus amount: </strong>$100.</li>"
+        "</ul>"
+        "<p>Offer is for new consumer checking customers only and excludes existing account holders "
+        "entirely, no exceptions of any kind whatsoever will be made for anyone.</p>"
+        "</div></body></html>"
+    )
+    p = parse_post(html, TODAY)
+    assert any(c.kind == "new_customer" for c in p.conditions)
+
+
 def test_stanford_stale_glance_is_not_trusted():
     p = parse_post(load("post-stanford-fcu.html"), TODAY)
     # glance says $100 but bonus_max is only informational; expiration in the past → None

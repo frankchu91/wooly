@@ -1,7 +1,8 @@
+import dataclasses
 from datetime import date, timedelta
 
 from woolly_scraper.merge import apply_post, assign_ids, merge_list, needs_enrich, slug
-from woolly_scraper.models import ListEntry, PostData
+from woolly_scraper.models import Condition, ListEntry, PostData
 
 TODAY = date(2026, 9, 13)
 
@@ -101,6 +102,60 @@ def test_apply_post_fills_states_for_state_section_when_list_had_none():
     b = merge_list([], [e], TODAY)[0]
     out = apply_post(b, PostData(states=["CA"], nationwide=False), TODAY)
     assert out.states == ["CA"] and out.nationwide is False
+
+
+def test_apply_post_preserves_bank_conditions_and_replaces_doc_conditions():
+    b = merge_list([], [entry()], TODAY)[0]
+    bank_c = Condition(kind="fee", text="A $5 monthly service fee from the bank's own terms page", source="bank")
+    old_doc_c = Condition(kind="other", text="Some stale doc condition from a prior enrichment run", source="doc")
+    b = dataclasses.replace(b, conditions=[old_doc_c, bank_c])
+    new_doc_c = Condition(kind="new_customer", text="Offer is for new consumer checking customers only", source="doc")
+    out = apply_post(b, PostData(conditions=[new_doc_c]), TODAY)
+    assert out.conditions == [new_doc_c, bank_c]  # fresh doc conditions replace stale ones; bank ones survive
+
+
+def test_apply_post_dedupes_conditions_by_id():
+    b = merge_list([], [entry()], TODAY)[0]
+    c = Condition(kind="fee", text="A $5 monthly service fee", source="bank")
+    b = dataclasses.replace(b, conditions=[c])
+    same_id_doc_c = Condition(kind="fee", text="A $5 monthly service fee", source="doc")
+    out = apply_post(b, PostData(conditions=[same_id_doc_c]), TODAY)
+    assert len(out.conditions) == 1
+    assert out.conditions[0].source == "doc"  # doc conditions are listed first, so they win the dedupe
+
+
+def test_apply_post_hold_days_prefers_keep_open_condition_over_etf_days():
+    b = merge_list([], [entry()], TODAY)[0]
+    keep_open = Condition(kind="keep_open", text="Account must be kept open for 180 days", days=180, source="doc")
+    out = apply_post(b, PostData(conditions=[keep_open], etf_days=90), TODAY)
+    assert out.hold_days == 180
+
+
+def test_apply_post_hold_days_falls_back_to_etf_days_without_keep_open_condition():
+    b = merge_list([], [entry()], TODAY)[0]
+    out = apply_post(b, PostData(etf_days=60), TODAY)
+    assert out.hold_days == 60
+
+
+def test_apply_post_hold_days_none_when_neither_present():
+    b = merge_list([], [entry()], TODAY)[0]
+    out = apply_post(b, PostData(), TODAY)
+    assert out.hold_days is None
+
+
+def test_apply_post_sets_terms_status_none_when_no_offer_url_and_unset():
+    b = merge_list([], [entry(offer_url=None)], TODAY)[0]
+    assert b.terms_status == "none"  # already set at creation by merge_list/_from_entry
+    b = dataclasses.replace(b, terms_status=None)  # simulate a pre-existing record without the field
+    out = apply_post(b, PostData(), TODAY)
+    assert out.terms_status == "none"
+
+
+def test_from_entry_sets_terms_status_none_without_offer_url_else_null():
+    with_url = merge_list([], [entry(offer_url="https://bank.example/offer")], TODAY)[0]
+    without_url = merge_list([], [entry(offer_url=None, doc_url="https://www.doctorofcredit.com/other/")], TODAY)[0]
+    assert with_url.terms_status is None
+    assert without_url.terms_status == "none"
 
 
 def test_needs_enrich():

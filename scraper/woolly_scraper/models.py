@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import re
 from dataclasses import dataclass, field
 from datetime import date
 from typing import Any
@@ -11,6 +13,49 @@ def _d(v: date | None) -> str | None:
 
 def _pd(v: str | None) -> date | None:
     return date.fromisoformat(v) if v else None
+
+
+def _normalize_condition_text(text: str) -> str:
+    norm = re.sub(r"\s+", " ", text.strip()).lower()
+    return norm.rstrip(".,;:!? ")
+
+
+@dataclass
+class Condition:
+    kind: str
+    text: str
+    amount: int | None = None
+    days: int | None = None
+    count: int | None = None
+    source: str = "doc"
+
+    @property
+    def id(self) -> str:
+        norm = _normalize_condition_text(self.text)
+        return hashlib.sha1(f"{self.kind}|{norm}".encode()).hexdigest()[:8]
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "kind": self.kind,
+            "text": self.text,
+            "amount": self.amount,
+            "days": self.days,
+            "count": self.count,
+            "source": self.source,
+        }
+
+    @classmethod
+    def from_dict(cls, d: dict[str, Any]) -> Condition:
+        # A stored id is ignored (and recomputed) so ids never drift from the text.
+        return cls(
+            kind=d["kind"],
+            text=d["text"],
+            amount=d.get("amount"),
+            days=d.get("days"),
+            count=d.get("count"),
+            source=d.get("source", "doc"),
+        )
 
 
 @dataclass
@@ -50,6 +95,7 @@ class PostData:
     expiration: date | None = None
     anti_churn_months: int | None = None
     post_modified: date | None = None
+    conditions: list[Condition] = field(default_factory=list)
 
 
 @dataclass
@@ -83,6 +129,11 @@ class Bonus:
     enriched: bool = False
     enriched_at: date | None = None
     post_modified: date | None = None
+    conditions: list[Condition] = field(default_factory=list)
+    hold_days: int | None = None
+    terms_status: str | None = None
+    terms_url: str | None = None
+    terms_fetched_at: date | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -122,6 +173,13 @@ class Bonus:
             "enriched_at": _d(self.enriched_at),
             "post_modified": _d(self.post_modified),
             "last_seen": _d(self.last_seen),
+            "conditions": [c.to_dict() for c in self.conditions],
+            "hold_days": self.hold_days,
+            "terms": {
+                "status": self.terms_status,
+                "url": self.terms_url,
+                "fetched_at": _d(self.terms_fetched_at),
+            },
         }
 
     @classmethod
@@ -130,6 +188,7 @@ class Bonus:
         dd = d.get("dd") or {}
         fee = d.get("monthly_fee") or {}
         etf = d.get("etf") or {}
+        terms = d.get("terms") or {}
         return cls(
             id=d["id"],
             bank=d["bank"],
@@ -160,4 +219,9 @@ class Bonus:
             enriched=bool(d.get("enriched", False)),
             enriched_at=_pd(d.get("enriched_at")),
             post_modified=_pd(d.get("post_modified")),
+            conditions=[Condition.from_dict(c) for c in d.get("conditions", [])],
+            hold_days=d.get("hold_days"),
+            terms_status=terms.get("status"),
+            terms_url=terms.get("url"),
+            terms_fetched_at=_pd(terms.get("fetched_at")),
         )

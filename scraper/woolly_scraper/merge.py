@@ -3,6 +3,7 @@ from __future__ import annotations
 import dataclasses
 from datetime import date, timedelta
 
+from .conditions import dedupe_conditions
 from .models import Bonus, ListEntry, PostData
 from .text import normalize_bank
 
@@ -67,6 +68,7 @@ def _from_entry(e: ListEntry, today: date, id_: str) -> Bonus:
         dd_amount=e.dd_amount,
         pull=e.pull,
         cc_funding=e.cc_funding,
+        terms_status="none" if e.offer_url is None else None,
     )
 
 
@@ -122,6 +124,14 @@ def apply_post(bonus: Bonus, post: PostData, today: date) -> Bonus:
     if bonus.section in ("state", "regional") and not states:
         states = post.states
         nationwide = bool(post.nationwide) if post.nationwide is not None else False
+    bank_conditions = [c for c in bonus.conditions if c.source == "bank"]
+    conditions = dedupe_conditions(post.conditions + bank_conditions)
+    hold_days = next((c.days for c in conditions if c.kind == "keep_open" and c.days is not None), None)
+    if hold_days is None:
+        hold_days = post.etf_days
+    terms_status = bonus.terms_status
+    if bonus.offer_url is None and terms_status is None:
+        terms_status = "none"
     return dataclasses.replace(
         bonus,
         nationwide=nationwide,
@@ -143,6 +153,9 @@ def apply_post(bonus: Bonus, post: PostData, today: date) -> Bonus:
         enriched=True,
         enriched_at=today,
         post_modified=post.post_modified,
+        conditions=conditions,
+        hold_days=hold_days,
+        terms_status=terms_status,
     )
 
 
