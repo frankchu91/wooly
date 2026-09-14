@@ -51,3 +51,13 @@ def test_no_dd_entry(entries):
 def test_every_entry_has_doc_url(entries):
     assert all(e.doc_url.startswith("https://www.doctorofcredit.com/") for e in entries)
     assert all(e.summary for e in entries)
+
+
+def test_ambiguous_pull_chip_is_unknown(entries):
+    e = next(x for x in entries if x.title.startswith("e*Trade $400 Savings Bonus"))
+    assert e.pull == "unknown"
+
+
+def test_mixed_pull_chip_is_unknown(entries):
+    e = next(x for x in entries if "Numerica Credit Union" in x.title)
+    assert e.pull == "unknown"

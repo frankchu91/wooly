@@ -28,7 +28,9 @@ def _classify_chips(texts: list[str]) -> tuple[str, str | None, bool | None, int
     dd_amount: int | None = None
     for t in texts:
         low = t.lower()
-        if "soft pull" in low:
+        if "pull" in low and ("unknown" in low or "mixed" in low):
+            pull = "unknown"
+        elif "soft pull" in low:
             pull = "soft"
         elif "hard pull" in low:
             pull = "hard"
