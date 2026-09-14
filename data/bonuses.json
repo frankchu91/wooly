@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T04:34:32+00:00",
+  "generated_at": "2026-09-14T08:31:36+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -549,20 +549,26 @@
       "dd": {
         "required": true,
         "amount": 2000,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Mixed datapoint, most say they don’t pull",
       "cc_funding": "Can fund up to $250 with a debit card",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 12,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-09-02",
       "last_seen": "2026-09-14"
     },
     {
@@ -580,22 +586,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding but can fund with a debit card of up to $100",
       "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
-      "expiration": null,
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
+      "expiration": "2026-12-31",
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Deposit and maintain $5,000-$200,000",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-04",
       "last_seen": "2026-09-14"
     },
     {
@@ -613,22 +622,28 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "No",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 150
+      },
+      "household_limit": "None mentioned",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Yes, see options below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-04-08",
       "last_seen": "2026-09-14"
     },
     {
@@ -928,20 +943,26 @@
       "dd": {
         "required": true,
         "amount": 1000,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown, sensitive",
       "cc_funding": "Can fund up to $3,000 with a credit card",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 15,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Use promo code",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-08-12",
       "last_seen": "2026-09-14"
     },
     {
@@ -1311,20 +1332,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 15
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Mixed",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "$20,000-$100,000 deposit",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-09-11",
       "last_seen": "2026-09-14"
     },
     {
@@ -1344,20 +1371,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Mixed. EWS sensitive according to the comments",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 15,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Use promo code",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-03-10",
       "last_seen": "2026-09-14"
     },
     {
@@ -1375,22 +1408,28 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
       "chexsystems": null,
       "cc_funding": "$500 credit card funding, but it codes as cash advance",
-      "monthly_fee": null,
-      "etf": null,
+      "monthly_fee": {
+        "amount": 15,
+        "avoidable": false
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
       "household_limit": null,
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Deposit $10,000 in new to Chase funds; 5 qualifying transactions",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-05-17",
       "last_seen": "2026-09-14"
     },
     {
@@ -1413,17 +1452,23 @@
         "deadline_days": null
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-08-20",
       "last_seen": "2026-09-14"
     },
     {
@@ -1443,20 +1488,26 @@
       "dd": {
         "required": true,
         "amount": 1500,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
-      "expiration": null,
+      "monthly_fee": {
+        "amount": 12,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
+      "expiration": "2026-10-22",
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-28",
       "last_seen": "2026-09-14"
     },
     {
@@ -1475,21 +1526,27 @@
       },
       "dd": {
         "required": false,
-        "amount": null,
-        "deadline_days": null
+        "amount": 3000,
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
-      "expiration": null,
+      "monthly_fee": {
+        "amount": 12,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
+      "expiration": "2026-10-22",
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-28",
       "last_seen": "2026-09-14"
     },
     {
@@ -1542,22 +1599,28 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Credit card funding of up to $1,000",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 5,
+        "avoidable": false
+      },
+      "etf": {
+        "amount": null,
+        "days": 90
+      },
+      "household_limit": "One per bustomer",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-06-06",
       "last_seen": "2026-09-14"
     },
     {
@@ -1610,22 +1673,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": false
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-03",
       "last_seen": "2026-09-14"
     },
     {
@@ -1715,20 +1781,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 180
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 20,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 50,
+        "days": 180
+      },
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Average daily balance of $5,000 for the 3rd full month after account opening",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-05",
       "last_seen": "2026-09-14"
     },
     {
@@ -1978,20 +2050,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes.",
       "cc_funding": "Can fund up to $500 with a credit card",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-13",
       "last_seen": "2026-09-14"
     },
     {
@@ -2044,22 +2122,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "unknown",
-      "chexsystems": null,
+      "chexsystems": "Yes, but approves if frozen",
       "cc_funding": "Unknown if credit card funding is possible",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
-      "expiration": null,
+      "household_limit": "None",
+      "expiration": "2026-09-30",
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-06-05",
       "last_seen": "2026-09-14"
     },
     {
@@ -2077,22 +2158,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
-        "amount": null,
-        "deadline_days": null
+        "required": true,
+        "amount": 1500,
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
-      "cc_funding": null,
-      "monthly_fee": null,
+      "chexsystems": "Unknown",
+      "cc_funding": "None",
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
       "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-02",
       "last_seen": "2026-09-14"
     },
     {
@@ -2110,22 +2194,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
-        "amount": null,
+        "required": true,
+        "amount": 2000,
         "deadline_days": null
       },
       "pull": "soft",
-      "chexsystems": null,
-      "cc_funding": null,
-      "monthly_fee": null,
+      "chexsystems": "Unknown",
+      "cc_funding": "Unknown",
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
       "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-07-03",
       "last_seen": "2026-09-14"
     },
     {
@@ -2341,18 +2428,24 @@
         "amount": null,
         "deadline_days": null
       },
-      "pull": "unknown",
-      "chexsystems": null,
+      "pull": "soft",
+      "chexsystems": "Unknown",
       "cc_funding": "Unknown if credit card is allowed",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 10,
+        "avoidable": false
+      },
+      "etf": {
+        "amount": 26,
+        "days": 90
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-05-11",
       "last_seen": "2026-09-14"
     },
     {
@@ -2655,22 +2748,25 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 60
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "No",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-06-17",
       "last_seen": "2026-09-14"
     },
     {
@@ -2690,20 +2786,26 @@
       "dd": {
         "required": true,
         "amount": 500,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes, sensitive. Seems like they mostly care about how many accounts in the last month.",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
-      "expiration": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 0,
+        "days": null
+      },
+      "household_limit": "None listed",
+      "expiration": "2026-12-31",
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-06-04",
       "last_seen": "2026-09-14"
     },
     {
@@ -2765,20 +2867,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "Can fund up to $1,000 with a credit card",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 25,
+        "days": 90
+      },
+      "household_limit": "None",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-05-02",
       "last_seen": "2026-09-14"
     },
     {
@@ -2833,20 +2941,26 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 150
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Doesn’t pull",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 150
+      },
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2025-12-15",
       "last_seen": "2026-09-14"
     },
     {
@@ -2901,20 +3015,26 @@
       "dd": {
         "required": null,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "unknown",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "Unknown if credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 70,
+        "days": 180
+      },
+      "household_limit": "$70, 180 days",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-08-07",
       "last_seen": "2026-09-14"
     },
     {
@@ -2932,22 +3052,28 @@
         "states": []
       },
       "dd": {
-        "required": null,
+        "required": true,
         "amount": null,
         "deadline_days": null
       },
       "pull": "soft",
-      "chexsystems": null,
-      "cc_funding": null,
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "chexsystems": "Unknown",
+      "cc_funding": "None",
+      "monthly_fee": {
+        "amount": 50,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 25,
+        "days": 180
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-14",
+      "post_modified": "2026-08-20",
       "last_seen": "2026-09-14"
     },
     {
