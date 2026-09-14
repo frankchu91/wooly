@@ -101,12 +101,12 @@ export function ConditionList({ conditions, done, onToggle, compact = false }: C
                 {onToggle ? (
                   <label
                     htmlFor={inputId}
-                    className={cn("text-sm text-ink", compact && "line-clamp-2")}
+                    className={cn("break-words text-sm text-ink", compact && "line-clamp-2")}
                   >
                     {condition.text}
                   </label>
                 ) : (
-                  <span className={cn("text-sm text-ink", compact && "line-clamp-2")}>
+                  <span className={cn("break-words text-sm text-ink", compact && "line-clamp-2")}>
                     {condition.text}
                   </span>
                 )}

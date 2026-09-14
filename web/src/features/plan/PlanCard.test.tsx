@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, test } from "vitest";
 
 import { fixture } from "../../data/fixture";
-import type { PlanItem } from "../../engine/types";
+import type { Bonus, PlanItem } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { money } from "../../ui";
@@ -98,6 +98,50 @@ describe("PlanCard conditions chip", () => {
     renderCard(makeItem({ bonus: bonusById("fourfront-400") }));
 
     expect(screen.queryByText(/conditions$/)).not.toBeInTheDocument();
+  });
+
+  test("collapses a bank duplicate of a doc condition so the chip counts rendered rows, not raw entries", () => {
+    // Three raw conditions (a doc/bank pair sharing kind+amount+days, plus one
+    // distinct condition) collapse to two — the chip must report the collapsed
+    // count, matching what ConditionList actually renders in the drawer.
+    const bonus: Bonus = {
+      ...bonusById("wells-fargo-500"),
+      dd: { required: false, amount: null, deadline_days: null },
+      etf: null,
+      conditions: [
+        {
+          id: "d1",
+          kind: "direct_deposit",
+          text: "doc version",
+          amount: 500,
+          days: 60,
+          count: null,
+          source: "doc",
+        },
+        {
+          id: "d3",
+          kind: "new_customer",
+          text: "New customer only",
+          amount: null,
+          days: null,
+          count: null,
+          source: "doc",
+        },
+        {
+          id: "d2",
+          kind: "direct_deposit",
+          text: "bank version",
+          amount: 500,
+          days: 60,
+          count: null,
+          source: "bank",
+        },
+      ],
+    };
+
+    renderCard(makeItem({ bonus }));
+
+    expect(screen.getByText(t.plan.badges.conditions(2))).toBeInTheDocument();
   });
 });
 

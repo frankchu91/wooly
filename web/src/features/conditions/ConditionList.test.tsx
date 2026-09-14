@@ -77,6 +77,13 @@ describe("ConditionList", () => {
 
     expect(screen.getByText(t.conditions.none)).toBeInTheDocument();
   });
+
+  test("compact hides the meta line and clamps the condition text to two lines", () => {
+    render(<ConditionList conditions={[docDD]} compact />);
+
+    expect(screen.queryByText(/Amount:/)).toBeNull();
+    expect(screen.getByText(docDD.text)).toHaveClass("line-clamp-2");
+  });
 });
 
 describe("collapseSimilar", () => {

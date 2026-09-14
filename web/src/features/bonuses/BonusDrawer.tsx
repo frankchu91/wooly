@@ -2,14 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 import { useData } from "../../data/DataContext";
 import { evaluate } from "../../engine";
-import { checklistFor } from "../../engine/conditions";
 import type { Bonus, Reason } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { usePlan } from "../../state/usePlan";
 import { Badge, Button, Drawer, MoneyText, dateLabel, money } from "../../ui";
 import { ConditionList } from "../conditions/ConditionList";
-import { SYNTH_LABELS } from "../conditions/synthLabels";
+import { visibleConditions } from "../conditions/visibleConditions";
 import { reasonToText } from "../plan/reasonText";
 
 export interface BonusDrawerProps {
@@ -166,7 +165,7 @@ export function BonusDrawer({ bonus, open, onClose }: BonusDrawerProps) {
           <h3 className="font-heading text-sm font-semibold text-ink">
             {t.bonuses.conditionsTitle}
           </h3>
-          <ConditionList conditions={checklistFor(bonus, SYNTH_LABELS)} />
+          <ConditionList conditions={visibleConditions(bonus)} />
           {bonus.terms.status === "ok" && bonus.offer_url ? (
             <a
               href={bonus.offer_url}

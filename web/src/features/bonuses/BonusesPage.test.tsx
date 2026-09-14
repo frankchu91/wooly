@@ -5,18 +5,22 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 import { DataContext } from "../../data/DataContext";
 import { fixture } from "../../data/fixture";
+import type { Bonus } from "../../engine/types";
 import { defaultProfile } from "../../engine/types";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { BonusesPage } from "./BonusesPage";
 
-const dataset = { generated_at: "2026-09-13T00:00:00Z", source: "", bonuses: fixture };
 const initialState = useStore.getState();
 // Matches how `parseISO` interprets date-only strings (local midnight) — keeps the
 // fixture's eligibility/expiring results stable regardless of host timezone.
 const today = new Date(2026, 8, 13);
 
-function renderPage() {
+// Defaults to the shared fixture; a test that needs a variant (e.g. a bonus with its
+// `terms.status` swapped) passes its own `bonuses` array instead of mutating the
+// shared one.
+function renderPage(bonuses: Bonus[] = fixture) {
+  const dataset = { generated_at: "2026-09-13T00:00:00Z", source: "", bonuses };
   return render(
     <MemoryRouter initialEntries={["/bonuses"]}>
       <DataContext.Provider value={dataset}>
@@ -206,6 +210,53 @@ describe("BonusesPage", () => {
     expect(within(dialog).getByText(t.conditions.sources.bank)).toBeInTheDocument();
     const link = within(dialog).getByRole("link", { name: t.bonuses.terms.bankPage });
     expect(link).toHaveAttribute("href", "https://example.test/wf-offer");
+  });
+
+  test("opening us-bank-450 (no recorded conditions, dd required) shows the synthesised DD text", async () => {
+    // us-bank-450: conditions: [], dd required 2000/90, no etf — checklistFor's only
+    // entry is the synthesised direct_deposit condition.
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(screen.getByText(/US Bank \$450/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.conditions.synth.dd(2000, 90))).toBeInTheDocument();
+  });
+
+  test("a blocked terms page shows the unreadable note, not the bank-page link", async () => {
+    const user = userEvent.setup({ delay: null });
+    const bonuses = fixture.map((bonus) =>
+      bonus.id === "wells-fargo-500"
+        ? {
+            ...bonus,
+            terms: {
+              status: "blocked" as const,
+              url: "https://example.test",
+              fetched_at: "2026-09-14",
+            },
+          }
+        : bonus,
+    );
+    renderPage(bonuses);
+
+    await user.click(screen.getByText(/Wells Fargo \$500/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(t.bonuses.terms.unreadable)).toBeInTheDocument();
+    expect(within(dialog).queryByRole("link", { name: t.bonuses.terms.bankPage })).toBeNull();
+  });
+
+  test("a terms.status of 'none' shows neither the bank-page link nor the unreadable note", async () => {
+    // chase-400: terms.status "none", offer_url null.
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(screen.getByText(/Chase \$400/));
+
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).queryByRole("link", { name: t.bonuses.terms.bankPage })).toBeNull();
+    expect(within(dialog).queryByText(t.bonuses.terms.unreadable)).toBeNull();
   });
 
   test("the result count reflects the filtered results", async () => {
