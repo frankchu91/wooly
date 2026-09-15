@@ -39,8 +39,21 @@ export function Layout() {
   return (
     <DataContext.Provider value={data}>
       <div className="min-h-screen bg-cream text-ink">
+        {/* Invisible until it has keyboard focus, then it is the first thing on the
+         * page: a keyboard user should not have to tab through the whole header on
+         * every screen to reach the content. */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-control focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+        >
+          {t.common.skipToContent}
+        </a>
         <Header dataset={data} />
-        <main className="mx-auto max-w-6xl px-4 pb-24 pt-8 md:pb-12">
+        <main
+          id="main"
+          tabIndex={-1}
+          className="mx-auto max-w-6xl px-4 pb-24 pt-8 outline-none md:pb-12"
+        >
           {error ? <ErrorState onRetry={retry} /> : data ? <Outlet /> : <LoadingSkeleton />}
         </main>
         <Footer />

@@ -36,7 +36,9 @@ export const buttonSizeClasses: Record<NonNullable<ButtonProps["size"]>, string>
 // The structural classes shared by every variant/size, also exported for the same
 // reason as the maps above.
 export const buttonBaseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-control font-semibold transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+  // `active:scale` is the press: the button gives a little under the pointer, the way a
+  // physical one does, so a click reads as a click even before its effect shows up.
+  "inline-flex items-center justify-center gap-2 rounded-control font-semibold transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.98] motion-reduce:active:scale-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
 const variantClasses = buttonVariantClasses;
 const sizeClasses = buttonSizeClasses;

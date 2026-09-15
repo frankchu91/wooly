@@ -423,7 +423,7 @@ describe("TrackerPage — empty state", () => {
     expect(screen.queryByRole("table")).not.toBeInTheDocument();
   });
 
-  test("links to /start when there is no profile, and still shows the Pro banner", () => {
+  test("links to /start when there is no profile", () => {
     useStore.setState({ profile: null, tracker: [] });
     renderTrackerPage();
 
@@ -431,7 +431,15 @@ describe("TrackerPage — empty state", () => {
       "href",
       "/start",
     );
-    expect(screen.getByText(t.tracker.pro)).toBeInTheDocument();
+  });
+
+  /** The working screen is for the accounts you have, not for a product that does not
+   * exist yet. The promise lives on the About page, if anywhere. */
+  test("carries no 'coming soon' banner", () => {
+    seedAllStages();
+    renderTrackerPage();
+
+    expect(screen.queryByText(t.tracker.pro)).not.toBeInTheDocument();
   });
 });
 

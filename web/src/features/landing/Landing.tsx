@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { useData } from "../../data/DataContext";
@@ -39,36 +38,6 @@ function biggestBonus(bonuses: Bonus[]): number | null {
 
 const inlineLink =
   "rounded-control font-semibold text-primary-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
-
-/** A section that fades up once as it scrolls into view. The motion is the page's only
- * choreography: it sequences the sections in reading order and nothing else. */
-function Reveal({
-  as: Tag = "section",
-  className,
-  children,
-  ...rest
-}: {
-  as?: "section" | "div";
-  className?: string;
-  children: ReactNode;
-  "aria-labelledby"?: string;
-  "aria-label"?: string;
-}) {
-  const reduceMotion = useReducedMotion();
-  const MotionTag = motion[Tag];
-  return (
-    <MotionTag
-      initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-      {...rest}
-    >
-      {children}
-    </MotionTag>
-  );
-}
 
 export function Landing() {
   const profile = useStore((state) => state.profile);
@@ -127,7 +96,7 @@ export function Landing() {
 
       {/* Live figures from the dataset, as a strip under the hero. This is the page's
        * proof, so it sits where a logo wall would. */}
-      <Reveal
+      <section
         aria-label={t.landing.stats.label}
         className="grid gap-6 border-y border-ink/10 py-8 sm:grid-cols-3 sm:gap-10"
       >
@@ -136,10 +105,10 @@ export function Landing() {
           <Stat label={t.landing.stats.updated} value={dateLabel(data.generated_at)} />
         ) : null}
         {biggest !== null ? <Stat label={t.landing.stats.biggest} value={money(biggest)} /> : null}
-      </Reveal>
+      </section>
 
       {/* How it works: the headline holds one column, the three steps run down the other. */}
-      <Reveal aria-labelledby="how-heading" className="grid gap-8 md:grid-cols-12 md:gap-12">
+      <section aria-labelledby="how-heading" className="grid gap-8 md:grid-cols-12 md:gap-12">
         <h2
           id="how-heading"
           className="text-balance font-heading text-3xl font-bold leading-tight text-ink md:col-span-5 md:text-4xl"
@@ -157,12 +126,12 @@ export function Landing() {
             </li>
           ))}
         </ol>
-      </Reveal>
+      </section>
 
       {/* Hidden outright when nothing in the dataset carries a `post_modified` — a
        * "latest" section with no dates on it is just a second offer grid. */}
       {latest.length > 0 ? (
-        <Reveal aria-labelledby="latest-heading" className="flex flex-col gap-8">
+        <section aria-labelledby="latest-heading" className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <h2
               id="latest-heading"
@@ -173,19 +142,22 @@ export function Landing() {
             <p className="text-muted">{t.landing.latest.sub}</p>
           </div>
 
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Rows on hairlines rather than boxed tiles: six identical white cards in a
+           * three-up grid is the layout every generated landing page has, and the boxes
+           * add nothing a divider does not. */}
+          <ul className="grid border-t border-ink/10 md:grid-cols-2 md:gap-x-12">
             {latest.map((bonus) => (
               <li
                 key={bonus.id}
-                className="flex flex-col gap-4 rounded-card border border-ink/10 bg-surface p-5"
+                className="flex flex-col gap-3 border-b border-ink/10 py-5 md:py-6"
               >
                 <div className="flex items-start gap-3">
                   <BankAvatar name={bonus.bank} size={32} />
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-heading text-sm font-semibold leading-snug text-ink">
+                    <h3 className="font-heading text-base font-semibold leading-snug text-ink">
                       {bonus.title}
                     </h3>
-                    <p className="mt-1 text-xs text-muted">
+                    <p className="mt-1 text-sm text-muted">
                       {t.landing.latest.updated(dateLabel(bonus.post_modified))}
                     </p>
                   </div>
@@ -196,7 +168,7 @@ export function Landing() {
                     className="shrink-0"
                   />
                 </div>
-                <div className="mt-auto flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                <div className="flex flex-wrap gap-x-4 gap-y-1 pl-11 text-sm">
                   <a
                     href={bonus.doc_url}
                     target="_blank"
@@ -228,12 +200,12 @@ export function Landing() {
               <ExternalLink size={14} aria-hidden="true" />
             </a>
           </div>
-        </Reveal>
+        </section>
       ) : null}
 
       {/* Closing band: the privacy line that used to sit under the hero CTAs, the guide
        * link, and one repeat of the primary CTA. */}
-      <Reveal className="grid gap-6 rounded-card bg-mint/40 p-6 md:grid-cols-12 md:items-center md:p-10">
+      <section className="grid gap-6 rounded-card bg-mint/40 p-6 md:grid-cols-12 md:items-center md:p-10">
         <div className="flex flex-col gap-2 md:col-span-8">
           <p className="font-heading text-xl font-bold text-ink md:text-2xl">{t.landing.trust}</p>
           <p className="text-muted">
@@ -248,7 +220,7 @@ export function Landing() {
             {primaryCta.label}
           </Button>
         </div>
-      </Reveal>
+      </section>
     </div>
   );
 }

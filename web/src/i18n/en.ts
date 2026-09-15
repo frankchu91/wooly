@@ -30,7 +30,7 @@ export const t = {
     // profile, so the hero shows the product's real output rather than an illustration.
     sample: {
       title: "A sample plan",
-      profile: "$5,000 a month in direct deposit, split two ways",
+      profile: "For someone with $5,000 a month in direct deposit",
       projected: "Projected",
       accounts: (n: number) => (n === 1 ? "1 account" : `${n} accounts`),
       empty: "Nothing scheduled",
@@ -496,6 +496,7 @@ export const t = {
     notFound: "That page doesn't exist",
   },
   common: {
+    skipToContent: "Skip to content",
     yes: "Yes",
     no: "No",
     save: "Save",

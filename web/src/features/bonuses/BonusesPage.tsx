@@ -100,11 +100,16 @@ export function BonusesPage() {
     <div className="flex flex-col gap-6 pb-4">
       <h1 className="font-heading text-2xl font-bold text-ink md:text-3xl">{t.bonuses.title}</h1>
 
-      <Filters filters={filters} hasProfile={profile != null} />
+      {/* From `md` up the controls stay put while the list scrolls under them: with 240
+       * rows, a search box that has scrolled off the top is a search box nobody uses
+       * twice. `top-[61px]` clears the sticky site header. On a phone the block is three
+       * rows tall and would eat half the screen, so there it scrolls with the page. */}
+      <div className="flex flex-col gap-3 md:sticky md:top-[61px] md:z-10 md:bg-cream/95 md:pb-3 md:pt-2 md:backdrop-blur-sm">
+        <Filters filters={filters} hasProfile={profile != null} />
+        <p className="text-sm text-muted">{t.bonuses.count(filters.count)}</p>
+      </div>
 
-      <p className="text-sm text-muted">{t.bonuses.count(filters.count)}</p>
-
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="-mt-3 border-t border-ink/10">
         {filters.results.map((bonus) => (
           <BonusCard key={bonus.id} bonus={bonus} onOpen={openDrawer} />
         ))}

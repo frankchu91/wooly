@@ -1,5 +1,5 @@
 import { t } from "../../i18n/en";
-import { Button, Card, EmptyState } from "../../ui";
+import { Button, EmptyState } from "../../ui";
 import { ItemDrawer } from "./ItemDrawer";
 import { LedgerTotals } from "./LedgerTotals";
 import { Pipeline } from "./Pipeline";
@@ -54,10 +54,6 @@ export function TrackerPage() {
           />
         </>
       )}
-
-      <Card tone="mint">
-        <p className="text-sm text-primary-dark">{t.tracker.pro}</p>
-      </Card>
 
       <ItemDrawer
         item={selectedItem}
