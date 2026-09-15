@@ -154,7 +154,10 @@ test("the ledger downloads as a spreadsheet the browser can actually save", asyn
 
   const path = await download.path();
   const text = await readFile(path, "utf8");
-  const [header, totals, ...rows] = text.replace(/^﻿/, "").trim().split("\r\n");
+  const [header, totals, ...rows] = text
+    .replace(/^\uFEFF/, "")
+    .trim()
+    .split("\r\n");
 
   expect(header).toContain("Bank");
   // The four seeded accounts, and a totals row that has added up their headline bonuses.

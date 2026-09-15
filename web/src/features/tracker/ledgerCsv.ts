@@ -1,5 +1,4 @@
-import { format } from "date-fns";
-
+import { csvAmount, datedCsvFilename, toCsv } from "../../csv";
 import { hasPosted, receivedAmount } from "../../engine/conditions";
 import type { Bonus, TrackedItem } from "../../engine/types";
 import { t } from "../../i18n/en";
@@ -32,25 +31,6 @@ export const LEDGER_CSV_HEADERS = [
   fields.stage,
   ledger.csv.notes,
 ];
-
-/** A cell a spreadsheet would otherwise execute. Excel and Sheets treat a leading
- * `= + - @` (and the two control characters that can smuggle one in) as the start of a
- * formula, so a bank name or a note beginning with one is prefixed with an apostrophe —
- * the spreadsheet then shows the text and runs nothing. */
-function defuse(value: string): string {
-  return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
-}
-
-/** One CSV field: quoted only when it has to be, with inner quotes doubled — the
- * escaping every spreadsheet agrees on. */
-function cell(value: string): string {
-  const safe = defuse(value);
-  return /[",\n\r]/.test(safe) ? `"${safe.replaceAll('"', '""')}"` : safe;
-}
-
-/** A number for the spreadsheet to add up, or an empty cell — never `0` standing in for
- * "nothing here", which would quietly drag an average down. */
-const amount = (value: number | null): string => (value == null ? "" : String(value));
 
 /**
  * The ledger's rows as plain strings: the header, the totals, then one row per tracked
@@ -98,8 +78,8 @@ export function ledgerCsvRows(
       bonus?.bank ?? item.bonusId,
       bonus?.title ?? "",
       item.applicant ?? "",
-      amount(bonus ? bonus.bonus_max : null),
-      amount(hasPosted(item) ? receivedAmount(item, bonus) : null),
+      csvAmount(bonus?.bonus_max),
+      csvAmount(hasPosted(item) ? receivedAmount(item, bonus) : null),
       progress.total > 0 ? `${progress.done}/${progress.total}` : "",
       item.dates.opened ?? "",
       ddDeadlineFor(item, bonus) ?? "",
@@ -113,23 +93,10 @@ export function ledgerCsvRows(
   return [LEDGER_CSV_HEADERS, totals, ...body];
 }
 
-const BOM = "\uFEFF";
-
 /**
- * The file's text. It opens with a UTF-8 byte-order mark because Excel on Windows
- * otherwise reads a CSV as the local code page and mangles every non-ASCII character in
- * a bank name; and its lines end `\r\n`, which is what the CSV format specifies and
- * what older Excel builds need to see a line break inside a quoted note.
+ * The file's text — see `toCsv` for the byte-order mark and line endings Excel needs.
  */
-export function ledgerCsv(items: TrackedItem[], bonusesById: Record<string, Bonus>): string {
-  const body = ledgerCsvRows(items, bonusesById)
-    .map((row) => row.map(cell).join(","))
-    .join("\r\n");
-  return `${BOM}${body}\r\n`;
-}
+export const ledgerCsv = (items: TrackedItem[], bonusesById: Record<string, Bonus>): string =>
+  toCsv(ledgerCsvRows(items, bonusesById));
 
-/** `woolly-ledger-2026-09-14.csv` — dated, so a user who exports monthly ends up with a
- * folder that sorts itself rather than four copies of `woolly-ledger (3).csv`. */
-export function ledgerCsvFilename(today: Date): string {
-  return `woolly-ledger-${format(today, "yyyy-MM-dd")}.csv`;
-}
+export const ledgerCsvFilename = (today: Date): string => datedCsvFilename("ledger", today);

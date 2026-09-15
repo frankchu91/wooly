@@ -210,6 +210,26 @@ export const t = {
     moreActions: "More actions",
     track: "Track this plan",
     tracked: "Added to tracker",
+    download: "Download as spreadsheet",
+    downloaded: "Spreadsheet downloaded",
+    // Column names for the spreadsheet export. The file is read without the site next to
+    // it, so these say the whole thing rather than leaning on the page for context.
+    csv: {
+      month: "Open in",
+      bank: "Bank",
+      offer: "Offer",
+      bonus: "Bonus",
+      bonusMin: "Bonus (minimum)",
+      dd: "Direct deposit needed",
+      ddBy: "Direct deposit by",
+      closeAfter: "Safe to close after",
+      status: "Status",
+      watchOut: "Watch out for",
+      link: "Doctor of Credit",
+      total: "Total",
+      // What every row of a freshly exported plan is: not started.
+      todo: "To do",
+    },
     skipped: (n: number) => `Skipped (${n})`,
     restore: "Restore",
     badges: {

@@ -1,12 +1,15 @@
+import { Download } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { datedCsvFilename, downloadCsv } from "../../csv";
 import { useData } from "../../data/DataContext";
 import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { usePlan } from "../../state/usePlan";
 import { Button, Card, EmptyState, Segmented, toast } from "../../ui";
 import { MonthColumn } from "./MonthColumn";
+import { planCsv } from "./planCsv";
 import { SkippedList } from "./SkippedList";
 import { SummaryBar } from "./SummaryBar";
 
@@ -47,6 +50,12 @@ export function PlanPage() {
     trackPlan(allItems);
     toast(t.plan.tracked);
     navigate("/tracker");
+  }
+
+  function handleDownload() {
+    if (!plan) return;
+    downloadCsv(datedCsvFilename("plan", new Date()), planCsv(plan));
+    toast(t.plan.downloaded);
   }
 
   if (plan.totals.accounts === 0) {
@@ -98,8 +107,23 @@ export function PlanPage() {
 
       <SkippedList skipped={plan.skipped} />
 
-      <div className="sticky bottom-20 z-20 flex justify-end md:bottom-4">
-        <Button size="lg" onClick={handleTrack} className="shadow-card">
+      {/* The two things you can do with a finished plan: keep it here, or take it with
+       * you. They sit below the plan rather than in the page header because they are an
+       * answer to it, not a setting on it.
+       *
+       * One opaque bar rather than two floating buttons — a translucent secondary button
+       * hovering over a card underneath it reads as a rendering mistake, and on a phone
+       * the two of them covered half the first month. */}
+      <div className="sticky bottom-20 z-20 ml-auto flex w-full flex-col gap-2 rounded-card border border-mint bg-surface p-2 shadow-card sm:w-auto sm:flex-row sm:items-center">
+        <Button
+          size="lg"
+          variant="secondary"
+          onClick={handleDownload}
+          icon={<Download size={17} aria-hidden="true" />}
+        >
+          {t.plan.download}
+        </Button>
+        <Button size="lg" onClick={handleTrack}>
           {t.plan.track}
         </Button>
       </div>
