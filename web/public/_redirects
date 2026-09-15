@@ -1,0 +1,3 @@
+# Single-page app: every path is served by index.html and the router takes it from
+# there. Read by Netlify and Cloudflare Pages; a deep link like /tracker 404s without it.
+/*    /index.html   200
