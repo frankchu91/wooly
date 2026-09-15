@@ -10,7 +10,10 @@ export default {
         // cream/surface. Anything readable uses `coral-dark`.
         coral: { DEFAULT: "#F28C6B", dark: "#B9482A" }, gold: "#F5C451",
       },
-      fontFamily: { heading: ["Manrope", "Inter", "system-ui", "sans-serif"], body: ["Inter", "system-ui", "sans-serif"] },
+      fontFamily: {
+        heading: ["Manrope Variable", "Manrope", "system-ui", "sans-serif"],
+        body: ["Inter Variable", "Inter", "system-ui", "sans-serif"],
+      },
       borderRadius: { card: "16px", control: "12px" },
       boxShadow: { card: "0 1px 2px rgba(31,42,36,.06), 0 8px 24px rgba(31,42,36,.06)" },
     },

@@ -18,22 +18,27 @@ export const t = {
   },
   landing: {
     h1: "Turn your paycheck into bank bonuses.",
-    sub: "Bank bonuses pay $200–$700 to open an account. Woolly works out which ones you qualify for and when to open them.",
+    sub: "Banks pay $200 to $700 to open an account. Woolly finds the offers you qualify for and when to open them.",
     cta: "Plan my bonuses",
     browse: "Browse offers",
-    welcomeBack: "Welcome back — your plan is ready.",
+    welcomeBack: "Welcome back. Your plan is ready.",
     viewPlan: "View my plan",
     // Sends a returning user back through the wizard, which seeds its draft from the
     // saved profile — "edit and rebuild", not "start from nothing".
     replan: "Re-plan",
-    // Small-caps eyebrows above each h2. The h2 carries the sentence; the label just
-    // says which part of the page you are in.
-    labels: {
-      how: "How it works",
-      latest: "Fresh from the source",
+    // A three-month plan the engine builds from the live dataset for a stand-in
+    // profile, so the hero shows the product's real output rather than an illustration.
+    sample: {
+      title: "A sample plan",
+      profile: "$5,000 a month in direct deposit, split two ways",
+      projected: "Projected",
+      accounts: (n: number) => (n === 1 ? "1 account" : `${n} accounts`),
+      empty: "Nothing scheduled",
+      note: "Yours will differ. Woolly builds it from your paycheck, your state and your history.",
     },
-    // The live figures beside the hero, read from the dataset rather than invented.
+    // The live figures under the hero, read from the dataset rather than invented.
     stats: {
+      label: "Live figures",
       offers: "Offers tracked",
       updated: "Data updated",
       biggest: "Biggest right now",

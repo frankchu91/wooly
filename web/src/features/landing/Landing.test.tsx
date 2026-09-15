@@ -76,7 +76,7 @@ describe("Landing", () => {
   describe("stat strip", () => {
     test("counts the offers in the provided dataset and dates the data", () => {
       renderLanding();
-      const strip = hero();
+      const strip = screen.getByRole("region", { name: t.landing.stats.label });
 
       expect(within(strip).getByText(t.landing.stats.offers)).toBeInTheDocument();
       expect(within(strip).getByText(String(fixture.length))).toBeInTheDocument();
@@ -108,7 +108,17 @@ describe("Landing", () => {
         .getAllByRole("heading", { level: 3 })
         .map((heading) => heading.textContent),
     ).toEqual(t.landing.how.map((step) => step.title));
-    expect(within(section).getByText("01")).toBeInTheDocument();
+  });
+
+  describe("sample plan", () => {
+    test("shows a plan the engine built from the dataset, in the hero", () => {
+      renderLanding();
+      const sample = within(hero()).getByRole("figure", { name: t.landing.sample.title });
+      expect(within(sample).getByText(t.landing.sample.profile)).toBeInTheDocument();
+      expect(within(sample).getByText(t.landing.sample.note)).toBeInTheDocument();
+      // Three months, whatever lands in them.
+      expect(within(sample).getAllByRole("listitem").length).toBeGreaterThanOrEqual(3);
+    });
   });
 
   test("closes with the guide link and a single CTA", () => {
