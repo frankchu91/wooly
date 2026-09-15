@@ -36,6 +36,12 @@ def test_extract_states():
     assert extract_states("IN Bank $200 Checking Bonus – IN, KY") == ["IN", "KY"]
     # no list context at all, even though the code appears twice
     assert extract_states("Bank of MA $100 for MA residents") == []
+    # the first state of a list has nothing before it but is still part of the list
+    assert extract_states("Keybank $1,000 AK, CO, CT") == ["AK", "CO", "CT"]
+    assert extract_states("North Shore Bank $500 Checking Bonus WI + IL – In Branch") == ["WI", "IL"]
+    assert extract_states("Truist $400/$800 AL, AR, GA") == ["AL", "AR", "GA"]
+    # a lone code with no second one after it is still not a list
+    assert extract_states("TD Bank $300 Checking Bonus") == []
     # joiners other than comma/dash must also be recognised
     assert extract_states("iTHINK Financial $300 – FL & GA") == ["FL", "GA"]
     assert extract_states("Truist $400 – AL, GA, WV or DC") == ["AL", "GA", "WV", "DC"]
@@ -53,6 +59,8 @@ def test_normalize_bank():
     assert normalize_bank("SoFi Checking & Savings $675 Signup Bonus") == "SoFi"
     # "Savings"/"Checking" that's part of the bank's own name isn't a cut point
     assert normalize_bank("Union Savings Bank $200 Checking Bonus") == "Union Savings Bank"
+    # A colon DoC uses to introduce the offer is not part of the bank's name
+    assert normalize_bank("Raisin/Savebetter + Topcashback: Up To $2,250 Savings") == "Raisin/Savebetter + Topcashback"
 
 
 def test_parse_date():

@@ -62,7 +62,7 @@ def _from_entry(e: ListEntry, today: date, id_: str) -> Bonus:
         offer_url=e.offer_url,
         bonus_min=e.bonus_min,
         bonus_max=e.bonus_max,
-        nationwide=e.section in ("checking", "savings", "business"),
+        nationwide=e.section in ("checking", "savings", "business") and not e.states,
         states=list(e.states),
         dd_required=e.dd_required,
         dd_amount=e.dd_amount,
@@ -100,7 +100,13 @@ def merge_list(existing: list[Bonus], entries: list[ListEntry], today: date) -> 
             offer_url=fresh.offer_url or old.offer_url,
             bonus_min=fresh.bonus_min if fresh.bonus_min is not None else old.bonus_min,
             bonus_max=fresh.bonus_max if fresh.bonus_max is not None else old.bonus_max,
-            nationwide=fresh.nationwide if fresh.section != old.section else old.nationwide,
+            # A title that names states settles it regardless of what was stored before;
+            # otherwise the stored answer survives unless the section itself moved.
+            nationwide=(
+                False
+                if fresh.states
+                else fresh.nationwide if fresh.section != old.section else old.nationwide
+            ),
             states=fresh.states or old.states,
             dd_required=fresh.dd_required if fresh.dd_required is not None else old.dd_required,
             dd_amount=fresh.dd_amount if fresh.dd_amount is not None else old.dd_amount,

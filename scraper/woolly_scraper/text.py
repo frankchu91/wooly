@@ -49,20 +49,33 @@ def parse_money_range(s: str) -> tuple[int | None, int | None]:
     return (min(base_nums), max(base_nums))
 
 
+_STATE_AFTER_DELIMITER = re.compile(r"(?:[–\-:,\[&+/]|\b(?:or|and)\b)\s*([A-Z]{2})\b")
+# The head of a list: a bare code that a comma/plus/ampersand/"and" then joins to a
+# second code ("Keybank $1,000 AK, CO, …", "North Shore Bank … WI + IL"). Nothing
+# precedes the first state in titles like these, so the delimiter rule alone drops it.
+_STATE_HEADING_LIST = re.compile(r"(?<![A-Za-z])([A-Z]{2})(?=\s*(?:,|\+|&|\band\b)\s*[A-Z]{2}\b)")
+
+
 def extract_states(s: str) -> list[str]:
     """Return USPS codes that appear as a comma/dash separated list of 2-letter tokens.
 
-    Each occurrence must itself be preceded by a list-ish delimiter (" – ", " - ", ":",
-    "[", ",", "&", "/", or the words "or"/"and"); a code that also appears elsewhere in
-    the string outside that context (e.g. as part of a bank name) is not matched by that
-    other occurrence.
+    Each occurrence must itself sit in list context: preceded by a list-ish delimiter
+    (" – ", " - ", ":", "[", ",", "&", "/", or the words "or"/"and"), or standing at the
+    head of such a list with another code right after it. A code that also appears
+    elsewhere in the string outside that context (e.g. as part of a bank name) is not
+    matched by that other occurrence.
     """
     if re.search(r"\bnationwide\b", s, re.IGNORECASE):
         return []
+    found: list[tuple[int, str]] = []
+    for pattern in (_STATE_AFTER_DELIMITER, _STATE_HEADING_LIST):
+        for m in pattern.finditer(s):
+            code = m.group(1)
+            if code in US_STATES:
+                found.append((m.start(1), code))
     out: list[str] = []
-    for m in re.finditer(r"(?:[–\-:,\[&+/]|\b(?:or|and)\b)\s*([A-Z]{2})\b", s):
-        code = m.group(1)
-        if code in US_STATES and code not in out:
+    for _, code in sorted(found):
+        if code not in out:
             out.append(code)
     return out
 
@@ -80,7 +93,7 @@ def normalize_bank(title: str) -> str:
     )
     if cut:
         name = name[: cut.start()]
-    name = name.strip(" –-,")
+    name = name.strip(" –-,:;")
     for src, dst in BANK_ALIASES.items():
         if name.lower().startswith(src.lower()):
             return dst

@@ -99,7 +99,10 @@ def parse_list_page(html: str) -> list[ListEntry]:
         summary = re.sub(r"\s*Read our full post\.?\s*$", "", summary)
         pull, cc, dd_required, dd_amount = _classify_chips(chips)
         bonus_min, bonus_max = parse_money_range(title)
-        states = extract_states(title) if section in ("state", "regional") else []
+        # Every section, not just the state ones: DoC files "Hancock Whitney … – LA, MS,
+        # FL, AL, TX" under Business, and a title that names states is not nationwide
+        # whatever heading it sits under.
+        states = extract_states(title)
         entries.append(
             ListEntry(
                 title=title,

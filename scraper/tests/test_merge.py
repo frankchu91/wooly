@@ -45,6 +45,27 @@ def test_merge_state_entry_not_nationwide():
     assert b.nationwide is False and b.states == ["MA", "NH"]
 
 
+def test_business_entry_naming_states_is_not_nationwide():
+    # DoC files some state-limited offers under Business/Checking; the states in the
+    # title win over the section heading.
+    e = entry(title="Hancock Whitney $500 Checking Bonus – LA, MS, FL, AL, TX", section="business",
+              states=["LA", "MS", "FL", "AL", "TX"], doc_url="https://www.doctorofcredit.com/hw/")
+    b = merge_list([], [e], TODAY)[0]
+    assert b.nationwide is False and b.states == ["LA", "MS", "FL", "AL", "TX"]
+
+
+def test_refresh_corrects_a_stored_nationwide_once_states_are_known():
+    # An older run stored the entry as nationwide (same section, no states); the next
+    # run, now extracting states from the title, must overwrite that, not keep it.
+    old = merge_list([], [entry(title="Hancock Whitney $500 Checking Bonus – LA, MS", section="business",
+                                doc_url="https://www.doctorofcredit.com/hw/")], TODAY - timedelta(days=1))[0]
+    assert old.nationwide is True
+    fresh = entry(title="Hancock Whitney $500 Checking Bonus – LA, MS", section="business",
+                  states=["LA", "MS"], doc_url="https://www.doctorofcredit.com/hw/")
+    b = merge_list([old], [fresh], TODAY)[0]
+    assert b.nationwide is False and b.states == ["LA", "MS"]
+
+
 def test_merge_updates_existing_and_keeps_enrichment():
     old = merge_list([], [entry()], TODAY - timedelta(days=3))[0]
     old.enriched = True

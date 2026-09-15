@@ -43,6 +43,13 @@ def test_state_entry_states(entries):
     assert e.states == ["MA", "NH", "ME", "RI"]
 
 
+def test_business_entry_naming_states_carries_them(entries):
+    # Filed under Business on DoC, but the title limits it to five states.
+    e = next(x for x in entries if x.title.startswith("Hancock Whitney $500"))
+    assert e.section == "business"
+    assert e.states == ["LA", "MS", "FL", "AL", "TX"]
+
+
 def test_no_dd_entry(entries):
     e = next(x for x in entries if "4Front" in x.title)
     assert e.dd_required is False
