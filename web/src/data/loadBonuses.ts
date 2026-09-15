@@ -1,7 +1,11 @@
 import type { Bonus, Dataset } from "../engine/types";
 
+/** The dataset's URL under the site's mount point (`/bonuses.json` on a host of its own,
+ * `/<repo>/bonuses.json` on GitHub Pages). */
+export const BONUSES_URL = `${import.meta.env.BASE_URL}bonuses.json`;
+
 export async function loadBonuses(fetchImpl: typeof fetch = fetch): Promise<Dataset> {
-  const res = await fetchImpl("/bonuses.json", { cache: "no-cache" });
+  const res = await fetchImpl(BONUSES_URL, { cache: "no-cache" });
   if (!res.ok) throw new Error("bad dataset");
   const doc = (await res.json()) as Partial<Dataset>;
   if (!Array.isArray(doc.bonuses)) throw new Error("bad dataset");

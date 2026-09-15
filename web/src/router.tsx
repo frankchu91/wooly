@@ -47,4 +47,6 @@ export const rootRoute: NonIndexRouteObject = {
 
 export const routes: RouteObject[] = [rootRoute];
 
-export const router = createBrowserRouter(routes);
+// `BASE_URL` is "/" in dev and tests and "/<repo>/" on GitHub Pages, so every `to="/plan"`
+// in the app stays written as an app path and resolves under the mount point.
+export const router = createBrowserRouter(routes, { basename: import.meta.env.BASE_URL });
