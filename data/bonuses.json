@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T03:07:42+00:00",
+  "generated_at": "2026-09-15T15:11:56+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -212,25 +212,62 @@
       "dd": {
         "required": true,
         "amount": 1000,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Unknow if credit card funding is possible",
       "monthly_fee": null,
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "30 transactions",
+      "enriched": true,
+      "enriched_at": "2026-09-15",
+      "post_modified": "2026-04-17",
       "last_seen": "2026-09-15",
-      "conditions": [],
+      "conditions": [
+        {
+          "id": "1b78c9c1",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $1000",
+          "amount": 1000,
+          "days": 30,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "7522211e",
+          "kind": "other",
+          "text": "30 transactions",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "b794e4ad",
+          "kind": "direct_deposit",
+          "text": "Requires $1,000 in qualifying direct deposits within 30 calendar days of account opening, at least 30 qualifying transactions within 90 calendar days, and a minimum account balance of $100 at the time the bonus is credited.",
+          "amount": 1000,
+          "days": 30,
+          "count": 30,
+          "source": "doc"
+        },
+        {
+          "id": "7212e3cf",
+          "kind": "keep_open",
+          "text": "Account must remain open and in good standing.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
       "hold_days": null,
       "terms": {
-        "status": null,
+        "status": "none",
         "url": null,
         "fetched_at": null
       }
@@ -331,6 +368,111 @@
         "status": "ok",
         "url": "https://www.americanexpress.com/en-us/business/checking/",
         "fetched_at": "2026-09-14"
+      }
+    },
+    {
+      "id": "ar-ms-tn-only-orion-financial-150-checking-bonus",
+      "bank": "Orion Financial",
+      "title": "Orion Financial – $150 – AR, MS, TN",
+      "section": "state",
+      "summary": "They also have a 5% checking account .",
+      "doc_url": "https://www.doctorofcredit.com/ar-ms-tn-only-orion-financial-150-checking-bonus/",
+      "offer_url": "https://orionfcu.com/150-bonus",
+      "bonus_min": 150,
+      "bonus_max": 150,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "AR",
+          "MS",
+          "TN"
+        ]
+      },
+      "dd": {
+        "required": true,
+        "amount": null,
+        "deadline_days": 90
+      },
+      "pull": "hard",
+      "chexsystems": "Unknown",
+      "cc_funding": "No credit card funding",
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 10,
+        "days": 180
+      },
+      "household_limit": "None",
+      "expiration": "2026-10-31",
+      "anti_churn_months": 6,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-15",
+      "post_modified": "2026-09-14",
+      "last_seen": "2026-09-15",
+      "conditions": [
+        {
+          "id": "ff83ecb3",
+          "kind": "direct_deposit",
+          "text": "Direct deposit required — amount not listed",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "ad947e37",
+          "kind": "fee",
+          "text": "$10 early account termination fee",
+          "amount": 10,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "d2b7fd4a",
+          "kind": "direct_deposit",
+          "text": "and establish a direct deposit made to this account within 90 days.",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "e30064a9",
+          "kind": "direct_deposit",
+          "text": "Your direct deposit must be an electronic deposit of your paycheck, pension, or government benefits (such as Social Security) from your employer or the government.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "f97b1d37",
+          "kind": "deposit",
+          "text": "Micro-deposits are small deposits, typically less than $1, that are sent to your account to verify it is the correct account.",
+          "amount": 1,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
+      "terms": {
+        "status": "ok",
+        "url": "https://orionfcu.com/150-bonus",
+        "fetched_at": "2026-09-15"
       }
     },
     {
@@ -581,25 +723,86 @@
       "dd": {
         "required": true,
         "amount": 5000,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Credit card funding of up to $1,000",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 4,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 75,
+        "days": 90
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "Yes, see below",
+      "enriched": true,
+      "enriched_at": "2026-09-15",
+      "post_modified": "2026-06-13",
       "last_seen": "2026-09-15",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "ff83ecb3",
+          "kind": "direct_deposit",
+          "text": "Direct deposit required — amount not listed",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "910329f1",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 90 days",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "1437aa47",
+          "kind": "fee",
+          "text": "$75 early account termination fee",
+          "amount": 75,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "f98c4c35",
+          "kind": "deposit",
+          "text": "All checking accounts have a $100 minimum opening deposit.",
+          "amount": 100,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "ffe1b807",
+          "kind": "fee",
+          "text": "All accounts include free eStatements, additional fee applies for paper statements.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "bd60a6cf",
+          "kind": "direct_deposit",
+          "text": "$300 bonus will be deposited 90 days after account opening once at least one deposit has been made through direct deposit.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 90,
       "terms": {
-        "status": null,
+        "status": "none",
         "url": null,
         "fetched_at": null
       }
@@ -636,27 +839,115 @@
       "dd": {
         "required": true,
         "amount": 4000,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Yes",
       "cc_funding": "Cannot fund with a credit card",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 15,
+        "avoidable": false
+      },
+      "etf": {
+        "amount": 50,
+        "days": 90
+      },
+      "household_limit": "None",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-15",
+      "post_modified": "2026-09-02",
       "last_seen": "2026-09-15",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "910329f1",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 90 days",
+          "amount": null,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "793bac75",
+          "kind": "fee",
+          "text": "$50 early account termination fee",
+          "amount": 50,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "1db4a9f7",
+          "kind": "keep_open",
+          "text": "Your account must be open and in good standing when the bonus is paid approximately 120 days after opening.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "d0f9f842",
+          "kind": "deposit",
+          "text": "The minimum deposit to open a small business checking account is $100, however to receive the bonus you must open the account with the minimum as stated below.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "bf42daf5",
+          "kind": "deposit",
+          "text": "Make a minimum opening deposit of $1,500 in funds not currently on deposit at BMO Harris Bank or its affiliates.",
+          "amount": 1500,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "7dac18b5",
+          "kind": "balance",
+          "text": "Maintain a minimum daily balance of at least $1,500 in the account for 90 days following account opening.",
+          "amount": 1500,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "c436554b",
+          "kind": "transactions",
+          "text": "Have at least 10 electronic transactions post to the account within 90 days of account opening.",
+          "amount": null,
+          "days": 90,
+          "count": 10,
+          "source": "doc"
+        },
+        {
+          "id": "c62780ad",
+          "kind": "deposit",
+          "text": "Make a minimum opening deposit of $5,000 in funds not currently on deposit at BMO Harris Bank or its affiliates.",
+          "amount": 5000,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "4b666e46",
+          "kind": "balance",
+          "text": "Maintain a minimum daily balance of at least $5,000 in the account for 90 days following account opening.",
+          "amount": 5000,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 90,
       "terms": {
-        "status": null,
-        "url": null,
-        "fetched_at": null
+        "status": "error",
+        "url": "https://www.bmoharris.com/main/business-banking/bank-accounts/bb-checking-offer/",
+        "fetched_at": "2026-09-15"
       }
     },
     {
@@ -1298,6 +1589,46 @@
       "pull": "unknown",
       "chexsystems": null,
       "cc_funding": "Can fund using a credit card for a total of $5,100",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-15",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
+    },
+    {
+      "id": "ca-commonwealth-central-credit-union-200-direct-deposit-not-required",
+      "bank": "Commonwealth Central Credit Union",
+      "title": "Commonwealth Central Credit Union $200 CA, Direct Deposit Not Required",
+      "section": "state",
+      "summary": "Unfortunately it’s a hard pull but at least no DD is required. This is also a referral bonus now.",
+      "doc_url": "https://www.doctorofcredit.com/ca-commonwealth-central-credit-union-200-direct-deposit-not-required/",
+      "offer_url": "https://www.wealthcu.org/neighborhood-banking",
+      "bonus_min": 200,
+      "bonus_max": 200,
+      "availability": {
+        "nationwide": false,
+        "states": []
+      },
+      "dd": {
+        "required": false,
+        "amount": null,
+        "deadline_days": null
+      },
+      "pull": "hard",
+      "chexsystems": null,
+      "cc_funding": "Unknown if credit card funding is possible",
       "monthly_fee": null,
       "etf": null,
       "household_limit": null,
@@ -2040,6 +2371,48 @@
       "pull": "soft",
       "chexsystems": null,
       "cc_funding": "Can fund up to $500 with a credit card",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-15",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
+    },
+    {
+      "id": "ca-select-counties-valley-strong-credit-union-250-checking-bonus-direct-deposit-not-required",
+      "bank": "Valley Strong Credit Union",
+      "title": "Valley Strong Credit Union $250 – Direct Deposit Not Required – CA, Select Counties",
+      "section": "state",
+      "summary": "Unfortunately only available in Tulare, San Joaquin and Solano Counties.",
+      "doc_url": "https://www.doctorofcredit.com/ca-select-counties-valley-strong-credit-union-250-checking-bonus-direct-deposit-not-required/",
+      "offer_url": "https://www.valleystrong.com/250",
+      "bonus_min": 250,
+      "bonus_max": 250,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "CA"
+        ]
+      },
+      "dd": {
+        "required": false,
+        "amount": null,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "Can fund up to $150 with a credit card",
       "monthly_fee": null,
       "etf": null,
       "household_limit": null,
@@ -3258,6 +3631,46 @@
       }
     },
     {
+      "id": "ct-only-mutual-security-credit-union-250-business-checking-bonus",
+      "bank": "Mutual Security Credit Union",
+      "title": "Mutual Security Credit Union – $250 Checking CT only",
+      "section": "business",
+      "summary": "Requires 20 debit card transactions.",
+      "doc_url": "https://www.doctorofcredit.com/ct-only-mutual-security-credit-union-250-business-checking-bonus/",
+      "offer_url": "https://www.mscu.net/",
+      "bonus_min": 250,
+      "bonus_max": 250,
+      "availability": {
+        "nationwide": true,
+        "states": []
+      },
+      "dd": {
+        "required": null,
+        "amount": null,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "No credit card funding",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-15",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
+    },
+    {
       "id": "ct-only-savings-bank-of-danbury-100-300-checking-bonus",
       "bank": "Savings Bank of Danbury",
       "title": "Savings Bank of Danbury $100-$300 – CT",
@@ -4105,7 +4518,7 @@
     {
       "id": "fl-addition-financial-300-checking-bonus",
       "bank": "Addition Financial",
-      "title": "Addition Financial $400 Bonus – FL only",
+      "title": "Addition Financial $400 Bonus – FL, GA only",
       "section": "state",
       "summary": "Has increased from $300 to $400.",
       "doc_url": "https://www.doctorofcredit.com/fl-addition-financial-300-checking-bonus/",
@@ -4115,7 +4528,8 @@
       "availability": {
         "nationwide": false,
         "states": [
-          "FL"
+          "FL",
+          "GA"
         ]
       },
       "dd": {
@@ -6295,26 +6709,41 @@
     },
     {
       "id": "il-wi-mn-in-az-fl-ks-mo-bmo-harris-350-checking-300-savings-bonus",
-      "bank": "BMO",
-      "title": "BMO Harris $400 Checking Bonus",
-      "section": "checking",
-      "summary": "Nice that this bonus is now available nationwide.",
+      "bank": "BMO Bank",
+      "title": "BMO Bank $600 Checking Bonus – AZ, CA, CO, FL, IA, IL, IN, MN, NM, NV, OR, UT, WA, WI",
+      "section": "state",
+      "summary": "Unfortunately no longer available nationwide.",
       "doc_url": "https://www.doctorofcredit.com/il-wi-mn-in-az-fl-ks-mo-bmo-harris-350-checking-300-savings-bonus/",
       "offer_url": "https://www.bmo.com/en-us/main/personal/checking-accounts/digital-offer/",
-      "bonus_min": 400,
-      "bonus_max": 400,
+      "bonus_min": 600,
+      "bonus_max": 600,
       "availability": {
-        "nationwide": true,
-        "states": []
+        "nationwide": false,
+        "states": [
+          "AZ",
+          "CA",
+          "CO",
+          "FL",
+          "IA",
+          "IL",
+          "IN",
+          "MN",
+          "NM",
+          "NV",
+          "OR",
+          "UT",
+          "WA",
+          "WI"
+        ]
       },
       "dd": {
         "required": true,
-        "amount": 4000,
+        "amount": 1000,
         "deadline_days": 90
       },
       "pull": "soft",
       "chexsystems": "Yes",
-      "cc_funding": "Cannot fund with a credit card",
+      "cc_funding": "No credit card funding",
       "monthly_fee": {
         "amount": 25,
         "avoidable": true
@@ -8942,13 +9371,13 @@
     {
       "id": "nj-columbia-bank-200-chehking-account-bonus",
       "bank": "Columbia Bank",
-      "title": "Columbia Bank $300 Bonus – NJ only",
+      "title": "Columbia Bank $500 Bonus – NJ only",
       "section": "state",
-      "summary": "Bonus has been as high as $500 in the past and that’s why we don’t have it higher in the list. Still worth considering for some that don’t want to wait for a potential bigger offer to come along. There is a $400 savings bonus as well.",
+      "summary": "This is the all time high on this. There is a $500 savings bonus as well.",
       "doc_url": "https://www.doctorofcredit.com/nj-columbia-bank-200-chehking-account-bonus/",
       "offer_url": "https://www.columbiabankonline.com/personal-banking/personal-checking/advantage-plus-checking",
-      "bonus_min": 300,
-      "bonus_max": 300,
+      "bonus_min": 500,
+      "bonus_max": 500,
       "availability": {
         "nationwide": false,
         "states": [
@@ -10289,6 +10718,49 @@
       "pull": "soft",
       "chexsystems": null,
       "cc_funding": "No credit card funding",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-15",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
+    },
+    {
+      "id": "or-id-northern-ca-rogue-credit-union-500-checking-bonus-direct-deposit-not-required",
+      "bank": "Rogue Credit Union",
+      "title": "Rogue Credit Union – $500 -OR, ID, Northern CA Direct Deposit Not Required",
+      "section": "business",
+      "summary": "Only available in select Oregon, Idaho and Northern California counties (Butte, Del Norte, Glenn, Humboldt, Lassen, Modoc, Plumas, Shasta, Siskiyou, Tehama, Trinity.) Northern Cali counties aren’t listed during sign up though.",
+      "doc_url": "https://www.doctorofcredit.com/or-id-northern-ca-rogue-credit-union-500-checking-bonus-direct-deposit-not-required/",
+      "offer_url": "https://www.roguecu.org/personal-services/personal-deposit-accounts/checking/myrewards-checking/welcome-bonus-plus",
+      "bonus_min": 500,
+      "bonus_max": 500,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "OR",
+          "ID"
+        ]
+      },
+      "dd": {
+        "required": false,
+        "amount": null,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "Can fund up to $5,000 with a credit card",
       "monthly_fee": null,
       "etf": null,
       "household_limit": null,
@@ -13822,6 +14294,49 @@
       }
     },
     {
+      "id": "va-md-nc-atlantic-union-bank-250-checking-bonus",
+      "bank": "Atlantic Union Bank",
+      "title": "Atlantic Union Bank – $400-$800 – VA, MD NC, D.C.",
+      "section": "state",
+      "summary": "Technically this is targeted but it’s being advertised on the homepage so should be available to everybody.",
+      "doc_url": "https://www.doctorofcredit.com/va-md-nc-atlantic-union-bank-250-checking-bonus/",
+      "offer_url": "https://www.atlanticunionbank.com/tiered-cash-bonus",
+      "bonus_min": 400,
+      "bonus_max": 800,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "VA",
+          "MD"
+        ]
+      },
+      "dd": {
+        "required": true,
+        "amount": 2000,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "No credit card funding",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-15",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
+    },
+    {
       "id": "va-only-1st-advantage-federal-credit-union-100-checking-bonus",
       "bank": "1st Advantage Federal Credit Union",
       "title": "1st Advantage Federal Credit Union – $200 – VA, NC",
@@ -14833,6 +15348,53 @@
       "pull": "soft",
       "chexsystems": null,
       "cc_funding": "Unknown if credit card funding is possible",
+      "monthly_fee": null,
+      "etf": null,
+      "household_limit": null,
+      "expiration": null,
+      "anti_churn_months": null,
+      "additional_requirements": null,
+      "enriched": false,
+      "enriched_at": null,
+      "post_modified": null,
+      "last_seen": "2026-09-15",
+      "conditions": [],
+      "hold_days": null,
+      "terms": {
+        "status": null,
+        "url": null,
+        "fetched_at": null
+      }
+    },
+    {
+      "id": "wv-pa-oh-in-ky-md-wesbanco-250-checking-bonus",
+      "bank": "WesBanco",
+      "title": "WesBanco $300 – WV, PA, OH, IN, KY, MD, In Branch",
+      "section": "state",
+      "summary": "Seems to only be available in branch this time.",
+      "doc_url": "https://www.doctorofcredit.com/wv-pa-oh-in-ky-md-wesbanco-250-checking-bonus/",
+      "offer_url": "https://www.wesbanco.com/300-bonus/",
+      "bonus_min": 300,
+      "bonus_max": 300,
+      "availability": {
+        "nationwide": false,
+        "states": [
+          "WV",
+          "PA",
+          "OH",
+          "IN",
+          "KY",
+          "MD"
+        ]
+      },
+      "dd": {
+        "required": true,
+        "amount": 200,
+        "deadline_days": null
+      },
+      "pull": "soft",
+      "chexsystems": null,
+      "cc_funding": "Unknown credit card funding",
       "monthly_fee": null,
       "etf": null,
       "household_limit": null,
