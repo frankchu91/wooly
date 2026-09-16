@@ -2,7 +2,7 @@ name: scrape
 on:
   schedule: [{ cron: "17 9 * * *" }]   # daily 09:17 UTC
   workflow_dispatch:
-permissions: { contents: write }
+permissions: { contents: write, actions: write }
 concurrency: { group: scrape, cancel-in-progress: false }
 jobs:
   scrape:
@@ -24,3 +24,9 @@ jobs:
           git diff --cached --quiet || git commit -m "data: nightly bonus refresh"
           git pull --rebase
           git push
+      # A push made with GITHUB_TOKEN does not fire other workflows, so the site would
+      # keep yesterday's data forever. workflow_dispatch is the one event it may raise.
+      - name: Redeploy the site with the new data
+        if: success()
+        run: gh workflow run pages.yml --ref main
+        env: { GH_TOKEN: "${{ github.token }}" }
