@@ -2,8 +2,9 @@ import { Download } from "lucide-react";
 
 import { t } from "../../i18n/en";
 import { Button, EmptyState, toast } from "../../ui";
+import { datedFilename, downloadWorkbook } from "../../xlsx";
 import { ItemDrawer } from "./ItemDrawer";
-import { ledgerCsv, ledgerCsvFilename } from "./ledgerCsv";
+import { buildLedgerWorkbook } from "./ledgerXlsx";
 import { LedgerTable } from "./LedgerTable";
 import { LedgerTotals } from "./LedgerTotals";
 import { useTrackerView } from "./useTrackerView";
@@ -17,20 +18,13 @@ export function LedgerPage() {
   const { tracker, profile, bonusesById, totals, today, selectedItem, openDrawer, closeDrawer } =
     useTrackerView();
 
-  /** Builds the file in the browser and hands it straight to the download — the ledger
+  /** Builds the file in the browser and hands it straight to the download: the ledger
    * never leaves this device on its way out of it, same as it never left on the way in. */
-  function handleDownload() {
-    const blob = new Blob([ledgerCsv(tracker, bonusesById)], {
-      type: "text/csv;charset=utf-8",
-    });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = ledgerCsvFilename(today);
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-    URL.revokeObjectURL(url);
+  async function handleDownload() {
+    await downloadWorkbook(
+      datedFilename("ledger", today),
+      await buildLedgerWorkbook(tracker, bonusesById),
+    );
     toast(t.ledger.downloaded);
   }
 
@@ -49,7 +43,7 @@ export function LedgerPage() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={handleDownload}
+              onClick={() => void handleDownload()}
               icon={<Download size={15} aria-hidden="true" />}
             >
               {t.ledger.download}

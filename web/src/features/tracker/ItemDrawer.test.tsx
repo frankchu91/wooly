@@ -125,6 +125,72 @@ describe("ItemDrawer — conditions", () => {
   });
 });
 
+describe("ItemDrawer — direct deposits", () => {
+  /** A copy of the Wells Fargo offer that wants two deposits, so the counter has
+   * somewhere to go. */
+  function twoDepositBonus(): Bonus {
+    const base = bonusById("wells-fargo-500");
+    return {
+      ...base,
+      conditions: base.conditions.map((condition) =>
+        condition.id === "wf-dd" ? { ...condition, count: 2 } : condition,
+      ),
+    };
+  }
+
+  function renderWithBonus(seed: TrackedItem, bonus: Bonus) {
+    useStore.setState({ tracker: [seed] });
+    function Harness() {
+      const item = useStore((state) => state.tracker.find((i) => i.id === seed.id) ?? null);
+      return (
+        <ItemDrawer item={item} bonus={bonus} open={item != null} onClose={vi.fn()} today={today} />
+      );
+    }
+    return render(<Harness />);
+  }
+
+  test("counts deposits up against what the offer wants, and ticks the DD condition when complete", async () => {
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    renderWithBonus(trackedItem(), twoDepositBonus());
+
+    expect(screen.getByText(t.tracker.deposits.progress(0, 2))).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: t.tracker.deposits.more }));
+
+    expect(storedItem()?.depositsSent).toBe(1);
+    expect(storedItem()?.conditionsDone).not.toContain("wf-dd");
+    expect(screen.getByText(t.tracker.deposits.progress(1, 2))).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: t.tracker.deposits.more }));
+
+    expect(storedItem()?.depositsSent).toBe(2);
+    expect(storedItem()?.conditionsDone).toContain("wf-dd");
+  });
+
+  test("stepping back below the requirement unticks the DD condition; zero is the floor", async () => {
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    renderWithBonus(trackedItem({ depositsSent: 2, conditionsDone: ["wf-dd"] }), twoDepositBonus());
+
+    await user.click(screen.getByRole("button", { name: t.tracker.deposits.fewer }));
+    expect(storedItem()?.depositsSent).toBe(1);
+    expect(storedItem()?.conditionsDone).not.toContain("wf-dd");
+
+    await user.click(screen.getByRole("button", { name: t.tracker.deposits.fewer }));
+    expect(storedItem()?.depositsSent).toBeUndefined();
+    expect(screen.getByRole("button", { name: t.tracker.deposits.fewer })).toBeDisabled();
+  });
+
+  test("an offer with no direct deposit has no counter", () => {
+    const base = bonusById("wells-fargo-500");
+    renderWithBonus(trackedItem(), {
+      ...base,
+      dd: { required: false, amount: null, deadline_days: null },
+      conditions: base.conditions.filter((condition) => condition.kind !== "direct_deposit"),
+    });
+
+    expect(screen.queryByText(t.tracker.deposits.label)).not.toBeInTheDocument();
+  });
+});
+
 describe("ItemDrawer — dates", () => {
   test("shows one input per stage reached, and the planned month read-only", () => {
     renderDrawer(

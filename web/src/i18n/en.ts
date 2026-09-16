@@ -215,8 +215,8 @@ export const t = {
     moreActions: "More actions",
     track: "Track this plan",
     tracked: "Added to tracker",
-    download: "Download as spreadsheet",
-    downloaded: "Spreadsheet downloaded",
+    download: "Download as Excel",
+    downloaded: "Excel file downloaded",
     // Column names for the spreadsheet export. The file is read without the site next to
     // it, so these say the whole thing rather than leaning on the page for context.
     csv: {
@@ -226,14 +226,24 @@ export const t = {
       bonus: "Bonus",
       bonusMin: "Bonus (minimum)",
       dd: "Direct deposit needed",
+      depositsNeeded: "Deposits needed",
+      depositsSent: "Deposits sent",
+      opened: "Opened on",
+      ddDays: "DD within (days)",
       ddBy: "Direct deposit by",
+      holdDays: "Keep open (days)",
       closeAfter: "Safe to close after",
       status: "Status",
+      requirements: "Requirements",
       watchOut: "Watch out for",
       link: "Doctor of Credit",
+      linkText: "Open on Doctor of Credit",
       total: "Total",
       // What every row of a freshly exported plan is: not started.
       todo: "To do",
+      // A status the app's five stages do not have: between opening and every
+      // requirement being met, the thing you are doing is sending deposits.
+      ddSent: "Direct deposit sent",
     },
     skipped: (n: number) => `Skipped (${n})`,
     restore: "Restore",
@@ -279,8 +289,8 @@ export const t = {
     title: "Ledger",
     sub: "Every account you're tracking, and what each one has paid.",
     seePipeline: "See the pipeline",
-    download: "Download as spreadsheet",
-    downloaded: "Spreadsheet downloaded",
+    download: "Download as Excel",
+    downloaded: "Excel file downloaded",
   },
   tracker: {
     title: "My bonuses",
@@ -329,6 +339,14 @@ export const t = {
         applicant: "For",
         receivedOn: "Received on",
         notes: "Notes",
+        depositsNeeded: "Deposits needed",
+        depositsSent: "Deposits sent",
+        opened: "Opened on",
+        ddDays: "DD within (days)",
+        holdDays: "Keep open (days)",
+        requirementsDone: "Requirements done",
+        linkText: "Open on Doctor of Credit",
+        link: "Doctor of Credit",
       },
     },
     pipeline: {
@@ -362,6 +380,14 @@ export const t = {
     closeAnyway: "Close anyway",
     untrack: "Remove",
     conditionsTitle: "Conditions",
+    // The deposit counter under the checklist: an offer that wants two deposits is
+    // half done after one, and a single checkbox cannot say so.
+    deposits: {
+      label: "Direct deposits sent",
+      progress: (sent: number, needed: number) => `${sent} of ${needed}`,
+      fewer: "One fewer deposit",
+      more: "One more deposit",
+    },
     markRequirementsDone: "Mark requirements done",
     dates: "Dates",
     plannedMonth: "Planned month",

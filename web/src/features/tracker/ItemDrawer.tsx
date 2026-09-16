@@ -1,3 +1,4 @@
+import { Minus, Plus } from "lucide-react";
 import { useId, useState } from "react";
 
 import { STATUS_ORDER } from "../../engine/types";
@@ -6,7 +7,7 @@ import { t } from "../../i18n/en";
 import { useStore } from "../../state/store";
 import { Button, Drawer, Field, MoneyText, dateLabel, monthLabel } from "../../ui";
 import { ConditionList } from "../conditions/ConditionList";
-import { splitConditions } from "../conditions/visibleConditions";
+import { depositsNeeded, splitConditions } from "../conditions/visibleConditions";
 import { safeCloseFor } from "./trackerModel";
 
 export interface ItemDrawerProps {
@@ -104,6 +105,7 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
   const setStatus = useStore((state) => state.setStatus);
   const setDate = useStore((state) => state.setDate);
   const toggleCondition = useStore((state) => state.toggleCondition);
+  const setDepositsSent = useStore((state) => state.setDepositsSent);
   const setBonusReceived = useStore((state) => state.setBonusReceived);
   const setNotes = useStore((state) => state.setNotes);
   const setApplicant = useStore((state) => state.setApplicant);
@@ -126,6 +128,8 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
   const done = new Set(item.conditionsDone);
   const allConditionsDone =
     checklist.length > 0 && checklist.every((condition) => done.has(condition.id));
+  const needed = bonus ? depositsNeeded(bonus) : 0;
+  const sent = item.depositsSent ?? 0;
   const currentIndex = STATUS_ORDER.indexOf(item.status);
   const reachedStages = STATUS_ORDER.slice(0, currentIndex + 1);
   const showAmount = currentIndex >= STATUS_ORDER.indexOf("received");
@@ -141,6 +145,20 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
     // stage is just a correction to a recorded fact.
     if (stage === item.status) setStatus(item.id, stage, value);
     else setDate(item.id, stage, value);
+  }
+
+  /** Records the new count and keeps the checklist honest about it: the direct-deposit
+   * items tick themselves once every required deposit has gone out, and untick if the
+   * count comes back down. */
+  function changeDeposits(next: number) {
+    if (!item) return;
+    const clamped = Math.max(0, next);
+    setDepositsSent(item.id, clamped);
+    const complete = clamped >= needed;
+    for (const condition of checklist) {
+      if (condition.kind !== "direct_deposit") continue;
+      if (done.has(condition.id) !== complete) toggleCondition(item.id, condition.id);
+    }
   }
 
   function commitAmount(raw: string) {
@@ -183,6 +201,37 @@ export function ItemDrawer({ item, bonus, open, onClose, today }: ItemDrawerProp
             done={done}
             onToggle={(conditionId) => toggleCondition(item.id, conditionId)}
           />
+          {needed > 0 ? (
+            <div
+              className="mt-1 flex items-center justify-between gap-3 rounded-control bg-mint/30 px-3 py-2"
+              role="group"
+              aria-label={t.tracker.deposits.label}
+            >
+              <span className="text-sm font-medium text-ink">{t.tracker.deposits.label}</span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  aria-label={t.tracker.deposits.fewer}
+                  disabled={sent === 0}
+                  onClick={() => changeDeposits(sent - 1)}
+                  className="rounded-full p-1 text-ink transition-colors hover:bg-mint disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  <Minus size={16} aria-hidden="true" />
+                </button>
+                <span className="min-w-[4.5rem] text-center text-sm tabular-nums text-ink">
+                  {t.tracker.deposits.progress(sent, needed)}
+                </span>
+                <button
+                  type="button"
+                  aria-label={t.tracker.deposits.more}
+                  onClick={() => changeDeposits(sent + 1)}
+                  className="rounded-full p-1 text-ink transition-colors hover:bg-mint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  <Plus size={16} aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          ) : null}
           {allConditionsDone && item.status === "opened" ? (
             <div className="mt-1">
               <Button

@@ -199,3 +199,17 @@ export function visibleConditions(bonus: Bonus): Condition[] {
   const { checklist, notes } = splitConditions(bonus);
   return [...checklist, ...notes];
 }
+
+/**
+ * How many separate direct deposits the offer asks for: the largest count any
+ * direct-deposit item on the checklist states, else one when the offer needs a direct
+ * deposit at all, else zero. The tracker's "deposits sent" counter and the spreadsheet
+ * exports both measure against this.
+ */
+export function depositsNeeded(bonus: Bonus): number {
+  const counts = splitConditions(bonus)
+    .checklist.filter((condition) => condition.kind === "direct_deposit")
+    .map((condition) => condition.count ?? 1);
+  if (counts.length > 0) return Math.max(...counts);
+  return bonus.dd.required === false ? 0 : 1;
+}

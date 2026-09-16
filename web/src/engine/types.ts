@@ -127,6 +127,9 @@ export interface TrackedItem {
   /** The amount the user says actually posted, when it differs from — or simply
    * confirms — the bonus's headline `bonus_max`. Absent until they enter one. */
   bonusReceived?: number;
+  /** How many of the offer's required direct deposits have gone out. Absent means none
+   * recorded; compared against `depositsNeeded(bonus)`. */
+  depositsSent?: number;
   notes?: string;
   /** Who the account is for, in the user's own words ("me", "partner", "joint"). Bonus
    * chasers run the same offer across a household, and the spreadsheet this tracker

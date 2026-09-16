@@ -29,12 +29,12 @@ pnpm e2e                                # Playwright smoke test (starts its own 
 
 - **Plan** (`/plan`) — the month-by-month schedule of bonuses to open, with projected earnings,
   direct-deposit deadlines, and safe-to-close dates. **Download as spreadsheet** gives you the
-  plan as a CSV you can work from without the site.
+  plan as an Excel workbook you can work from without the site: the deadlines are formulas off the date you opened each account, and Status is a dropdown.
 - **Tracker** (`/tracker`) — the bonuses you've committed to, as a five-stage pipeline
   (planned, opened, requirements done, bonus received, closed). Drag a card between stages, or
   open it for the checklist of conditions read from Doctor of Credit and the bank's own page.
 - **Ledger** (`/ledger`) — the same accounts as a spreadsheet: what each has paid, what is
-  pending, and when each is safe to close. Also downloadable as CSV.
+  pending, and when each is safe to close. Also downloadable as Excel.
 - **Bonuses** (`/bonuses`) — every offer in the dataset, searchable and filterable, independent
   of your plan.
 - **About** (`/about`) — what a bank bonus is, what you need, and the questions people ask.

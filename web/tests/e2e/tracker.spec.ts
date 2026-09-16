@@ -1,6 +1,22 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
-import { readFile } from "node:fs/promises";
+import Excel from "exceljs";
+
+/** Opens a downloaded workbook and returns its first sheet. */
+async function readSheet(path: string) {
+  const workbook = new Excel.Workbook();
+  await workbook.xlsx.readFile(path);
+  return workbook.getWorksheet(1)!;
+}
+
+/** Column number by header text: keys are an authoring-time convenience and are not
+ * written into the file, so a read-back sheet can only be addressed by its headers. */
+function col(sheet: Excel.Worksheet, header: string): number {
+  const headers = sheet.getRow(1).values as (string | undefined)[];
+  const index = headers.indexOf(header);
+  if (index < 1) throw new Error(`no column "${header}"`);
+  return index;
+}
 
 const STAGES = ["Planned", "Opened", "Requirements done", "Bonus received", "Closed"];
 
@@ -147,21 +163,18 @@ test("the ledger downloads as a spreadsheet the browser can actually save", asyn
 
   const [download] = await Promise.all([
     page.waitForEvent("download"),
-    page.getByRole("button", { name: "Download as spreadsheet" }).click(),
+    page.getByRole("button", { name: "Download as Excel" }).first().click(),
   ]);
 
-  expect(download.suggestedFilename()).toMatch(/^woolly-ledger-\d{4}-\d{2}-\d{2}\.csv$/);
+  expect(download.suggestedFilename()).toMatch(/^woolly-ledger-\d{4}-\d{2}-\d{2}\.xlsx$/);
 
-  const path = await download.path();
-  const text = await readFile(path, "utf8");
-  const [header, totals, ...rows] = text
-    .replace(/^\uFEFF/, "")
-    .trim()
-    .split("\r\n");
-
+  const sheet = await readSheet(await download.path());
+  const header = sheet.getRow(1).values as string[];
   expect(header).toContain("Bank");
-  // The four seeded accounts, and a totals row that has added up their headline bonuses.
-  expect(rows).toHaveLength(4);
-  expect(Number(totals.split(",")[3])).toBeGreaterThan(0);
-  expect(text).toContain("Wells Fargo");
+  // The four seeded accounts, and a totals row that sums the headline bonuses.
+  expect(sheet.rowCount).toBe(2 + 4);
+  expect(String((sheet.getCell("D2").value as { formula: string }).formula)).toMatch(/^SUM\(/);
+  expect(sheet.getCell(3, col(sheet, "Stage")).dataValidation?.type).toBe("list");
+  const banks = [3, 4, 5, 6].map((r) => sheet.getCell(r, 1).value);
+  expect(banks).toContain("Wells Fargo");
 });

@@ -67,6 +67,9 @@ interface State extends PersistedSlice {
   toggleCondition(id: string, conditionId: string): void;
   /** Sets (or, passing `undefined`, clears) the amount the user says actually posted. */
   setBonusReceived(id: string, amount: number | undefined): void;
+  /** Records how many direct deposits have been sent; clamped to zero and up, and
+   * dropped from the item at zero so an untouched item stays untouched. */
+  setDepositsSent(id: string, count: number): void;
   setNotes(id: string, text: string): void;
   /** Sets who the account is for. Whitespace-only text clears the field rather than
    * storing a blank badge nobody can see but everything has to render. */
@@ -188,6 +191,13 @@ const normalizeTracker = (imported: unknown[]): TrackedItem[] =>
       const result: TrackedItem = { id, bonusId, status, dates, openMonth, conditionsDone };
       if (typeof item.bonusReceived === "number" && Number.isFinite(item.bonusReceived)) {
         result.bonusReceived = item.bonusReceived;
+      }
+      if (
+        typeof item.depositsSent === "number" &&
+        Number.isInteger(item.depositsSent) &&
+        item.depositsSent > 0
+      ) {
+        result.depositsSent = item.depositsSent;
       }
       if (typeof item.notes === "string") {
         result.notes = item.notes;
@@ -334,6 +344,16 @@ export const useStore = create<State>()(
             if (item.id !== id) return item;
             const next: TrackedItem = { ...item, bonusReceived: amount };
             if (amount === undefined) delete next.bonusReceived;
+            return next;
+          }),
+        })),
+
+      setDepositsSent: (id, count) =>
+        set((state) => ({
+          tracker: state.tracker.map((item) => {
+            if (item.id !== id) return item;
+            const next: TrackedItem = { ...item, depositsSent: Math.max(0, Math.floor(count)) };
+            if (next.depositsSent === 0) delete next.depositsSent;
             return next;
           }),
         })),
