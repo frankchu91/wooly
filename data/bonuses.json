@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T04:03:57+00:00",
+  "generated_at": "2026-09-16T15:03:30+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -1553,27 +1553,115 @@
       "dd": {
         "required": true,
         "amount": 1000,
-        "deadline_days": null
+        "deadline_days": 60
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Credit card funding of $500 required",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 7,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 180
+      },
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-16",
+      "post_modified": "2026-08-18",
       "last_seen": "2026-09-16",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "1b78c9c1",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $1000",
+          "amount": 1000,
+          "days": 60,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "455737a4",
+          "kind": "direct_deposit",
+          "text": "To receive the $300 bonus, you must 1) Open a NEW checking account AND 2) Have monthly direct deposit totaling $500 or more made to this account within 60 days of account opening.",
+          "amount": 500,
+          "days": 60,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "c2ff3f38",
+          "kind": "direct_deposit",
+          "text": "Important Information: Your direct deposit must be an electronic deposit of your paycheck, investment account, pension or government benefits (such as Social Security) from your employer or government agency.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "115582d4",
+          "kind": "deposit",
+          "text": "After all the above requirements have been met, we will deposit the $300 bonus in your new checking account within 14 business days.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "fae0c3ab",
+          "kind": "transactions",
+          "text": "Use your new OneAZ debit card to make 25 purchases .",
+          "amount": null,
+          "days": null,
+          "count": 25,
+          "source": "bank"
+        },
+        {
+          "id": "e95caafe",
+          "kind": "transactions",
+          "text": "Bonus/Account Information: To receive the $375 bonus, you must 1) Establish a membership with a Share Savings account and open a NEW checking account AND 2) use your OneAZ Debit Card to make 25 qualifying transactions within the first 60 days of account opening to qualify.",
+          "amount": 375,
+          "days": null,
+          "count": 25,
+          "source": "bank"
+        },
+        {
+          "id": "4e9b9c46",
+          "kind": "keep_open",
+          "text": "The checking account must be open and in good standing with a balance greater than $0.00 to be eligible for the cash bonus.",
+          "amount": 0,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "cc69afe3",
+          "kind": "fee",
+          "text": "Account Closure: If the checking account is closed by the member or by OneAZ Credit Union within 6 months after opening, we will deduct the bonus amount from the account at closing.",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
-        "status": null,
-        "url": null,
-        "fetched_at": null
+        "status": "ok",
+        "url": "https://www.oneazcu.com/sem-200/",
+        "fetched_at": "2026-09-16"
       }
     },
     {
@@ -1994,27 +2082,85 @@
       "dd": {
         "required": false,
         "amount": null,
-        "deadline_days": null
+        "deadline_days": 60
       },
       "pull": "unknown",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Can fund using a credit card for a total of $5,100",
-      "monthly_fee": null,
+      "monthly_fee": {
+        "amount": 3,
+        "avoidable": true
+      },
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-16",
+      "post_modified": "2026-06-16",
       "last_seen": "2026-09-16",
-      "conditions": [],
+      "conditions": [
+        {
+          "id": "88bf6024",
+          "kind": "fee",
+          "text": "A one-time $5 membership fee may apply All incentive bonus payments will be paid to the savings account within 120 days after qualifications are met.",
+          "amount": 5,
+          "days": 120,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "7ae3eb35",
+          "kind": "direct_deposit",
+          "text": "set up at least one of the following: a) direct deposit;",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "dc3c5687",
+          "kind": "fee",
+          "text": "The referred member must be a new member to Cal Coast Credit Union, open a separate membership account which includes payment of a one-time $5 membership fee, and meet the membership and account eligibility requirements.",
+          "amount": 5,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "3ca6f248",
+          "kind": "direct_deposit",
+          "text": "Open a Free Checking with eStatements or Extra Value Checking account, then enroll in eStatements and establish direct deposit, online banking, or bill pay.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "4fe6fbdf",
+          "kind": "direct_deposit",
+          "text": "To receive the $100 bonus: within 60 days of opening, open a Free Checking or Extra Value Checking account, enroll in eStatements, maintain at least $50 in checking, and set up direct deposit, Online/Mobile Banking, or Bill Pay.",
+          "amount": 50,
+          "days": 60,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "9a581984",
+          "kind": "fee",
+          "text": "referred member must be new to Cal Coast and pay the $5 membership fee.",
+          "amount": 5,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
       "hold_days": null,
       "terms": {
-        "status": null,
-        "url": null,
-        "fetched_at": null
+        "status": "ok",
+        "url": "https://www.calcoastcu.org/200/",
+        "fetched_at": "2026-09-16"
       }
     },
     {
@@ -2037,24 +2183,73 @@
         "deadline_days": null
       },
       "pull": "hard",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Unknown if credit card funding is possible",
       "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "etf": {
+        "amount": null,
+        "days": 180
+      },
+      "household_limit": "None",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "anti_churn_months": 6,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-16",
+      "post_modified": "2026-09-12",
       "last_seen": "2026-09-16",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "68b29fc2",
+          "kind": "fee",
+          "text": "Subject to $200 fee for closing checking account within 6 months.",
+          "amount": 200,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "a293610c",
+          "kind": "deposit",
+          "text": "A minimum $50 deposit is required in checking account to receive gift.",
+          "amount": 50,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "7bc8749f",
+          "kind": "direct_deposit",
+          "text": "To qualify for the Rewards Checking APY, you must meet the following requirements by the end of each month: be enrolled in eStatements, have direct deposit or ACH deposit transactions totaling $300 or more per month, and have at least 15 debit and/or credit card transactions per month.",
+          "amount": 300,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "00188634",
+          "kind": "balance",
+          "text": "Rewards Checking APY is up to a max balance of $20,000 and thereafter standard rate of 0.05% will apply.",
+          "amount": 20000,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
-        "status": null,
-        "url": null,
-        "fetched_at": null
+        "status": "ok",
+        "url": "https://www.wealthcu.org/neighborhood-banking",
+        "fetched_at": "2026-09-16"
       }
     },
     {
@@ -2076,27 +2271,91 @@
       "dd": {
         "required": true,
         "amount": 500,
-        "deadline_days": null
+        "deadline_days": 90
       },
       "pull": "hard",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding",
       "monthly_fee": null,
       "etf": null,
-      "household_limit": null,
+      "household_limit": "None listed",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "None",
+      "enriched": true,
+      "enriched_at": "2026-09-16",
+      "post_modified": "2026-07-18",
       "last_seen": "2026-09-16",
-      "conditions": [],
+      "conditions": [
+        {
+          "id": "c9ca6d4c",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $500",
+          "amount": 500,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "9404feb8",
+          "kind": "direct_deposit",
+          "text": "31, 2024 when a new personal checking account is opened with a direct deposit of $500 or more within 90 days.",
+          "amount": 500,
+          "days": 90,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "bd52cd4b",
+          "kind": "keep_open",
+          "text": "Your account must be open, in good standing and have a balance greater than zero when the cash bonus is paid.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "fc7f96ec",
+          "kind": "balance",
+          "text": "$0 minimum to open account, $0 minimum balance requirement and $0 monthly fee 1",
+          "amount": 0,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "2faae78e",
+          "kind": "direct_deposit",
+          "text": "For a limited time, open your account with direct deposit, and we’ll deposit $300 * into your account to show our appreciation.",
+          "amount": 300,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "1341306a",
+          "kind": "direct_deposit",
+          "text": "Cash bonus offer valid until December 31, 2026, when a new Better Than Free checking account is opened with a direct deposit of $500 or more within 90 days.",
+          "amount": 500,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "0d9c46de",
+          "kind": "direct_deposit",
+          "text": "Must have a direct deposit of $500 or more to qualify.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "bank"
+        }
+      ],
       "hold_days": null,
       "terms": {
-        "status": null,
-        "url": null,
-        "fetched_at": null
+        "status": "ok",
+        "url": "https://firstus.org/btf-bonus-offer",
+        "fetched_at": "2026-09-16"
       }
     },
     {
@@ -2118,27 +2377,61 @@
       "dd": {
         "required": true,
         "amount": 250,
-        "deadline_days": null
+        "deadline_days": 60
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 180
+      },
+      "household_limit": "None",
       "expiration": null,
       "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-09-16",
+      "post_modified": "2025-08-11",
       "last_seen": "2026-09-16",
-      "conditions": [],
-      "hold_days": null,
+      "conditions": [
+        {
+          "id": "ce3eb78b",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $250",
+          "amount": 250,
+          "days": 60,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "d979c7a4",
+          "kind": "direct_deposit",
+          "text": "To receive the $350 bonus, open new Frontwave Checking and Savings accounts within the same day (subject to approval), enroll in e-statements, and set up recurring external direct deposits or ACH transfers totaling $1,000 or more.",
+          "amount": 1000,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
-        "status": null,
-        "url": null,
-        "fetched_at": null
+        "status": "blocked",
+        "url": "https://www.frontwavecu.com/new-member",
+        "fetched_at": "2026-09-16"
       }
     },
     {
