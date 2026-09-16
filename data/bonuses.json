@@ -243,7 +243,7 @@
           "text": "30 transactions",
           "amount": null,
           "days": null,
-          "count": null,
+          "count": 30,
           "source": "doc"
         },
         {
@@ -252,7 +252,7 @@
           "text": "Requires $1,000 in qualifying direct deposits within 30 calendar days of account opening, at least 30 qualifying transactions within 90 calendar days, and a minimum account balance of $100 at the time the bonus is credited.",
           "amount": 1000,
           "days": 30,
-          "count": 30,
+          "count": null,
           "source": "doc"
         },
         {
@@ -314,7 +314,7 @@
           "text": "$5,000 deposit; 10 transactions",
           "amount": null,
           "days": null,
-          "count": null,
+          "count": 10,
           "source": "doc"
         },
         {
@@ -533,7 +533,7 @@
           "text": "Tier 1 – Earn $150 for each statement cycle Receive one (1) or more qualifying direct deposits in your Account totaling at least $1,000 during the statement cycle.",
           "amount": 1000,
           "days": null,
-          "count": null,
+          "count": 1,
           "source": "doc"
         }
       ],
@@ -1514,7 +1514,7 @@
           "text": "30 transactions",
           "amount": null,
           "days": null,
-          "count": null,
+          "count": 30,
           "source": "doc"
         },
         {
@@ -3181,7 +3181,7 @@
           "text": "Deposit $10,000 in new to Chase funds; 5 qualifying transactions",
           "amount": null,
           "days": null,
-          "count": null,
+          "count": 5,
           "source": "doc"
         },
         {
@@ -6863,7 +6863,7 @@
           "text": "OR Complete 10 or more qualifying debit card purchases that post and clear the account within 31 days of account opening date.",
           "amount": null,
           "days": 31,
-          "count": null,
+          "count": 10,
           "source": "doc"
         },
         {
@@ -6917,7 +6917,7 @@
           "text": "(3) receive qualifying deposit(s) OR complete 10 or more qualifying debit card purchases that post and clear the account within 31 calendar days beginning on the day of account opening .",
           "amount": null,
           "days": 31,
-          "count": null,
+          "count": 10,
           "source": "bank"
         },
         {
@@ -6935,7 +6935,7 @@
           "text": "Complete 10 or more qualifying debit card purchases that post and clear the account within 31 calendar days of account opening date.",
           "amount": null,
           "days": 31,
-          "count": null,
+          "count": 10,
           "source": "bank"
         }
       ],
@@ -11373,7 +11373,7 @@
           "text": "(2) Establish a Mastercard® debit card and complete 10 separate transactions (each transaction must be valued at $75 or more and made to a distinct payee).",
           "amount": 75,
           "days": null,
-          "count": null,
+          "count": 10,
           "source": "bank"
         }
       ],
@@ -11786,7 +11786,7 @@
           "text": "Set up and receive two (2) qualifying payroll direct deposits, each of $500 or more.",
           "amount": 500,
           "days": null,
-          "count": null,
+          "count": 2,
           "source": "bank"
         },
         {
@@ -11813,7 +11813,7 @@
           "text": "This includes: using promotional code 2026PROMO at the time of application, being approved for and opening at least one savings and one checking account, and setting up and receiving two (2) Qualifying Payroll Direct Deposits of $500 or more each into either the new savings or checking account.",
           "amount": 500,
           "days": null,
-          "count": null,
+          "count": 2,
           "source": "bank"
         }
       ],
@@ -14264,7 +14264,7 @@
           "text": "Note: You must make all six qualifying transactions within 60 days of opening your account to receive your bonus.",
           "amount": null,
           "days": 60,
-          "count": null,
+          "count": 6,
           "source": "bank"
         },
         {
@@ -14356,7 +14356,7 @@
           "text": "You must also complete two or more direct deposits within 90 days of opening your account that total: $2,000 to $4,999.99 to earn the $250 bonus, $5,000 to $7,999.99 to earn the $350 bonus, or $8,000 or more to earn the $450 bonus.",
           "amount": 8000,
           "days": 90,
-          "count": null,
+          "count": 2,
           "source": "doc"
         },
         {

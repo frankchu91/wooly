@@ -146,9 +146,18 @@ _DAYS_PAREN_RE = re.compile(r"(?:\w+\s*)?\((\d+)\)\s*(?:calendar\s+)?days?\b", r
 # F3: "or <word>" covers a bank page's second qualifying channel ("20 qualifying debit
 # card or Zelle transactions") without letting the channel's own name be mistaken for
 # the count.
+# The number may be a digit, a word, or a word with the digit repeated in parens ("two
+# (2) qualifying payroll direct deposits"); "or more" and "at least" do not change it.
+_COUNT_NUMBER = r"(?:(\d+)|(" + _WORD_NUM_ALT + r"))\s*(?:\(\d+\)\s*)?(?:or more\s+)?"
+_COUNT_QUALIFIERS = r"(?:qualifying\s+|separate\s+|recurring\s+|payroll\s+|electronic\s+|debit card\s+|direct\s+)*"
 _COUNT_RE = re.compile(
-    r"(\d+)\s+(?:qualifying\s+)?(?:debit card\s+|direct\s+|electronic\s+)?"
-    r"(?:or\s+\w+\s+)?(?:transactions|purchases|deposits|direct deposits)",
+    _COUNT_NUMBER + _COUNT_QUALIFIERS + r"(?:or\s+\w+\s+)?(?:transactions|purchases|deposits|direct deposits)",
+    re.IGNORECASE,
+)
+# For a direct-deposit condition only a count of *deposits* is the count: "at least 30
+# qualifying transactions" in the same sentence is a different requirement's number.
+_DD_COUNT_RE = re.compile(
+    _COUNT_NUMBER + _COUNT_QUALIFIERS + r"(?:direct\s+)?deposits",
     re.IGNORECASE,
 )
 
@@ -294,9 +303,14 @@ def _parse_days(text: str) -> int | None:
     return n * 30 if m.group(2).lower().startswith("month") else n
 
 
-def _parse_count(text: str) -> int | None:
-    m = _COUNT_RE.search(text)
-    return int(m.group(1)) if m else None
+def _parse_count(text: str, kind: str | None = None) -> int | None:
+    pattern = _DD_COUNT_RE if kind == "direct_deposit" else _COUNT_RE
+    m = pattern.search(text)
+    if not m:
+        return None
+    if m.group(1):
+        return int(m.group(1))
+    return WORD_NUM[m.group(2).lower()]
 
 
 def _reward_word_nearby(text: str, start: int) -> bool:
@@ -443,7 +457,7 @@ def classify_sentence(text: str, source: str) -> Condition | None:
         text=text,
         amount=amount,
         days=_parse_days(text),
-        count=_parse_count(text),
+        count=_parse_count(text, kind),
         source=source,
     )
 

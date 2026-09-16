@@ -23,6 +23,17 @@ WF_DD_SENTENCE = (
         ("$12 monthly maintenance fee", "fee", 12, None, None),
         ("Offer is for new consumer checking customers only", "new_customer", None, None, None),
         ("Make at least 2 qualifying direct deposits totaling $500", "direct_deposit", 500, None, 2),
+        # The number spelled out, with or without the digit repeated in parens
+        ("Set up and receive two (2) qualifying payroll direct deposits, each of $500 or more.", "direct_deposit", 500, None, 2),
+        ("You must also complete two or more direct deposits within 90 days of opening your account", "direct_deposit", None, 90, 2),
+        # A transactions count in the same sentence is not the deposit count
+        (
+            "Requires $1,000 in qualifying direct deposits within 30 calendar days of account opening, at least 30 qualifying transactions",
+            "direct_deposit",
+            1000,
+            30,
+            None,
+        ),
         ("Complete 5 debit card transactions within 60 days of account opening", "transactions", None, 60, 5),
         ("Deposit $300 in new funds within 30 days of account opening", "deposit", 300, 30, None),
         # A fee waiver, not a bonus requirement (round 2, rule A4) — the $1,500 is the
