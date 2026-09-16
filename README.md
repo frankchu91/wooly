@@ -1,11 +1,17 @@
-# 🐑 Woolly — bank bonus planner
+# 🐑 Woolly, a bank bonus planner
+
+**Live at [frankchu91.github.io/wooly](https://frankchu91.github.io/wooly/).**
 
 Turn your paycheck into bank account bonuses. Tell Woolly your state, your direct-deposit
-capacity, and the banks you've had; it finds the bonuses you qualify for and schedules them.
+capacity, and the banks you've had; it finds the bonuses you qualify for, schedules them month
+by month, and hands you the plan as a spreadsheet.
 
-- Free, open source (MIT), runs entirely in your browser. Nothing is uploaded.
-- Data comes from [Doctor of Credit](https://www.doctorofcredit.com/best-bank-account-bonuses/), refreshed nightly.
-- Not financial advice. Always read the offer terms on Doctor of Credit before opening an account.
+- Free, open source (MIT), runs entirely in your browser. Nothing is uploaded; there is no
+  account and no server. Your profile and tracker live in your browser's local storage.
+- Data comes from [Doctor of Credit](https://www.doctorofcredit.com/best-bank-account-bonuses/),
+  refreshed nightly by a GitHub Action.
+- Not financial advice. Always read the offer terms on Doctor of Credit and on the bank's own
+  page before opening an account.
 
 ## Repo layout
 
@@ -21,14 +27,32 @@ pnpm test                               # unit tests (Vitest)
 pnpm e2e                                # Playwright smoke test (starts its own dev server)
 ```
 
-- **Plan** (`/plan`) — the month-by-month schedule of bonuses to open, with projected earnings, direct-deposit deadlines, and safe-to-close dates.
-- **Tracker** (`/tracker`) — the bonuses you've committed to, grouped by status, so you don't miss a direct-deposit or closing deadline.
-- **Bonuses** (`/bonuses`) — every offer in the dataset, searchable and filterable, independent of your plan.
-- **Settings** (`/settings`) — edit your profile (state, direct deposit, history) and export, import, or clear your locally-stored data.
+- **Plan** (`/plan`) — the month-by-month schedule of bonuses to open, with projected earnings,
+  direct-deposit deadlines, and safe-to-close dates. **Download as spreadsheet** gives you the
+  plan as a CSV you can work from without the site.
+- **Tracker** (`/tracker`) — the bonuses you've committed to, as a five-stage pipeline
+  (planned, opened, requirements done, bonus received, closed). Drag a card between stages, or
+  open it for the checklist of conditions read from Doctor of Credit and the bank's own page.
+- **Ledger** (`/ledger`) — the same accounts as a spreadsheet: what each has paid, what is
+  pending, and when each is safe to close. Also downloadable as CSV.
+- **Bonuses** (`/bonuses`) — every offer in the dataset, searchable and filterable, independent
+  of your plan.
+- **About** (`/about`) — what a bank bonus is, what you need, and the questions people ask.
+- **Settings** (`/settings`) — edit your profile (state, direct deposit, history) and export,
+  import, or clear your locally-stored data.
 
 ### How the plan is built
 
 Woolly builds your plan entirely in your browser, in three steps: it checks each offer's **eligibility** against your state, bank history, and preferences (excluding expired offers, ones you don't qualify for, or ones you've asked to avoid); it **scores** the remaining offers by expected value against how much direct deposit they need; and it **greedily schedules** them into a month-by-month plan, filling each month's direct-deposit capacity with the highest-scoring bonuses that still fit before moving to the next month. Nothing about your profile or plan ever leaves your machine.
+
+### Deploying
+
+The site is static. `pnpm build` writes `web/dist`; serve it from any static host with every
+path rewritten to `index.html` (a `_redirects` rule for Netlify and Cloudflare Pages is in
+`web/public`). The GitHub Pages deploy in `.github/workflows/pages.yml` runs on every push to
+`main`, builds with `BASE_PATH=/wooly/` because a project site lives under a sub-path, and
+copies `index.html` to `404.html` so a deep link survives a refresh. On a host of your own,
+leave `BASE_PATH` unset.
 
 ### Contributing data fixes
 
