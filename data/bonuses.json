@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T15:22:59+00:00",
+  "generated_at": "2026-10-15T15:03:51+00:00",
   "source": "https://www.doctorofcredit.com/best-bank-account-bonuses/",
   "bonuses": [
     {
@@ -39,7 +39,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2023-02-26",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3612ad57",
@@ -91,7 +91,7 @@
       "terms": {
         "status": "ok",
         "url": "https://share.affinityfcu.org/zone/microsite?journey.campaign_id=7134729748330288377",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -147,7 +147,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-25",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f1fd1482",
@@ -190,7 +190,7 @@
       "terms": {
         "status": "error",
         "url": "https://www.key.com/small-business/promo/bb-1000-offer.html",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -226,7 +226,7 @@
       "enriched": true,
       "enriched_at": "2026-09-15",
       "post_modified": "2026-04-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -306,7 +306,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2023-01-31",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "5a0110d9",
@@ -354,20 +354,20 @@
           "source": "doc"
         },
         {
-          "id": "a5073263",
-          "kind": "balance",
-          "text": "Calculator is for illustration only, rounded to the nearest dollar, and assumes that you earn % APY (capped at $500,000) and maintain your account balance selected above for an entire year.",
-          "amount": 500000,
-          "days": null,
+          "id": "334f2584",
+          "kind": "keep_open",
+          "text": "Once your account(s) are created, you’ll need to fund within 120 days to keep account(s) open.",
+          "amount": null,
+          "days": 120,
           "count": null,
           "source": "bank"
         }
       ],
-      "hold_days": null,
+      "hold_days": 120,
       "terms": {
         "status": "ok",
         "url": "https://www.americanexpress.com/en-us/business/checking/",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -411,7 +411,7 @@
       "enriched": true,
       "enriched_at": "2026-09-15",
       "post_modified": "2026-09-14",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -516,7 +516,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-03-31",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -581,7 +581,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2025-11-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -651,7 +651,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.axosbank.com/basicbusinesschecking",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -701,7 +701,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-09-15",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -903,7 +903,7 @@
       "enriched": true,
       "enriched_at": "2026-09-15",
       "post_modified": "2026-06-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -1019,7 +1019,7 @@
       "enriched": true,
       "enriched_at": "2026-09-15",
       "post_modified": "2026-09-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -1151,7 +1151,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-07-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -1253,7 +1253,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-03-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -1340,7 +1340,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-06-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -1479,7 +1479,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2024-08-20",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -1573,7 +1573,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-08-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -1701,7 +1701,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d2880bec",
@@ -1740,9 +1740,9 @@
           "source": "doc"
         },
         {
-          "id": "30788922",
+          "id": "4bcf3e06",
           "kind": "direct_deposit",
-          "text": "Open a new eligible checking account and get a $100 cash offer with qualifying debit or Zelle transactions OR an up to $500 cash offer with Qualifying Direct Deposits.",
+          "text": "Open a new eligible checking account and make Qualifying Direct Deposits to earn your cash bonus.",
           "amount": null,
           "days": null,
           "count": null,
@@ -1765,22 +1765,13 @@
           "days": 90,
           "count": null,
           "source": "bank"
-        },
-        {
-          "id": "1586b0da",
-          "kind": "transactions",
-          "text": "Make at least 20 qualifying debit card or Zelle transactions from your new account within 60 days of account opening.",
-          "amount": null,
-          "days": 60,
-          "count": 20,
-          "source": "bank"
         }
       ],
       "hold_days": null,
       "terms": {
         "status": "ok",
         "url": "https://promotions.bankofamerica.com/en/offers/chooseyourchecking500100",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -1817,7 +1808,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-04",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "9fd72d4a",
@@ -1905,7 +1896,7 @@
       "terms": {
         "status": "ok",
         "url": "https://promotions.bankofamerica.com/smallbusiness/biz2toffer",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -1945,7 +1936,7 @@
       "enriched": true,
       "enriched_at": "2026-10-07",
       "post_modified": "2026-10-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "11789a85",
@@ -2091,7 +2082,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-04-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "b4ac7db3",
@@ -2206,7 +2197,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.bluevine.com/partner/nw300-checking",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -2245,7 +2236,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-06-16",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "88bf6024",
@@ -2343,7 +2334,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-09-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -2431,7 +2422,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2026-07-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -2543,7 +2534,7 @@
       "enriched": true,
       "enriched_at": "2026-09-16",
       "post_modified": "2025-08-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ce3eb78b",
@@ -2619,7 +2610,7 @@
       "enriched": true,
       "enriched_at": "2026-09-17",
       "post_modified": "2026-08-15",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f55087ed",
@@ -2701,7 +2692,7 @@
       "enriched": true,
       "enriched_at": "2026-09-17",
       "post_modified": "2026-05-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -2885,7 +2876,7 @@
       "enriched": true,
       "enriched_at": "2026-09-17",
       "post_modified": "2024-07-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -2940,7 +2931,7 @@
       "enriched": true,
       "enriched_at": "2026-09-17",
       "post_modified": "2026-07-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -3124,7 +3115,7 @@
       "enriched": true,
       "enriched_at": "2026-09-17",
       "post_modified": "2026-04-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -3209,7 +3200,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "06fd2531",
@@ -3279,7 +3270,7 @@
       "terms": {
         "status": "ok",
         "url": "https://kpcu.com/Checking/Business-Checking",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -3321,7 +3312,7 @@
       "enriched": true,
       "enriched_at": "2026-09-18",
       "post_modified": "2023-01-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -3421,7 +3412,7 @@
       "enriched": true,
       "enriched_at": "2026-09-18",
       "post_modified": "2026-04-20",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -3485,7 +3476,7 @@
       "enriched": true,
       "enriched_at": "2026-09-18",
       "post_modified": "2026-06-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -3558,7 +3549,7 @@
       "enriched": true,
       "enriched_at": "2026-09-18",
       "post_modified": "2026-06-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -3634,7 +3625,7 @@
       "enriched": true,
       "enriched_at": "2026-09-19",
       "post_modified": "2026-03-27",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -3701,7 +3692,7 @@
       "enriched": true,
       "enriched_at": "2026-09-19",
       "post_modified": "2026-01-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -3804,7 +3795,7 @@
       "enriched": true,
       "enriched_at": "2026-09-19",
       "post_modified": "2025-07-21",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -3913,7 +3904,7 @@
       "enriched": true,
       "enriched_at": "2026-09-19",
       "post_modified": "2026-09-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -4007,7 +3998,7 @@
       "enriched": true,
       "enriched_at": "2026-09-19",
       "post_modified": "2026-07-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -4134,7 +4125,7 @@
       "enriched": true,
       "enriched_at": "2026-09-20",
       "post_modified": "2026-07-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -4244,7 +4235,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "32a824fc",
@@ -4305,7 +4296,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.capitalone.com/bank/bonus1500/",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -4345,7 +4336,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-03-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "06fd2531",
@@ -4415,7 +4406,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.capitalone.com/small-business/bank/bizchecking500/",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -4455,7 +4446,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "28775906",
@@ -4525,7 +4516,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.chase.com/business/banking/checking-offer",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -4565,7 +4556,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-20",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "6ee3f620",
@@ -4621,7 +4612,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-28",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f7c02df8",
@@ -4646,7 +4637,7 @@
       "terms": {
         "status": "ok",
         "url": "https://banking.citi.com/cbol/OM/checking/enhanced-direct-deposit-offer/default.htm?BT_TX=1&ProspectID=45A3B47DEC24426BB847622BFFE3A444",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -4686,7 +4677,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-28",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f7c02df8",
@@ -4711,7 +4702,7 @@
       "terms": {
         "status": "error",
         "url": "https://banking.citi.com/cbol/checking/tiered/default.htm?venue=GoogleBR&cmp=knc_acquire_2207_BAUCHK_Multi_Google_BR&gclid=Cj0KCQjw27mhBhC9ARIsAIFsETF6eGwWVjwKlkdph7xlIEEuASamm3vH1V4huLyb9THTOrl19LLovZsaAqOFEALw_wcB&gclsrc=aw.ds&BT_TX=1&ProspectID=4C57CC7F2B114FAA81C235424EA5A370",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -4750,7 +4741,7 @@
       "enriched": true,
       "enriched_at": "2026-09-20",
       "post_modified": "2025-07-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "8a7d1bed",
@@ -4846,7 +4837,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-06",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -4922,7 +4913,7 @@
       "enriched": true,
       "enriched_at": "2026-09-20",
       "post_modified": "2024-03-26",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -5076,7 +5067,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "79fa2810",
@@ -5128,7 +5119,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.bokfinancial.com/landing-pages/offers/colorado-business-checking-offer",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -5167,7 +5158,7 @@
       "enriched": true,
       "enriched_at": "2026-09-21",
       "post_modified": "2026-07-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3bdbf936",
@@ -5315,7 +5306,7 @@
       "enriched": true,
       "enriched_at": "2026-09-20",
       "post_modified": "2026-05-25",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -5473,7 +5464,7 @@
       "enriched": true,
       "enriched_at": "2026-10-06",
       "post_modified": "2026-10-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -5719,7 +5710,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -5776,15 +5767,6 @@
           "source": "doc"
         },
         {
-          "id": "46e5def9",
-          "kind": "new_customer",
-          "text": "New business checking customers can earn up to a $1,500 cash bonus { {d1387*}} when opening an M&T Business Checking account with required activities.",
-          "amount": 1500,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "cd97ce12",
           "kind": "balance",
           "text": "Maintain the average ledger balance requirement",
@@ -5794,9 +5776,9 @@
           "source": "bank"
         },
         {
-          "id": "9566e078",
+          "id": "e5ef7646",
           "kind": "balance",
-          "text": "Maintain an average ledger balance of at least $5,000 in the third full month after you open your account.{ {d1387*}}",
+          "text": "Maintain an average ledger balance of at least $5,000 in the third full month after you open your account.{ {d2140*}}",
           "amount": 5000,
           "days": null,
           "count": null,
@@ -5821,39 +5803,12 @@
           "source": "bank"
         },
         {
-          "id": "8a11608e",
-          "kind": "balance",
-          "text": "Carry a $1,000 average ledger balance per month OR",
-          "amount": 1000,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "de912823",
+          "id": "21ad1980",
           "kind": "transactions",
-          "text": "250 transactions every month at no charge —great for moderate volume{ {d2077*}}.",
+          "text": "250 transactions every month at no charge—great for moderate volume{ {d2077*}}.",
           "amount": null,
           "days": null,
           "count": 250,
-          "source": "bank"
-        },
-        {
-          "id": "bb75b9c5",
-          "kind": "balance",
-          "text": "Carry a $7,500 average ledger balance per month OR",
-          "amount": 7500,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
-          "id": "7aa46048",
-          "kind": "transactions",
-          "text": "Make 30 or more purchases with an M&T Visa® Debit Card",
-          "amount": null,
-          "days": null,
-          "count": 30,
           "source": "bank"
         },
         {
@@ -5875,10 +5830,10 @@
           "source": "bank"
         },
         {
-          "id": "3f37a453",
-          "kind": "balance",
-          "text": "Maintain an Average Ledger Balance of at least $10,000 that month OR",
-          "amount": 10000,
+          "id": "8eb48e4c",
+          "kind": "transactions",
+          "text": "Make every transaction a reflection of your business with a debit card that features your logo and design{ {d2091*}}.",
+          "amount": null,
           "days": null,
           "count": null,
           "source": "bank"
@@ -5888,7 +5843,7 @@
       "terms": {
         "status": "ok",
         "url": "https://campaigns.mtb.com/bizbonus",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -5940,7 +5895,7 @@
       "enriched": true,
       "enriched_at": "2026-09-21",
       "post_modified": "2026-09-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -6017,7 +5972,7 @@
       "enriched": true,
       "enriched_at": "2026-09-21",
       "post_modified": "2026-09-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1d0e2d7e",
@@ -6087,7 +6042,7 @@
       "enriched": true,
       "enriched_at": "2026-09-21",
       "post_modified": "2024-07-07",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -6192,7 +6147,7 @@
       "enriched": true,
       "enriched_at": "2026-09-22",
       "post_modified": "2026-09-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -6318,7 +6273,7 @@
       "enriched": true,
       "enriched_at": "2026-09-23",
       "post_modified": "2026-07-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -6417,7 +6372,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c08edc1f",
@@ -6478,7 +6433,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.fultonbank.com/offers/small-business-checking",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -6517,7 +6472,7 @@
       "enriched": true,
       "enriched_at": "2026-09-22",
       "post_modified": "2026-09-04",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -6606,7 +6561,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "2c8ff4f9",
@@ -6690,9 +6645,9 @@
           "source": "bank"
         },
         {
-          "id": "1387ea4d",
+          "id": "8e029326",
           "kind": "deposit",
-          "text": "You'll get a $400 cash bonus based on a deposit of at least $20,000.",
+          "text": "You'll get a cash bonus up to $800 based on a deposit of at least $20,000.",
           "amount": 20000,
           "days": null,
           "count": null,
@@ -6703,7 +6658,7 @@
       "terms": {
         "status": "ok",
         "url": "https://us.etrade.com/promo/savings",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -6740,7 +6695,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f55087ed",
@@ -6806,6 +6761,24 @@
           "source": "bank"
         },
         {
+          "id": "93d52aba",
+          "kind": "direct_deposit",
+          "text": "To receive the checking bonus offer: 1) Open an Ameriprise ® Bank Checking Account from October 1, 2026, 2) Receive Qualifying Direct Deposits and/or Qualifying Deposits to your new account that total at least $1,500 within 90 calendar days of account opening.",
+          "amount": 1500,
+          "days": 90,
+          "count": null,
+          "source": "bank"
+        },
+        {
+          "id": "4495045d",
+          "kind": "deposit",
+          "text": "To receive the savings bonus offer: 1) Open an Ameriprise ® Bank Savings Account from October 1, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days from the end of 30-day deposit period.",
+          "amount": 25000,
+          "days": 30,
+          "count": null,
+          "source": "bank"
+        },
+        {
           "id": "339ef8c4",
           "kind": "fee",
           "text": "If the reimbursement is not processed, we may reimburse the surcharge fee if you contact us within 90 calendar days of the transaction with the ATM receipt.",
@@ -6846,7 +6819,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.ameriprise.com/products/ameriprise-bank/checking",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -6883,7 +6856,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d2880bec",
@@ -6931,18 +6904,18 @@
           "source": "bank"
         },
         {
-          "id": "3d303aab",
+          "id": "93d52aba",
           "kind": "direct_deposit",
-          "text": "To receive the checking bonus offer: 1) Open a Checking Account from July 1, 2026, to December 29, 2026, and 2) Set up qualifying direct deposit(s) into your Checking Account of at least $1,500 within 90 calendar days of account opening.",
+          "text": "To receive the checking bonus offer: 1) Open an Ameriprise ® Bank Checking Account from October 1, 2026, 2) Receive Qualifying Direct Deposits and/or Qualifying Deposits to your new account that total at least $1,500 within 90 calendar days of account opening.",
           "amount": 1500,
           "days": 90,
           "count": null,
           "source": "bank"
         },
         {
-          "id": "46166c9d",
+          "id": "4495045d",
           "kind": "deposit",
-          "text": "To receive the savings bonus offer: 1) Open a Savings Account from July 1, 2026, to December 29, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days.",
+          "text": "To receive the savings bonus offer: 1) Open an Ameriprise ® Bank Savings Account from October 1, 2026, and 2) Make eligible deposits totaling $25,000 or more within 30 calendar days of account opening and maintain that balance or more for 90 calendar days from the end of 30-day deposit period.",
           "amount": 25000,
           "days": 30,
           "count": null,
@@ -6989,7 +6962,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.ameriprise.com/products/ameriprise-bank/checking",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -7029,7 +7002,7 @@
       "enriched": true,
       "enriched_at": "2026-09-30",
       "post_modified": "2026-09-24",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "abe47aa4",
@@ -7097,7 +7070,7 @@
       "enriched": true,
       "enriched_at": "2026-09-22",
       "post_modified": "2026-07-04",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -7165,7 +7138,7 @@
       "enriched": true,
       "enriched_at": "2026-09-23",
       "post_modified": "2026-09-15",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -7301,7 +7274,7 @@
       "enriched": true,
       "enriched_at": "2026-10-14",
       "post_modified": "2026-10-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -7468,7 +7441,7 @@
       "enriched": true,
       "enriched_at": "2026-09-23",
       "post_modified": "2026-07-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -7599,7 +7572,7 @@
       "enriched": true,
       "enriched_at": "2026-09-23",
       "post_modified": "2026-07-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -7811,7 +7784,7 @@
       "enriched": true,
       "enriched_at": "2026-09-23",
       "post_modified": "2026-06-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3612ad57",
@@ -7882,7 +7855,7 @@
       "enriched": true,
       "enriched_at": "2026-09-24",
       "post_modified": "2026-09-22",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -8019,7 +7992,7 @@
       "enriched": true,
       "enriched_at": "2026-09-24",
       "post_modified": "2026-02-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3612ad57",
@@ -8092,7 +8065,7 @@
       "enriched": true,
       "enriched_at": "2026-09-24",
       "post_modified": "2023-08-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "dc43ed80",
@@ -8258,7 +8231,7 @@
       "enriched": true,
       "enriched_at": "2026-09-24",
       "post_modified": "2026-06-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -8370,7 +8343,7 @@
       "enriched": true,
       "enriched_at": "2026-09-24",
       "post_modified": "2026-01-22",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -8527,7 +8500,7 @@
       "enriched": true,
       "enriched_at": "2026-09-25",
       "post_modified": "2026-01-24",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d2880bec",
@@ -8694,7 +8667,7 @@
       "enriched": true,
       "enriched_at": "2026-10-08",
       "post_modified": "2026-10-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -8785,7 +8758,7 @@
       "enriched": true,
       "enriched_at": "2026-09-25",
       "post_modified": "2025-01-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -8877,7 +8850,7 @@
       "enriched": true,
       "enriched_at": "2026-09-25",
       "post_modified": "2026-02-25",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d4adf346",
@@ -9029,7 +9002,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -9075,7 +9048,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-04",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -9186,15 +9159,6 @@
           "source": "bank"
         },
         {
-          "id": "aa823234",
-          "kind": "new_customer",
-          "text": "[1] Offer details: To be eligible for the FourLeaf Checking Up to $550 Bonus Offer and receive up to a maximum of $550.00 in bonuses, you must not have an existing FourLeaf checking account in which you are the primary account holder on the checking account and have not previously received a new checking account opening related bonus from FourLeaf.",
-          "amount": 550,
-          "days": null,
-          "count": null,
-          "source": "bank"
-        },
-        {
           "id": "0a68eb30",
           "kind": "balance",
           "text": "There is a minimum balance of $5 to open this account online and $0 when opened in a branch.",
@@ -9217,7 +9181,7 @@
       "terms": {
         "status": "ok",
         "url": "https://www.fourleaffcu.com/queens-open-an-account/",
-        "fetched_at": "2026-09-14"
+        "fetched_at": "2026-10-15"
       }
     },
     {
@@ -9266,7 +9230,7 @@
       "enriched": true,
       "enriched_at": "2026-09-25",
       "post_modified": "2026-08-21",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "4097c4c2",
@@ -9422,7 +9386,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -9504,7 +9468,7 @@
       "enriched": true,
       "enriched_at": "2026-09-25",
       "post_modified": "2026-08-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "2e3fb728",
@@ -9560,7 +9524,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2025-12-15",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "b4ac7db3",
@@ -9618,7 +9582,7 @@
       "enriched": true,
       "enriched_at": "2026-09-26",
       "post_modified": "2026-09-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d2880bec",
@@ -9802,7 +9766,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-07",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -10002,7 +9966,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-20",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -10089,7 +10053,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-25",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "af708591",
@@ -10300,7 +10264,7 @@
       "enriched": true,
       "enriched_at": "2026-09-26",
       "post_modified": "2021-01-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3612ad57",
@@ -10400,7 +10364,7 @@
       "enriched": true,
       "enriched_at": "2026-09-27",
       "post_modified": "2025-11-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c15d2058",
@@ -10476,7 +10440,7 @@
       "enriched": true,
       "enriched_at": "2026-09-26",
       "post_modified": "2026-06-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -10542,7 +10506,7 @@
       "enriched": true,
       "enriched_at": "2026-09-27",
       "post_modified": "2026-09-27",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -10746,7 +10710,7 @@
       "enriched": true,
       "enriched_at": "2026-09-27",
       "post_modified": "2026-06-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -10888,7 +10852,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-14",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c8760b5d",
@@ -11045,7 +11009,7 @@
       "enriched": true,
       "enriched_at": "2026-09-27",
       "post_modified": "2026-04-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -11215,7 +11179,7 @@
       "enriched": true,
       "enriched_at": "2026-09-28",
       "post_modified": "2026-08-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "91a812bf",
@@ -11304,7 +11268,7 @@
       "enriched": true,
       "enriched_at": "2026-09-28",
       "post_modified": "2026-07-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -11402,7 +11366,7 @@
       "enriched": true,
       "enriched_at": "2026-09-28",
       "post_modified": "2026-09-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "9f5c4066",
@@ -11473,7 +11437,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -11613,7 +11577,7 @@
       "enriched": true,
       "enriched_at": "2026-09-28",
       "post_modified": "2026-08-07",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -11785,7 +11749,7 @@
       "enriched": true,
       "enriched_at": "2026-10-01",
       "post_modified": "2026-09-14",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "dc43ed80",
@@ -11917,7 +11881,7 @@
       "enriched": true,
       "enriched_at": "2026-10-14",
       "post_modified": "2026-10-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -12084,7 +12048,7 @@
       "enriched": true,
       "enriched_at": "2026-09-30",
       "post_modified": "2026-09-16",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3612ad57",
@@ -12267,7 +12231,7 @@
       "enriched": true,
       "enriched_at": "2026-09-28",
       "post_modified": "2026-02-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f7c02df8",
@@ -12449,7 +12413,7 @@
       "enriched": true,
       "enriched_at": "2026-09-29",
       "post_modified": "2026-01-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -12595,7 +12559,7 @@
       "enriched": true,
       "enriched_at": "2026-09-29",
       "post_modified": "2025-11-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "4230e14e",
@@ -12734,7 +12698,7 @@
       "enriched": true,
       "enriched_at": "2026-09-29",
       "post_modified": "2026-08-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "6ee3f620",
@@ -12906,7 +12870,7 @@
       "enriched": true,
       "enriched_at": "2026-09-29",
       "post_modified": "2026-07-25",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -12992,7 +12956,7 @@
       "enriched": true,
       "enriched_at": "2026-10-14",
       "post_modified": "2026-10-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "bbad91ba",
@@ -13081,7 +13045,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-24",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "48f22df7",
@@ -13251,7 +13215,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f7c02df8",
@@ -13388,7 +13352,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d78dc622",
@@ -13679,7 +13643,7 @@
       "enriched": true,
       "enriched_at": "2026-10-01",
       "post_modified": "2024-08-22",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -13764,7 +13728,7 @@
       "enriched": true,
       "enriched_at": "2026-10-01",
       "post_modified": "2026-03-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -13838,7 +13802,7 @@
       "enriched": true,
       "enriched_at": "2026-10-01",
       "post_modified": "2025-09-15",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -13934,7 +13898,7 @@
       "enriched": true,
       "enriched_at": "2026-10-01",
       "post_modified": "2026-07-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -14074,7 +14038,7 @@
       "enriched": true,
       "enriched_at": "2026-10-02",
       "post_modified": "2026-07-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -14243,7 +14207,7 @@
       "enriched": true,
       "enriched_at": "2026-10-02",
       "post_modified": "2025-01-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "48f22df7",
@@ -14319,7 +14283,7 @@
       "enriched": true,
       "enriched_at": "2026-10-02",
       "post_modified": "2026-02-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -14392,7 +14356,7 @@
       "enriched": true,
       "enriched_at": "2026-10-02",
       "post_modified": "2026-06-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "55156946",
@@ -14456,7 +14420,7 @@
       "enriched": true,
       "enriched_at": "2026-10-02",
       "post_modified": "2026-03-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -14533,7 +14497,7 @@
       "enriched": true,
       "enriched_at": "2026-10-03",
       "post_modified": "2026-08-31",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -14687,7 +14651,7 @@
       "enriched": true,
       "enriched_at": "2026-10-03",
       "post_modified": "2023-03-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "9aa0e2bf",
@@ -14765,7 +14729,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-25",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "2430e723",
@@ -14861,7 +14825,7 @@
       "enriched": true,
       "enriched_at": "2026-10-03",
       "post_modified": "2026-09-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -14963,7 +14927,7 @@
       "enriched": true,
       "enriched_at": "2026-10-03",
       "post_modified": "2026-07-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ce3eb78b",
@@ -15167,7 +15131,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ad947e37",
@@ -15348,7 +15312,7 @@
       "enriched": true,
       "enriched_at": "2026-10-03",
       "post_modified": "2026-03-12",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d13f0db3",
@@ -15466,7 +15430,7 @@
       "enriched": true,
       "enriched_at": "2026-10-04",
       "post_modified": "2025-08-16",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "60bea8d5",
@@ -15524,7 +15488,7 @@
       "enriched": true,
       "enriched_at": "2026-10-04",
       "post_modified": "2026-06-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -15591,7 +15555,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "793bac75",
@@ -15712,7 +15676,7 @@
       "enriched": true,
       "enriched_at": "2026-10-05",
       "post_modified": "2026-05-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -15819,7 +15783,7 @@
       "enriched": true,
       "enriched_at": "2026-10-04",
       "post_modified": "2026-03-16",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -15904,7 +15868,7 @@
       "enriched": true,
       "enriched_at": "2026-10-04",
       "post_modified": "2025-07-07",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -16004,7 +15968,7 @@
       "enriched": true,
       "enriched_at": "2026-10-05",
       "post_modified": "2025-03-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -16071,7 +16035,7 @@
       "enriched": true,
       "enriched_at": "2026-10-05",
       "post_modified": "2026-07-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -16216,7 +16180,7 @@
       "enriched": true,
       "enriched_at": "2026-10-05",
       "post_modified": "2026-09-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -16316,7 +16280,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -16426,7 +16390,7 @@
       "enriched": true,
       "enriched_at": "2026-10-05",
       "post_modified": "2026-01-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "06fd2531",
@@ -16512,7 +16476,7 @@
       "enriched": true,
       "enriched_at": "2026-10-06",
       "post_modified": "2026-10-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -16715,7 +16679,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "5e51dbcd",
@@ -16771,7 +16735,7 @@
       "enriched": true,
       "enriched_at": "2026-10-07",
       "post_modified": "2026-10-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -16927,7 +16891,7 @@
       "enriched": true,
       "enriched_at": "2026-10-06",
       "post_modified": "2026-10-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -17001,7 +16965,7 @@
       "enriched": true,
       "enriched_at": "2026-10-06",
       "post_modified": "2026-09-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -17200,7 +17164,7 @@
       "enriched": true,
       "enriched_at": "2026-10-06",
       "post_modified": "2026-08-27",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -17358,7 +17322,7 @@
       "enriched": true,
       "enriched_at": "2026-10-07",
       "post_modified": "2019-07-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -17472,7 +17436,7 @@
       "enriched": true,
       "enriched_at": "2026-10-08",
       "post_modified": "2026-07-21",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -17567,7 +17531,7 @@
       "enriched": true,
       "enriched_at": "2026-10-08",
       "post_modified": "2025-09-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f55087ed",
@@ -17767,7 +17731,7 @@
       "enriched": true,
       "enriched_at": "2026-10-08",
       "post_modified": "2026-08-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d2880bec",
@@ -17841,7 +17805,7 @@
       "enriched": true,
       "enriched_at": "2026-10-08",
       "post_modified": "2026-07-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "7b8bbfe4",
@@ -17989,7 +17953,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2021-11-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -18098,7 +18062,7 @@
       "enriched": true,
       "enriched_at": "2026-10-09",
       "post_modified": "2026-08-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -18192,7 +18156,7 @@
       "enriched": true,
       "enriched_at": "2026-10-10",
       "post_modified": "2026-01-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -18280,7 +18244,7 @@
       "enriched": true,
       "enriched_at": "2026-10-09",
       "post_modified": "2025-10-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -18347,7 +18311,7 @@
       "enriched": true,
       "enriched_at": "2026-10-11",
       "post_modified": "2026-09-15",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "be3fbd9c",
@@ -18438,7 +18402,7 @@
       "enriched": true,
       "enriched_at": "2026-10-09",
       "post_modified": "2025-02-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "3612ad57",
@@ -18547,7 +18511,7 @@
       "enriched": true,
       "enriched_at": "2026-10-10",
       "post_modified": "2026-07-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1d0e2d7e",
@@ -18631,7 +18595,7 @@
       "enriched": true,
       "enriched_at": "2026-10-11",
       "post_modified": "2026-09-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -18752,7 +18716,7 @@
       "enriched": true,
       "enriched_at": "2026-10-10",
       "post_modified": "2026-07-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -18834,7 +18798,7 @@
       "enriched": true,
       "enriched_at": "2026-10-11",
       "post_modified": "2026-09-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "7b8bbfe4",
@@ -18910,7 +18874,7 @@
       "enriched": true,
       "enriched_at": "2026-10-11",
       "post_modified": "2026-09-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -18990,7 +18954,7 @@
       "enriched": true,
       "enriched_at": "2026-10-11",
       "post_modified": "2026-08-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "6ee3f620",
@@ -19092,7 +19056,7 @@
       "enriched": true,
       "enriched_at": "2026-10-12",
       "post_modified": "2026-09-29",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ec041681",
@@ -19189,7 +19153,7 @@
       "enriched": true,
       "enriched_at": "2026-10-12",
       "post_modified": "2026-10-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "fd9713c9",
@@ -19277,7 +19241,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-13",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -19371,7 +19335,7 @@
       "enriched": true,
       "enriched_at": "2026-10-12",
       "post_modified": "2024-04-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "2d381ace",
@@ -19462,7 +19426,7 @@
       "enriched": true,
       "enriched_at": "2026-10-12",
       "post_modified": "2021-04-27",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -19552,7 +19516,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-06",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "a4a41dc8",
@@ -19659,7 +19623,7 @@
       "enriched": true,
       "enriched_at": "2026-10-12",
       "post_modified": "2026-08-26",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "4b14516c",
@@ -19745,7 +19709,7 @@
       "enriched": true,
       "enriched_at": "2026-10-13",
       "post_modified": "2026-06-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "81f95ca9",
@@ -19818,7 +19782,7 @@
       "enriched": true,
       "enriched_at": "2026-10-13",
       "post_modified": "2026-06-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "c9ca6d4c",
@@ -19954,7 +19918,7 @@
       "enriched": true,
       "enriched_at": "2026-10-13",
       "post_modified": "2026-07-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -20073,7 +20037,7 @@
       "enriched": true,
       "enriched_at": "2026-10-13",
       "post_modified": "2026-09-28",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "0fc499ac",
@@ -20183,7 +20147,7 @@
       "enriched": true,
       "enriched_at": "2026-10-13",
       "post_modified": "2026-05-26",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "96a4c55b",
@@ -20274,7 +20238,7 @@
       "enriched": true,
       "enriched_at": "2026-10-14",
       "post_modified": "2024-01-18",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "6ee3f620",
@@ -20357,7 +20321,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-03-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "fefb5530",
@@ -20450,23 +20414,66 @@
       "dd": {
         "required": true,
         "amount": 2000,
-        "deadline_days": null
+        "deadline_days": 180
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Doesn’t pull",
       "cc_funding": "No credit card funding",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 30,
+        "days": 180
+      },
+      "household_limit": "One",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
-      "last_seen": "2026-10-14",
-      "conditions": [],
-      "hold_days": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "See below",
+      "enriched": true,
+      "enriched_at": "2026-10-15",
+      "post_modified": "2026-09-30",
+      "last_seen": "2026-10-15",
+      "conditions": [
+        {
+          "id": "ff83ecb3",
+          "kind": "direct_deposit",
+          "text": "Direct deposit required — amount not listed",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "bf9e1d4b",
+          "kind": "fee",
+          "text": "$30 early account termination fee",
+          "amount": 30,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "2e015704",
+          "kind": "direct_deposit",
+          "text": "Opening a Basic Checking account: (1) Establish and log into Online Banking (2) Enroll in eDocuments (3) Establish $500 or more in reoccurring direct deposits limited to Social Security, pension or payroll within the first 60 days of opening the checking account and (4) Establish a Mastercard® debit card and conduct 10 unique transactions.",
+          "amount": 500,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
         "status": null,
         "url": null,
@@ -20507,7 +20514,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20538,23 +20545,93 @@
       "dd": {
         "required": true,
         "amount": 1000,
-        "deadline_days": null
+        "deadline_days": 30
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Unknown if credit card funding is possible",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
-      "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
-      "last_seen": "2026-10-14",
-      "conditions": [],
-      "hold_days": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": 25,
+        "days": 180
+      },
+      "household_limit": "None listed",
+      "expiration": "2026-12-31",
+      "anti_churn_months": 12,
+      "additional_requirements": "eStatements",
+      "enriched": true,
+      "enriched_at": "2026-10-15",
+      "post_modified": "2026-10-14",
+      "last_seen": "2026-10-15",
+      "conditions": [
+        {
+          "id": "1b78c9c1",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $1000",
+          "amount": 1000,
+          "days": 30,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "be3fbd9c",
+          "kind": "fee",
+          "text": "$25 early account termination fee",
+          "amount": 25,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "0d5e5b64",
+          "kind": "other",
+          "text": "eStatements",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "85b6d4eb",
+          "kind": "direct_deposit",
+          "text": "To qualify for the $400 checking bonus, you must open a Northwest Affinity Checking, Affinity Plus Checking or Affinity Premier Checking account using the promo code GET400 by 12/31/2026 and make direct deposits totaling $1,000 or more within a single statement cycle within the first 3 statement cycles from account opening.",
+          "amount": 1000,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "12e748be",
+          "kind": "direct_deposit",
+          "text": "A qualifying Direct Deposit is an Automated Clearing House (ACH) credit, which may include payroll, pension or government payments (such as Social Security).",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "a9d49714",
+          "kind": "keep_open",
+          "text": "To receive the bonus, you must meet the deposit requirements and your checking account must be open at the time the bonus is paid out.",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
         "status": null,
         "url": null,
@@ -20596,7 +20673,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20624,26 +20701,69 @@
       },
       "dd": {
         "required": false,
-        "amount": null,
-        "deadline_days": null
+        "amount": 500,
+        "deadline_days": 10
       },
       "pull": "soft",
-      "chexsystems": null,
+      "chexsystems": "Unknown",
       "cc_funding": "Can fund up to $100 with a credit card",
-      "monthly_fee": null,
-      "etf": null,
-      "household_limit": null,
+      "monthly_fee": {
+        "amount": 0,
+        "avoidable": true
+      },
+      "etf": {
+        "amount": null,
+        "days": 180
+      },
+      "household_limit": "None",
       "expiration": null,
-      "anti_churn_months": null,
-      "additional_requirements": null,
-      "enriched": false,
-      "enriched_at": null,
-      "post_modified": null,
-      "last_seen": "2026-10-14",
-      "conditions": [],
-      "hold_days": null,
+      "anti_churn_months": 12,
+      "additional_requirements": "eStatements & $1,000 debit card purchases",
+      "enriched": true,
+      "enriched_at": "2026-10-15",
+      "post_modified": "2026-10-10",
+      "last_seen": "2026-10-15",
+      "conditions": [
+        {
+          "id": "c9ca6d4c",
+          "kind": "direct_deposit",
+          "text": "Direct deposit of $500",
+          "amount": 500,
+          "days": 10,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "57bf745e",
+          "kind": "keep_open",
+          "text": "Account must be kept open for 180 days",
+          "amount": null,
+          "days": 180,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "abe2b5d6",
+          "kind": "other",
+          "text": "eStatements & $1,000 debit card purchases",
+          "amount": null,
+          "days": null,
+          "count": null,
+          "source": "doc"
+        },
+        {
+          "id": "d7c29aa7",
+          "kind": "deposit",
+          "text": "To qualify for the first $100 offer, the initial deposit of $50 must be made within 10 days of account opening and the following conditions also must be met by 4/24/20: (a) at least ten $10 S&T Bank Visa Debit card purchases (posted and cleared) must be made and (b) enroll in online statements.",
+          "amount": 50,
+          "days": 10,
+          "count": null,
+          "source": "doc"
+        }
+      ],
+      "hold_days": 180,
       "terms": {
-        "status": null,
+        "status": "none",
         "url": null,
         "fetched_at": null
       }
@@ -20685,7 +20805,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-10",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20727,7 +20847,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20770,7 +20890,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20812,7 +20932,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20858,7 +20978,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-01-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "6ee3f620",
@@ -20946,7 +21066,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -20988,7 +21108,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -21034,7 +21154,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "48f22df7",
@@ -21120,7 +21240,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -21163,7 +21283,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -21209,7 +21329,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "d2880bec",
@@ -21322,7 +21442,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
@@ -21434,7 +21554,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2025-06-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -21547,7 +21667,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-02",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "4b37fbe2",
@@ -21649,7 +21769,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -21694,7 +21814,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-05-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "05564d0c",
@@ -21747,7 +21867,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-28",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -21942,7 +22062,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -21984,7 +22104,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22030,7 +22150,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-05",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -22232,7 +22352,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22275,7 +22395,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22317,7 +22437,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22422,7 +22542,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-17",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "f0d073cb",
@@ -22617,7 +22737,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22657,7 +22777,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2016-07-06",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22700,7 +22820,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22744,7 +22864,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22786,7 +22906,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -22834,7 +22954,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-03",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -23039,7 +23159,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23081,7 +23201,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23123,7 +23243,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23165,7 +23285,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23205,7 +23325,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23248,7 +23368,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-11",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "6c29902d",
@@ -23403,7 +23523,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "ff83ecb3",
@@ -23570,7 +23690,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2025-11-04",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "aadb2dfd",
@@ -23623,7 +23743,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23679,7 +23799,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23726,7 +23846,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23770,7 +23890,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23814,7 +23934,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23858,7 +23978,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23944,7 +24064,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -23989,7 +24109,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24032,7 +24152,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24074,7 +24194,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24116,7 +24236,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24158,7 +24278,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24200,7 +24320,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24246,7 +24366,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24289,7 +24409,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-08-23",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "1b78c9c1",
@@ -24417,7 +24537,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-06",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "2c918ae5",
@@ -24506,7 +24626,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24549,7 +24669,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24591,7 +24711,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24635,7 +24755,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24678,7 +24798,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24720,7 +24840,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24762,7 +24882,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24810,7 +24930,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-06-16",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "910329f1",
@@ -24889,7 +25009,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24931,7 +25051,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -24978,7 +25098,7 @@
       "enriched": false,
       "enriched_at": null,
       "post_modified": null,
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [],
       "hold_days": null,
       "terms": {
@@ -25039,7 +25159,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-09-01",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "21bd1541",
@@ -25140,7 +25260,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2026-07-09",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "9b744c77",
@@ -25198,7 +25318,7 @@
       "enriched": true,
       "enriched_at": "2026-09-14",
       "post_modified": "2022-02-08",
-      "last_seen": "2026-10-14",
+      "last_seen": "2026-10-15",
       "conditions": [
         {
           "id": "57bf745e",
